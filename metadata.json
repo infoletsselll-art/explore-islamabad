@@ -1,0 +1,6 @@
+{
+  "name": "explore Islmbd",
+  "description": "explore Islmbd - Premier AI travel concierges, hotels, transport routes, camping, and immediate 24/7 client booking across Pakistan and abroad.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
