@@ -717,20 +717,20 @@ object SampleData {
         SocialForum(
             id = "facebook",
             name = "Facebook Official Page",
-            handleOrTarget = "Islamabad Gateway",
+            handleOrTarget = "Visit Islamabad",
             category = "Social Media",
             description = "Official Facebook page featuring traveler reviews, transport rate guides, hospital info, and visitor updates.",
             actionType = ActionType.OPEN_URL,
-            actionUrl = "https://facebook.com/exploreislmbd"
+            actionUrl = "https://facebook.com/visitislamabad"
         ),
         SocialForum(
             id = "tiktok",
             name = "TikTok Travel Clips",
-            handleOrTarget = "@islamabadgateway",
+            handleOrTarget = "@visitislamabad",
             category = "Social Media",
             description = "Quick video guides of metro bus rides, hospital corridors, shopping markets, hiking trails, and Murree routes.",
             actionType = ActionType.OPEN_URL,
-            actionUrl = "https://tiktok.com/@exploreislmbd"
+            actionUrl = "https://tiktok.com/@visitislamabad"
         ),
         SocialForum(
             id = "google_maps",
@@ -744,11 +744,11 @@ object SampleData {
         SocialForum(
             id = "google_search",
             name = "Google Search & Profile",
-            handleOrTarget = "Islamabad Gateway Hub",
+            handleOrTarget = "Visit Islamabad Hub",
             category = "Search & Discovery",
             description = "Verified online presence and Google business profile for visitor assistance across Pakistan.",
             actionType = ActionType.OPEN_URL,
-            actionUrl = "https://www.google.com/search?q=Islamabad+Gateway+tourism+transport+hotels+pakistan"
+            actionUrl = "https://www.google.com/search?q=Visit+Islamabad+gateway+visitors+all+purposes"
         )
     )
 
@@ -761,7 +761,7 @@ object SampleData {
             category = "Medical Checkup",
             avatarInitials = "MR",
             rating = 5,
-            review = "We traveled from Multan for my father's cardiac procedure at Shifa. Finding accessible lodging and punctual transport used to be so stressful. Islamabad Gateway booked us into a clean, ground-floor guest house just 6 minutes away and coordinated wheelchair-ready cab pickups right on time. A true blessing for medical visitors.",
+            review = "We traveled from Multan for my father's cardiac procedure at Shifa. Finding accessible lodging and punctual transport used to be so stressful. Visit Islamabad booked us into a clean, ground-floor guest house just 6 minutes away and coordinated wheelchair-ready cab pickups right on time. A true blessing for medical visitors.",
             tripSummaryPills = listOf("🏥 Shifa Hospital", "♿ Wheelchair Cab", "🏡 Family Guest House")
         ),
         com.example.model.VisitorTestimonial(
@@ -783,7 +783,7 @@ object SampleData {
             category = "University Entrance",
             avatarInitials = "ZK",
             rating = 5,
-            review = "Traveling solo from KPK for the NUST NET exam at H-12 was daunting on a student budget. Islamabad Gateway explained how to take the PKR 50 Orange Line Metro Bus from Daewoo terminal right to the campus gates and guided me to a safe, verified girls' hostel nearby. It saved me thousands of rupees and kept me totally safe.",
+            review = "Traveling solo from KPK for the NUST NET exam at H-12 was daunting on a student budget. Visit Islamabad explained how to take the PKR 50 Orange Line Metro Bus from Daewoo terminal right to the campus gates and guided me to a safe, verified girls' hostel nearby. It saved me thousands of rupees and kept me totally safe.",
             tripSummaryPills = listOf("🎓 NUST H-12 / FAST", "🚌 PKR 50 Metro Bus", "🔒 Safe Girls' Hostel")
         ),
         com.example.model.VisitorTestimonial(

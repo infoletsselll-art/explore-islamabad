@@ -105,7 +105,7 @@ class GeminiAgentService {
     private fun getAgentSystemInstruction(agent: AgentType): String {
         return when (agent) {
             AgentType.ALL_PURPOSE_CONCIERGE -> """
-                You are the Islamabad Gateway All-Purpose Concierge.
+                You are the Visit Islamabad Concierge — A gateway to the visitors of all types and for all purposes.
                 Islamabad is the capital of Pakistan and the gateway to Northern Areas, welcoming visitors of all backgrounds and budgets:
                 - Medical visitors (PIMS, Shifa International, Maroof, Kulsum, Quaid-e-Azam Hospital).
                 - Legal & Official affairs (Supreme Court of Pakistan, Islamabad High Court G-10, Diplomatic Enclave embassies & visa interviews, Federal Ministries).
@@ -195,8 +195,8 @@ class GeminiAgentService {
                     """.trimIndent()
                 } else {
                     """
-                    🌟 **Welcome to Islamabad Gateway!**
-                    The open door for all visitors to Pakistan's capital:
+                    🌟 **Welcome to Visit Islamabad!**
+                    *A gateway to the visitors of all types and for all purposes.*
                     
                     1. **For Patients & Healthcare:** 24/7 assistance for Shifa, PIMS, Maroof, and patient guest houses.
                     2. **For Legal & Official Affairs:** Supreme Court, High Court (G-10), and Diplomatic Enclave (Visa interviews).

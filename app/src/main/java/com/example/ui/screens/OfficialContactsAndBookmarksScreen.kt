@@ -424,7 +424,7 @@ fun OfficialContactsAndForumsContent(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     // Direct APK Link & Copy
-                    val apkDownloadUrl = "${OfficialContacts.WEBPAGE_URL}/islamabad-gateway.apk"
+                    val apkDownloadUrl = "${OfficialContacts.WEBPAGE_URL}/visit-islamabad.apk"
                     Surface(
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                         shape = RoundedCornerShape(10.dp),
@@ -438,7 +438,7 @@ fun OfficialContactsAndForumsContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "islamabad-gateway.apk",
+                                text = "visit-islamabad.apk",
                                 style = MaterialTheme.typography.bodySmall,
                                 fontWeight = FontWeight.SemiBold,
                                 color = PinePrimary
@@ -464,7 +464,7 @@ fun OfficialContactsAndForumsContent(
                                     putExtra(Intent.EXTRA_SUBJECT, "Download ${OfficialContacts.APP_NAME} Android App")
                                     putExtra(
                                         Intent.EXTRA_TEXT,
-                                        "Explore Islamabad with official guides, multi-budget transport (Metro, inDrive/Yango, Chauffeur, 4x4) & 24/7 AI Concierge!\n\nDownload the Android APK:\n$apkDownloadUrl\n\nOr launch web version:\n${OfficialContacts.WEBPAGE_URL}"
+                                        "${OfficialContacts.APP_NAME} — A gateway to the visitors of all types and for all purposes.\n\nHealth, legal hearings, university exams, shopping, tourism & northern transit.\n\nDownload the Android APK:\n$apkDownloadUrl\n\nOr launch web version:\n${OfficialContacts.WEBPAGE_URL}"
                                     )
                                 }
                                 context.startActivity(Intent.createChooser(shareIntent, "Share ${OfficialContacts.APP_NAME} App"))

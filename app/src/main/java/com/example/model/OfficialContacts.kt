@@ -23,13 +23,13 @@ enum class ActionType {
 }
 
 object OfficialContacts {
-    const val APP_NAME = "Islamabad Gateway"
-    const val DOMAIN_NAME = "islamabadgateway.com"
-    const val WEBPAGE_URL = "https://www.islamabadgateway.com"
-    const val BACKUP_DOMAIN = "exploreislmbd.com"
-    const val OFFICIAL_EMAIL = "info.explore.islmbd@gmail.com"
+    const val APP_NAME = "Visit Islamabad"
+    const val DOMAIN_NAME = "visitislamabad.com"
+    const val WEBPAGE_URL = "https://visitislamabad.com"
+    const val BACKUP_DOMAIN = "visitislamabad.web.app"
+    const val OFFICIAL_EMAIL = "info.letsselll@gmail.com"
     const val OFFICIAL_PHONE = "03457059286"
     const val OFFICIAL_PHONE_INTL = "+923457059286"
     const val SUPPORT_HOURS = "24/7 AI Automation & All-Purpose Visitor Support"
-    const val TAGLINE = "The Open Door for All Visitors: Health, Legal, Exams, Shopping, Tourism & Northern Gateway"
+    const val TAGLINE = "A gateway to the visitors of all types and for all purposes."
 }

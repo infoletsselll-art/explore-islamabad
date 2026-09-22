@@ -5,6 +5,12 @@
       "firebase.json",
       "**/.*"
     ],
+    "rewrites": [
+      {
+        "source": "!**/*.@(apk|jpg|jpeg|png|gif|svg|webp|js|css|json|ico)",
+        "destination": "/index.html"
+      }
+    ],
     "headers": [
       {
         "source": "**/*.apk",
@@ -15,7 +21,7 @@
           },
           {
             "key": "Content-Disposition",
-            "value": "attachment; filename=\"explore-islmbd.apk\""
+            "value": "attachment; filename=\"visit-islamabad.apk\""
           },
           {
             "key": "Cache-Control",

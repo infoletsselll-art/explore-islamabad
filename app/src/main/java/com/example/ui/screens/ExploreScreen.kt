@@ -196,7 +196,7 @@ fun HeroHeader(
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_islamabad_hero),
-            contentDescription = "Islamabad Gateway Hero",
+            contentDescription = "Visit Islamabad Hero",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
@@ -238,7 +238,7 @@ fun HeroHeader(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "ALL-PURPOSE VISITOR HUB & GATEWAY",
+                        text = "A GATEWAY FOR ALL VISITORS & ALL PURPOSES",
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -251,6 +251,14 @@ fun HeroHeader(
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
+            )
+
+            Text(
+                text = OfficialContacts.TAGLINE,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = WarmGold,
+                modifier = Modifier.padding(vertical = 2.dp)
             )
 
             Text(
