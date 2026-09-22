@@ -23,12 +23,13 @@ enum class ActionType {
 }
 
 object OfficialContacts {
-    const val APP_NAME = "explore Islmbd"
-    const val DOMAIN_NAME = "exploreislmbd.com"
-    const val WEBPAGE_URL = "https://www.exploreislmbd.com"
+    const val APP_NAME = "Islamabad Gateway"
+    const val DOMAIN_NAME = "islamabadgateway.com"
+    const val WEBPAGE_URL = "https://www.islamabadgateway.com"
+    const val BACKUP_DOMAIN = "exploreislmbd.com"
     const val OFFICIAL_EMAIL = "info.explore.islmbd@gmail.com"
     const val OFFICIAL_PHONE = "03457059286"
     const val OFFICIAL_PHONE_INTL = "+923457059286"
-    const val SUPPORT_HOURS = "24/7 AI Automation & Live Customer Support Agents"
-    const val TAGLINE = "Direct Client Immediate Connection across Pakistan & Abroad"
+    const val SUPPORT_HOURS = "24/7 AI Automation & All-Purpose Visitor Support"
+    const val TAGLINE = "The Open Door for All Visitors: Health, Legal, Exams, Shopping, Tourism & Northern Gateway"
 }

@@ -22,9 +22,11 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.ElectricBolt
+import androidx.compose.material.icons.filled.CurrencyExchange
+import androidx.compose.material.icons.filled.DirectionsBus
+import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.Hotel
+import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AlertDialog
@@ -43,6 +45,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -55,6 +58,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.SampleData
+import com.example.model.BudgetTier
+import com.example.model.OfficialContacts
 import com.example.model.TravelService
 import com.example.ui.theme.MountainMint
 import com.example.ui.theme.PinePrimary
@@ -67,7 +72,7 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
     val useUsd by viewModel.useUsd.collectAsState()
     val targetService by viewModel.bookingTargetService.collectAsState()
 
-    val categories = listOf("All", "Pick & Drop", "Hotels & Stays", "Tours & Sightseeing", "Camping & Adventure")
+    val categories = listOf("All", "Transport & Transit", "Stays & Hotels", "Guided Packages", "Dining & Food")
 
     val filteredServices = if (selectedCategory == "All") {
         SampleData.travelServices
@@ -94,71 +99,74 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text(
-                        text = "VERIFIED TOURIST SERVICES",
+                        text = "ALL-BUDGET SERVICES & ROUND-TRIP BOOKING",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
                     )
                 }
 
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "explore Islmbd • Client & Traveler Services",
+                    text = "Transport, Stays & Custom Plans",
                     style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.ExtraBold,
                     color = Color.White
                 )
 
                 Text(
-                    text = "Airport pick & drop, luxury hotel reservations, chauffeur fleet, camping gear, and customized tour packages for domestic and overseas visitors. 24/7 AI Automation & Hotline: 03457059286.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = 0.9f),
-                    modifier = Modifier.padding(top = 4.dp)
+                    text = "From PKR 50 Metro Bus to inDrive, Yango, Chauffeurs & 4x4 SUVs. Budget student/patient guest houses to 5-star suites.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.White.copy(alpha = 0.9f)
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(14.dp))
 
-                // Currency switcher banner
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "Prices shown in: ${if (useUsd) "USD ($)" else "PKR (Rs)"}",
-                        fontSize = 13.sp,
-                        color = Color.White.copy(alpha = 0.85f),
-                        fontWeight = FontWeight.Medium
-                    )
-
                     Button(
                         onClick = { viewModel.toggleCurrency() },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.White.copy(alpha = 0.2f),
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(12.dp),
-                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp),
-                        modifier = Modifier.testTag("currency_toggle_button")
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = PinePrimary),
+                        shape = RoundedCornerShape(20.dp),
+                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp)
+                    ) {
+                        Icon(Icons.Default.CurrencyExchange, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = if (useUsd) "Show in PKR (Rs)" else "Show in USD ($)",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+
+                    Surface(
+                        color = Color.White.copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(12.dp)
                     ) {
                         Text(
-                            text = if (useUsd) "Switch to PKR" else "Switch to USD",
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold
+                            text = "24/7 Hotline: ${OfficialContacts.OFFICIAL_PHONE}",
+                            color = Color.White,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
                         )
                     }
                 }
             }
         }
 
-        // Category Filter Chips
+        // Category Filter Row
         item {
             LazyRow(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(categories) { cat ->
                     FilterChip(
@@ -175,22 +183,22 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
             }
         }
 
-        // Service Cards
+        // Service Items
         items(filteredServices, key = { it.id }) { service ->
             val isBookmarked by remember(service.id) {
-                androidx.compose.runtime.derivedStateOf { viewModel.isItemBookmarked(service.id) }
+                derivedStateOf { viewModel.isItemBookmarked(service.id) }
             }
             ServiceCard(
                 service = service,
                 useUsd = useUsd,
                 isBookmarked = isBookmarked,
                 onToggleBookmark = { viewModel.toggleBookmarkService(service) },
-                onRequestBooking = { viewModel.openBookingDialog(service) }
+                onBookNow = { viewModel.openBookingDialog(service) }
             )
         }
     }
 
-    // Booking Dialog
+    // Booking Inquiry Dialog
     targetService?.let { service ->
         BookingInquiryDialog(
             service = service,
@@ -209,12 +217,12 @@ fun ServiceCard(
     useUsd: Boolean,
     isBookmarked: Boolean,
     onToggleBookmark: () -> Unit,
-    onRequestBooking: () -> Unit
+    onBookNow: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .padding(horizontal = 16.dp, vertical = 6.dp)
             .testTag("service_card_${service.id}"),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -228,44 +236,33 @@ fun ServiceCard(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Surface(
-                        color = PinePrimary.copy(alpha = 0.12f),
+                        color = when (service.budgetTier) {
+                            BudgetTier.BUDGET_SAVER -> MountainMint.copy(alpha = 0.25f)
+                            BudgetTier.COMFORT_STANDARD -> PinePrimary.copy(alpha = 0.15f)
+                            BudgetTier.EXECUTIVE_VIP -> WarmGold.copy(alpha = 0.25f)
+                        },
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(
-                            text = service.category,
-                            color = PinePrimary,
+                            text = service.budgetTier.title,
+                            color = when (service.budgetTier) {
+                                BudgetTier.BUDGET_SAVER -> PinePrimary
+                                BudgetTier.COMFORT_STANDARD -> PinePrimary
+                                BudgetTier.EXECUTIVE_VIP -> Color(0xFF8B6508)
+                            },
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                         )
                     }
 
-                    if (service.isPopular) {
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Surface(
-                            color = WarmGold.copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(8.dp)
-                        ) {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.ElectricBolt,
-                                    contentDescription = null,
-                                    tint = WarmGold,
-                                    modifier = Modifier.size(12.dp)
-                                )
-                                Spacer(modifier = Modifier.width(3.dp))
-                                Text(
-                                    text = "POPULAR CHOICE",
-                                    fontSize = 10.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = WarmGold
-                                )
-                            }
-                        }
-                    }
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    Text(
+                        text = "• ${service.category}",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
 
                 IconButton(
@@ -274,14 +271,14 @@ fun ServiceCard(
                 ) {
                     Icon(
                         imageVector = if (isBookmarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
-                        contentDescription = if (isBookmarked) "Bookmarked" else "Bookmark",
+                        contentDescription = "Bookmark",
                         tint = if (isBookmarked) WarmGold else Color.Gray,
                         modifier = Modifier.size(20.dp)
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = service.title,
@@ -296,39 +293,42 @@ fun ServiceCard(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = service.description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                lineHeight = 18.sp
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Features list
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                service.includedFeatures.forEach { feature ->
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Check,
-                            contentDescription = null,
-                            tint = MountainMint,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = feature,
-                            fontSize = 12.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
+            // Included features
+            service.includedFeatures.take(3).forEach { feature ->
+                Row(
+                    modifier = Modifier.padding(vertical = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = null,
+                        tint = PinePrimary,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = feature,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-            // Price and Action
+            // Pricing and Book button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -343,23 +343,19 @@ fun ServiceCard(
                     )
                     Text(
                         text = service.priceUnit,
-                        fontSize = 11.sp,
+                        style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
                 Button(
-                    onClick = onRequestBooking,
+                    onClick = onBookNow,
                     colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
                     shape = RoundedCornerShape(12.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                    modifier = Modifier.testTag("book_service_${service.id}")
+                    modifier = Modifier.testTag("book_button_${service.id}")
                 ) {
-                    Text(
-                        text = "Book / Request Quote",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 13.sp
-                    )
+                    Text("Book / Inquire", fontWeight = FontWeight.Bold)
                 }
             }
         }
@@ -373,35 +369,27 @@ fun BookingInquiryDialog(
     onDismiss: () -> Unit,
     onSubmit: (name: String, phone: String, origin: String, dates: String, details: String) -> Unit
 ) {
-    var clientName by remember { mutableStateOf("") }
-    var contactPhone by remember { mutableStateOf("") }
-    var originCity by remember { mutableStateOf("Overseas Tourist (UK/USA/Gulf)") }
-    var preferredDates by remember { mutableStateOf("") }
-    var specialRequests by remember { mutableStateOf("") }
-
-    val originOptions = listOf(
-        "Overseas Tourist (UK/USA/Gulf/EU)",
-        "Domestic Traveler (Karachi/Sindh)",
-        "Domestic Traveler (Lahore/Punjab)",
-        "Domestic Traveler (KPK/Balochistan)"
-    )
+    var name by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var origin by remember { mutableStateOf("Domestic (Punjab/Sindh/KPK/Balochistan)") }
+    var dates by remember { mutableStateOf("") }
+    var details by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Column {
                 Text(
-                    text = "Request Booking Inquiry",
-                    style = MaterialTheme.typography.titleLarge,
+                    text = "Book: ${service.title}",
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
-                IconButton(onClick = onDismiss) {
-                    Icon(Icons.Default.Close, contentDescription = "Close")
-                }
+                Text(
+                    text = "${if (useUsd) "$${service.priceUsd}" else "PKR ${"%,d".format(service.pricePkr)}"} ${service.priceUnit} (${service.budgetTier.title})",
+                    fontSize = 13.sp,
+                    color = PinePrimary,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
         },
         text = {
@@ -409,78 +397,45 @@ fun BookingInquiryDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                Surface(
-                    color = PinePrimary.copy(alpha = 0.1f),
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = Modifier.padding(10.dp)) {
-                        Text(
-                            text = service.title,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
-                            color = PinePrimary
-                        )
-                        Text(
-                            text = "Estimated: ${if (useUsd) "$${service.priceUsd}" else "PKR ${"%,d".format(service.pricePkr)}"} (${service.priceUnit})",
-                            fontSize = 12.sp,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                }
-
                 OutlinedTextField(
-                    value = clientName,
-                    onValueChange = { clientName = it },
+                    value = name,
+                    onValueChange = { name = it },
                     label = { Text("Your Full Name") },
-                    modifier = Modifier.fillMaxWidth().testTag("input_client_name"),
-                    singleLine = true
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth().testTag("inquiry_input_name")
                 )
 
                 OutlinedTextField(
-                    value = contactPhone,
-                    onValueChange = { contactPhone = it },
-                    label = { Text("WhatsApp / Phone Number") },
-                    placeholder = { Text("+92 300 1234567 or international") },
-                    modifier = Modifier.fillMaxWidth().testTag("input_contact_phone"),
-                    singleLine = true
+                    value = phone,
+                    onValueChange = { phone = it },
+                    label = { Text("Cell Number or WhatsApp") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth().testTag("inquiry_input_phone")
                 )
 
                 OutlinedTextField(
-                    value = preferredDates,
-                    onValueChange = { preferredDates = it },
-                    label = { Text("Travel / Arrival Date(s)") },
-                    placeholder = { Text("e.g. Next weekend or 24th Oct") },
-                    modifier = Modifier.fillMaxWidth().testTag("input_travel_dates"),
-                    singleLine = true
+                    value = origin,
+                    onValueChange = { origin = it },
+                    label = { Text("City of Origin or Country") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
-                Column {
-                    Text(
-                        text = "Traveling From:",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    LazyRow(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        modifier = Modifier.padding(top = 4.dp)
-                    ) {
-                        items(originOptions) { opt ->
-                            FilterChip(
-                                selected = (opt == originCity),
-                                onClick = { originCity = opt },
-                                label = { Text(opt.take(24) + "...", fontSize = 11.sp) }
-                            )
-                        }
-                    }
-                }
+                OutlinedTextField(
+                    value = dates,
+                    onValueChange = { dates = it },
+                    label = { Text("Arrival / Travel Dates") },
+                    placeholder = { Text("e.g. Next weekend / 15th Oct") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 OutlinedTextField(
-                    value = specialRequests,
-                    onValueChange = { specialRequests = it },
-                    label = { Text("Custom Needs / Passenger count / Luggage") },
-                    modifier = Modifier.fillMaxWidth().testTag("input_special_requests"),
+                    value = details,
+                    onValueChange = { details = it },
+                    label = { Text("Purpose & Special Notes") },
+                    placeholder = { Text("e.g. Hospital checkup, court hearing, family luggage, wheelchair") },
+                    modifier = Modifier.fillMaxWidth(),
                     maxLines = 3
                 )
             }
@@ -488,20 +443,18 @@ fun BookingInquiryDialog(
         confirmButton = {
             Button(
                 onClick = {
-                    onSubmit(clientName, contactPhone, originCity, preferredDates, specialRequests)
+                    onSubmit(name, phone, origin, dates, details)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.testTag("submit_inquiry_button")
+                modifier = Modifier.testTag("inquiry_submit_confirm")
             ) {
-                Text("Confirm & Submit Inquiry")
+                Text("Confirm & Inquire")
             }
         },
         dismissButton = {
-            OutlinedButton(onClick = onDismiss, shape = RoundedCornerShape(12.dp)) {
+            OutlinedButton(onClick = onDismiss) {
                 Text("Cancel")
             }
-        },
-        shape = RoundedCornerShape(20.dp)
+        }
     )
 }

@@ -1,14 +1,93 @@
 package com.example.model
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.Cabin
+import androidx.compose.material.icons.filled.DirectionsBus
 import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Gavel
 import androidx.compose.material.icons.filled.Hotel
+import androidx.compose.material.icons.filled.LocalHospital
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material.icons.filled.Navigation
+import androidx.compose.material.icons.filled.School
+import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material.icons.filled.Terrain
 import androidx.compose.ui.graphics.vector.ImageVector
+
+enum class VisitorPurpose(
+    val title: String,
+    val icon: ImageVector,
+    val description: String,
+    val keyDestinations: List<String>
+) {
+    HEALTH_MEDICAL(
+        title = "Health & Medical Checkup",
+        icon = Icons.Default.LocalHospital,
+        description = "Specialist checkups, diagnostic tests, surgeries & hospital visits",
+        keyDestinations = listOf("Shifa International (H-8)", "PIMS Hospital (G-8)", "Maroof International (F-10)", "Kulsum International (Blue Area)", "Quaid-e-Azam Hospital")
+    ),
+    LEGAL_COURTS(
+        title = "Court & Official Affairs",
+        icon = Icons.Default.Gavel,
+        description = "Supreme Court, Islamabad High Court, Embassies / Diplomatic Enclave & Ministries",
+        keyDestinations = listOf("Supreme Court of Pakistan", "Islamabad High Court (G-10)", "Diplomatic Enclave (Visa & Embassies)", "Federal Secretariat (Pak Sectt)", "District Courts (F-8/G-11)")
+    ),
+    EDUCATION_EXAMS(
+        title = "Study, Tests & Interviews",
+        icon = Icons.Default.School,
+        description = "University visits, MDCAT/ECAT, CSS exams, convocations & admissions",
+        keyDestinations = listOf("NUST (H-12)", "FAST-NUCES (H-9)", "Quaid-i-Azam University (QAU)", "COMSATS (Park Road)", "Air University & Bahria (E-9)")
+    ),
+    SHOPPING_LIFESTYLE(
+        title = "Shopping & Bazaars",
+        icon = Icons.Default.ShoppingBag,
+        description = "Modern mega malls, fashion boutiques, electronics & traditional bazaars",
+        keyDestinations = listOf("Centaurus Mall (F-8)", "Giga Mall (DHA II)", "Safa Gold Mall (F-7)", "Jinnah Super / Super Market (F-7/F-6)", "Aabpara & Raja Bazaar")
+    ),
+    TOURISM_EXPLORE(
+        title = "Islamabad Sightseeing",
+        icon = Icons.Default.LocationCity,
+        description = "Iconic architecture, Margalla hills trails, heritage & scenic viewpoints",
+        keyDestinations = listOf("Faisal Mosque", "Daman-e-Koh & Monal", "Pakistan Monument & Museum", "Rawal Lake & Lake View Park", "Saidpur Heritage Village")
+    ),
+    NORTHERN_GATEWAY(
+        title = "Gateway to North",
+        icon = Icons.Default.Terrain,
+        description = "Transit departure to Murree, Galyat, Swat, Naran, Hunza & Skardu",
+        keyDestinations = listOf("Murree Mall Road & Expressway", "Nathia Gali & Mushkpuri Peak", "Hazara Motorway to Naran/Kaghan", "Karakoram Highway to Hunza", "Skardu & Gilgit flights/transit")
+    )
+}
+
+enum class BudgetTier(
+    val title: String,
+    val subtitle: String,
+    val transportType: String,
+    val stayType: String,
+    val estimatedDailyPkr: String
+) {
+    BUDGET_SAVER(
+        title = "Budget Friendly",
+        subtitle = "Students, patients & economy travelers",
+        transportType = "Metro Bus (Red/Orange/Blue) + EV Feeder Buses",
+        stayType = "Affordable Guest Houses & Hostels (G & I Sectors)",
+        estimatedDailyPkr = "PKR 1,500 – 3,500 / day"
+    ),
+    COMFORT_STANDARD(
+        title = "Comfort & Family",
+        subtitle = "inDrive/Yango cabs, 3-star hotels & family dining",
+        transportType = "inDrive / Yango App Cabs & City Sedans",
+        stayType = "3-Star Boutique Hotels & Centaurus Apartments",
+        estimatedDailyPkr = "PKR 5,000 – 12,000 / day"
+    ),
+    EXECUTIVE_VIP(
+        title = "Executive & VIP 4x4",
+        subtitle = "Chauffeur sedan, 4x4 Prado/Fortuner & luxury hotels",
+        transportType = "Dedicated Chauffeur Sedan / 4x4 Prado or Fortuner",
+        stayType = "5-Star Hotels (Serena, Marriott, Ramada)",
+        estimatedDailyPkr = "PKR 18,000 – 45,000 / day"
+    )
+}
 
 enum class AgentType(
     val title: String,
@@ -17,88 +96,76 @@ enum class AgentType(
     val icon: ImageVector,
     val defaultPrompts: List<String>
 ) {
-    CITY_GUIDE(
-        title = "Islamabad City & Heritage",
-        subtitle = "Margalla Hills, Faisal Mosque, Sectors & Culture",
-        greeting = "Assalam-o-Alaikum! I am your Islamabad City Guide. I can help you explore the iconic Faisal Mosque, Pakistan Monument, scenic Margalla trails, Saidpur Village, and top dining spots across the sectors. What would you like to discover today?",
-        icon = Icons.Default.LocationCity,
+    ALL_PURPOSE_CONCIERGE(
+        title = "Islamabad All-Purpose Concierge",
+        subtitle = "Open door for all visitors: Health, Courts, Study & Tourism",
+        greeting = "Khushamdeed! I am your 24/7 Islamabad Concierge. Whatever the purpose of your visit—medical appointments, Supreme/High Court hearings, university tests, shopping, or transit to the Northern Areas—I will guide your full round trip, arrange the best transport (Metro, inDrive, Yango, or private 4x4), and tailor everything to your exact budget. How can I assist your trip today?",
+        icon = Icons.Default.AutoAwesome,
         defaultPrompts = listOf(
-            "What are the top 5 must-visit sights in Islamabad?",
-            "Best viewpoint for sunset: Daman-e-Koh or Monal?",
-            "Which Margalla hiking trail is best for families?",
-            "Top traditional Pakistani restaurants in Islamabad"
+            "I'm coming for a medical checkup at Shifa Hospital, help me plan transport & stay",
+            "I have a Supreme Court hearing tomorrow, what is the best route and nearby hotel?",
+            "What is the cheapest way to travel around Islamabad via Metro and EV bus?",
+            "Plan a 3-day customized family tour including shopping and Margalla Hills"
         )
     ),
-    HILL_STATIONS(
-        title = "Murree & Galyat Specialist",
-        subtitle = "Mall Road, Nathia Gali, Ayubia & Pine Peaks",
-        greeting = "Khushamdeed! I specialize in Murree and the serene Galyat hills (Nathia Gali, Ayubia, Mushkpuri, Dunga Gali). Just a 1 to 2 hour drive from Islamabad. Ask me about weather, road conditions, chairlifts, or hiking trails!",
-        icon = Icons.Default.Terrain,
+    HEALTH_MEDICAL(
+        title = "Medical & Hospital Navigator",
+        subtitle = "PIMS, Shifa, Maroof, Kulsum & Patient Logistics",
+        greeting = "Assalam-o-Alaikum. I specialize in medical visitor assistance across Islamabad. I can guide you on hospital locations (Shifa, PIMS, Maroof, Kulsum, Quaid-e-Azam), specialist OPD timings, patient-friendly guest houses nearby, and wheelchair/ambulance or cab transit.",
+        icon = Icons.Default.LocalHospital,
         defaultPrompts = listOf(
-            "Plan a 2-day trip to Murree and Nathia Gali",
-            "How long is the Mushkpuri Peak hike and difficulty?",
-            "Ayubia pipeline track details and chairlift timings",
-            "Murree Expressway driving tips and toll info"
+            "Which guest houses are within walking distance of Shifa International H-8?",
+            "How to reach PIMS Hospital from Rawalpindi Railway Station via Metro?",
+            "Where to find 24/7 pharmacies and diagnostic labs in Blue Area?",
+            "Best comfortable cab options for an elderly patient coming from Peshawar"
+        )
+    ),
+    COURTS_OFFICIAL(
+        title = "Courts & Diplomatic Navigator",
+        subtitle = "Supreme Court, High Court, Diplomatic Enclave & Red Zone",
+        greeting = "Welcome. Coming for legal or governmental affairs? I can guide you on access protocols for the Supreme Court of Pakistan, Islamabad High Court (G-10), District Courts, the Diplomatic Enclave (Visa interviews at US, UK, Schengen embassies), and Federal Ministries.",
+        icon = Icons.Default.Gavel,
+        defaultPrompts = listOf(
+            "What are the security and entry rules for Islamabad High Court G-10?",
+            "How to enter the Diplomatic Enclave for a visa interview (Shuttle Service info)?",
+            "Best hotels near the Supreme Court of Pakistan and Constitutional Avenue",
+            "How to reach Pakistan Secretariat from Islamabad Airport via Metro bus"
+        )
+    ),
+    STUDY_ACADEMICS(
+        title = "Student & University Advisor",
+        subtitle = "NUST, FAST, QAU, COMSATS, Entry Tests & Hostels",
+        greeting = "Hello student & academic visitors! Visiting Islamabad for NUST NET, FAST test, CSS academy, university admissions, or convocations? I can help you find student budget hostels, Metro/bus routes, and university campus directions.",
+        icon = Icons.Default.School,
+        defaultPrompts = listOf(
+            "How to reach NUST H-12 from Faizabad Bus Terminal via Metro?",
+            "Affordable student hostels near FAST H-9 and NUST",
+            "Best study cafes and public libraries in Islamabad for CSS aspirants",
+            "COMSATS Park Road transport options from Islamabad sectors"
+        )
+    ),
+    TRANSIT_BUDGET(
+        title = "Transport & Fare Optimizer",
+        subtitle = "Metro Bus, inDrive, Yango, Local Cabs & 4x4 Jeeps",
+        greeting = "Need transport? Whether your budget is PKR 50 for the Metro Bus or a luxury chauffeur-driven Prado, I compare all options: Metro Red/Orange/Blue/Green lines, inDrive & Yango fare estimates, Airport ISB pick/drop, and 4x4 mountain rentals.",
+        icon = Icons.Default.DirectionsCar,
+        defaultPrompts = listOf(
+            "Compare fares: Metro Bus vs inDrive vs Yango from Airport to F-7",
+            "Islamabad Metro Bus complete route map and ticket cost",
+            "Book a chauffeur-driven sedan for a full 12-hour city visit",
+            "What is the cost of renting a Prado or Fortuner with driver for Murree?"
         )
     ),
     NORTHERN_GATEWAY(
-        title = "Northern Areas Navigator",
-        subtitle = "Hunza, Skardu, Gilgit & Babusar Routes",
-        greeting = "Greetings traveler! Islamabad is the premier international gateway to Northern Pakistan. I can plan your expeditions from Islamabad through Hazara Motorway and Karakoram Highway to Hunza, Skardu, Naran-Kaghan, and Fairy Meadows.",
-        icon = Icons.Default.Navigation,
+        title = "Northern Gateway Navigator",
+        subtitle = "Murree, Galyat, Swat, Naran, Hunza & Skardu Routes",
+        greeting = "Islamabad is the crown gateway to the Northern wonders of Pakistan! I organize round trips from Islamabad to Murree, Nathia Gali, Kaghan, Swat, Hunza, and Skardu with experienced mountain drivers, hotel bookings, and weather telemetry.",
+        icon = Icons.Default.Terrain,
         defaultPrompts = listOf(
-            "How to travel from Islamabad to Hunza Valley?",
-            "Is Babusar Pass currently open for travel to Naran?",
-            "Best 7-day Northern road trip starting from Islamabad",
-            "Flights vs road travel from Islamabad to Skardu"
-        )
-    ),
-    HOTEL_CONCIERGE(
-        title = "Hotels & Stays Agent",
-        subtitle = "Luxury Hotels, Boutique Lodges & Mountain Chalets",
-        greeting = "Welcome! Looking for comfortable accommodations? I can suggest top-rated stays in Islamabad (Serena, Marriott, boutique F-sector guest houses) and pine chalets in Nathia Gali & Murree according to your budget.",
-        icon = Icons.Default.Hotel,
-        defaultPrompts = listOf(
-            "Recommend luxury hotels in Islamabad for international tourists",
-            "Best cozy pine resorts in Nathia Gali with scenic views",
-            "Family-friendly executive guest houses in F-6 and F-7",
-            "Average hotel rates in PKR and USD for a 3-night stay"
-        )
-    ),
-    TRANSPORT_FLEET(
-        title = "Pick & Drop / Car Rental",
-        subtitle = "Airport ISB Transfers, 4x4 SUVs & Chauffeurs",
-        greeting = "Need seamless transport? I arrange 24/7 Airport Pick & Drop from Islamabad International Airport (ISB), city chauffeur sedans, luxury 4x4 Prado/Fortuner for mountain roads, and Hiace group vans with vetted drivers.",
-        icon = Icons.Default.DirectionsCar,
-        defaultPrompts = listOf(
-            "Cost for Airport ISB pick and drop to Islamabad sectors?",
-            "Daily car rental with driver rates for city and Murree",
-            "Which 4x4 vehicle is best for Galyat and Northern roads?",
-            "Book a Toyota Hiace van for an 8-person family tour"
-        )
-    ),
-    CAMPING_ADVENTURE(
-        title = "Camping & Adventure Agent",
-        subtitle = "Margalla Ridge Camping, Galyat Glamping & Gear",
-        greeting = "Adventure awaits! I organize safe camping expeditions in Margalla Hills, Mushkpuri alpine ridge, Ayubia glamping pods, and supply camping gear (tents, sleeping bags, bonfires) with local certified wilderness guides.",
-        icon = Icons.Default.Cabin,
-        defaultPrompts = listOf(
-            "Can tourists camp overnight on Margalla Hills?",
-            "What camping gear is provided in your Galyat package?",
-            "Safety tips and permits required for trekking in Galyat",
-            "Best season for alpine camping near Islamabad"
-        )
-    ),
-    CUSTOM_TOUR_PLANNER(
-        title = "Tailored Tour Architect",
-        subtitle = "Customized Itineraries & Bespoke Packages",
-        greeting = "I am your personal travel architect! Tell me who is traveling (solo, honeymoon couple, or family with children), your arrival city or country, budget, and desired duration. I will tailor an all-inclusive custom package for you.",
-        icon = Icons.Default.AutoAwesome,
-        defaultPrompts = listOf(
-            "Create a 4-day customized family itinerary from Karachi",
-            "Plan a 5-day luxury honeymoon tour (Islamabad + Nathia Gali)",
-            "Tailored corporate retreat package for 15 people",
-            "International tourist 3-day express Islamabad & culture tour"
+            "How to travel from Islamabad to Nathia Gali and Murree in 1 day?",
+            "Road status of Hazara Motorway and Babusar Pass to Naran",
+            "Best 5-day Northern tour package starting and ending in Islamabad",
+            "Hiace van rental cost for 10 people to Hunza from Islamabad"
         )
     )
 }
@@ -114,25 +181,28 @@ data class ChatMessage(
 data class Destination(
     val id: String,
     val name: String,
-    val category: String, // "Islamabad City", "Murree & Galyat", "Northern Gateway"
+    val category: String, // "Health & Hospitals", "Courts & Official", "Universities & Study", "Shopping & Malls", "Tourism & Heritage", "Northern Gateway"
+    val purpose: VisitorPurpose,
     val subtitle: String,
     val description: String,
     val highlights: List<String>,
-    val distanceFromIslamabad: String,
-    val bestSeason: String,
+    val locationSector: String,
+    val distanceFromCenter: String,
+    val metroBusNear: String,
     val rating: Double,
-    val recommendedAgent: AgentType
+    val budgetLevel: String
 )
 
 data class TravelService(
     val id: String,
     val title: String,
-    val category: String, // "Pick & Drop", "Hotels & Stays", "Tours & Sightseeing", "Camping & Adventure"
+    val category: String, // "Transport & Transit", "Stays & Hotels", "Guided Packages", "Dining & Food"
     val subtitle: String,
     val description: String,
     val pricePkr: Long,
     val priceUsd: Int,
-    val priceUnit: String, // e.g. "per trip", "per day", "per night", "per person"
+    val priceUnit: String, // "per trip", "per day", "per night", "per person"
+    val budgetTier: BudgetTier,
     val includedFeatures: List<String>,
     val vehicleOrType: String,
     val isPopular: Boolean = false
@@ -141,13 +211,27 @@ data class TravelService(
 data class TourRequirement(
     val clientName: String = "",
     val phoneOrContact: String = "",
-    val origin: String = "Domestic (Karachi/Lahore)",
+    val origin: String = "Domestic (Karachi/Lahore/Peshawar/Quetta)",
+    val visitorPurpose: VisitorPurpose = VisitorPurpose.TOURISM_EXPLORE,
+    val budgetTier: BudgetTier = BudgetTier.COMFORT_STANDARD,
     val durationDays: Int = 3,
     val travelGroupType: String = "Family with Kids",
     val travelDates: String = "",
     val includePickAndDrop: Boolean = true,
     val includeHotel: Boolean = true,
     val includeDedicatedCar: Boolean = true,
-    val includeCamping: Boolean = false,
+    val preferredTransport: String = "inDrive / App Cab",
     val specialNotes: String = ""
+)
+
+data class VisitorTestimonial(
+    val id: String,
+    val name: String,
+    val origin: String,
+    val purpose: String,
+    val category: String, // "Medical", "Legal", "Student", "Tourism"
+    val avatarInitials: String,
+    val rating: Int = 5,
+    val review: String,
+    val tripSummaryPills: List<String>
 )

@@ -1,6 +1,6 @@
 {
-  "name": "explore Islmbd",
-  "description": "explore Islmbd - Premier AI travel concierges, hotels, transport routes, camping, and immediate 24/7 client booking across Pakistan and abroad.",
+  "name": "Islamabad Gateway",
+  "description": "Islamabad Gateway - The open door for all visitors to Islamabad: health & hospital checkups, Supreme & High Court appearances, universities & study, shopping bazaars, tourism, transit to Northern Areas, and end-to-end multi-budget transport (Metro, inDrive, Yango, 4x4) and hotel booking.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

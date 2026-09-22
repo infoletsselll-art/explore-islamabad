@@ -31,7 +31,7 @@ class GeminiAgentService {
 
         if (apiKey.isNotBlank() && apiKey != "MY_GEMINI_API_KEY") {
             try {
-                val responseText = callGeminiRestApi(apiKey, agent, userPrompt)
+                val responseText = callGeminiRestApiWithSearch(apiKey, agent, userPrompt)
                 if (responseText.isNotBlank()) {
                     return@withContext responseText
                 }
@@ -44,7 +44,8 @@ class GeminiAgentService {
         return@withContext generateExpertFallback(agent, userPrompt)
     }
 
-    private fun callGeminiRestApi(apiKey: String, agent: AgentType, userPrompt: String): String {
+    private fun callGeminiRestApiWithSearch(apiKey: String, agent: AgentType, userPrompt: String): String {
+        // Using gemini-3.5-flash with Search Grounding
         val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=$apiKey"
 
         val systemInstruction = getAgentSystemInstruction(agent)
@@ -60,6 +61,12 @@ class GeminiAgentService {
                     put("parts", JSONArray().apply {
                         put(JSONObject().apply { put("text", userPrompt) })
                     })
+                })
+            })
+            // Google Search tool for live grounded facts
+            put("tools", JSONArray().apply {
+                put(JSONObject().apply {
+                    put("googleSearch", JSONObject())
                 })
             })
             put("generationConfig", JSONObject().apply {
@@ -97,70 +104,63 @@ class GeminiAgentService {
 
     private fun getAgentSystemInstruction(agent: AgentType): String {
         return when (agent) {
-            AgentType.CITY_GUIDE -> """
-                You are the Islamabad City & Heritage AI Agent. Islamabad is Pakistan's lush green, master-planned capital nestled against the Margalla Hills.
-                You have deep knowledge of:
-                - Landmarks: Faisal Mosque (dress etiquette, timings), Pakistan Monument & Shakarparian, Lok Virsa Museum, Saidpur Heritage Village, Rawal Lake, Daman-e-Koh and Pir Sohawa (Monal / Highland), Lake View Park.
-                - Sectors: Sector grid layout (E, F, G, H, I sectors, Blue Area, Diplomatic Enclave).
-                - Dining & Food: F-6 & F-7 Super Market, Beverly Centre, Melody Food Park, authentic Karahi, Kabuli Pulao, continental cafes.
-                - Margalla Hills Trails: Trail 3 (challenging), Trail 5 (family friendly, streams), Trail 6.
-                Be courteous, welcoming to both domestic and international tourists, highlight costs in PKR and USD, safety tips, and travel times.
+            AgentType.ALL_PURPOSE_CONCIERGE -> """
+                You are the Islamabad Gateway All-Purpose Concierge.
+                Islamabad is the capital of Pakistan and the gateway to Northern Areas, welcoming visitors of all backgrounds and budgets:
+                - Medical visitors (PIMS, Shifa International, Maroof, Kulsum, Quaid-e-Azam Hospital).
+                - Legal & Official affairs (Supreme Court of Pakistan, Islamabad High Court G-10, Diplomatic Enclave embassies & visa interviews, Federal Ministries).
+                - Academic & Students (NUST, FAST, QAU, COMSATS, Air Univ, entry tests, convocations).
+                - Shoppers (Centaurus Mall, Giga Mall, Safa Gold, Jinnah Super F-7, Super Market F-6, Aabpara).
+                - Tourists & Sightseeing (Faisal Mosque, Daman-e-Koh, Pakistan Monument, Lok Virsa, Saidpur Village, Margalla trails).
+                - Northern Gateway (Murree, Nathia Gali, Kaghan, Swat, Hunza, Skardu).
+                - Transport options for EVERY budget: Metro Bus (PKR 50), inDrive/Yango cabs, full-day chauffeurs, and 4x4 mountain rentals.
+                Provide structured, warm, and helpful advice with transparent pricing in PKR and USD.
             """.trimIndent()
 
-            AgentType.HILL_STATIONS -> """
-                You are the Murree & Galyat Hill Stations AI Specialist. 
-                Murree (7,500 ft) is a 1-hour drive from Islamabad via the modern Murree Expressway.
-                Galyat includes Nathia Gali (8,200 ft), Ayubia, Dunga Gali, Changla Gali, and Khanspur.
-                You specialize in:
-                - Murree: Mall Road, Pindi Point, Kashmir Point, Patriata (New Murree) Chairlift and Cable Car.
-                - Galyat: Nathia Gali Governor House, Saint Matthew's Church, famous spicy Patakha chicken, Miranjani Peak trek (9,776 ft), Mushkpuri Peak trek (9,200 ft), Ayubia Pipeline Track (4km flat nature walk) & Ayubia Chairlift.
-                - Weather & Driving: Fog, winter snow chains, landslides, Murree Expressway toll points, scenic rest stops.
-                Provide clear driving times, packing advice (warm clothes even in summer evenings), and accommodation recommendations.
+            AgentType.HEALTH_MEDICAL -> """
+                You are the Islamabad Medical & Hospital Logistics AI Guide.
+                You assist patients, families, and medical tourists visiting Islamabad:
+                - Hospitals: Shifa International (H-8/4), PIMS (G-8/3), Maroof International (F-10 Markaz), Kulsum International (Blue Area), Quaid-e-Azam International (Peshawar Rd).
+                - Patient logistics: Proximity guest houses, wheelchair accessibility, ambulance contacts (Rescue 1122), 24/7 pharmacies, diagnostic labs (Chughtai, IDC, Shifa Labs).
+                - Transport: Metro Bus PIMS Station, inDrive/Yango medical drops, private chauffeur for patient checkup rounds.
+            """.trimIndent()
+
+            AgentType.COURTS_OFFICIAL -> """
+                You are the Courts, Diplomatic & Official Affairs AI Navigator for Islamabad.
+                You assist lawyers, litigants, applicants, and diplomats:
+                - Supreme Court of Pakistan (Constitution Ave): Security protocol, formal dress code, gate access with CNIC.
+                - Islamabad High Court (G-10): Courtrooms, filing branches, nearby legal chambers.
+                - Diplomatic Enclave (G-5): Entry via Diplomatic Shuttle Service at Avenue 3, visa interview documents, embassy guidelines (US, UK, Schengen, Gulf).
+                - Government Ministries / Secretariat: Red zone entry and transport links.
+            """.trimIndent()
+
+            AgentType.STUDY_ACADEMICS -> """
+                You are the Student & Academic AI Advisor for Islamabad.
+                You help students, parents, and researchers:
+                - Universities: NUST (H-12), FAST-NUCES (H-9), Quaid-i-Azam University (QAU), COMSATS (Park Rd), Air University & Bahria (E-9).
+                - Entry tests: NET, NU, NTS, MDCAT, CSS academy preparation.
+                - Budget stays: Safe student hostels in H-9, H-12, I-8, G-8, and library access (National Library, Quaid Public Library).
+                - Transit: Metro bus Orange Line to NUST, Red Line to FAST/I-9.
+            """.trimIndent()
+
+            AgentType.TRANSIT_BUDGET -> """
+                You are the Transport & Fare Optimization AI Specialist.
+                Islamabad offers transit for every wallet:
+                - Budget: Metro Bus Red Line (Rawalpindi-Secretariat), Orange Line (Peshawar Morr to Airport ISB), Green & Blue feeder buses (PKR 50/trip).
+                - App Cabs: inDrive and Yango fair fares (PKR 400 - 1,200 across sectors).
+                - Chauffeur: Dedicated Toyota Corolla/Yaris sedan for 12 hours (PKR 6,500/day).
+                - 4x4 Mountain Fleet: Toyota Prado, Fortuner & Hiace Grand Cabin 14-seater for Murree, Nathia Gali, Kaghan, and Hunza.
+                - Airport Transfers: 24/7 Islamabad International Airport (ISB) pick & drop.
             """.trimIndent()
 
             AgentType.NORTHERN_GATEWAY -> """
-                You are the Northern Areas Gateway AI Navigator. Islamabad is the starting hub for travelers heading to Northern Pakistan.
-                You guide tourists on:
-                - Routes from Islamabad: Hazara Motorway (M-15), N-35 Karakoram Highway (KKH), Babusar Pass (open summer June-Sept), Jaglot-Skardu Road.
-                - Destinations: Hunza Valley (Karimabad, Baltit/Altit Forts, Attabad Lake, Passu Cones), Skardu & Deosai Plains, Naran-Kaghan, Gilgit, Fairy Meadows.
-                - Logistics: Islamabad Airport (ISB) flights to Gilgit and Skardu vs scenic road trips, private Prado 4x4 rentals, Hiace vans, fuel costs, acclimatization tips.
-            """.trimIndent()
-
-            AgentType.HOTEL_CONCIERGE -> """
-                You are the Hotels, Resorts & Stays AI Agent for Islamabad, Murree, and Galyat.
-                You recommend and arrange:
-                - 5-Star Luxury: Islamabad Serena Hotel, Islamabad Marriott, Islamabad Serena Sheesh Mahal.
-                - Boutique Guest Houses: Executive villas in F-6, F-7, F-8, E-7 diplomatic zones.
-                - Hill Station Lodges: Wooden pine chalets in Nathia Gali, Murree luxury suites, Ayubia mountain cottages.
-                - Budget options: Clean, vetted family hotels with rates in PKR and USD.
-                Provide room types, amenities (generator backup, heaters in winter, mountain views), and reservation advice.
-            """.trimIndent()
-
-            AgentType.TRANSPORT_FLEET -> """
-                You are the Transport & Pick-and-Drop AI Fleet Specialist.
-                You provide transparent pricing, vehicle specs, and route coordination:
-                - Airport Pick & Drop: 24/7 service from Islamabad International Airport (ISB) to any Islamabad sector, Rawalpindi, or direct to Murree/Nathia Gali.
-                - Vehicle Options: Clean sedans (Toyota Yaris/Corolla), 4x4 Mountain SUVs (Toyota Prado, Fortuner), 12-seater vans (Toyota Hiace Grand Cabin), 22-seater Coaster.
-                - All vehicles include professional vetted drivers, fuel options, toll inclusion, and luggage support for overseas and domestic tourists.
-            """.trimIndent()
-
-            AgentType.CAMPING_ADVENTURE -> """
-                You are the Camping & Adventure AI Agent.
-                You guide and organize:
-                - Margalla Hills ridge camping, rock climbing, and guided morning hikes.
-                - Mushkpuri and Miranjani alpine meadow camping with campfire, chicken BBQ, and stargazing.
-                - Ayubia glamping pods and forest retreats.
-                - Complete gear rentals (waterproof tents, down sleeping bags, portable stoves) delivered to hotels in Islamabad.
-                - Wilderness safety, environmental Leave-No-Trace principles, and emergency contacts (Rescue 1122, Tourist Police).
-            """.trimIndent()
-
-            AgentType.CUSTOM_TOUR_PLANNER -> """
-                You are the Tailored Tour Concierge AI Architect.
-                You design bespoke tour itineraries according to client requirements:
-                - Domestic tourists (arriving from Karachi, Lahore, Multan, Peshawar) or Overseas tourists (UK, USA, Canada, UAE, Europe).
-                - Traveler types: Family with young children, honeymoon couples, solo explorers, corporate groups.
-                - Combine city heritage, hill station retreats, private transport, hotel reservations, and camping.
-                Output structured day-by-day itineraries with morning, afternoon, and evening activities, estimated budgets in PKR and USD, and booking steps.
+                You are the Northern Gateway Navigator.
+                Islamabad is the premier jumping-off point to the wonders of northern Pakistan:
+                - Murree (50 mins via Murree Expressway) & Galyat (Nathia Gali, Ayubia Pipeline Track, Mushkpuri Peak).
+                - Hazara Motorway (M-15): Route to Abbottabad, Mansehra, Naran-Kaghan & Babusar Pass.
+                - Swat Expressway: Gateway to Kalam, Malam Jabba, and Mingora.
+                - Karakoram Highway & Flights: Hunza, Skardu, Gilgit, Fairy Meadows.
+                Advise on road status, 4x4 vehicle requirements, weather, and scenic stops.
             """.trimIndent()
         }
     }
@@ -168,181 +168,130 @@ class GeminiAgentService {
     private fun generateExpertFallback(agent: AgentType, prompt: String): String {
         val lower = prompt.lowercase()
         return when (agent) {
-            AgentType.CITY_GUIDE -> {
-                if (lower.contains("top") || lower.contains("must") || lower.contains("sights") || lower.contains("5")) {
+            AgentType.ALL_PURPOSE_CONCIERGE -> {
+                if (lower.contains("medical") || lower.contains("hospital") || lower.contains("doctor") || lower.contains("checkup")) {
                     """
-                    🌟 **Top 5 Must-Visit Sights in Islamabad:**
-
-                    1. **Faisal Mosque:** Pakistan's national symbol at the foot of Margalla Hills. World's largest tent-shaped mosque designed by Vedat Dalokay. Best visited near sunset when the white marble gleams against the green mountains.
-                    2. **Daman-e-Koh & Pir Sohawa:** Perched high in Margalla Hills, providing bird's-eye views of the capital grid, Faisal Mosque, and Rawal Lake. Enjoy dinner at Monal or Highland Resort.
-                    3. **Pakistan Monument & Lok Virsa:** Shakarparian Hills. The granite petal architecture symbolizes Pakistani unity, while the adjacent Lok Virsa Museum showcases Pakistan's living craft heritage.
-                    4. **Saidpur Heritage Village:** A 500-year-old preserved stone hamlet with ancient temples, cobblestones, and premier traditional rooftop dining.
-                    5. **Margalla Trails (Trail 3 & 5):** Pristine hiking trails with natural mountain streams and forest shade, ideal for morning nature lovers.
-
-                    💡 *Local Tip:* Modest attire is appreciated at Faisal Mosque. Entry to the courtyard is free.
+                    🏥 **Medical Visit to Islamabad (Comprehensive Plan):**
+                    
+                    • **Top Hospitals:**
+                      - *Shifa International (Sector H-8/4):* Multi-specialty tertiary care & organ transplants.
+                      - *PIMS Hospital (Sector G-8/3):* Premier government institute with Children's Hospital & Burn Center.
+                      - *Maroof International (Sector F-10 Markaz):* Boutique executive hospital near high-end cafes & guest houses.
+                      - *Kulsum International (Blue Area):* Leading cardiac center directly on Jinnah Avenue.
+                    
+                    • **Budget Accommodation:** Safe, quiet guest houses in G-8, H-8, and I-8 (PKR 2,800 – 4,500/night).
+                    • **Transit:** Red Line Metro directly stops at PIMS Station; inDrive/Yango or dedicated chauffeur car (PKR 6,500/day) for hassle-free patient transit.
                     """.trimIndent()
-                } else if (lower.contains("restaurant") || lower.contains("food") || lower.contains("eat")) {
+                } else if (lower.contains("court") || lower.contains("lawyer") || lower.contains("hearing") || lower.contains("supreme") || lower.contains("high court")) {
                     """
-                    🍽️ **Islamabad Culinary & Dining Guide:**
-
-                    - **Traditional Pakistani & Karahi:** 
-                      • *Saidpur Village* (Des Pardes / Khiva) - Karahi with live sitar music under mountain cliffs.
-                      • *Melody Food Park (G-6)* - Famous crispy fish, Seekh kebabs, and authentic street food.
-                      • *Savour Foods (Blue Area)* - Famous Pulao-Kabab with Shami and roast chicken (iconic local staple).
-                    - **Mountain Scenic Dining:**
-                      • *Monal & La Montana (Pir Sohawa)* - Stunning 3,500 ft elevation terrace with BBQ and Pakistani platters overlooking the illuminated city lights.
-                    - **Trendy Cafes & Continental (Sectors F-6 & F-7):**
-                      • *Kohsar Market (F-6)* - Street 1 Cafe, Butler’s Chocolate Cafe, artisanal coffee.
-                      • *Beverly Centre (Blue Area)* - High-end steakhouses, Italian, and specialty cafes.
+                    ⚖️ **Legal & Court Visits in Islamabad:**
+                    
+                    • **Supreme Court of Pakistan:** Constitution Avenue, Red Zone.
+                      - *Access:* Enter through Gate 1 with original CNIC and case causality list or lawyer card. Formal court dress code required.
+                      - *Nearest Transit:* Pak Secretariat Metro Station (Red Line) or short cab ride from Serena / Marriott.
+                    
+                    • **Islamabad High Court (IHC):** Sector G-10 modern judicial complex.
+                      - *Access:* Srinagar Highway access. Law chambers and affordable guest houses located in G-10 and G-11 Markaz.
                     """.trimIndent()
                 } else {
                     """
-                    🏔️ **Islamabad Exploration Insights:**
-
-                    Islamabad is one of the world's most scenic planned capitals, built on an orderly grid system (Sectors E, F, G, H, I) flanked by the lush Margalla Hills National Park.
-
-                    - **Best Times to Visit:** October through April offers crisp sunny days and pleasant evenings.
-                    - **Getting Around:** Clean wide boulevards make driving effortless. You can book our dedicated chauffeur car or 24/7 Airport Pick & Drop for stress-free sightseeing.
-                    - **Safety & Peace:** Islamabad is the safest city in the region, patrolled by the dedicated Islamabad Tourist Police.
-
-                    Ask me anytime about specific sectors, hiking trails, dining spots, or museum timings!
+                    🌟 **Welcome to Islamabad Gateway!**
+                    The open door for all visitors to Pakistan's capital:
+                    
+                    1. **For Patients & Healthcare:** 24/7 assistance for Shifa, PIMS, Maroof, and patient guest houses.
+                    2. **For Legal & Official Affairs:** Supreme Court, High Court (G-10), and Diplomatic Enclave (Visa interviews).
+                    3. **For Students & Academics:** NUST, FAST, QAU, COMSATS, admission test routes and student hostels.
+                    4. **For Shoppers & Families:** Centaurus Mall, Giga Mall, Jinnah Super F-7, and Melody Food Street.
+                    5. **For Tourists & Northern Travelers:** Faisal Mosque, Margalla viewpoints, Murree, Nathia Gali, Kaghan & Hunza.
+                    
+                    🚗 **Transport for Every Wallet:** Metro Bus (PKR 50), inDrive/Yango cabs, or luxury 4x4 Prado rentals.
                     """.trimIndent()
                 }
             }
 
-            AgentType.HILL_STATIONS -> {
-                if (lower.contains("mushkpuri") || lower.contains("hike") || lower.contains("trek")) {
-                    """
-                    🥾 **Mushkpuri Peak (9,200 ft) Trek Guide:**
+            AgentType.HEALTH_MEDICAL -> {
+                """
+                🏥 **Medical Guide for Islamabad Visitors:**
+                
+                • **Major Hospitals:**
+                  1. *Shifa International (H-8/4):* Ph: +92 51 8463000. JCI-accredited tertiary care, cardiology, oncology, liver & kidney transplant.
+                  2. *PIMS Hospital (G-8/3):* Ph: +92 51 9261170. Large public hospital with Red Line Metro station directly outside.
+                  3. *Maroof International (F-10 Markaz):* Modern private care, executive checkup packages.
+                  4. *Kulsum International (Blue Area):* Jinnah Avenue, specialized cardiology and general surgery.
+                
+                • **Patient Stays:** Numerous vetted guest houses operate in H-8, G-8, and I-8 with elevator access, wheelchair assistance, and homestyle food.
+                • **Transit:** Dedicated chauffeur sedan (PKR 6,500/day) allows family to attend hospital appointments without parking hassle.
+                """.trimIndent()
+            }
 
-                    - **Starting Points:** Either from *Dunga Gali* (steeper, pine path, 2.5 hours) or *Nathia Gali* near Shangrila hotel (gentler, lush meadows, 3 hours).
-                    - **Difficulty:** Moderate. Safe and very well-traveled by families and tourists.
-                    - **What to Expect:** A magical trail through dense sub-alpine conifer forests opening up to a sweeping mountaintop meadow with yellow wildflowers in summer and powdery snow in winter.
-                    - **Gear needed:** Comfortable hiking shoes, water bottle, light windbreaker (temperature is 10°C to 15°C cooler than Islamabad).
-                    - **Scenic Highlights:** 360-degree views of Kashmir mountains, Jhelum river valley, and Circle Bakote.
-                    """.trimIndent()
-                } else if (lower.contains("2-day") || lower.contains("plan") || lower.contains("itinerary")) {
-                    """
-                    🌲 **Recommended 2-Day Murree & Galyat Itinerary:**
+            AgentType.COURTS_OFFICIAL -> {
+                """
+                ⚖️ **Courts, Embassies & Red Zone Navigator:**
+                
+                • **Supreme Court of Pakistan:**
+                  - Located on Constitution Avenue.
+                  - Security check at Gate 1: Bring 2 photocopies of CNIC and court causality list.
+                  - Bags and phones must be deposited at security counter unless authorized lawyer.
+                
+                • **Islamabad High Court (IHC):**
+                  - Sector G-10 judicial complex.
+                  - Multiple parking bays, lawyer bar association, and biometric case verification booths.
+                
+                • **Diplomatic Enclave (Embassies & Visa Interviews):**
+                  - Entry for applicants is via **Diplomatic Shuttle Service** at Avenue 3 (Sector G-5).
+                  - Purchase ticket at shuttle terminal. Arrive 45 minutes before appointment.
+                """.trimIndent()
+            }
 
-                    **Day 1: Murree & Patriata Adventure**
-                    - 08:30 AM: Depart Islamabad via Murree Expressway (scenic 1-hour drive).
-                    - 10:00 AM: Patriata New Murree Chairlift & Cable car ride above cloud level.
-                    - 01:30 PM: Lunch in Murree & stroll along historic Mall Road and Kashmir Point.
-                    - 04:00 PM: Scenic drive along the pine road towards Nathia Gali (8,200 ft).
-                    - 07:30 PM: Check into your Pine Chalet; evening bonfire and famous Patakha roast chicken.
+            AgentType.STUDY_ACADEMICS -> {
+                """
+                🎓 **Student & Academic Gateway:**
+                
+                • **NUST (H-12):** Directly connected via Orange Line Metro Bus (NUST Station) on Srinagar Highway.
+                • **FAST-NUCES (H-9):** Walking distance from Potohar Metro Bus Station on Red Line.
+                • **Quaid-i-Azam University (QAU):** Near Lake View Park and Margalla foothills; reachable via local bus or cab.
+                • **COMSATS (Park Road):** Feeder buses from Tarlai / Chak Shahzad.
+                
+                💡 **Student Budget Tips:**
+                - Use the Metro Bus Card (PKR 50/ride) to travel between Rawalpindi and all Islamabad universities.
+                - Safe student hostels available in H-9, I-8, and G-9 starting from PKR 12,000/month or PKR 2,000/night for test takers.
+                """.trimIndent()
+            }
 
-                    **Day 2: Nathia Gali & Ayubia Nature Walk**
-                    - 08:30 AM: Fresh hot breakfast overlooking misty pine valleys.
-                    - 09:30 AM: Walk the historic Ayubia Pipeline Track (4 km easy cliffside walk).
-                    - 12:30 PM: Ride the Ayubia Chairlift or visit Saint Matthew's Church.
-                    - 03:00 PM: Scenic return drive descending back to Islamabad.
-                    """.trimIndent()
-                } else {
-                    """
-                    ⛰️ **Murree & Galyat Hill Station Advice:**
-
-                    - **Distance from Islamabad:** 
-                      • Murree: 55 km (~1 hour via Expressway)
-                      • Nathia Gali: 85 km (~2 hours scenic winding road)
-                      • Ayubia: 78 km (~1 hr 45 min)
-                    - **Weather:** Always 8°C to 12°C cooler than the capital. Even in July, you will need a light sweater in the evenings!
-                    - **Road Conditions:** Murree Expressway is fully carpeted and dual-carriageway. Galyat roads are well-maintained with stunning valley lookouts.
-                    - **Service Note:** We offer 4x4 Prado SUVs, Toyota Hiace family vans, and cozy pine chalet reservations for smooth travel.
-                    """.trimIndent()
-                }
+            AgentType.TRANSIT_BUDGET -> {
+                """
+                🚗 **Islamabad Transport for Every Budget:**
+                
+                • **Budget Transit (PKR 50 / ride):**
+                  - *Metro Bus Red Line:* Saddar Rawalpindi ↔ Faizabad ↔ Blue Area ↔ Pak Secretariat.
+                  - *Metro Bus Orange Line:* Peshawar Morr ↔ NUST ↔ Islamabad Airport (ISB).
+                  - *Green & Blue Lines:* Bhara Kahu and Kural Chowk feeder routes.
+                  - *EV Feeder Buses:* Cover F-6, F-7, G-7, PIMS, and major universities.
+                
+                • **App Cabs (inDrive & Yango):**
+                  - Ride Mini: PKR 350 – 600
+                  - Ride AC / Sedan: PKR 600 – 1,200
+                  - Motorbike Ride: PKR 150 – 300
+                
+                • **Chauffeur City Car (Full Day 12 hrs):**
+                  - Toyota Corolla / Yaris with driver: PKR 6,500 / day
+                
+                • **4x4 Luxury & Mountain Fleet:**
+                  - Toyota Prado TX / Fortuner: PKR 18,000 / day (Murree, Galyat, Kaghan, Hunza)
+                  - Toyota Hiace Grand Cabin (14-seater): PKR 16,000 / day
+                """.trimIndent()
             }
 
             AgentType.NORTHERN_GATEWAY -> {
                 """
-                🏔️ **Islamabad to Northern Pakistan Gateway Guide:**
-
-                Islamabad is the premier launching pad for expeditions into Gilgit-Baltistan and the Karakoram:
-
-                - **Hunza Valley (approx. 550 km):**
-                  • *By Air:* 45-minute scenic flight from Islamabad (ISB) to Gilgit Airport, followed by a 2-hour drive on the Karakoram Highway to Karimabad.
-                  • *By Road:* Via Hazara Motorway (M-15) through Abbottabad, Chilas, and KKH (12-14 hours scenic drive or 2-day relaxed journey via Naran/Babusar).
-                - **Skardu (Gateway to K2 & Deosai):**
-                  • Direct daily Boeing 737 / Airbus A320 flights operate between Islamabad (ISB) and Skardu Airport, offering close-up views of Nanga Parbat!
-                - **Naran-Kaghan & Babusar Pass (13,700 ft):**
-                  • Open from mid-June to late October. 5-hour drive from Islamabad to Naran, crossing over Babusar into Gilgit-Baltistan.
-
-                Let our transport fleet arrange your customized 4x4 Prado with mountain-certified drivers!
-                """.trimIndent()
-            }
-
-            AgentType.HOTEL_CONCIERGE -> {
-                """
-                🏨 **Curated Stays & Accommodation Options:**
-
-                **1. Islamabad 5-Star Luxury:**
-                - *Islamabad Serena Hotel:* Surrounded by 14 acres of lush gardens in Sector G-5. World-class Maisha Spa, heated pool, 6 international restaurants. (PKR ~75,000 / $270 per night)
-                - *Islamabad Marriott Hotel:* Located at the foot of Margalla Hills in F-5, close to the diplomatic enclave and presidency.
-
-                **2. Executive Boutique Guest Houses (F-6, F-7, E-7):**
-                - Private residences in quiet tree-lined avenues, walking distance to Super Market cafes. High privacy, home-cooked breakfasts, dedicated generator backup. (PKR 15,000 - 22,000 / $55 - $80 per night)
-
-                **3. Galyat Mountain Chalets (Nathia Gali & Murree):**
-                - Alpine wooden chalets surrounded by century-old pine trees, log fireplaces, and balcony views over Kashmir ranges. (PKR 20,000 - 35,000 / $75 - $125 per night)
-
-                You can submit an instant inquiry directly from the Services tab to receive guaranteed rates!
-                """.trimIndent()
-            }
-
-            AgentType.TRANSPORT_FLEET -> {
-                """
-                🚗 **Islamabad Fleet & Pick-and-Drop Rates:**
-
-                - **Islamabad Airport (ISB) 24/7 Pick & Drop:**
-                  • Toyota Yaris / Corolla Sedan: PKR 5,500 ($20) flat rate to any sector in Islamabad.
-                  • Toyota Prado 4x4 Luxury: PKR 14,000 ($50).
-                  • Toyota Hiace Grand Cabin (12 seats): PKR 12,000 ($45).
-                  *Includes flight tracking, driver placard at arrivals gate, tolls & airport parking.*
-
-                - **Full-Day City & Margalla Hills Chauffeur (12 Hours):**
-                  • AC Sedan with vetted driver: PKR 9,500 ($35) / day + fuel.
-                  • Toyota Prado / Fortuner 4x4: PKR 22,000 ($80) / day.
-
-                - **Murree & Nathia Gali Roundtrip Transit:**
-                  • Dedicated driver with mountain experience, heated/AC vehicle, safe driving on hairpin bends.
-
-                Book your vehicle now through the Services tab for immediate dispatch confirmation!
-                """.trimIndent()
-            }
-
-            AgentType.CAMPING_ADVENTURE -> {
-                """
-                ⛺ **Camping & Adventure Services:**
-
-                - **Mushkpuri Summit Meadow Camping (9,200 ft):**
-                  • Includes all-weather waterproof dome tents, -10°C rated thermal sleeping bags, foam sleeping mats, live campfire, fresh chicken tikka barbecue dinner, and sunrise breakfast with mountain chai.
-                  • Package: PKR 14,000 ($50) per person.
-                - **Margalla Ridge Trekking & Day Camping:**
-                  • Guided treks along Trail 3, 5, or Monal ridge with certified local wilderness guides.
-                - **Camping Gear Rental Delivery:**
-                  • 2-person / 4-person Coleman tents, butane gas stoves, trekking poles delivered directly to your hotel in Islamabad.
-                  • Rental: PKR 4,500 ($16) per day kit.
-
-                Safety is paramount: All tours are equipped with satellite check-ins, first-aid kits, and direct linkage to Rescue 1122.
-                """.trimIndent()
-            }
-
-            AgentType.CUSTOM_TOUR_PLANNER -> {
-                """
-                ✨ **Customized Tour Planning Engine:**
-
-                We create tailored packages based on your exact arrival origin, duration, and preferences:
-
-                - **For Overseas Tourists (UK, USA, Europe, Gulf):**
-                  VIP Airport ISB meet-and-greet, luxury Serena or boutique villa accommodation, licensed English-speaking guide, secure transport, and curated cultural heritage stops.
-                - **For Domestic Travelers (Karachi, Lahore, Faisalabad):**
-                  Family-friendly multi-day packages combining Islamabad shopping, Margalla scenic dining, Patriata chairlift, and peaceful Nathia Gali chalets.
-                - **Custom Add-ons:**
-                  • Private BBQ bonfire nights
-                  • Airport luggage transfers
-                  • Photographic escorts for scenic viewpoints
-
-                Use our **Custom Planner** tab to generate a bespoke day-by-day quotation within seconds!
+                🏔️ **Northern Gateway Navigator (Murree, Galyat & Beyond):**
+                
+                • **Murree (50 mins):** 4-lane Murree Expressway from Bhara Kahu bypass. Visit Mall Road, Pindi Point, Patriata cable car.
+                • **Nathia Gali (1.5 - 2 hrs):** Alpine pine paradise at 8,200 ft. Must-do: Mushkpuri Peak hike and Ayubia Pipeline Track.
+                • **Hazara Motorway (M-15):** Smooth motorway to Abbottabad, Mansehra, and Naran-Kaghan.
+                • **Karakoram Highway (KKH):** Scenic world-famous highway to Chilas, Gilgit, Hunza, and Khunjerab Pass.
+                
+                🚗 We provide 4x4 Prado and Hiace vans with experienced mountain chauffeurs for safe alpine driving!
                 """.trimIndent()
             }
         }

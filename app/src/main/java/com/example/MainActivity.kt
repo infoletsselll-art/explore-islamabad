@@ -124,13 +124,13 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = "explore Islmbd",
+                                text = com.example.model.OfficialContacts.APP_NAME,
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White
                             )
                             Text(
-                                text = "Hotline & AI: 03457059286",
+                                text = "Hotline & AI: ${com.example.model.OfficialContacts.OFFICIAL_PHONE}",
                                 fontSize = 10.sp,
                                 color = Color.White.copy(alpha = 0.85f)
                             )

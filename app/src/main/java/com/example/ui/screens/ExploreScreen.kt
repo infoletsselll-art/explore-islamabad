@@ -27,8 +27,9 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.DirectionsBus
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -62,6 +63,7 @@ import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.data.SampleData
 import com.example.model.Destination
+import com.example.model.OfficialContacts
 import com.example.ui.theme.PinePrimary
 import com.example.ui.theme.WarmGold
 import com.example.ui.viewmodel.IslamabadViewModel
@@ -71,7 +73,15 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
     val selectedCategory by viewModel.selectedDestinationCategory.collectAsState()
     val detailDestination by viewModel.selectedDestinationDetail.collectAsState()
 
-    val categories = listOf("All", "Islamabad City", "Murree & Galyat", "Northern Gateway")
+    val categories = listOf(
+        "All",
+        "Health & Hospitals",
+        "Courts & Official",
+        "Universities & Study",
+        "Shopping & Malls",
+        "Tourism & Heritage",
+        "Northern Gateway"
+    )
 
     val filteredList = if (selectedCategory == "All") {
         SampleData.destinations
@@ -88,7 +98,8 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
         // Hero Image & Title Banner
         item {
             HeroHeader(
-                onConsultAgents = { viewModel.selectTab(1) }
+                onConsultAgents = { viewModel.selectTab(1) },
+                onPlanVisit = { viewModel.selectTab(3) }
             )
         }
 
@@ -96,13 +107,13 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
         item {
             Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                 Text(
-                    text = "Explore Iconic Destinations",
+                    text = "Open Door For All Visitors",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "Handpicked sights in the capital, nearby hill stations, and northern peaks",
+                    text = "Medical, Courts, Studies, Malls & Northern Hub for visitors across Pakistan & abroad",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 2.dp, bottom = 8.dp)
@@ -131,7 +142,7 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
         // Destination Cards
         items(filteredList, key = { it.id }) { destination ->
             val isBookmarked by remember(destination.id) {
-                androidx.compose.runtime.derivedStateOf { viewModel.isItemBookmarked(destination.id) }
+                derivedStateOf { viewModel.isItemBookmarked(destination.id) }
             }
             DestinationCard(
                 destination = destination,
@@ -141,12 +152,24 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
                 onAskAgent = { viewModel.askAgentAboutDestination(destination) }
             )
         }
+
+        // Verified Partners Section (Transport, Hospitality & Hostels)
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+            VerifiedPartnersSection()
+        }
+
+        // Testimonials / Verified Experiences Section
+        item {
+            Spacer(modifier = Modifier.height(16.dp))
+            VerifiedVisitorTestimonialsSection()
+        }
     }
 
     // Detail Dialog
     detailDestination?.let { dest ->
         val isBookmarked by remember(dest.id) {
-            androidx.compose.runtime.derivedStateOf { viewModel.isItemBookmarked(dest.id) }
+            derivedStateOf { viewModel.isItemBookmarked(dest.id) }
         }
         DestinationDetailDialog(
             destination = dest,
@@ -162,15 +185,18 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
 }
 
 @Composable
-fun HeroHeader(onConsultAgents: () -> Unit) {
+fun HeroHeader(
+    onConsultAgents: () -> Unit,
+    onPlanVisit: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(240.dp)
+            .height(260.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_islamabad_hero),
-            contentDescription = "Faisal Mosque and Margalla Hills",
+            contentDescription = "Islamabad Gateway Hero",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
@@ -182,8 +208,8 @@ fun HeroHeader(onConsultAgents: () -> Unit) {
                 .background(
                     Brush.verticalGradient(
                         colors = listOf(
-                            Color.Black.copy(alpha = 0.25f),
-                            Color.Black.copy(alpha = 0.85f)
+                            Color.Black.copy(alpha = 0.2f),
+                            Color.Black.copy(alpha = 0.88f)
                         )
                     )
                 )
@@ -212,7 +238,7 @@ fun HeroHeader(onConsultAgents: () -> Unit) {
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "AI-POWERED TRAVEL CONCIERGE",
+                        text = "ALL-PURPOSE VISITOR HUB & GATEWAY",
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -221,41 +247,52 @@ fun HeroHeader(onConsultAgents: () -> Unit) {
             }
 
             Text(
-                text = "explore Islmbd",
+                text = OfficialContacts.APP_NAME,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.ExtraBold,
                 color = Color.White
             )
 
             Text(
-                text = "Capital of Pakistan • Gateway to Murree, Galyat & Northern Valleys\n24/7 AI Automation & Hotline: 03457059286",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.White.copy(alpha = 0.9f)
+                text = "Health • Supreme/High Court • Studies • Shopping • Northern Gateway\nFlexible for all budgets (Metro, inDrive/Yango, Chauffeur & 4x4)",
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.White.copy(alpha = 0.9f),
+                lineHeight = 16.sp
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            Button(
-                onClick = onConsultAgents,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = PinePrimary,
-                    contentColor = Color.White
-                ),
-                shape = RoundedCornerShape(20.dp),
-                contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
-                modifier = Modifier.testTag("hero_consult_agent_button")
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AutoAwesome,
-                    contentDescription = null,
-                    modifier = Modifier.size(16.dp)
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                    text = "Consult 7 Specialized AI Agents",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 13.sp
-                )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(
+                    onClick = onConsultAgents,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = PinePrimary,
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(20.dp),
+                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
+                    modifier = Modifier.testTag("hero_consult_agent_button")
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AutoAwesome,
+                        contentDescription = null,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("24/7 AI Guide", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                }
+
+                Button(
+                    onClick = onPlanVisit,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.White.copy(alpha = 0.2f),
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(20.dp),
+                    contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp)
+                ) {
+                    Text("Tailor Visit Plan", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                }
             }
         }
     }
@@ -272,8 +309,8 @@ fun DestinationCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable { onCardClick() }
+            .padding(horizontal = 16.dp, vertical = 6.dp)
+            .clickable(onClick = onCardClick)
             .testTag("destination_card_${destination.id}"),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
@@ -348,7 +385,7 @@ fun DestinationCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Distance & season badges
+            // Location & Metro Badges
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -362,7 +399,7 @@ fun DestinationCard(
                     )
                     Spacer(modifier = Modifier.width(3.dp))
                     Text(
-                        text = destination.distanceFromIslamabad,
+                        text = destination.locationSector,
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -372,15 +409,38 @@ fun DestinationCard(
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        imageVector = Icons.Default.Schedule,
+                        imageVector = Icons.Default.DirectionsBus,
                         contentDescription = null,
-                        tint = WarmGold,
+                        tint = PinePrimary,
                         modifier = Modifier.size(14.dp)
                     )
                     Spacer(modifier = Modifier.width(3.dp))
                     Text(
-                        text = destination.bestSeason,
+                        text = destination.metroBusNear.take(28),
                         fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Budget level badge
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.Default.Payments, contentDescription = null, tint = WarmGold, modifier = Modifier.size(14.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = destination.budgetLevel,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -412,13 +472,13 @@ fun DestinationCard(
                     modifier = Modifier.testTag("ask_agent_${destination.id}")
                 ) {
                     Icon(
-                        imageVector = destination.recommendedAgent.icon,
+                        imageVector = Icons.Default.AutoAwesome,
                         contentDescription = null,
                         modifier = Modifier.size(14.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "Ask ${destination.recommendedAgent.title.take(16)}...",
+                        text = "Ask AI Guide",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -453,12 +513,9 @@ fun DestinationDetailDialog(
                 IconButton(onClick = onToggleBookmark) {
                     Icon(
                         imageVector = if (isBookmarked) Icons.Default.Bookmark else Icons.Default.BookmarkBorder,
-                        contentDescription = if (isBookmarked) "Bookmarked" else "Bookmark",
+                        contentDescription = "Bookmark",
                         tint = if (isBookmarked) WarmGold else Color.Gray
                     )
-                }
-                IconButton(onClick = onDismiss) {
-                    Icon(Icons.Default.Close, contentDescription = "Close")
                 }
             }
         },
@@ -472,10 +529,10 @@ fun DestinationDetailDialog(
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        text = "${destination.category} • ${destination.distanceFromIslamabad}",
+                        text = "${destination.category} • ${destination.locationSector}",
                         color = PinePrimary,
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                     )
                 }
@@ -483,59 +540,51 @@ fun DestinationDetailDialog(
                 Text(
                     text = destination.description,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    lineHeight = 20.sp
                 )
 
+                // Transit info box
+                Surface(
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(modifier = Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.DirectionsBus, contentDescription = null, tint = PinePrimary, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Transit: ${destination.metroBusNear}", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.Payments, contentDescription = null, tint = WarmGold, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Budget Tier: ${destination.budgetLevel}", fontSize = 12.sp)
+                        }
+                    }
+                }
+
                 Text(
-                    text = "Key Highlights:",
+                    text = "Key Highlights & Facilities:",
                     fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onSurface
+                    style = MaterialTheme.typography.bodyMedium
                 )
 
                 destination.highlights.forEach { highlight ->
                     Row(
-                        verticalAlignment = Alignment.Top,
-                        modifier = Modifier.padding(vertical = 2.dp)
+                        modifier = Modifier.padding(vertical = 2.dp),
+                        verticalAlignment = Alignment.Top
                     ) {
                         Icon(
                             imageVector = Icons.Default.CheckCircle,
                             contentDescription = null,
                             tint = PinePrimary,
-                            modifier = Modifier
-                                .size(16.dp)
-                                .padding(top = 2.dp)
+                            modifier = Modifier.size(16.dp).padding(top = 2.dp)
                         )
-                        Spacer(modifier = Modifier.width(6.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = highlight,
                             style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(4.dp))
-                Surface(
-                    color = MaterialTheme.colorScheme.surfaceVariant,
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
-                        modifier = Modifier.padding(10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Schedule,
-                            contentDescription = null,
-                            tint = WarmGold,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = "Best visiting season: ${destination.bestSeason}",
-                            fontSize = 12.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            lineHeight = 18.sp
                         )
                     }
                 }
@@ -544,26 +593,369 @@ fun DestinationDetailDialog(
         confirmButton = {
             Button(
                 onClick = onAskAgent,
-                colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
-                shape = RoundedCornerShape(12.dp)
+                colors = ButtonDefaults.buttonColors(containerColor = PinePrimary)
             ) {
-                Icon(
-                    imageVector = Icons.Default.AutoAwesome,
-                    contentDescription = null,
-                    modifier = Modifier.size(16.dp)
-                )
+                Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(16.dp))
                 Spacer(modifier = Modifier.width(6.dp))
-                Text("Chat with AI Guide")
+                Text("Ask AI Concierge")
             }
         },
         dismissButton = {
-            OutlinedButton(
-                onClick = onDismiss,
-                shape = RoundedCornerShape(12.dp)
-            ) {
+            OutlinedButton(onClick = onDismiss) {
                 Text("Close")
             }
-        },
-        shape = RoundedCornerShape(20.dp)
+        }
     )
 }
+
+@Composable
+fun VerifiedVisitorTestimonialsSection() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp)
+            .testTag("testimonials_section")
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Surface(
+                color = WarmGold.copy(alpha = 0.2f),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = null,
+                        tint = Color(0xFFB78103),
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "VERIFIED VISITOR STORIES",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color(0xFF6A4A00)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = "Trusted by Visitors Across Pakistan",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+
+            Text(
+                text = "Real experiences from patients, advocates, university applicants, and families visiting Islamabad.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 2.dp, bottom = 12.dp)
+            )
+        }
+
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(14.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(SampleData.testimonials, key = { it.id }) { item ->
+                TestimonialCardItem(testimonial = item)
+            }
+        }
+    }
+}
+
+@Composable
+fun TestimonialCardItem(testimonial: com.example.model.VisitorTestimonial) {
+    Card(
+        modifier = Modifier
+            .width(310.dp)
+            .padding(vertical = 4.dp),
+        shape = RoundedCornerShape(18.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(44.dp)
+                        .background(
+                            when (testimonial.category) {
+                                "Medical Checkup" -> Color(0xFF0288D1)
+                                "Courts & Legal" -> Color(0xFF455A64)
+                                "University Entrance" -> Color(0xFF7B1FA2)
+                                else -> PinePrimary
+                            },
+                            CircleShape
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = testimonial.avatarInitials,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        fontSize = 15.sp
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(10.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = testimonial.name,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = testimonial.origin,
+                        fontSize = 11.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Surface(
+                    color = PinePrimary.copy(alpha = 0.12f),
+                    shape = RoundedCornerShape(6.dp)
+                ) {
+                    Text(
+                        text = "Verified",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = PinePrimary,
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Surface(
+                color = when (testimonial.category) {
+                    "Medical Checkup" -> Color(0xFFE1F5FE)
+                    "Courts & Legal" -> Color(0xFFECEFF1)
+                    "University Entrance" -> Color(0xFFF3E5F5)
+                    else -> Color(0xFFE8F5E9)
+                },
+                shape = RoundedCornerShape(6.dp)
+            ) {
+                Text(
+                    text = testimonial.category,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = when (testimonial.category) {
+                        "Medical Checkup" -> Color(0xFF0277BD)
+                        "Courts & Legal" -> Color(0xFF37474F)
+                        "University Entrance" -> Color(0xFF6A1B9A)
+                        else -> Color(0xFF2E7D32)
+                    },
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            // 5 Golden Stars
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                repeat(testimonial.rating) {
+                    Icon(
+                        imageVector = Icons.Default.Star,
+                        contentDescription = null,
+                        tint = WarmGold,
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "\"${testimonial.review}\"",
+                style = MaterialTheme.typography.bodySmall,
+                lineHeight = 18.sp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.88f)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Summary Pills
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                testimonial.tripSummaryPills.take(3).forEach { pill ->
+                    Surface(
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+                        Text(
+                            text = pill,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private data class VerifiedPartner(
+    val id: String,
+    val name: String,
+    val category: String,
+    val badgeLabel: String,
+    val statusText: String,
+    val brandColor: Color,
+    val textColor: Color = Color.White
+)
+
+@Composable
+fun VerifiedPartnersSection() {
+    val partners = remember {
+        listOf(
+            VerifiedPartner("indrive", "inDrive Pakistan", "Ride-Hailing & Outstation", "inD", "✓ Peer-to-Peer Fares", Color(0xFF7BDE2A), Color(0xFF0B2404)),
+            VerifiedPartner("yango", "Yango Pakistan", "Economy & Comfort Cabs", "Ya!", "✓ Fast App Pickup", Color(0xFFFF0000), Color.White),
+            VerifiedPartner("metro", "Islamabad Metro Bus", "Red, Orange, Blue & Green", "MET", "✓ PKR 50 Flat Fare", Color(0xFF00875A), Color.White),
+            VerifiedPartner("cda_ev", "CDA Electric Fleet", "Feeder Transit Across Sectors", "CDA", "✓ Eco-Friendly Bus", Color(0xFF00B8D9), Color.White),
+            VerifiedPartner("fleet_4x4", "Northern 4x4 Fleet", "Prado, Fortuner & Hiace", "4x4", "✓ Mountain Drivers", Color(0xFF34495E), Color(0xFFF39C12)),
+            VerifiedPartner("serena", "Serena Hotels", "5-Star Luxury Diplomatic", "SH", "✓ Executive Concierge", Color(0xFF1A1A1A), Color(0xFFD4AF37)),
+            VerifiedPartner("marriott", "Marriott Islamabad", "5-Star Hospitality Red Zone", "M", "✓ Corporate Rates", Color(0xFF8B0000), Color.White),
+            VerifiedPartner("centaurus", "Centaurus Suites", "Executive Residence F-8", "CT", "✓ Direct Mall Access", Color(0xFF0F2027), Color(0xFFF8B195)),
+            VerifiedPartner("guesthouses", "Guest House Alliance", "Vetted Family & Patient Stays", "GH", "✓ Quality Inspected", Color(0xFF2D6A4F), Color.White),
+            VerifiedPartner("hostels", "Capital Hostels", "Near NUST, FAST & QAU", "STU", "✓ Safe Student Stays", Color(0xFF5E35B1), Color.White)
+        )
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 8.dp)
+            .testTag("verified_partners_section")
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Surface(
+                color = PinePrimary.copy(alpha = 0.12f),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = null,
+                        tint = PinePrimary,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "VERIFIED PARTNERS & NETWORKS",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = PinePrimary
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = "Supported Transport & Stay Networks",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+
+            Text(
+                text = "Coordinated with inDrive, Yango, Metro Bus, CDA Electric, luxury 5-star hotels & verified local guest houses.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 2.dp, bottom = 12.dp)
+            )
+        }
+
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(partners, key = { it.id }) { partner ->
+                Card(
+                    modifier = Modifier
+                        .width(220.dp)
+                        .padding(vertical = 4.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 1.5.dp)
+                ) {
+                    Column(modifier = Modifier.padding(14.dp)) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(42.dp)
+                                    .background(partner.brandColor, RoundedCornerShape(10.dp)),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = partner.badgeLabel,
+                                    fontWeight = FontWeight.Black,
+                                    color = partner.textColor,
+                                    fontSize = 14.sp
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.width(10.dp))
+
+                            Column {
+                                Text(
+                                    text = partner.name,
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    maxLines = 1
+                                )
+                                Text(
+                                    text = partner.category,
+                                    fontSize = 10.5.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Surface(
+                            color = Color(0xFFE8F5E9),
+                            shape = RoundedCornerShape(4.dp)
+                        ) {
+                            Text(
+                                text = partner.statusText,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF2E7D32),
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+

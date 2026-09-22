@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Islamabad AI Explorer"
+rootProject.name = "Islamabad Gateway"
 
 include(":app")

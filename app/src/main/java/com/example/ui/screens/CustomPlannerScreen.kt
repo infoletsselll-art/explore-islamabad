@@ -1,6 +1,7 @@
 package com.example.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +23,15 @@ import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.DirectionsBus
+import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.Gavel
+import androidx.compose.material.icons.filled.LocalHospital
+import androidx.compose.material.icons.filled.Payments
+import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.ShoppingBag
+import androidx.compose.material.icons.filled.Terrain
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -49,6 +58,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.model.BudgetTier
+import com.example.model.OfficialContacts
+import com.example.model.VisitorPurpose
 import com.example.ui.theme.MountainMint
 import com.example.ui.theme.PinePrimary
 import com.example.ui.theme.WarmGold
@@ -62,21 +74,31 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
     val context = LocalContext.current
 
     val origins = listOf(
-        "Overseas Tourist (UK/US/Gulf)",
-        "Karachi / Sindh",
-        "Lahore / Punjab",
-        "Peshawar / KPK",
-        "Other International"
+        "Punjab (Lahore/FSD/Multan)",
+        "Sindh (Karachi/Hyd)",
+        "KPK (Peshawar/Abbottabad)",
+        "Balochistan (Quetta)",
+        "GB & AJK",
+        "Overseas Tourist (UK/US/Gulf)"
     )
 
     val durations = listOf(1, 2, 3, 5, 7, 10)
 
     val groupTypes = listOf(
+        "Solo Visitor",
+        "Patient & Family Attendants",
         "Family with Kids",
-        "Honeymoon Couple",
-        "Solo Explorer",
-        "Adventure Friends",
-        "Corporate Group"
+        "Lawyer / Corporate Delegation",
+        "Students / Exam Takers",
+        "Couple / Honeymoon"
+    )
+
+    val transportModes = listOf(
+        "Metro Bus & EV Buses (PKR 50)",
+        "inDrive / Yango App Cab",
+        "Full-Day Chauffeur Sedan",
+        "Luxury 4x4 Prado / Fortuner",
+        "Hiace 14-Seater Group Van"
     )
 
     LazyColumn(
@@ -98,7 +120,7 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text(
-                        text = "TAILORED TOUR ARCHITECT",
+                        text = "TAILOR-MADE VISIT STRATEGY FOR ALL BUDGETS",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
@@ -109,15 +131,15 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
-                    text = "explore Islmbd • Custom Tour Generator",
+                    text = "${OfficialContacts.APP_NAME} • Custom Visit Architect",
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
 
                 Text(
-                    text = "Design a bespoke travel package customized exactly to your needs, budget, traveling party, and dates. Backed by 24/7 AI Automation and dedicated travel desks across Pakistan (Hotline: 03457059286).",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = "Medical checkups, court hearings, university tests, shopping sprees, or northern tours. Customize your schedule, transport, and hotel to your exact wallet.",
+                    style = MaterialTheme.typography.bodySmall,
                     color = Color.White.copy(alpha = 0.9f),
                     modifier = Modifier.padding(top = 4.dp)
                 )
@@ -138,8 +160,85 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(14.dp)
                 ) {
+                    // 1. Purpose of Visit
                     Text(
-                        text = "1. Tourist Origin / Arrival City",
+                        text = "1. Purpose of Your Visit",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        items(VisitorPurpose.values()) { purp ->
+                            FilterChip(
+                                selected = (form.visitorPurpose == purp),
+                                onClick = { viewModel.updateTourRequirement(form.copy(visitorPurpose = purp)) },
+                                label = { Text(purp.title, fontSize = 12.sp) },
+                                colors = FilterChipDefaults.filterChipColors(
+                                    selectedContainerColor = PinePrimary,
+                                    selectedLabelColor = Color.White
+                                )
+                            )
+                        }
+                    }
+
+                    // 2. Budget Tier
+                    Text(
+                        text = "2. Financial Budget & Style",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        BudgetTier.values().forEach { tier ->
+                            Surface(
+                                shape = RoundedCornerShape(10.dp),
+                                color = if (form.budgetTier == tier) PinePrimary.copy(alpha = 0.12f) else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { viewModel.updateTourRequirement(form.copy(budgetTier = tier)) }
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(12.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(tier.title, fontWeight = FontWeight.Bold, fontSize = 13.sp, color = if (form.budgetTier == tier) PinePrimary else MaterialTheme.colorScheme.onSurface)
+                                        Text(tier.subtitle, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                        Text(tier.estimatedDailyPkr, fontSize = 11.sp, fontWeight = FontWeight.SemiBold, color = PinePrimary)
+                                    }
+                                    if (form.budgetTier == tier) {
+                                        Icon(Icons.Default.CheckCircle, contentDescription = null, tint = PinePrimary, modifier = Modifier.size(20.dp))
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // 3. Preferred Transport
+                    Text(
+                        text = "3. Preferred Transport Mode",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        items(transportModes) { mode ->
+                            FilterChip(
+                                selected = (form.preferredTransport == mode),
+                                onClick = { viewModel.updateTourRequirement(form.copy(preferredTransport = mode)) },
+                                label = { Text(mode, fontSize = 12.sp) },
+                                colors = FilterChipDefaults.filterChipColors(
+                                    selectedContainerColor = PinePrimary,
+                                    selectedLabelColor = Color.White
+                                )
+                            )
+                        }
+                    }
+
+                    // 4. Origin
+                    Text(
+                        text = "4. Arriving From",
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface
@@ -158,8 +257,9 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                         }
                     }
 
+                    // 5. Duration
                     Text(
-                        text = "2. Duration (Days)",
+                        text = "5. Stay Duration",
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface
@@ -178,8 +278,9 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                         }
                     }
 
+                    // 6. Traveling Group
                     Text(
-                        text = "3. Traveling Party Type",
+                        text = "6. Party / Group Type",
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface
@@ -198,193 +299,134 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                         }
                     }
 
+                    // 7. Checkboxes
                     Text(
-                        text = "4. Desired Tailored Services",
+                        text = "7. Inclusive Services Required",
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Checkbox(
                                 checked = form.includePickAndDrop,
                                 onCheckedChange = { viewModel.updateTourRequirement(form.copy(includePickAndDrop = it)) },
                                 colors = CheckboxDefaults.colors(checkedColor = PinePrimary)
                             )
-                            Text("Airport Pick & Drop (Islamabad Airport ISB)", fontSize = 13.sp)
+                            Text("Airport ISB / Daewoo Station Pick & Drop", fontSize = 13.sp)
                         }
 
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Checkbox(
                                 checked = form.includeHotel,
                                 onCheckedChange = { viewModel.updateTourRequirement(form.copy(includeHotel = it)) },
                                 colors = CheckboxDefaults.colors(checkedColor = PinePrimary)
                             )
-                            Text("Hotel / Mountain Pine Chalet Booking", fontSize = 13.sp)
+                            Text("Stay / Guest House matching budget tier", fontSize = 13.sp)
                         }
 
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Checkbox(
                                 checked = form.includeDedicatedCar,
                                 onCheckedChange = { viewModel.updateTourRequirement(form.copy(includeDedicatedCar = it)) },
                                 colors = CheckboxDefaults.colors(checkedColor = PinePrimary)
                             )
-                            Text("Dedicated 4x4 / AC Chauffeur Car with Driver", fontSize = 13.sp)
-                        }
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Checkbox(
-                                checked = form.includeCamping,
-                                onCheckedChange = { viewModel.updateTourRequirement(form.copy(includeCamping = it)) },
-                                colors = CheckboxDefaults.colors(checkedColor = PinePrimary)
-                            )
-                            Text("Alpine Camping, Bonfire & Trekking Guide", fontSize = 13.sp)
+                            Text("Dedicated City Car / Cab Assistance", fontSize = 13.sp)
                         }
                     }
 
+                    // 8. Contact & Details
                     OutlinedTextField(
                         value = form.clientName,
                         onValueChange = { viewModel.updateTourRequirement(form.copy(clientName = it)) },
                         label = { Text("Your Name") },
-                        modifier = Modifier.fillMaxWidth().testTag("planner_client_name"),
-                        singleLine = true
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
                     )
 
                     OutlinedTextField(
                         value = form.phoneOrContact,
                         onValueChange = { viewModel.updateTourRequirement(form.copy(phoneOrContact = it)) },
-                        label = { Text("WhatsApp / Contact Phone") },
-                        placeholder = { Text("+92 300 0000000") },
-                        modifier = Modifier.fillMaxWidth().testTag("planner_contact_phone"),
-                        singleLine = true
-                    )
-
-                    OutlinedTextField(
-                        value = form.travelDates,
-                        onValueChange = { viewModel.updateTourRequirement(form.copy(travelDates = it)) },
-                        label = { Text("Planned Travel Dates (e.g. October 15-18)") },
-                        modifier = Modifier.fillMaxWidth().testTag("planner_dates"),
-                        singleLine = true
+                        label = { Text("WhatsApp or Cell Number") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
                     )
 
                     OutlinedTextField(
                         value = form.specialNotes,
                         onValueChange = { viewModel.updateTourRequirement(form.copy(specialNotes = it)) },
-                        label = { Text("Special Desires / Dietary / Halal / Preferences") },
-                        placeholder = { Text("e.g. Want quiet mountain views, elder accessible, local food stops...") },
-                        modifier = Modifier.fillMaxWidth().testTag("planner_notes"),
+                        label = { Text("Specific Needs (e.g. Shifa OPD, High Court timing, wheelchair)") },
+                        modifier = Modifier.fillMaxWidth(),
                         maxLines = 3
                     )
 
+                    // Generate Button
                     Button(
                         onClick = { viewModel.generateCustomItinerary() },
                         enabled = !isGenerating,
                         colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
                         shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(50.dp)
-                            .testTag("generate_custom_plan_button")
+                        modifier = Modifier.fillMaxWidth().height(48.dp).testTag("generate_custom_plan_button")
                     ) {
                         if (isGenerating) {
-                            CircularProgressIndicator(
-                                color = Color.White,
-                                strokeWidth = 2.dp,
-                                modifier = Modifier.size(20.dp)
-                            )
-                            Spacer(modifier = Modifier.width(10.dp))
-                            Text("Agent Architecting Plan...", fontWeight = FontWeight.Bold)
-                        } else {
-                            Icon(
-                                imageVector = Icons.Default.AutoAwesome,
-                                contentDescription = null,
-                                modifier = Modifier.size(18.dp)
-                            )
+                            CircularProgressIndicator(color = Color.White, modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Generate Tailored Tour with AI", fontWeight = FontWeight.Bold)
+                            Text("Generating Tailored Visit Strategy...")
+                        } else {
+                            Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("Generate Tailored Visit Plan", fontWeight = FontWeight.Bold)
                         }
                     }
                 }
             }
         }
 
-        // Generated Itinerary Display
+        // Generated Plan Display
         generatedPlan?.let { plan ->
             item {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .testTag("generated_plan_card"),
+                        .padding(16.dp)
+                        .testTag("generated_plan_result_card"),
                     shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
                 ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
+                    Column(modifier = Modifier.padding(18.dp)) {
                         Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
+                            Text(
+                                text = "Your Tailored Itinerary & Strategy",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = PinePrimary
+                            )
                             Surface(
-                                color = WarmGold,
+                                color = WarmGold.copy(alpha = 0.3f),
                                 shape = RoundedCornerShape(8.dp)
                             ) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.CheckCircle,
-                                        contentDescription = null,
-                                        tint = Color.Black,
-                                        modifier = Modifier.size(14.dp)
-                                    )
-                                    Spacer(modifier = Modifier.width(4.dp))
-                                    Text(
-                                        text = "TAILORED PLAN READY",
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 11.sp,
-                                        color = Color.Black
-                                    )
-                                }
+                                Text(
+                                    text = form.budgetTier.title,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFF6B4E00),
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                )
                             }
                         }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        Text(
-                            text = "${form.durationDays}-Day Customized Itinerary",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = PinePrimary
-                        )
-
-                        Text(
-                            text = "Crafted for ${form.travelGroupType} • Origin: ${form.origin}",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
 
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Text(
                             text = plan,
                             style = MaterialTheme.typography.bodyMedium,
+                            lineHeight = 22.sp,
                             color = MaterialTheme.colorScheme.onSurface
                         )
 
@@ -392,23 +434,34 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             Button(
                                 onClick = { viewModel.saveCustomPlanAsInquiry() },
                                 colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
                                 shape = RoundedCornerShape(12.dp),
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .testTag("save_custom_plan_button")
+                                modifier = Modifier.weight(1f).testTag("save_plan_inquiry_button")
                             ) {
-                                Icon(
-                                    imageVector = Icons.Default.Bookmark,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text("Save to Inquiries")
+                                Icon(Icons.Default.Bookmark, contentDescription = null, modifier = Modifier.size(16.dp))
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text("Save Plan", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            }
+
+                            OutlinedButton(
+                                onClick = {
+                                    val sendIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(android.content.Intent.EXTRA_SUBJECT, "My Islamabad Tailored Visit Plan")
+                                        putExtra(android.content.Intent.EXTRA_TEXT, plan)
+                                    }
+                                    context.startActivity(android.content.Intent.createChooser(sendIntent, "Share Itinerary"))
+                                },
+                                shape = RoundedCornerShape(12.dp),
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(16.dp), tint = PinePrimary)
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text("Share", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = PinePrimary)
                             }
                         }
                     }
