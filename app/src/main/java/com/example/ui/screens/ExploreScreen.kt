@@ -68,8 +68,16 @@ import com.example.ui.theme.PinePrimary
 import com.example.ui.theme.WarmGold
 import com.example.ui.viewmodel.IslamabadViewModel
 
+import com.example.model.SocialForum
+import com.example.ui.components.FaqAccordionSection
+import com.example.ui.components.PurposeSelectionColumn
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.ui.platform.LocalContext
+
 @Composable
 fun ExploreScreen(viewModel: IslamabadViewModel) {
+    val context = LocalContext.current
+    val selectedPurpose by viewModel.selectedPurpose.collectAsState()
     val selectedCategory by viewModel.selectedDestinationCategory.collectAsState()
     val detailDestination by viewModel.selectedDestinationDetail.collectAsState()
 
@@ -103,20 +111,55 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
             )
         }
 
-        // Category Filter Chips
+        // Purpose Selection & Essentials Column (Interactive Preview)
         item {
-            Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+            PurposeSelectionColumn(
+                selectedPurpose = selectedPurpose,
+                onSelectPurpose = { purpose -> viewModel.selectPurpose(purpose) },
+                onConsultAgent = { purpose ->
+                    viewModel.selectPurpose(purpose)
+                    viewModel.selectTab(1) // Switch to AI Concierge
+                },
+                onPlanVisit = { purpose ->
+                    viewModel.selectPurpose(purpose)
+                    viewModel.selectTab(3) // Switch to Custom Planner
+                }
+            )
+        }
+
+        // Category Filter Chips & Curated Section Header
+        item {
+            Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+                Surface(
+                    color = PinePrimary.copy(alpha = 0.12f),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.padding(bottom = 4.dp)
+                ) {
+                    Text(
+                        text = if (selectedPurpose != null) "CURATED FOR YOUR VISIT" else "CAPITAL LANDMARKS DIRECTORY",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = PinePrimary,
+                        letterSpacing = 0.5.sp,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                    )
+                }
+
                 Text(
-                    text = "Open Door For All Visitors",
+                    text = if (selectedPurpose != null) "Institutions for ${selectedPurpose?.badge ?: selectedCategory}" else "Explore Curated Capital Destinations",
                     style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "Medical, Courts, Studies, Malls & Northern Hub for visitors across Pakistan & abroad",
+                    text = if (selectedPurpose != null)
+                        "Verified locations, transit options, and direct facilities aligned with your selected purpose."
+                    else
+                        "Healthcare facilities, supreme & high court complexes, universities, shopping avenues, and northern routes.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 2.dp, bottom = 8.dp)
+                    modifier = Modifier.padding(top = 2.dp, bottom = 8.dp),
+                    lineHeight = 18.sp
                 )
 
                 LazyRow(
@@ -163,6 +206,25 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
         item {
             Spacer(modifier = Modifier.height(16.dp))
             VerifiedVisitorTestimonialsSection()
+        }
+
+        // Channels & Forums Section
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            ChannelsAndForumsHomeSection(
+                onOpenForum = { forum -> viewModel.openOfficialForum(context, forum) }
+            )
+        }
+
+        // Frequently Asked Questions Section (Accordion UI)
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(modifier = Modifier.padding(horizontal = 16.dp)) {
+                FaqAccordionSection(
+                    onNavigateToAI = { viewModel.selectTab(1) }
+                )
+            }
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 
@@ -238,7 +300,7 @@ fun HeroHeader(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "A GATEWAY FOR ALL VISITORS & ALL PURPOSES",
+                        text = "A GATEWAY TO VISITORS OF ALL TYPES & FOR ALL PURPOSES",
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -262,7 +324,7 @@ fun HeroHeader(
             )
 
             Text(
-                text = "Health • Supreme/High Court • Studies • Shopping • Northern Gateway\nFlexible for all budgets (Metro, inDrive/Yango, Chauffeur & 4x4)",
+                text = "Healthcare • Supreme & High Court • Universities • Shopping • Northern Gateway\nCurated transit, vetted accommodation, and round-trip support for every budget tier.",
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.White.copy(alpha = 0.9f),
                 lineHeight = 16.sp
@@ -287,7 +349,7 @@ fun HeroHeader(
                         modifier = Modifier.size(14.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("24/7 AI Guide", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text("24/7 AI Concierge", fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 }
 
                 Button(
@@ -299,7 +361,7 @@ fun HeroHeader(
                     shape = RoundedCornerShape(20.dp),
                     contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp)
                 ) {
-                    Text("Tailor Visit Plan", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text("Plan Custom Visit", fontSize = 12.sp, fontWeight = FontWeight.Bold)
                 }
             }
         }
@@ -463,10 +525,10 @@ fun DestinationCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Tap for details",
+                    text = "View Location Profile",
                     fontSize = 12.sp,
                     color = PinePrimary,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.SemiBold
                 )
 
                 Button(
@@ -486,7 +548,7 @@ fun DestinationCard(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "Ask AI Guide",
+                        text = "Consult AI Concierge",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -869,7 +931,7 @@ fun VerifiedPartnersSection() {
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "VERIFIED PARTNERS & NETWORKS",
+                        text = "OFFICIAL MOBILITY & ACCOMMODATION PARTNERS",
                         fontSize = 10.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = PinePrimary
@@ -880,14 +942,14 @@ fun VerifiedPartnersSection() {
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "Supported Transport & Stay Networks",
+                text = "Verified Transit & Hospitality Networks",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
-                text = "Coordinated with inDrive, Yango, Metro Bus, CDA Electric, luxury 5-star hotels & verified local guest houses.",
+                text = "Integrated coordination with inDrive, Yango, the Islamabad Metro Bus network, CDA Electric feeder fleet, 5-star luxury hotels, and inspected family guest houses.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 2.dp, bottom = 12.dp)
@@ -959,6 +1021,116 @@ fun VerifiedPartnersSection() {
                                 modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                             )
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ChannelsAndForumsHomeSection(
+    onOpenForum: (SocialForum) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+            .testTag("channels_and_forums_section")
+    ) {
+        Surface(
+            color = PinePrimary.copy(alpha = 0.12f),
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Public,
+                    contentDescription = null,
+                    tint = PinePrimary,
+                    modifier = Modifier.size(13.dp)
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    text = "DIRECT REACH & FORUMS",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = PinePrimary,
+                    letterSpacing = 0.5.sp
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text(
+            text = "Channels & Forums",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.ExtraBold,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        Text(
+            text = "Connect directly with official social platforms, immediate assistance channels, and community inquiry desks across Pakistan and abroad.",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 2.dp, bottom = 12.dp),
+            lineHeight = 18.sp
+        )
+
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(SampleData.officialForums) { forum ->
+                Card(
+                    shape = RoundedCornerShape(14.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                    modifier = Modifier
+                        .width(200.dp)
+                        .clickable { onOpenForum(forum) }
+                        .testTag("forum_chip_${forum.id}")
+                ) {
+                    Column(modifier = Modifier.padding(14.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = forum.name,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 13.sp,
+                                modifier = Modifier.weight(1f)
+                            )
+                            if (forum.isPrimarySupport) {
+                                Surface(
+                                    color = WarmGold.copy(alpha = 0.25f),
+                                    shape = RoundedCornerShape(4.dp)
+                                ) {
+                                    Text(
+                                        text = "OFFICIAL",
+                                        fontSize = 8.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = PinePrimary,
+                                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                    )
+                                }
+                            }
+                        }
+                        Text(
+                            text = forum.handleOrTarget,
+                            fontSize = 11.5.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = PinePrimary
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = forum.description,
+                            fontSize = 10.5.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 2,
+                            lineHeight = 14.sp
+                        )
                     }
                 }
             }

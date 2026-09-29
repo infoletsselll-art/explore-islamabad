@@ -120,7 +120,7 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text(
-                        text = "TAILOR-MADE VISIT STRATEGY FOR ALL BUDGETS",
+                        text = "TAILORED VISIT ARCHITECT & STRATEGY",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
@@ -131,17 +131,18 @@ fun CustomPlannerScreen(viewModel: IslamabadViewModel) {
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
-                    text = "${OfficialContacts.APP_NAME} • Custom Visit Architect",
+                    text = "${OfficialContacts.APP_NAME} • Custom Itinerary Architect",
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
 
                 Text(
-                    text = "Medical checkups, court hearings, university tests, shopping sprees, or northern tours. Customize your schedule, transport, and hotel to your exact wallet.",
+                    text = "Whether traveling for specialized hospital care, supreme court proceedings, academic examinations, diplomatic affairs, or northern expeditions — orchestrate your custom schedule, transit, and lodging with professional precision.",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.White.copy(alpha = 0.9f),
-                    modifier = Modifier.padding(top = 4.dp)
+                    modifier = Modifier.padding(top = 4.dp),
+                    lineHeight = 16.sp
                 )
             }
         }

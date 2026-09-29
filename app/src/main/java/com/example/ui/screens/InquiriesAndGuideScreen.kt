@@ -115,7 +115,7 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.ContactPhone, contentDescription = null, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Official Contacts & AI", fontWeight = FontWeight.Bold)
+                        Text("Channels & Forums", fontWeight = FontWeight.Bold)
                     }
                 }
             )

@@ -67,6 +67,7 @@ import com.example.model.SocialForum
 import com.example.ui.theme.MountainMint
 import com.example.ui.theme.PinePrimary
 import com.example.ui.theme.WarmGold
+import com.example.ui.components.FaqAccordionSection
 import com.example.ui.viewmodel.IslamabadViewModel
 
 @Composable
@@ -540,12 +541,12 @@ fun OfficialContactsAndForumsContent(
         // All Searchable Forums & Social Platforms
         item {
             Text(
-                text = "Official Forums & Immediate Client Channels",
+                text = "Channels & Forums",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "Easily searchable and accessible for tourists across Pakistan and abroad.",
+                text = "Official social platforms, immediate assistance channels, and community inquiry desks across Pakistan and abroad.",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -555,6 +556,14 @@ fun OfficialContactsAndForumsContent(
             ForumCardItem(
                 forum = forum,
                 onClick = { viewModel.openOfficialForum(context, forum) }
+            )
+        }
+
+        // Frequently Asked Questions Section (Accordion UI)
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+            FaqAccordionSection(
+                onNavigateToAI = { viewModel.selectTab(1) }
             )
         }
     }

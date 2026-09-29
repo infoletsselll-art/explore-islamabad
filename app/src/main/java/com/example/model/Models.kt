@@ -17,45 +17,175 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class VisitorPurpose(
     val title: String,
+    val badge: String,
     val icon: ImageVector,
     val description: String,
+    val categoryMatch: String,
+    val essentialThings: List<String>,
+    val guidanceChecklist: List<String>,
     val keyDestinations: List<String>
 ) {
     HEALTH_MEDICAL(
-        title = "Health & Medical Checkup",
+        title = "Healthcare & Hospital Consultations",
+        badge = "Healthcare",
         icon = Icons.Default.LocalHospital,
-        description = "Specialist checkups, diagnostic tests, surgeries & hospital visits",
-        keyDestinations = listOf("Shifa International (H-8)", "PIMS Hospital (G-8)", "Maroof International (F-10)", "Kulsum International (Blue Area)", "Quaid-e-Azam Hospital")
+        description = "Tertiary hospital consultations, specialist diagnostic evaluations, and patient medical care.",
+        categoryMatch = "Health & Hospitals",
+        essentialThings = listOf(
+            "Specialist Clinical OPDs",
+            "Wheelchair & Patient Transit",
+            "Nearby Guest Stays & Suites",
+            "24/7 Diagnostic & Lab Facilities",
+            "Direct Metro Hospital Access"
+        ),
+        guidanceChecklist = listOf(
+            "Schedule clinical appointments prior to arrival in the capital",
+            "Book verified guest houses situated along Pitras Bukhari Rd or Sector F-10",
+            "Utilize the Red Line Metro Bus for direct, unhindered access to PIMS",
+            "Arrange wheelchair-equipped inDrive or dedicated chauffeured transport"
+        ),
+        keyDestinations = listOf(
+            "Shifa International Hospital (Sector H-8/4)",
+            "PIMS Hospital & Children's Center (Sector G-8)",
+            "Maroof International Hospital (Sector F-10)",
+            "Kulsum International Hospital (Blue Area)",
+            "Quaid-e-Azam International Hospital"
+        )
     ),
     LEGAL_COURTS(
-        title = "Court & Official Affairs",
+        title = "Judicial, Legal & Official Affairs",
+        badge = "Judicial",
         icon = Icons.Default.Gavel,
-        description = "Supreme Court, Islamabad High Court, Embassies / Diplomatic Enclave & Ministries",
-        keyDestinations = listOf("Supreme Court of Pakistan", "Islamabad High Court (G-10)", "Diplomatic Enclave (Visa & Embassies)", "Federal Secretariat (Pak Sectt)", "District Courts (F-8/G-11)")
+        description = "Supreme Court proceedings, High Court hearings, Federal Ministries, and Embassy affairs.",
+        categoryMatch = "Courts & Official",
+        essentialThings = listOf(
+            "Apex Court Cause Lists",
+            "Law Chamber Facilities",
+            "Red Zone Entry Clearance",
+            "Diplomatic Shuttle Access",
+            "Executive Hotel Stays"
+        ),
+        guidanceChecklist = listOf(
+            "Bring original National Identity Card (CNIC) and observe formal court attire",
+            "Arrive at Constitution Avenue prior to 08:30 AM to pass through security gates seamlessly",
+            "Choose executive lodging in Blue Area, Serena Hotel, or Sector G-10 for swift access",
+            "Consult the online Cause List to verify court bench scheduling and courtroom numbers"
+        ),
+        keyDestinations = listOf(
+            "Supreme Court of Pakistan (Constitution Avenue)",
+            "Islamabad High Court (Sector G-10)",
+            "Diplomatic Enclave & Consular Missions",
+            "Federal Secretariat (Pak Secretariat)",
+            "District & Sessions Court Complex"
+        )
     ),
     EDUCATION_EXAMS(
-        title = "Study, Tests & Interviews",
+        title = "Higher Education & Academic Testing",
+        badge = "Academics",
         icon = Icons.Default.School,
-        description = "University visits, MDCAT/ECAT, CSS exams, convocations & admissions",
-        keyDestinations = listOf("NUST (H-12)", "FAST-NUCES (H-9)", "Quaid-i-Azam University (QAU)", "COMSATS (Park Road)", "Air University & Bahria (E-9)")
+        description = "University entrance exams, NET/MDCAT, CSS evaluations, convocations, and campus admissions.",
+        categoryMatch = "Universities & Study",
+        essentialThings = listOf(
+            "University Test Centers",
+            "Vetted Student Hostels",
+            "Metro Student Passes",
+            "Quiet Libraries & Study Cafes",
+            "Direct Campus Shuttles"
+        ),
+        guidanceChecklist = listOf(
+            "Locate exam centers at NUST H-12, FAST H-9, or Quaid-i-Azam University in advance",
+            "Reserve economical, safe student accommodation in Sectors H-13, G-9, or I-8",
+            "Use the Orange and Green Metro feeder buses for rapid and budget-conscious transit",
+            "Keep printed roll number slips, required identification, and stationery ready"
+        ),
+        keyDestinations = listOf(
+            "NUST Main Campus (Sector H-12)",
+            "FAST-NUCES Campus (Sector H-9)",
+            "Quaid-i-Azam University (Margalla Foothills)",
+            "COMSATS University (Park Road)",
+            "Air University & Bahria University (Sector E-9)"
+        )
     ),
     SHOPPING_LIFESTYLE(
-        title = "Shopping & Bazaars",
+        title = "Commercial Shopping & Lifestyle",
+        badge = "Lifestyle",
         icon = Icons.Default.ShoppingBag,
-        description = "Modern mega malls, fashion boutiques, electronics & traditional bazaars",
-        keyDestinations = listOf("Centaurus Mall (F-8)", "Giga Mall (DHA II)", "Safa Gold Mall (F-7)", "Jinnah Super / Super Market (F-7/F-6)", "Aabpara & Raja Bazaar")
+        description = "Flagship luxury malls, designer fashion avenues, gourmet dining, and traditional artisan markets.",
+        categoryMatch = "Shopping & Malls",
+        essentialThings = listOf(
+            "Flagship Multi-Level Malls",
+            "Designer Boutiques & Apparel",
+            "Traditional Handcraft Bazaars",
+            "Gourmet Restaurant Terraces",
+            "Currency Exchange Desks"
+        ),
+        guidanceChecklist = listOf(
+            "Visit Centaurus Mall in F-8 and Giga Mall in DHA for premier international brands",
+            "Explore Jinnah Super (F-7 Markaz) and Super Market (F-6) for chic boutiques and artisan crafts",
+            "Browse Aabpara Bazaar for budget electronics, textiles, and authentic regional street fare",
+            "Take advantage of modern digital payment options and certified exchange centers in Blue Area"
+        ),
+        keyDestinations = listOf(
+            "The Centaurus Mall (Sector F-8/4)",
+            "Giga Mall (DHA Phase II)",
+            "Safa Gold Mall (Sector F-7 Markaz)",
+            "Jinnah Super Market (Sector F-7)",
+            "Beverly Centre & Super Market (Sector F-6)"
+        )
     ),
     TOURISM_EXPLORE(
-        title = "Islamabad Sightseeing",
+        title = "Scenic Tourism, Nature & Heritage",
+        badge = "Heritage",
         icon = Icons.Default.LocationCity,
-        description = "Iconic architecture, Margalla hills trails, heritage & scenic viewpoints",
-        keyDestinations = listOf("Faisal Mosque", "Daman-e-Koh & Monal", "Pakistan Monument & Museum", "Rawal Lake & Lake View Park", "Saidpur Heritage Village")
+        description = "Iconic national landmarks, Margalla Hills scenic lookouts, heritage villages, and nature trails.",
+        categoryMatch = "Tourism & Heritage",
+        essentialThings = listOf(
+            "Margalla Panoramic Lookouts",
+            "Faisal Mosque Architecture",
+            "National Cultural Museums",
+            "Rawal Lake Boating Promenade",
+            "Hiking Trails 3 & 5"
+        ),
+        guidanceChecklist = listOf(
+            "Tour the landmark Faisal Mosque at sunset for inspiring architectural vistas",
+            "Drive to Daman-e-Koh and Pir Sohawa for breathtaking views of the illuminated capital skyline",
+            "Explore Pakistan Monument and Lok Virsa Museum to discover national heritage and crafts",
+            "Embark on a refreshing morning hike along Margalla Trail 3 or Trail 5"
+        ),
+        keyDestinations = listOf(
+            "Faisal Mosque (Margalla Sanctuary)",
+            "Daman-e-Koh & Pir Sohawa Lookouts",
+            "Pakistan Monument & National Museum",
+            "Rawal Lake Promenade & Water Sports",
+            "Saidpur Historic Village & Margalla Ridge"
+        )
     ),
     NORTHERN_GATEWAY(
-        title = "Gateway to North",
+        title = "Northern Expeditions & Transit Hub",
+        badge = "Expedition",
         icon = Icons.Default.Terrain,
-        description = "Transit departure to Murree, Galyat, Swat, Naran, Hunza & Skardu",
-        keyDestinations = listOf("Murree Mall Road & Expressway", "Nathia Gali & Mushkpuri Peak", "Hazara Motorway to Naran/Kaghan", "Karakoram Highway to Hunza", "Skardu & Gilgit flights/transit")
+        description = "Departure gateway for Murree, Galyat, Kaghan Valley, Swat, Hunza, and Gilgit-Baltistan.",
+        categoryMatch = "Northern Gateway",
+        essentialThings = listOf(
+            "Inspected 4x4 Prado & Hiace Fleet",
+            "Direct Mountain Flight Connections",
+            "Real-Time Weather & Highway Alerts",
+            "Veteran High-Altitude Drivers",
+            "Transit Hotel Coordination"
+        ),
+        guidanceChecklist = listOf(
+            "Review real-time conditions on Murree Expressway, Hazara Motorway, and Babusar Pass",
+            "Reserve experienced mountain chauffeurs and vetted 4x4 vehicles for elevated routes",
+            "Enjoy an overnight restorative stay in Islamabad prior to morning departures north",
+            "Carry appropriate high-altitude clothing, power banks, and essential emergency provisions"
+        ),
+        keyDestinations = listOf(
+            "Murree Expressway & Mall Road Route",
+            "Nathia Gali & Ayubia National Reserve",
+            "Hazara Motorway to Naran & Kaghan",
+            "Karakoram Highway Departure to Hunza",
+            "Skardu & Gilgit Mountain Flight Hub (ISB Airport)"
+        )
     )
 }
 
@@ -67,24 +197,24 @@ enum class BudgetTier(
     val estimatedDailyPkr: String
 ) {
     BUDGET_SAVER(
-        title = "Budget Friendly",
-        subtitle = "Students, patients & economy travelers",
-        transportType = "Metro Bus (Red/Orange/Blue) + EV Feeder Buses",
-        stayType = "Affordable Guest Houses & Hostels (G & I Sectors)",
+        title = "Budget-Conscious Traveler",
+        subtitle = "Ideal for students, medical patients & economy transit",
+        transportType = "Metro Bus System (Red, Orange, Blue & Green) + CDA EV Feeders",
+        stayType = "Quality-inspected guest lodgings & student hostels (Sectors G & I)",
         estimatedDailyPkr = "PKR 1,500 – 3,500 / day"
     ),
     COMFORT_STANDARD(
-        title = "Comfort & Family",
-        subtitle = "inDrive/Yango cabs, 3-star hotels & family dining",
-        transportType = "inDrive / Yango App Cabs & City Sedans",
-        stayType = "3-Star Boutique Hotels & Centaurus Apartments",
+        title = "Comfort & Family Tier",
+        subtitle = "Reliable inDrive/Yango mobility, 3-star boutique hotels & family suites",
+        transportType = "On-demand inDrive & Yango app rides + comfortable air-conditioned sedans",
+        stayType = "3-Star boutique hotels & premium serviced apartments in Sectors F & E",
         estimatedDailyPkr = "PKR 5,000 – 12,000 / day"
     ),
     EXECUTIVE_VIP(
-        title = "Executive & VIP 4x4",
-        subtitle = "Chauffeur sedan, 4x4 Prado/Fortuner & luxury hotels",
-        transportType = "Dedicated Chauffeur Sedan / 4x4 Prado or Fortuner",
-        stayType = "5-Star Hotels (Serena, Marriott, Ramada)",
+        title = "Executive & VIP 4x4 Tier",
+        subtitle = "Private chauffeur-driven sedans, luxury 4x4 SUVs & 5-star hospitality",
+        transportType = "Dedicated chauffeur luxury sedan or 4x4 Prado / Toyota Fortuner",
+        stayType = "5-Star landmark hotels (Serena Hotel, Marriott Islamabad, Ramada)",
         estimatedDailyPkr = "PKR 18,000 – 45,000 / day"
     )
 }
@@ -97,75 +227,75 @@ enum class AgentType(
     val defaultPrompts: List<String>
 ) {
     ALL_PURPOSE_CONCIERGE(
-        title = "Islamabad All-Purpose Concierge",
-        subtitle = "Open door for all visitors: Health, Courts, Study & Tourism",
-        greeting = "Khushamdeed! I am your 24/7 Islamabad Concierge. Whatever the purpose of your visit—medical appointments, Supreme/High Court hearings, university tests, shopping, or transit to the Northern Areas—I will guide your full round trip, arrange the best transport (Metro, inDrive, Yango, or private 4x4), and tailor everything to your exact budget. How can I assist your trip today?",
+        title = "Visit Islamabad AI Concierge",
+        subtitle = "All-in-one guidance for healthcare, judicial, academic & leisure visits",
+        greeting = "Welcome to Visit Islamabad — A gateway to visitors of all backgrounds and for all journeys. Whether you are traveling for hospital consultations, Supreme or High Court proceedings, university testing, retail shopping, or transit to the Northern Areas, I am here to orchestrate your entire itinerary. How may I assist your visit today?",
         icon = Icons.Default.AutoAwesome,
         defaultPrompts = listOf(
-            "I'm coming for a medical checkup at Shifa Hospital, help me plan transport & stay",
-            "I have a Supreme Court hearing tomorrow, what is the best route and nearby hotel?",
-            "What is the cheapest way to travel around Islamabad via Metro and EV bus?",
-            "Plan a 3-day customized family tour including shopping and Margalla Hills"
+            "I am visiting for medical consultation at Shifa Hospital; please organize transit and lodging options.",
+            "I have an upcoming Supreme Court hearing tomorrow morning; what is the optimal route and nearby hotel?",
+            "What is the most economical and efficient way to navigate Islamabad via the Metro and EV bus network?",
+            "Please curate a bespoke 3-day family itinerary including shopping, cultural monuments, and the Margalla Hills."
         )
     ),
     HEALTH_MEDICAL(
-        title = "Medical & Hospital Navigator",
-        subtitle = "PIMS, Shifa, Maroof, Kulsum & Patient Logistics",
-        greeting = "Assalam-o-Alaikum. I specialize in medical visitor assistance across Islamabad. I can guide you on hospital locations (Shifa, PIMS, Maroof, Kulsum, Quaid-e-Azam), specialist OPD timings, patient-friendly guest houses nearby, and wheelchair/ambulance or cab transit.",
+        title = "Medical & Patient Navigator",
+        subtitle = "Specialist assistance for PIMS, Shifa, Maroof, Kulsum & patient transit",
+        greeting = "Welcome. I specialize in healthcare and patient logistics throughout Islamabad. I can guide you through leading medical centers (Shifa International, PIMS, Maroof, Kulsum, and Quaid-e-Azam Hospital), outpatient consultation timings, nearby wheelchair-accessible accommodation, and reliable patient transit.",
         icon = Icons.Default.LocalHospital,
         defaultPrompts = listOf(
-            "Which guest houses are within walking distance of Shifa International H-8?",
-            "How to reach PIMS Hospital from Rawalpindi Railway Station via Metro?",
-            "Where to find 24/7 pharmacies and diagnostic labs in Blue Area?",
-            "Best comfortable cab options for an elderly patient coming from Peshawar"
+            "Which verified patient guest houses are situated within walking distance of Shifa International in Sector H-8?",
+            "How do I travel smoothly from Rawalpindi Railway Station to PIMS Hospital via the Metro Bus?",
+            "Where can I find 24/7 pharmacies, diagnostic imaging laboratories, and emergency care in Blue Area?",
+            "What are the most comfortable ride-hailing options for an elderly patient arriving from out of town?"
         )
     ),
     COURTS_OFFICIAL(
-        title = "Courts & Diplomatic Navigator",
-        subtitle = "Supreme Court, High Court, Diplomatic Enclave & Red Zone",
-        greeting = "Welcome. Coming for legal or governmental affairs? I can guide you on access protocols for the Supreme Court of Pakistan, Islamabad High Court (G-10), District Courts, the Diplomatic Enclave (Visa interviews at US, UK, Schengen embassies), and Federal Ministries.",
+        title = "Judicial & Consular Advisor",
+        subtitle = "Supreme Court, High Court, Diplomatic Enclave & Red Zone clearance",
+        greeting = "Greetings. Are you visiting Islamabad for legal proceedings or government consultations? I provide comprehensive guidance regarding security protocols, dress codes, cause lists, and transportation for the Supreme Court of Pakistan, Islamabad High Court in Sector G-10, District Courts, and the Diplomatic Enclave.",
         icon = Icons.Default.Gavel,
         defaultPrompts = listOf(
-            "What are the security and entry rules for Islamabad High Court G-10?",
-            "How to enter the Diplomatic Enclave for a visa interview (Shuttle Service info)?",
-            "Best hotels near the Supreme Court of Pakistan and Constitutional Avenue",
-            "How to reach Pakistan Secretariat from Islamabad Airport via Metro bus"
+            "What are the official security clearance guidelines and entrance protocols for Islamabad High Court in G-10?",
+            "How do I arrange the Diplomatic Shuttle Service at Avenue 3 Gate for a foreign embassy visa interview?",
+            "Which executive hotels offer the fastest commute to the Supreme Court of Pakistan on Constitution Avenue?",
+            "What is the best route to reach the Federal Secretariat from Islamabad International Airport?"
         )
     ),
     STUDY_ACADEMICS(
-        title = "Student & University Advisor",
-        subtitle = "NUST, FAST, QAU, COMSATS, Entry Tests & Hostels",
-        greeting = "Hello student & academic visitors! Visiting Islamabad for NUST NET, FAST test, CSS academy, university admissions, or convocations? I can help you find student budget hostels, Metro/bus routes, and university campus directions.",
+        title = "Academic & Admissions Counselor",
+        subtitle = "NUST, FAST, QAU, COMSATS, entrance examinations & student hostels",
+        greeting = "Welcome, students, researchers, and candidates! Whether you are appearing for NUST NET, FAST examinations, CSS academies, university admissions, or convocations, I am here to help you discover safe student accommodation, public transit routes, and campus amenities.",
         icon = Icons.Default.School,
         defaultPrompts = listOf(
-            "How to reach NUST H-12 from Faizabad Bus Terminal via Metro?",
-            "Affordable student hostels near FAST H-9 and NUST",
-            "Best study cafes and public libraries in Islamabad for CSS aspirants",
-            "COMSATS Park Road transport options from Islamabad sectors"
+            "How do I navigate from Faizabad Bus Interchange to NUST Sector H-12 via public transit?",
+            "Where can I find safe, budget-friendly student hostels near FAST H-9 and NUST H-12?",
+            "Which quiet study cafes and reference libraries are best suited for CSS examination candidates?",
+            "What are the transport schedules for COMSATS University on Park Road from central sectors?"
         )
     ),
     TRANSIT_BUDGET(
-        title = "Transport & Fare Optimizer",
-        subtitle = "Metro Bus, inDrive, Yango, Local Cabs & 4x4 Jeeps",
-        greeting = "Need transport? Whether your budget is PKR 50 for the Metro Bus or a luxury chauffeur-driven Prado, I compare all options: Metro Red/Orange/Blue/Green lines, inDrive & Yango fare estimates, Airport ISB pick/drop, and 4x4 mountain rentals.",
+        title = "Transit & Mobility Strategist",
+        subtitle = "Islamabad Metro Bus, inDrive, Yango, airport transfers & 4x4 SUVs",
+        greeting = "Greetings! Whether you prefer the PKR 50 convenience of the Metro Bus network or a chauffeur-driven luxury 4x4, I compare and optimize all mobility options across Islamabad: the Red, Orange, Blue, and Green Metro lines, inDrive & Yango fare estimates, airport transfers, and northern expedition vehicles.",
         icon = Icons.Default.DirectionsCar,
         defaultPrompts = listOf(
-            "Compare fares: Metro Bus vs inDrive vs Yango from Airport to F-7",
-            "Islamabad Metro Bus complete route map and ticket cost",
-            "Book a chauffeur-driven sedan for a full 12-hour city visit",
-            "What is the cost of renting a Prado or Fortuner with driver for Murree?"
+            "Compare fares and transit durations: Metro Bus vs inDrive vs Yango from Airport to Sector F-7.",
+            "Can you provide the complete route map, operating hours, and ticket guidelines for the Islamabad Metro Bus?",
+            "How do I arrange a full-day chauffeured sedan for executive corporate meetings across Blue Area?",
+            "What is the approximate rate for renting an inspected Toyota Prado or Fortuner with a mountain driver?"
         )
     ),
     NORTHERN_GATEWAY(
-        title = "Northern Gateway Navigator",
-        subtitle = "Murree, Galyat, Swat, Naran, Hunza & Skardu Routes",
-        greeting = "Islamabad is the crown gateway to the Northern wonders of Pakistan! I organize round trips from Islamabad to Murree, Nathia Gali, Kaghan, Swat, Hunza, and Skardu with experienced mountain drivers, hotel bookings, and weather telemetry.",
+        title = "Northern Expeditions Navigator",
+        subtitle = "Murree, Galyat, Kaghan Valley, Swat, Hunza & Skardu departures",
+        greeting = "Islamabad stands as the majestic gateway to the scenic northern peaks of Pakistan! I assist travelers with round-trip expeditions from Islamabad to Murree, Nathia Gali, Kaghan, Swat, Hunza, and Skardu, coordinating vetted mountain drivers, scenic lodging, and weather updates.",
         icon = Icons.Default.Terrain,
         defaultPrompts = listOf(
-            "How to travel from Islamabad to Nathia Gali and Murree in 1 day?",
-            "Road status of Hazara Motorway and Babusar Pass to Naran",
-            "Best 5-day Northern tour package starting and ending in Islamabad",
-            "Hiace van rental cost for 10 people to Hunza from Islamabad"
+            "What is the optimal one-day round-trip itinerary from Islamabad to Nathia Gali and Murree?",
+            "What is the current highway and weather status of Hazara Motorway and Babusar Pass towards Naran?",
+            "Can you suggest a curated 5-day Northern Pakistan itinerary starting and finishing in Islamabad?",
+            "What are the rental rates for a private Toyota Hiace commuter van for 10 passengers traveling to Hunza?"
         )
     )
 }

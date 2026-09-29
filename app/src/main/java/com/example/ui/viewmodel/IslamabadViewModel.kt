@@ -41,7 +41,10 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     private val _useUsd = MutableStateFlow(false)
     val useUsd: StateFlow<Boolean> = _useUsd.asStateFlow()
 
-    // Destination filters
+    // Purpose and Destination filters
+    private val _selectedPurpose = MutableStateFlow<VisitorPurpose?>(null)
+    val selectedPurpose: StateFlow<VisitorPurpose?> = _selectedPurpose.asStateFlow()
+
     private val _selectedDestinationCategory = MutableStateFlow("All")
     val selectedDestinationCategory: StateFlow<String> = _selectedDestinationCategory.asStateFlow()
 
@@ -163,8 +166,36 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         _useUsd.value = !_useUsd.value
     }
 
+    fun selectPurpose(purpose: VisitorPurpose?) {
+        _selectedPurpose.value = purpose
+        if (purpose != null) {
+            _selectedDestinationCategory.value = purpose.categoryMatch
+            // Synchronize active AI Concierge with chosen purpose
+            val targetAgent = when (purpose) {
+                VisitorPurpose.HEALTH_MEDICAL -> AgentType.HEALTH_MEDICAL
+                VisitorPurpose.LEGAL_COURTS -> AgentType.COURTS_OFFICIAL
+                VisitorPurpose.EDUCATION_EXAMS -> AgentType.STUDY_ACADEMICS
+                VisitorPurpose.SHOPPING_LIFESTYLE -> AgentType.ALL_PURPOSE_CONCIERGE
+                VisitorPurpose.TOURISM_EXPLORE -> AgentType.ALL_PURPOSE_CONCIERGE
+                VisitorPurpose.NORTHERN_GATEWAY -> AgentType.NORTHERN_GATEWAY
+            }
+            setAgent(targetAgent)
+            // Pre-fill Custom Planner requirement
+            _customTourForm.value = _customTourForm.value.copy(visitorPurpose = purpose)
+        } else {
+            _selectedDestinationCategory.value = "All"
+        }
+    }
+
+    fun clearPurposeFilter() {
+        selectPurpose(null)
+    }
+
     fun setDestinationCategory(category: String) {
         _selectedDestinationCategory.value = category
+        // Sync selected purpose if matching
+        val matchingPurpose = VisitorPurpose.values().firstOrNull { it.categoryMatch.equals(category, ignoreCase = true) }
+        _selectedPurpose.value = matchingPurpose
     }
 
     fun openDestinationDetail(destination: Destination?) {

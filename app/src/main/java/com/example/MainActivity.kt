@@ -130,9 +130,10 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
                                 color = Color.White
                             )
                             Text(
-                                text = "Hotline & AI: ${com.example.model.OfficialContacts.OFFICIAL_PHONE}",
+                                text = "24/7 Concierge Hotline: ${com.example.model.OfficialContacts.OFFICIAL_PHONE}",
                                 fontSize = 10.sp,
-                                color = Color.White.copy(alpha = 0.85f)
+                                color = Color.White.copy(alpha = 0.9f),
+                                fontWeight = FontWeight.Medium
                             )
                         }
                     }

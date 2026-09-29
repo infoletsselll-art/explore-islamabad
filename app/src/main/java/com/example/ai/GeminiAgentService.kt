@@ -4,6 +4,7 @@ import com.example.BuildConfig
 import com.example.model.AgentType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import com.example.model.ChatMessage
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -11,6 +12,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
+
+enum class AiTaskComplexity {
+    GENERAL_CHAT,       // Uses gemini-3.5-flash for general multi-turn conversation
+    COMPLEX_ITINERARY,  // Uses gemini-3.1-pro-preview for complex reasoning and bespoke itineraries
+    FAST_QUERY          // Uses gemini-3.1-flash-lite-preview for rapid response tasks
+}
 
 class GeminiAgentService {
 
@@ -22,7 +29,26 @@ class GeminiAgentService {
 
     private val mediaType = "application/json; charset=utf-8".toMediaType()
 
-    suspend fun consultAgent(agent: AgentType, userPrompt: String): String = withContext(Dispatchers.IO) {
+    suspend fun consultAgent(
+        agent: AgentType,
+        userPrompt: String,
+        complexity: AiTaskComplexity = AiTaskComplexity.GENERAL_CHAT
+    ): String = withContext(Dispatchers.IO) {
+        val syntheticHistory = listOf(
+            ChatMessage(
+                text = userPrompt,
+                isFromUser = true,
+                agentType = agent
+            )
+        )
+        return@withContext consultAgentMultiTurn(agent, syntheticHistory, complexity)
+    }
+
+    suspend fun consultAgentMultiTurn(
+        agent: AgentType,
+        conversationHistory: List<ChatMessage>,
+        complexity: AiTaskComplexity = AiTaskComplexity.GENERAL_CHAT
+    ): String = withContext(Dispatchers.IO) {
         val apiKey = try {
             BuildConfig.GEMINI_API_KEY
         } catch (e: Throwable) {
@@ -31,7 +57,7 @@ class GeminiAgentService {
 
         if (apiKey.isNotBlank() && apiKey != "MY_GEMINI_API_KEY") {
             try {
-                val responseText = callGeminiRestApiWithSearch(apiKey, agent, userPrompt)
+                val responseText = callGeminiRestApiMultiTurn(apiKey, agent, conversationHistory, complexity)
                 if (responseText.isNotBlank()) {
                     return@withContext responseText
                 }
@@ -40,15 +66,53 @@ class GeminiAgentService {
             }
         }
 
-        // High-fidelity domain expert fallback
-        return@withContext generateExpertFallback(agent, userPrompt)
+        val lastUserMessage = conversationHistory.lastOrNull { it.isFromUser }?.text ?: ""
+        return@withContext generateExpertFallback(agent, lastUserMessage)
     }
 
-    private fun callGeminiRestApiWithSearch(apiKey: String, agent: AgentType, userPrompt: String): String {
-        // Using gemini-3.5-flash with Search Grounding
-        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=$apiKey"
+    private fun callGeminiRestApiMultiTurn(
+        apiKey: String,
+        agent: AgentType,
+        conversationHistory: List<ChatMessage>,
+        complexity: AiTaskComplexity
+    ): String {
+        val modelName = when (complexity) {
+            AiTaskComplexity.COMPLEX_ITINERARY -> "gemini-3.1-pro-preview"
+            AiTaskComplexity.GENERAL_CHAT -> "gemini-3.5-flash"
+            AiTaskComplexity.FAST_QUERY -> "gemini-3.1-flash-lite-preview"
+        }
 
+        val url = "https://generativelanguage.googleapis.com/v1beta/models/$modelName:generateContent?key=$apiKey"
         val systemInstruction = getAgentSystemInstruction(agent)
+
+        // Filter conversation history to begin from the first user turn onward
+        val firstUserIndex = conversationHistory.indexOfFirst { it.isFromUser }
+        val relevantMessages = if (firstUserIndex >= 0) {
+            conversationHistory.subList(firstUserIndex, conversationHistory.size)
+        } else {
+            conversationHistory
+        }
+
+        val contentsJson = JSONArray()
+        for (msg in relevantMessages) {
+            val turn = JSONObject().apply {
+                put("role", if (msg.isFromUser) "user" else "model")
+                put("parts", JSONArray().apply {
+                    put(JSONObject().apply { put("text", msg.text) })
+                })
+            }
+            contentsJson.put(turn)
+        }
+
+        // If history had no user turns, guarantee at least one user turn
+        if (contentsJson.length() == 0) {
+            contentsJson.put(JSONObject().apply {
+                put("role", "user")
+                put("parts", JSONArray().apply {
+                    put(JSONObject().apply { put("text", "Hello, please assist me with my visit to Islamabad.") })
+                })
+            })
+        }
 
         val rootJson = JSONObject().apply {
             put("systemInstruction", JSONObject().apply {
@@ -56,23 +120,17 @@ class GeminiAgentService {
                     put(JSONObject().apply { put("text", systemInstruction) })
                 })
             })
-            put("contents", JSONArray().apply {
-                put(JSONObject().apply {
-                    put("parts", JSONArray().apply {
-                        put(JSONObject().apply { put("text", userPrompt) })
-                    })
-                })
-            })
-            // Google Search tool for live grounded facts
+            put("contents", contentsJson)
+            // Live Search Grounding for verified, real-world capital information
             put("tools", JSONArray().apply {
                 put(JSONObject().apply {
                     put("googleSearch", JSONObject())
                 })
             })
             put("generationConfig", JSONObject().apply {
-                put("temperature", 0.7)
+                put("temperature", if (complexity == AiTaskComplexity.COMPLEX_ITINERARY) 0.4 else 0.7)
                 put("topP", 0.95)
-                put("maxOutputTokens", 1500)
+                put("maxOutputTokens", if (complexity == AiTaskComplexity.COMPLEX_ITINERARY) 2500 else 1500)
             })
         }
 
@@ -84,7 +142,7 @@ class GeminiAgentService {
 
         client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) {
-                throw RuntimeException("Gemini API returned code: ${response.code}")
+                throw RuntimeException("Gemini API error ($modelName): ${response.code}")
             }
             val bodyString = response.body?.string() ?: ""
             val jsonResponse = JSONObject(bodyString)

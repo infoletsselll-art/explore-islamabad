@@ -24,9 +24,9 @@ enum class ActionType {
 
 object OfficialContacts {
     const val APP_NAME = "Visit Islamabad"
-    const val DOMAIN_NAME = "visitislamabad.com"
-    const val WEBPAGE_URL = "https://visitislamabad.com"
-    const val BACKUP_DOMAIN = "visitislamabad.web.app"
+    const val DOMAIN_NAME = "visitislamabad.web.app"
+    const val WEBPAGE_URL = "https://visitislamabad.web.app"
+    const val CUSTOM_DOMAIN = "visitislamabad.com"
     const val OFFICIAL_EMAIL = "info.letsselll@gmail.com"
     const val OFFICIAL_PHONE = "03457059286"
     const val OFFICIAL_PHONE_INTL = "+923457059286"

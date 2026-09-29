@@ -99,8 +99,8 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text(
-                        text = "ALL-BUDGET SERVICES & ROUND-TRIP BOOKING",
-                        fontSize = 11.sp,
+                        text = "CURATED SERVICES & VERIFIED RESERVATIONS",
+                        fontSize = 10.5.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
@@ -110,16 +110,17 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Transport, Stays & Custom Plans",
+                    text = "Transport, Accommodation & Guided Itineraries",
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.White
                 )
 
                 Text(
-                    text = "From PKR 50 Metro Bus to inDrive, Yango, Chauffeurs & 4x4 SUVs. Budget student/patient guest houses to 5-star suites.",
+                    text = "Accessible transit starting from PKR 50 via the Metro Bus network to on-demand inDrive/Yango, executive chauffeurs, and 4x4 mountain SUVs. Vetted patient guest houses, student hostels, and 5-star suites.",
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.White.copy(alpha = 0.9f)
+                    color = Color.White.copy(alpha = 0.9f),
+                    lineHeight = 16.sp
                 )
 
                 Spacer(modifier = Modifier.height(14.dp))
