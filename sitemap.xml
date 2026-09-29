@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://visitislamabad.web.app/</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://visitislamabad.web.app/img_islamabad_hero.jpg</image:loc>
+      <image:title>Visit Islamabad — A Gateway to Visitors of All Types &amp; For All Purposes</image:title>
+      <image:caption>Comprehensive travel, medical, legal hearings, student transit, transport, and vetted stays in Islamabad, Pakistan.</image:caption>
+    </image:image>
+  </url>
+</urlset>
