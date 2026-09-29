@@ -496,6 +496,27 @@ fun OfficialContactsAndForumsContent(
                             Text("Copy URL", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = PinePrimary)
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    Surface(
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(10.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("🍏 iPhone & iPad (iOS Web App)", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            }
+                            Spacer(modifier = Modifier.height(3.dp))
+                            Text(
+                                text = "On iOS Safari, open ${OfficialContacts.WEBPAGE_URL}, tap the Share button [↑], and select 'Add to Home Screen' for an instant, full-screen app without needing the App Store.",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                lineHeight = 15.sp
+                            )
+                        }
+                    }
                 }
             }
         }
