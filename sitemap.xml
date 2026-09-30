@@ -2,9 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Main Landing Page -->
   <url>
     <loc>https://visitislamabad.web.app/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -12,5 +13,41 @@
       <image:title>Visit Islamabad — A Gateway to Visitors of All Types &amp; For All Purposes</image:title>
       <image:caption>Comprehensive travel, medical, legal hearings, student transit, transport, and vetted stays in Islamabad, Pakistan.</image:caption>
     </image:image>
+  </url>
+
+  <!-- Join the Team / Provider & Patient Caregiver Network -->
+  <url>
+    <loc>https://visitislamabad.web.app/#join-team</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Frequently Asked Questions (FAQ) Section -->
+  <url>
+    <loc>https://visitislamabad.web.app/#faq</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://visitislamabad.web.app/#faq-section</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Verified Partners & Multi-Budget Transport Networks Section -->
+  <url>
+    <loc>https://visitislamabad.web.app/#partners</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://visitislamabad.web.app/#partners-section</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 </urlset>

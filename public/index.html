@@ -9,8 +9,9 @@
   <meta name="author" content="Visit Islamabad Portal">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   
-  <!-- Canonical URL -->
+  <!-- Canonical URL & Sitemap -->
   <link rel="canonical" href="https://visitislamabad.web.app/">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <!-- Geo & Local Entity Signals -->
   <meta name="geo.region" content="PK-IS">
@@ -74,7 +75,7 @@
         "image": "https://visitislamabad.web.app/img_islamabad_hero.jpg",
         "description": "Comprehensive travel, medical consultation coordination, apex court hearing logistics, student examination transit, shopping guides, and vetted accommodation portal for visitors in Islamabad.",
         "telephone": "+923457059286",
-        "email": "info.letsselll@gmail.com",
+        "email": "info.visitislamabad@gmail.com",
         "priceRange": "PKR 50 - PKR 15000",
         "address": {
           "@type": "PostalAddress",
@@ -94,9 +95,13 @@
         ],
         "sameAs": [
           "https://wa.me/923457059286",
-          "https://t.me/+923457059286",
-          "https://instagram.com/exploreislmbd",
-          "https://facebook.com/exploreislmbd"
+          "https://t.me/visitislamabad",
+          "https://instagram.com/visitislamabad",
+          "https://facebook.com/visitislamabad",
+          "https://x.com/visitislamabad",
+          "https://youtube.com/@visitislamabad",
+          "https://tiktok.com/@visitislamabad",
+          "https://linkedin.com/company/visitislamabad"
         ]
       },
       {
@@ -1202,6 +1207,634 @@
     .footer-links a:hover {
       color: var(--accent-gold);
     }
+
+    /* Social Media Follow Bar */
+    .social-follow-bar {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin: 20px auto 36px;
+      max-width: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .social-follow-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .social-follow-title span.handle-tag {
+      background: var(--surface-mint);
+      color: var(--primary);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(27,77,62,0.15);
+    }
+
+    .social-follow-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid #E2E8F0;
+      background: #F8FAFC;
+      color: #334155;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .social-btn.btn-ig:hover { background: #E1306C; color: #FFF; border-color: #E1306C; }
+    .social-btn.btn-fb:hover { background: #1877F2; color: #FFF; border-color: #1877F2; }
+    .social-btn.btn-x:hover { background: #000000; color: #FFF; border-color: #000000; }
+    .social-btn.btn-yt:hover { background: #FF0000; color: #FFF; border-color: #FF0000; }
+    .social-btn.btn-tt:hover { background: #010101; color: #FFF; border-color: #010101; }
+    .social-btn.btn-li:hover { background: #0A66C2; color: #FFF; border-color: #0A66C2; }
+    .social-btn.btn-wa:hover { background: #25D366; color: #FFF; border-color: #25D366; }
+    .social-btn.btn-tg:hover { background: #0088CC; color: #FFF; border-color: #0088CC; }
+    .social-btn.btn-mail:hover { background: #1B4D3E; color: #FFF; border-color: #1B4D3E; }
+
+    /* Join Our Team / Provider & Caregiver Section */
+    .join-team-section {
+      background: linear-gradient(180deg, #F4F9F6 0%, #EBF4F0 100%);
+      border: 1px solid #D5E8DF;
+      border-radius: 24px;
+      padding: 44px 28px;
+      margin: 40px auto;
+      max-width: 1120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .provider-tracks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 22px;
+      margin: 28px 0;
+    }
+
+    .provider-track-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 14px rgba(27,77,62,0.05);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .provider-track-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(27,77,62,0.1);
+    }
+
+    .track-icon-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .provider-track-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .provider-track-card p {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .track-perks-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px 0;
+      font-size: 13px;
+      color: #37474F;
+    }
+
+    .track-perks-list li {
+      margin-bottom: 7px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .track-perks-list li span.check {
+      color: #2E7D32;
+      font-weight: 700;
+    }
+
+    .provider-form-wrapper {
+      background: #FFFFFF;
+      border: 1px solid #D1E5DC;
+      border-radius: 18px;
+      padding: 28px 24px;
+      margin-top: 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    }
+
+    .provider-form-header {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 22px;
+    }
+
+    .provider-form-header h4 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .provider-form-header p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .provider-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 10px 14px;
+      border: 1.5px solid #CFDFD8;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #FAFDFB;
+      color: #1E293B;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(27,77,62,0.12);
+      background: #FFFFFF;
+    }
+
+    .form-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+
+    .btn-apply-wa {
+      background: #25D366;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-apply-wa:hover {
+      background: #1EBE5D;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+    }
+
+    .btn-apply-email {
+      background: var(--primary-dark);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-apply-email:hover {
+      background: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(27,77,62,0.25);
+    }
+
+    /* Gemini Live Chatbot Floating Widget & Modal */
+    .gemini-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      background: linear-gradient(135deg, #1B4D3E 0%, #0F3327 50%, #C5A059 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 32px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 28px rgba(27,77,62,0.35);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .gemini-fab:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 34px rgba(27,77,62,0.45);
+    }
+
+    .gemini-fab .fab-sparkle {
+      font-size: 18px;
+      animation: sparkleRotate 3s infinite linear;
+    }
+
+    @keyframes sparkleRotate {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.2) rotate(180deg); }
+      100% { transform: scale(1) rotate(360deg); }
+    }
+
+    .gemini-fab .pulse-ring {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      width: 12px;
+      height: 12px;
+      background: #25D366;
+      border-radius: 50%;
+      border: 2px solid #FFF;
+      box-shadow: 0 0 8px #25D366;
+    }
+
+    /* Chat Modal */
+    .gemini-chat-modal {
+      position: fixed;
+      bottom: 84px;
+      right: 24px;
+      width: 410px;
+      max-width: calc(100vw - 32px);
+      height: 600px;
+      max-height: calc(100vh - 110px);
+      background: #FFFFFF;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+      border: 1px solid rgba(27,77,62,0.15);
+      display: none;
+      flex-direction: column;
+      z-index: 10000;
+      overflow: hidden;
+      animation: modalFadeIn 0.25s ease-out;
+    }
+
+    .gemini-chat-modal.active {
+      display: flex;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .gemini-header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #163E32 100%);
+      color: #FFFFFF;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .gemini-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gemini-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .gemini-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .gemini-sub {
+      font-size: 11px;
+      color: #A3B8B0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .gemini-sub span.online-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #25D366;
+      display: inline-block;
+    }
+
+    .gemini-header-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang-select-box {
+      background: rgba(255,255,255,0.18);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .lang-select-box option {
+      background: #1B4D3E;
+      color: #FFF;
+    }
+
+    .gemini-close-btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #FFFFFF;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .gemini-close-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .gemini-suggestions {
+      padding: 10px 14px 6px;
+      background: #F8FAF9;
+      border-bottom: 1px solid #E6EFEA;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: thin;
+    }
+
+    .gemini-chip {
+      background: #FFFFFF;
+      border: 1px solid #D5E5DE;
+      border-radius: 14px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--primary-dark);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .gemini-chip:hover {
+      background: var(--surface-mint);
+      border-color: var(--primary);
+    }
+
+    .gemini-messages {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #FAFDFB;
+      font-size: 13.5px;
+    }
+
+    .msg-bubble {
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .msg-user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: #FFFFFF;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg-bot {
+      align-self: flex-start;
+      background: #FFFFFF;
+      color: #1E293B;
+      border: 1px solid #E2EBE6;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .msg-bot-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed #E5EBE8;
+      font-size: 11px;
+    }
+
+    .btn-msg-listen {
+      background: #F1F7F4;
+      border: 1px solid #D4E5DC;
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 11px;
+      cursor: pointer;
+      color: var(--primary-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-msg-listen:hover {
+      background: var(--surface-mint);
+    }
+
+    .gemini-voice-bar {
+      display: none;
+      background: #FEF2F2;
+      border-top: 1px solid #FCA5A5;
+      padding: 8px 14px;
+      font-size: 12px;
+      color: #DC2626;
+      font-weight: 600;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gemini-voice-bar.active {
+      display: flex;
+    }
+
+    .voice-pulse-dot {
+      width: 10px;
+      height: 10px;
+      background: #DC2626;
+      border-radius: 50%;
+      animation: voicePulse 1s infinite alternate;
+      display: inline-block;
+    }
+
+    @keyframes voicePulse {
+      from { transform: scale(0.8); opacity: 0.6; }
+      to { transform: scale(1.3); opacity: 1; }
+    }
+
+    .gemini-input-box {
+      padding: 10px 12px;
+      background: #FFFFFF;
+      border-top: 1px solid #E6EFEA;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gemini-input {
+      flex: 1;
+      padding: 9px 12px;
+      border: 1.5px solid #D2E2DB;
+      border-radius: 20px;
+      font-size: 13.5px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .gemini-input:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-mic {
+      background: #F0F6F3;
+      border: 1.5px solid #CFDFD7;
+      color: var(--primary-dark);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .btn-mic:hover {
+      background: var(--surface-mint);
+      border-color: var(--primary);
+    }
+
+    .btn-mic.recording {
+      background: #DC2626;
+      border-color: #B91C1C;
+      color: #FFF;
+      animation: voicePulse 1s infinite alternate;
+    }
+
+    .btn-send {
+      background: var(--primary);
+      border: none;
+      color: #FFFFFF;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .btn-send:hover {
+      background: var(--primary-dark);
+    }
   </style>
 </head>
 <body>
@@ -1294,16 +1927,16 @@
         <div class="icon-box icon-telegram">✈️</div>
         <div class="quick-card-text">
           <span>Telegram Desk</span>
-          <strong>@islamabadgateway</strong>
+          <strong>@visitislamabad</strong>
         </div>
       </a>
 
       <!-- Official Email -->
-      <a href="mailto:info.letsselll@gmail.com" class="quick-card">
+      <a href="mailto:info.visitislamabad@gmail.com" class="quick-card">
         <div class="icon-box icon-email">✉️</div>
         <div class="quick-card-text">
           <span>Official Email</span>
-          <strong>info.letsselll@gmail.com</strong>
+          <strong>info.visitislamabad@gmail.com</strong>
         </div>
       </a>
 
@@ -1525,6 +2158,7 @@
   </section>
 
   <!-- Verified Partners Section (Transport, Hospitality & Hostels) -->
+  <div id="partners"></div>
   <section class="partners-section" id="partners-section">
     <div class="section-title">
       <div class="badge-pill" style="margin-bottom: 8px;">
@@ -1730,41 +2364,190 @@
     </div>
   </section>
 
+  <!-- Join the Team Section: Service Providers & Long-Term Patient Caregivers -->
+  <section class="join-team-section" id="join-team">
+    <div class="section-title">
+      <div class="badge-pill" style="margin-bottom: 8px;">
+        <span>🤝</span> Partnership & Provider Opportunities
+      </div>
+      <h2>Join the Visit Islamabad Network — Service Providers & Caregivers</h2>
+      <p>Are you a transport fleet owner, individual driver, guest house manager, hostel administrator, or compassionate patient attendant? Partner with the capital's premier visitor ecosystem.</p>
+    </div>
+
+    <!-- 3 Core Provider Tracks -->
+    <div class="provider-tracks-grid">
+      <!-- Track 1: Transport Providers -->
+      <div class="provider-track-card">
+        <div class="track-icon-badge" style="background: #E8F5E9; color: #2E7D32;">🚗</div>
+        <h3>Transport & Fleet Providers</h3>
+        <p>Connect with incoming visitors arriving via Daewoo terminal, train, or ISB Airport needing punctual, vetted rides across Islamabad and northern routes.</p>
+        <ul class="track-perks-list">
+          <li><span class="check">✓</span> City Cabs, Executive Sedans & Chauffeur Services</li>
+          <li><span class="check">✓</span> AC Hiace, Grand Cabin & Student Exam Shuttles</li>
+          <li><span class="check">✓</span> 4x4 Mountain Jeeps (Prado, Revo) for Murree & Hunza</li>
+          <li><span class="check">✓</span> Direct bookings with transparent, fair payouts</li>
+        </ul>
+      </div>
+
+      <!-- Track 2: Accommodations & Student Hostels -->
+      <div class="provider-track-card">
+        <div class="track-icon-badge" style="background: #E0F2FE; color: #0284C7;">🏡</div>
+        <h3>Guest Houses, Hotels & Hostels</h3>
+        <p>List your verified lodging facilities to host families visiting hospitals, professionals attending court hearings, and students appearing for national entry tests.</p>
+        <ul class="track-perks-list">
+          <li><span class="check">✓</span> Patient-friendly ground-floor stays near H-8 & G-8</li>
+          <li><span class="check">✓</span> Quiet work hotels near Blue Area & Constitution Avenue</li>
+          <li><span class="check">✓</span> Secure boys & girls hostels near NUST, FAST & QAU</li>
+          <li><span class="check">✓</span> Zero listing commissions for early partners</li>
+        </ul>
+      </div>
+
+      <!-- Track 3: Long-Term Patient Attendants & Caregivers -->
+      <div class="provider-track-card">
+        <div class="track-icon-badge" style="background: #FEF3C7; color: #D97706;">🩺</div>
+        <h3>Patient Attendants & Caregivers</h3>
+        <p>Provide compassionate, reliable on-ground care for out-of-city patients coming to Islamabad for weeks or months of treatment at Shifa, PIMS, NORI, and KRL.</p>
+        <ul class="track-perks-list">
+          <li><span class="check">✓</span> Dedicated hospital escort & appointment queue navigation</li>
+          <li><span class="check">✓</span> Daily transport & medicine pickup coordination</li>
+          <li><span class="check">✓</span> Dietary meal support & bedside assistance</li>
+          <li><span class="check">✓</span> Honorable long-term contracts (2 weeks to 6 months)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Provider Application Form -->
+    <div class="provider-form-wrapper">
+      <div class="provider-form-header">
+        <h4>Apply to Join the Visit Islamabad Network</h4>
+        <p>Submit your details below. Our partnerships desk will review your application and contact you within 24 hours via WhatsApp or email.</p>
+      </div>
+
+      <form id="providerForm" onsubmit="handleProviderSubmit(event)">
+        <div class="provider-form-grid">
+          <div class="form-group">
+            <label for="pName">Full Name / Business Name *</label>
+            <input type="text" id="pName" placeholder="e.g. Tariq Khan / Capital Stays" required />
+          </div>
+
+          <div class="form-group">
+            <label for="pPhone">WhatsApp Number *</label>
+            <input type="tel" id="pPhone" placeholder="e.g. 03451234567" required />
+          </div>
+
+          <div class="form-group">
+            <label for="pCategory">Service Category *</label>
+            <select id="pCategory" required>
+              <option value="Transport & Fleet">🚗 Transport & Mobility (Cab / Chauffeur / 4x4 / Van)</option>
+              <option value="Guest House & Local Hotel">🏡 Guest House / Local Hotel (Near Hospitals / Central)</option>
+              <option value="Student Hostel">🎓 Student Hostel (Near NUST / FAST / QAU / COMSATS)</option>
+              <option value="Patient Attendant & Caregiver">🩺 Long-Term Patient Attendant & Hospital Caregiver</option>
+              <option value="Multi-Service Provider">⭐ Multi-Service Provider (Transport + Stay)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="pLocation">Base Sector / Location in Islamabad *</label>
+            <input type="text" id="pLocation" placeholder="e.g. G-8 Markaz, H-8 Shifa Zone, H-12 NUST, Airport" required />
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="pDetails">Vehicle Model, Facility Details, or Caregiving Experience *</label>
+            <textarea id="pDetails" rows="2" placeholder="e.g. 2x Corolla 2022 sedans available with commercial permits / 8-room guest house near PIMS / 4 years certified nursing assistant experience assisting out-of-city dialysis patients" required></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions-row">
+          <button type="button" class="btn-apply-email" onclick="submitProviderViaEmail()">
+            <span>✉️</span> Submit via Email
+          </button>
+          <button type="submit" class="btn-apply-wa">
+            <span>💬</span> Submit via WhatsApp (Fastest)
+          </button>
+        </div>
+        <div id="providerSubmitMsg" style="display: none; margin-top: 14px; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;"></div>
+      </form>
+    </div>
+  </section>
+
   <!-- Social Media & Search Channels Section -->
   <div class="section-title">
     <h2>Channels & Forums</h2>
     <p>Connect with our verified social platforms, immediate assistance channels, and community inquiry desks across Pakistan and abroad.</p>
   </div>
 
+  <!-- Dedicated @visitislamabad Social Hub Bar -->
+  <div class="social-follow-bar">
+    <div class="social-follow-title">
+      <span>🌐 Official Social Channels</span>
+      <span class="handle-tag">@visitislamabad</span>
+    </div>
+    <div class="social-follow-icons">
+      <a href="https://instagram.com/visitislamabad" target="_blank" class="social-btn btn-ig">📸 Instagram</a>
+      <a href="https://facebook.com/visitislamabad" target="_blank" class="social-btn btn-fb">📘 Facebook</a>
+      <a href="https://x.com/visitislamabad" target="_blank" class="social-btn btn-x">𝕏 Twitter</a>
+      <a href="https://youtube.com/@visitislamabad" target="_blank" class="social-btn btn-yt">▶️ YouTube</a>
+      <a href="https://tiktok.com/@visitislamabad" target="_blank" class="social-btn btn-tt">🎵 TikTok</a>
+      <a href="https://linkedin.com/company/visitislamabad" target="_blank" class="social-btn btn-li">💼 LinkedIn</a>
+      <a href="https://wa.me/923457059286" target="_blank" class="social-btn btn-wa">💬 WhatsApp</a>
+      <a href="https://t.me/visitislamabad" target="_blank" class="social-btn btn-tg">✈️ Telegram</a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="social-btn btn-mail">✉️ Email</a>
+    </div>
+  </div>
+
   <div class="channels-grid">
     <a href="https://wa.me/923457059286" target="_blank" class="channel-item">
       <div class="channel-icon" style="background: #E8F5E9; color: #2E7D32;">💬</div>
-      <div class="channel-name">WhatsApp</div>
-      <div class="channel-action">Direct Booking</div>
+      <div class="channel-name">WhatsApp Desk</div>
+      <div class="channel-action">+92 345 7059286</div>
     </a>
 
-    <a href="https://t.me/+923457059286" target="_blank" class="channel-item">
+    <a href="https://t.me/visitislamabad" target="_blank" class="channel-item">
       <div class="channel-icon" style="background: #E1F5FE; color: #0288D1;">✈️</div>
-      <div class="channel-name">Telegram</div>
-      <div class="channel-action">24/7 Channel</div>
+      <div class="channel-name">Telegram Channel</div>
+      <div class="channel-action">@visitislamabad</div>
     </a>
 
-    <a href="mailto:info.letsselll@gmail.com" class="channel-item">
+    <a href="mailto:info.visitislamabad@gmail.com" class="channel-item">
       <div class="channel-icon" style="background: #FFF3E0; color: #E65100;">✉️</div>
       <div class="channel-name">Official Email</div>
-      <div class="channel-action">info.letsselll@gmail.com</div>
+      <div class="channel-action">info.visitislamabad@gmail.com</div>
     </a>
 
-    <a href="https://instagram.com/exploreislmbd" target="_blank" class="channel-item">
+    <a href="https://instagram.com/visitislamabad" target="_blank" class="channel-item">
       <div class="channel-icon" style="background: #FCE4EC; color: #E1306C;">📸</div>
       <div class="channel-name">Instagram</div>
-      <div class="channel-action">Visual Guides</div>
+      <div class="channel-action">@visitislamabad</div>
     </a>
 
-    <a href="https://facebook.com/exploreislmbd" target="_blank" class="channel-item">
+    <a href="https://facebook.com/visitislamabad" target="_blank" class="channel-item">
       <div class="channel-icon" style="background: #E8EAF6; color: #1877F2;">📘</div>
       <div class="channel-name">Facebook</div>
-      <div class="channel-action">Visitor Community</div>
+      <div class="channel-action">@visitislamabad</div>
+    </a>
+
+    <a href="https://x.com/visitislamabad" target="_blank" class="channel-item">
+      <div class="channel-icon" style="background: #F1F5F9; color: #0F172A;">𝕏</div>
+      <div class="channel-name">X (Twitter)</div>
+      <div class="channel-action">@visitislamabad</div>
+    </a>
+
+    <a href="https://youtube.com/@visitislamabad" target="_blank" class="channel-item">
+      <div class="channel-icon" style="background: #FEE2E2; color: #DC2626;">▶️</div>
+      <div class="channel-name">YouTube Channel</div>
+      <div class="channel-action">@visitislamabad</div>
+    </a>
+
+    <a href="https://tiktok.com/@visitislamabad" target="_blank" class="channel-item">
+      <div class="channel-icon" style="background: #F1F5F9; color: #000000;">🎵</div>
+      <div class="channel-name">TikTok Clips</div>
+      <div class="channel-action">@visitislamabad</div>
+    </a>
+
+    <a href="https://linkedin.com/company/visitislamabad" target="_blank" class="channel-item">
+      <div class="channel-icon" style="background: #E0F2FE; color: #0284C7;">💼</div>
+      <div class="channel-name">LinkedIn Partners</div>
+      <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="https://meet.google.com/new" target="_blank" class="channel-item">
@@ -1775,6 +2558,7 @@
   </div>
 
   <!-- Frequently Asked Questions Section (Accordion UI) -->
+  <div id="faq"></div>
   <section class="faq-section" id="faq-section">
     <div class="section-title">
       <div class="badge-pill" style="margin-bottom: 8px;">
@@ -2142,7 +2926,451 @@
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
       updateQrCode('apk');
     }
+
+    /* ==========================================================================
+       Provider & Caregiver Registration Logic
+       ========================================================================== */
+    function getProviderFormData() {
+      const name = (document.getElementById('pName') ? document.getElementById('pName').value.trim() : '');
+      const phone = (document.getElementById('pPhone') ? document.getElementById('pPhone').value.trim() : '');
+      const category = (document.getElementById('pCategory') ? document.getElementById('pCategory').value : '');
+      const location = (document.getElementById('pLocation') ? document.getElementById('pLocation').value.trim() : '');
+      const details = (document.getElementById('pDetails') ? document.getElementById('pDetails').value.trim() : '');
+      return { name, phone, category, location, details };
+    }
+
+    function handleProviderSubmit(e) {
+      if (e) e.preventDefault();
+      const d = getProviderFormData();
+      if (!d.name || !d.phone || !d.details) {
+        alert('Please fill out all required fields.');
+        return false;
+      }
+
+      const text = `*New Service Provider / Caregiver Application - Visit Islamabad*\n\n` +
+        `👤 *Name / Business:* ${d.name}\n` +
+        `📞 *WhatsApp / Phone:* ${d.phone}\n` +
+        `🏷️ *Category:* ${d.category}\n` +
+        `📍 *Base Sector / Area:* ${d.location}\n` +
+        `📋 *Details & Experience:* ${d.details}\n\n` +
+        `_Submitted via Visit Islamabad Portal_`;
+
+      const waUrl = `https://wa.me/923457059286?text=${encodeURIComponent(text)}`;
+      window.open(waUrl, '_blank');
+
+      const msgBox = document.getElementById('providerSubmitMsg');
+      if (msgBox) {
+        msgBox.innerHTML = `<strong>✅ Application Dispatched to WhatsApp!</strong> Our partnerships desk (+92 345 7059286) will verify your documents and connect with you shortly.`;
+        msgBox.style.display = 'block';
+      }
+      return false;
+    }
+
+    function submitProviderViaEmail() {
+      const d = getProviderFormData();
+      if (!d.name || !d.phone) {
+        alert('Please enter at least your name and phone number to send an email.');
+        return;
+      }
+      const subject = `Service Provider Application - ${d.category} (${d.name})`;
+      const body = `Dear Visit Islamabad Partnerships Team,\n\nI would like to apply to join the Visit Islamabad provider network with the following details:\n\n` +
+        `Name / Business: ${d.name}\n` +
+        `Phone / WhatsApp: ${d.phone}\n` +
+        `Service Category: ${d.category}\n` +
+        `Base Sector / City: ${d.location}\n` +
+        `Experience / Fleet / Property Details:\n${d.details}\n\n` +
+        `Looking forward to partnering with your platform.\n\nBest regards,\n${d.name}`;
+
+      const mailtoUrl = `mailto:info.visitislamabad@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+
+      const msgBox = document.getElementById('providerSubmitMsg');
+      if (msgBox) {
+        msgBox.innerHTML = `<strong>✅ Email Draft Opened!</strong> Please hit Send to dispatch your application directly to <em>info.visitislamabad@gmail.com</em>.`;
+        msgBox.style.display = 'block';
+      }
+    }
+
+    /* ==========================================================================
+       Gemini Live Chatbot with Voice Search in Multiple Languages
+       ========================================================================== */
+    let currentGeminiLang = 'ur-PK';
+    let speechRecognition = null;
+    let isVoiceRecording = false;
+
+    const geminiKnowledgeBase = [
+      {
+        keys: ['shifa', 'hospital', 'doctor', 'treatment', 'clinic', 'checkup', 'pims', 'cardiac', 'cancer', 'nori', 'polyclinic', '1122', 'ambulance', 'emergency'],
+        answer: "🏥 **Islamabad Medical & Hospital Guidelines:**\n\n- **Shifa International Hospital:** Sector H-8/4 (Pitras Bukhari Rd). Premier tertiary care, cardiology, cancer, and organ transplants. 24/7 emergency: (051) 8463000.\n- **PIMS (Pakistan Institute of Medical Sciences):** Sector G-8/3. Major public referral hospital, burn center, and children's hospital. Emergency helpline: (051) 9261170.\n- **NORI Cancer Hospital:** Sector G-8/3. Specialized oncology and radiotherapy institute.\n- **Emergency Ambulance:** Dial **1122** anywhere in Islamabad for immediate CDA rescue dispatch.\n- **Patient Stays & Attendants:** Ground-floor guest houses in G-8 & H-8 and dedicated patient caregivers can be arranged via Visit Islamabad WhatsApp: **+92 345 7059286**."
+      },
+      {
+        keys: ['court', 'supreme', 'high court', 'hearing', 'litigant', 'lawyer', 'red zone', 'constitution', 'pass', 'bench'],
+        answer: "⚖️ **Apex Judicial Hearing Protocols:**\n\n- **Supreme Court of Pakistan:** Constitution Avenue (Red Zone, G-5/2). Visitor Pass Counter opens at 8:00 AM sharp. Valid original CNIC is mandatory.\n- **Prohibited Items:** Mobile phones, laptops, and cameras are strictly forbidden inside courtroom halls (secure lockers available at reception).\n- **Islamabad High Court (IHC):** Located in Sector G-5/1 with dedicated litigant parking and security clearance.\n- **Executive Chauffeur:** We arrange security-cleared executive sedans that understand Red Zone cordons and gate entry timings. Contact WhatsApp **+92 345 7059286**."
+      },
+      {
+        keys: ['metro', 'bus', 'fare', 'transport', 'indrive', 'yango', 'taxi', 'cab', 'orange', 'red', 'green', 'blue', 'airport bus', 'pkr 50'],
+        answer: "🚌 **Islamabad Multi-Budget Transport Networks:**\n\n- **Flat Metro Fare:** All lines operate on a subsidized flat fare of **PKR 50** per ride with free air-conditioning and Wi-Fi.\n- **Red Line:** Rawalpindi Saddar ↔ Pakistan Secretariat.\n- **Orange Line:** Peshawar Mor ↔ Islamabad International Airport (ISB) via NUST H-12.\n- **Green Line:** PIMS Hospital (G-8) ↔ Bhara Kahu (Murree Road).\n- **Blue Line:** Koral Chowk (Expressway) ↔ PIMS Hospital (G-8).\n- **App Taxis & Private Fleets:** inDrive, Yango, and Careem operate freely. For dedicated executive chauffeurs or 4x4 mountain jeeps to Murree/Northern areas, book via **+92 345 7059286**."
+      },
+      {
+        keys: ['nust', 'university', 'exam', 'net', 'fast', 'qau', 'hostel', 'student', 'comsats', 'iiui'],
+        answer: "🎓 **University & Student Transit Services:**\n\n- **NUST (National University of Sciences & Technology):** Sector H-12. Directly accessible via Orange Line Metro Bus (NUST Gate Station).\n- **FAST-NUCES:** Sector G-9/4. Close to Peshawar Mor Metro exchange.\n- **Quaid-i-Azam University (QAU):** Located in Margalla foothills near Secretariat.\n- **COMSATS University:** Park Road, Chak Shahzad.\n- **Vetted Student Hostels:** Separate boys and girls hostels near H-12, G-9, G-11, and F-10 featuring Wi-Fi, 3-time meals, and security. WhatsApp our student desk at **+92 345 7059286**."
+      },
+      {
+        keys: ['patient attendant', 'caregiver', 'caretaker', 'long term', 'sick', 'elderly', 'nurse', 'nursing'],
+        answer: "🩺 **Long-Term Patient Attendant & Caregiver Services:**\n\nFor families traveling to Islamabad from KP, Punjab, Sindh, or Gilgit-Baltistan for weeks or months of specialized treatment:\n- **Compassionate Attendants:** Daily assistance with hospital queues at Shifa, PIMS, or NORI.\n- **Caregiver Responsibilities:** Medication scheduling, appointment escort, healthy dietary cooking, and bedside support.\n- **Accessible Lodging:** Wheelchair-friendly ground-floor guest houses in G-8 and H-8 within 5 minutes of hospitals.\n- Inquire directly with our patient care coordinator on WhatsApp: **+92 345 7059286** or email **info.visitislamabad@gmail.com**."
+      },
+      {
+        keys: ['join', 'partner', 'driver', 'provider', 'hotel', 'hostel', 'earn', 'work', 'register', 'team'],
+        answer: "🤝 **Join the Visit Islamabad Team:**\n\nWe welcome transport operators, drivers, hotel and hostel owners, and patient caregivers to our verified network:\n1. **Transport:** Cab drivers, executive sedans, AC vans, 4x4 mountain vehicles.\n2. **Accommodations:** Guest houses near hospitals, hotels near Blue Area, student hostels near universities.\n3. **Patient Attendants:** Compassionate caregivers for out-of-city medical travelers.\n\nFill the partner form on our website or message our partnerships desk directly on WhatsApp at **+92 345 7059286** or email **info.visitislamabad@gmail.com**."
+      },
+      {
+        keys: ['contact', 'email', 'phone', 'whatsapp', 'social', 'address', 'helpline', 'instagram', 'facebook'],
+        answer: "📞 **Visit Islamabad Official Contact & Socials:**\n\n- **WhatsApp & Call:** +92 345 7059286 (0345 7059286)\n- **Official Email:** info.visitislamabad@gmail.com\n- **Web Portal:** https://visitislamabad.web.app\n- **Instagram:** @visitislamabad (https://instagram.com/visitislamabad)\n- **Facebook:** @visitislamabad (https://facebook.com/visitislamabad)\n- **X (Twitter):** @visitislamabad (https://x.com/visitislamabad)\n- **YouTube:** @visitislamabad (https://youtube.com/@visitislamabad)\n- **TikTok:** @visitislamabad (https://tiktok.com/@visitislamabad)\n- **LinkedIn:** @visitislamabad (https://linkedin.com/company/visitislamabad)\n- **Telegram:** @visitislamabad (https://t.me/visitislamabad)"
+      },
+      {
+        keys: ['sightseeing', 'monal', 'faisal mosque', 'daman', 'tour', 'margalla', 'murree', 'lake', 'rawalkot'],
+        answer: "🏔️ **Sightseeing & Excursion Packages:**\n\n- **Faisal Mosque:** Shah Faisal Avenue (Open sunrise to 10 PM, respectful modest attire required).\n- **Daman-e-Koh & Monal:** Scenic viewpoint atop Margalla Hills with panoramic city vistas.\n- **Lok Virsa & Monument:** Sector H-8 / Shakarparian heritage museums.\n- **Murree & Galiyat Expressway:** 45 minutes from Bhara Kahu. 4x4 Prado and chauffeured fleets available.\nBook vetted sightseeing or mountain tour vehicles on WhatsApp: **+92 345 7059286**."
+      }
+    ];
+
+    function toggleGeminiChat() {
+      const modal = document.getElementById('geminiChatModal');
+      if (!modal) return;
+      const isActive = modal.classList.contains('active');
+      if (isActive) {
+        modal.classList.remove('active');
+        stopVoiceRecognition();
+      } else {
+        modal.classList.add('active');
+        const input = document.getElementById('geminiInput');
+        if (input) input.focus();
+      }
+    }
+
+    function onGeminiLangChange(langCode) {
+      currentGeminiLang = langCode;
+      const langNames = {
+        'en-US': 'English',
+        'ur-PK': 'Urdu (اردو)',
+        'ps-PK': 'Pashto (پښتو)',
+        'pa-PK': 'Punjabi (پنجابی)',
+        'ar-SA': 'Arabic (العربية)',
+        'zh-CN': 'Chinese (中文)'
+      };
+      const langName = langNames[langCode] || langCode;
+      
+      const statusText = document.getElementById('geminiVoiceStatusText');
+      if (statusText) {
+        statusText.innerText = `🎙️ Listening in ${langName}... Speak now!`;
+      }
+      
+      // Update greeting in target language
+      let greeting = `✨ Switched voice and chat language to **${langName}**. How may I help you navigate Islamabad?`;
+      if (langCode === 'ur-PK') {
+        greeting = `✨ **اردو زبان منتخب ہو گئی۔** اسلام آباد آمد، ہسپتال، سپریم کورٹ، میٹرو بس، ہاسٹل یا مریضوں کی نگہداشت کے متعلق مائیک پر بولیں یا لکھیں۔`;
+      } else if (langCode === 'ps-PK') {
+        greeting = `✨ **پښتو ژبه ټاکل شوې ده.** اسلام اباد ته د سفر، روغتونونو، سپریم کورټ، او موټرو خدماتو په اړه خپله پوښتنه وکړئ.`;
+      } else if (langCode === 'pa-PK') {
+        greeting = `✨ **پنجابی زبان منتخب ہو گئی۔** اسلام آباد آون لئی ہسپتال، عدالت، گیسٹ ہاؤس یا گڈیاں لئی کچھ وی پچھو۔`;
+      } else if (langCode === 'ar-SA') {
+        greeting = `✨ **تم تحديد اللغة العربية.** مرحبًا بك في إسلام آباد. كيف يمكننا مساعدتك في المستشفيات، النقل، أو الإقامة؟`;
+      } else if (langCode === 'zh-CN') {
+        greeting = `✨ **已切换至中文模式。** 欢迎访问伊斯兰堡！如需医院、法院出行、地铁交通或酒店公寓协助，请随时提问。`;
+      }
+      
+      addBotMessage(greeting);
+    }
+
+    function toggleVoiceRecognition() {
+      if (isVoiceRecording) {
+        stopVoiceRecognition();
+        return;
+      }
+
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        alert('Voice speech recognition is not supported on this browser. Please use Chrome, Edge, or Safari, or type your message in the chatbox.');
+        return;
+      }
+
+      try {
+        speechRecognition = new SpeechRec();
+        speechRecognition.lang = currentGeminiLang;
+        speechRecognition.continuous = false;
+        speechRecognition.interimResults = true;
+
+        const micBtn = document.getElementById('geminiMicBtn');
+        const voiceBar = document.getElementById('geminiVoiceBar');
+        const inputField = document.getElementById('geminiInput');
+
+        if (micBtn) micBtn.classList.add('recording');
+        if (voiceBar) voiceBar.classList.add('active');
+        isVoiceRecording = true;
+
+        speechRecognition.onresult = function(event) {
+          let transcript = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            transcript += event.results[i][0].transcript;
+          }
+          if (inputField) {
+            inputField.value = transcript;
+          }
+          if (event.results[0].isFinal) {
+            stopVoiceRecognition();
+            setTimeout(() => {
+              if (inputField && inputField.value.trim().length > 0) {
+                processGeminiQuery(inputField.value.trim());
+                inputField.value = '';
+              }
+            }, 400);
+          }
+        };
+
+        speechRecognition.onerror = function(event) {
+          console.warn('Speech recognition error:', event.error);
+          stopVoiceRecognition();
+        };
+
+        speechRecognition.onend = function() {
+          stopVoiceRecognition();
+        };
+
+        speechRecognition.start();
+      } catch (err) {
+        console.error('Speech recognition start failed:', err);
+        stopVoiceRecognition();
+      }
+    }
+
+    function stopVoiceRecognition() {
+      if (speechRecognition) {
+        try { speechRecognition.stop(); } catch (e) {}
+        speechRecognition = null;
+      }
+      isVoiceRecording = false;
+      const micBtn = document.getElementById('geminiMicBtn');
+      const voiceBar = document.getElementById('geminiVoiceBar');
+      if (micBtn) micBtn.classList.remove('recording');
+      if (voiceBar) voiceBar.classList.remove('active');
+    }
+
+    function handleGeminiSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('geminiInput');
+      if (!input) return false;
+      const q = input.value.trim();
+      if (!q) return false;
+      input.value = '';
+      processGeminiQuery(q);
+      return false;
+    }
+
+    function askGeminiPrompt(text) {
+      processGeminiQuery(text);
+    }
+
+    function processGeminiQuery(userQuery) {
+      addUserMessage(userQuery);
+
+      // Typing indicator
+      const typingId = 'typing_' + Date.now();
+      showTypingIndicator(typingId);
+
+      setTimeout(() => {
+        removeTypingIndicator(typingId);
+        const botResponse = generateGeminiResponse(userQuery);
+        addBotMessage(botResponse);
+      }, 700);
+    }
+
+    function generateGeminiResponse(query) {
+      const qLower = query.toLowerCase();
+
+      // Check knowledge base
+      for (const item of geminiKnowledgeBase) {
+        const matches = item.keys.some(k => qLower.includes(k));
+        if (matches) {
+          return item.answer;
+        }
+      }
+
+      // Multilingual general answers
+      if (currentGeminiLang === 'ur-PK' || /[\u0600-\u06FF]/.test(query)) {
+        return `✨ **معلومات وزٹ اسلام آباد:**\n\nآپ کا سوال موصول ہوا۔ اسلام آباد میں ہسپتال (شفا، پمز)، سپریم کورٹ، میٹرو بس (50 روپے کرایہ)، طلباء کے ہاسٹلز یا باہر کے شہروں سے آئے مریضوں کی نگہداشت کے متعلق رہنمائی دستیاب ہے۔\n\nفوری بکنگ اور رہنمائی کے لیے ہمارے واٹس ایپ **03457059286 (+92 345 7059286)** یا ای میل **info.visitislamabad@gmail.com** پر رابطہ کریں۔`;
+      } else if (currentGeminiLang === 'ps-PK') {
+        return `✨ **د وزټ اسلام اباد رسمي معلومات:**\n\nتاسو کولی شئ د روغتونونو (شفا، پمز)، سپریم کورټ، میټرو بس (50 روپۍ)، یا زده کونکو هاسټلونو په هکله زموږ د واټس اپ **+92 345 7059286** یا ایمیل **info.visitislamabad@gmail.com** له لارې معلومات ترلاسه کړئ.`;
+      } else if (currentGeminiLang === 'ar-SA') {
+        return `✨ **خدمات زوار إسلام آباد:**\n\nشكرًا لتواصلك معنا. نحن نوفر خدمات النقل بالمطار، التنسيق الطبي في مستشفى شفا وبيمز، وتوفير السيارات الفاخرة والسائقين. للمساعدة الفورية يرجى التواصل عبر الواتساب: **+92 345 7059286** أو البريد: **info.visitislamabad@gmail.com**.`;
+      } else if (currentGeminiLang === 'zh-CN') {
+        return `✨ **伊斯兰堡访客中心官方回复：**\n\n已收到您的咨询。我们提供全天候伊斯兰堡机场接送、医院陪护（Shifa与PIMS）、最高法院出行、地铁路线指南及商务包车服务。\n\n如需即时人工协助，请联系WhatsApp: **+92 345 7059286** 或邮箱: **info.visitislamabad@gmail.com**。`;
+      }
+
+      // Default comprehensive English response
+      return `✨ **Visit Islamabad Concierge Guidance:**\n\nThank you for your inquiry about "${query}".\n\nVisit Islamabad provides end-to-end guidance across all capital visitor needs:\n- 🏥 **Hospitals:** Shifa (H-8), PIMS (G-8), NORI Cancer, and KRL Hospital.\n- ⚖️ **Judicial Hearings:** Supreme Court & High Court visitor passes & executive chauffeur.\n- 🚌 **Mobility:** PKR 50 Metro Bus routes, inDrive, airport shuttles, and 4x4 mountain vehicles.\n- 🏡 **Lodging & Caregivers:** Ground-floor patient guest houses, student hostels near NUST, and long-term medical attendants.\n\nConnect with a 24/7 human coordinator on **WhatsApp: +92 345 7059286** or **Email: info.visitislamabad@gmail.com**!`;
+    }
+
+    function addUserMessage(text) {
+      const box = document.getElementById('geminiMessages');
+      if (!box) return;
+      const div = document.createElement('div');
+      div.className = 'msg-bubble msg-user';
+      div.innerText = text;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function addBotMessage(markdownText) {
+      const box = document.getElementById('geminiMessages');
+      if (!box) return;
+      const div = document.createElement('div');
+      div.className = 'msg-bubble msg-bot';
+      
+      // Basic formatting of bold and linebreaks
+      let formatted = markdownText
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>');
+
+      div.innerHTML = formatted + `
+        <div class="msg-bot-actions">
+          <button type="button" class="btn-msg-listen" onclick="speakMessageText(this)">🔊 Listen</button>
+        </div>
+      `;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function showTypingIndicator(id) {
+      const box = document.getElementById('geminiMessages');
+      if (!box) return;
+      const div = document.createElement('div');
+      div.className = 'msg-bubble msg-bot';
+      div.id = id;
+      div.innerHTML = `<em>✨ Gemini is searching Islamabad database...</em>`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function removeTypingIndicator(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function speakMessageText(btn) {
+      if (!window.speechSynthesis) {
+        alert('Text-to-speech is not supported on this browser.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+
+      const bubble = btn.closest('.msg-bot');
+      if (!bubble) return;
+      
+      // Clone bubble, remove actions bar, get clean text
+      const clone = bubble.cloneNode(true);
+      const actions = clone.querySelector('.msg-bot-actions');
+      if (actions) actions.remove();
+      const rawText = clone.innerText || clone.textContent;
+
+      const utterance = new SpeechSynthesisUtterance(rawText);
+      utterance.lang = currentGeminiLang;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+
+      btn.innerHTML = '⏹️ Stop';
+      btn.onclick = function() {
+        window.speechSynthesis.cancel();
+        btn.innerHTML = '🔊 Listen';
+        btn.onclick = function() { speakMessageText(btn); };
+      };
+
+      utterance.onend = function() {
+        btn.innerHTML = '🔊 Listen';
+        btn.onclick = function() { speakMessageText(btn); };
+      };
+
+      utterance.onerror = function() {
+        btn.innerHTML = '🔊 Listen';
+        btn.onclick = function() { speakMessageText(btn); };
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
   </script>
+
+  <!-- Gemini Floating Action Button (FAB) -->
+  <button class="gemini-fab" id="geminiFabBtn" onclick="toggleGeminiChat()" aria-label="Open Gemini AI Assistant with Voice Search">
+    <span class="pulse-ring"></span>
+    <span class="fab-sparkle">✨</span>
+    <span>Ask Gemini Live</span>
+  </button>
+
+  <!-- Gemini Chatbot Modal / Drawer with Multi-Language Voice Search -->
+  <div class="gemini-chat-modal" id="geminiChatModal" role="dialog" aria-label="Visit Islamabad Gemini AI Live Assistant">
+    <!-- Header -->
+    <div class="gemini-header">
+      <div class="gemini-header-left">
+        <div class="gemini-avatar">✨</div>
+        <div>
+          <div class="gemini-title">Gemini Live Assistant</div>
+          <div class="gemini-sub"><span class="online-dot"></span> Islamabad Voice & Chat</div>
+        </div>
+      </div>
+      <div class="gemini-header-controls">
+        <select class="lang-select-box" id="geminiLangSelect" onchange="onGeminiLangChange(this.value)" title="Select Voice & Chat Language">
+          <option value="ur-PK" selected>🇵🇰 Urdu (اردو)</option>
+          <option value="en-US">🇬🇧 English</option>
+          <option value="ps-PK">🇵🇰 Pashto (پښتو)</option>
+          <option value="pa-PK">🇵🇰 Punjabi (پنجابی)</option>
+          <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
+          <option value="zh-CN">🇨🇳 Chinese (中文)</option>
+        </select>
+        <button class="gemini-close-btn" onclick="toggleGeminiChat()" title="Close Chat">&times;</button>
+      </div>
+    </div>
+
+    <!-- Suggestion Chips -->
+    <div class="gemini-suggestions" id="geminiSuggestions">
+      <button type="button" class="gemini-chip" onclick="askGeminiPrompt('How to reach Shifa International Hospital?')">🏥 Shifa Hospital route</button>
+      <button type="button" class="gemini-chip" onclick="askGeminiPrompt('Supreme Court hearing entry rules and pass')">⚖️ Supreme Court hearing</button>
+      <button type="button" class="gemini-chip" onclick="askGeminiPrompt('Islamabad Metro lines, stops and PKR 50 fare')">🚌 Metro bus PKR 50 fare</button>
+      <button type="button" class="gemini-chip" onclick="askGeminiPrompt('Student hostels near NUST H-12 and FAST')">🎓 Student hostel near NUST</button>
+      <button type="button" class="gemini-chip" onclick="askGeminiPrompt('Caretaker and attendant service for out-of-city patients')">🩺 Patient attendant support</button>
+      <button type="button" class="gemini-chip" onclick="askGeminiPrompt('How can I join Visit Islamabad as a service provider or driver?')">🤝 Join as service provider</button>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="gemini-messages" id="geminiMessages">
+      <div class="msg-bubble msg-bot">
+        <strong>Assalam-o-Alaikum! Welcome to Visit Islamabad Live AI. ✨</strong><br>
+        I am your official multilingual capital concierge. You can <strong>type or speak via microphone</strong> in Urdu (اردو), English, Pashto (پښتو), Punjabi (پنجابی), Arabic (العربية), or Chinese (中文).<br><br>
+        How can I assist your trip to Islamabad today?
+        <div class="msg-bot-actions">
+          <button type="button" class="btn-msg-listen" onclick="speakMessageText(this)">🔊 Listen</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Voice Recording Banner -->
+    <div class="gemini-voice-bar" id="geminiVoiceBar">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span class="voice-pulse-dot"></span>
+        <span id="geminiVoiceStatusText">🎙️ Listening in Urdu... Speak now!</span>
+      </div>
+      <button type="button" onclick="stopVoiceRecognition()" style="background:none; border:none; color:#DC2626; font-weight:700; cursor:pointer;">Cancel</button>
+    </div>
+
+    <!-- Input Bar -->
+    <form class="gemini-input-box" onsubmit="handleGeminiSubmit(event)">
+      <input type="text" class="gemini-input" id="geminiInput" placeholder="Ask in Urdu, English or any language..." autocomplete="off" />
+      <button type="button" class="btn-mic" id="geminiMicBtn" onclick="toggleVoiceRecognition()" title="Voice Search (Speak in selected language)">
+        🎙️
+      </button>
+      <button type="submit" class="btn-send" title="Send message">
+        ➤
+      </button>
+    </form>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -2150,11 +3378,17 @@
       <a href="visit-islamabad.apk" download>Download APK</a>
       <a href="https://visitislamabad.web.app" target="_blank">Launch Web App</a>
       <a href="https://wa.me/923457059286" target="_blank">WhatsApp Desk</a>
-      <a href="mailto:info.letsselll@gmail.com">Email Us</a>
+      <a href="mailto:info.visitislamabad@gmail.com">Email Us</a>
+      <a href="https://instagram.com/visitislamabad" target="_blank">Instagram</a>
+      <a href="https://facebook.com/visitislamabad" target="_blank">Facebook</a>
+      <a href="https://x.com/visitislamabad" target="_blank">Twitter/X</a>
+      <a href="https://youtube.com/@visitislamabad" target="_blank">YouTube</a>
+      <a href="https://tiktok.com/@visitislamabad" target="_blank">TikTok</a>
+      <a href="https://linkedin.com/company/visitislamabad" target="_blank">LinkedIn</a>
       <a href="https://www.google.com/maps/dir/?api=1&destination=Faisal+Mosque+Islamabad" target="_blank">Google Maps</a>
     </div>
-    <p>&copy; 2026 <strong>Visit Islamabad</strong>. All rights reserved.</p>
-    <p style="margin-top: 4px; font-size: 11px;">Helpline / WhatsApp: +92 345 7059286 | Email: info.letsselll@gmail.com | Islamabad, Pakistan</p>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong>. All rights reserved. Connecting visitors across all purposes & all backgrounds.</p>
+    <p style="margin-top: 6px; font-size: 11px;">Helpline / WhatsApp: +92 345 7059286 | Official Email: info.visitislamabad@gmail.com | Socials: @visitislamabad | Islamabad, Pakistan</p>
   </footer>
 
 </body>

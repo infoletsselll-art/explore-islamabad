@@ -708,20 +708,38 @@ object SampleData {
         SocialForum(
             id = "instagram",
             name = "Instagram Community",
-            handleOrTarget = "@islamabadgateway",
+            handleOrTarget = "@visitislamabad",
             category = "Social Media",
             description = "Follow daily updates on Islamabad city life, weather forecasts, sector guides, hospital updates & Margalla trails.",
             actionType = ActionType.OPEN_URL,
-            actionUrl = "https://instagram.com/exploreislmbd"
+            actionUrl = "https://instagram.com/visitislamabad"
         ),
         SocialForum(
             id = "facebook",
             name = "Facebook Official Page",
-            handleOrTarget = "Visit Islamabad",
+            handleOrTarget = "@visitislamabad",
             category = "Social Media",
             description = "Official Facebook page featuring traveler reviews, transport rate guides, hospital info, and visitor updates.",
             actionType = ActionType.OPEN_URL,
             actionUrl = "https://facebook.com/visitislamabad"
+        ),
+        SocialForum(
+            id = "twitter",
+            name = "X (Twitter) Feed",
+            handleOrTarget = "@visitislamabad",
+            category = "Social Media",
+            description = "Live capital alerts, traffic updates, judicial hearing announcements, and transit notices.",
+            actionType = ActionType.OPEN_URL,
+            actionUrl = "https://x.com/visitislamabad"
+        ),
+        SocialForum(
+            id = "youtube",
+            name = "YouTube Channel",
+            handleOrTarget = "@visitislamabad",
+            category = "Video & Guides",
+            description = "Video tours of Islamabad sectors, hospital navigation walkthroughs, Metro line maps, and tourist destinations.",
+            actionType = ActionType.OPEN_URL,
+            actionUrl = "https://youtube.com/@visitislamabad"
         ),
         SocialForum(
             id = "tiktok",
@@ -731,6 +749,15 @@ object SampleData {
             description = "Quick video guides of metro bus rides, hospital corridors, shopping markets, hiking trails, and Murree routes.",
             actionType = ActionType.OPEN_URL,
             actionUrl = "https://tiktok.com/@visitislamabad"
+        ),
+        SocialForum(
+            id = "linkedin",
+            name = "LinkedIn Network",
+            handleOrTarget = "@visitislamabad",
+            category = "Professional & Partners",
+            description = "Partner network for transport fleet operators, guest house owners, student hostels, and medical patient caregiver alliances.",
+            actionType = ActionType.OPEN_URL,
+            actionUrl = "https://linkedin.com/company/visitislamabad"
         ),
         SocialForum(
             id = "google_maps",

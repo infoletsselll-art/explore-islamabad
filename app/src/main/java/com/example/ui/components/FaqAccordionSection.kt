@@ -214,7 +214,7 @@ fun FaqAccordionSection(
                 answer = "Visit Islamabad connects visitors with round-the-clock telephone and WhatsApp guidance at 0345 7059286 (+92 345 7059286), multi-agent AI assistants, customized itinerary architects, and verified transit/hotel partners. Travelers can also share inquiries via WhatsApp or use the web platform at visitislamabad.web.app.",
                 keyPoints = listOf(
                     "Official Concierge Hotline: 0345 7059286 (Call, WhatsApp & Telegram)",
-                    "Official Email: info.letsselll@gmail.com",
+                    "Official Email: info.visitislamabad@gmail.com",
                     "Live Web Platform: https://visitislamabad.web.app/"
                 ),
                 actionButtonText = "Open WhatsApp Helpline",
