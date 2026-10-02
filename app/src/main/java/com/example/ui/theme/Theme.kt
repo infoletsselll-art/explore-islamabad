@@ -15,15 +15,15 @@ private val DarkColorScheme =
     onSecondary = Color(0xFF000000),
     secondaryContainer = Color(0xFF1E382B),
     onSecondaryContainer = Color(0xFFFFFFFF),
-    tertiary = Color(0xFF34D399), // Mint Green
-    onTertiary = Color(0xFF064E3B),
-    background = Color(0xFF0A110D), // Deep dark obsidian background
-    surface = Color(0xFF111C16), // Dark green-tinted card surface
-    surfaceVariant = Color(0xFF182A21),
-    onBackground = Color(0xFFFFFFFF), // Pure White Text
-    onSurface = Color(0xFFFFFFFF), // Pure White Text
-    onSurfaceVariant = Color(0xFFE5E7EB),
-    outline = Color(0xFF244434)
+    tertiary = Color(0xFF38BDF8), // Soft Azure
+    onTertiary = Color(0xFF0A1012),
+    background = Color(0xFF0A1012), // Deep architectural charcoal slate (eye comfort)
+    surface = Color(0xFF111A1E), // Frosted dark slate card
+    surfaceVariant = Color(0xFF17242A),
+    onBackground = Color(0xFFF1F5F9), // Comfortable crisp off-white text
+    onSurface = Color(0xFFF1F5F9), // Comfortable crisp off-white text
+    onSurfaceVariant = Color(0xFF94A3B8), // Soft slate secondary text
+    outline = Color(0xFF22353F)
   )
 
 @Composable

@@ -41,7 +41,12 @@
   <meta name="twitter:image:alt" content="Visit Islamabad — Capital Gateway">
 
   <!-- Mobile & PWA Theme Meta -->
-  <meta name="theme-color" content="#080E0A">
+    <!-- Google Fonts: Outfit (Display & Headings) + Plus Jakarta Sans (Precision UI) + Space Grotesk (Mono/Badges) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#0A1012">
+
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -169,44 +174,98 @@
 
   <style>
     :root {
+      /* Theme: Margalla Twilight & Architectural Slate (Comfortable, Zero-Glare, Eye-Friendly) */
       --primary: #10B981;
-      --primary-dark: #059669;
+      --primary-hover: #059669;
       --primary-light: #34D399;
-      --primary-accent: #25D366;
+      --primary-glow: rgba(16, 185, 129, 0.28);
       --accent-gold: #F59E0B;
-      --accent-gold-light: #FEF3C7;
-      --bg-dark: #080E0A;
-      --bg-cream: #080E0A;
-      --surface: #111C15;
-      --surface-card: #15241C;
-      --surface-card-hover: #1A2F24;
-      --surface-elevated: #182A20;
-      --surface-mint: rgba(16, 185, 129, 0.15);
-      --text-main: #FFFFFF;
-      --text-muted: #9CA3AF;
-      --text-subtle: #6EE7B7;
-      --border-subtle: #1E382A;
+      --accent-gold-light: #FCD34D;
+      --accent-gold-glow: rgba(245, 158, 11, 0.22);
+      --accent-cyan: #38BDF8;
+      --accent-purple: #A78BFA;
+      
+      /* Base & Surfaces (Ergonomic, Deep Obsidian Charcoal, No Eye-Strain Halation) */
+      --bg-dark: #0A1012;
+      --bg-gradient: radial-gradient(circle at 12% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
+                     radial-gradient(circle at 88% 22%, rgba(56, 189, 248, 0.07) 0%, transparent 40%),
+                     radial-gradient(circle at 50% 65%, rgba(245, 158, 11, 0.05) 0%, transparent 50%),
+                     radial-gradient(circle at 80% 90%, rgba(16, 185, 129, 0.06) 0%, transparent 45%),
+                     #0A1012;
+      --surface: #111A1E;
+      --surface-card: #142026;
+      --surface-card-hover: #1A2931;
+      --surface-elevated: #1D2D36;
+      --surface-glass: rgba(17, 26, 30, 0.82);
+      --surface-mint: rgba(16, 185, 129, 0.12);
+      --surface-gold: rgba(245, 158, 11, 0.12);
+      
+      /* Crisp High-Precision Typography (Soft White & Slate to Prevent Glare) */
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-subtle: #64748B;
+      --text-highlight: #34D399;
+      
+      /* Delicate Micro-Borders */
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.14);
       --border-focus: #10B981;
-      --shadow-sm: 0 4px 12px rgba(0,0,0,0.5);
-      --shadow-md: 0 10px 24px rgba(0,0,0,0.65), 0 0 16px rgba(16, 185, 129, 0.12);
-      --shadow-lg: 0 20px 45px rgba(0,0,0,0.8), 0 0 25px rgba(16, 185, 129, 0.18);
-      --radius: 16px;
+      --border-gold: rgba(245, 158, 11, 0.4);
+      
+      /* Smooth Atmospheric Shadows */
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 16px rgba(16, 185, 129, 0.06);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.12);
+      --shadow-glow: 0 0 25px rgba(16, 185, 129, 0.25);
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4, .hero-title, .section-title h2, .brand-title, .panel-title {
+      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
     }
 
     body {
       background-color: var(--bg-dark);
+      background-image: var(--bg-gradient);
+      background-attachment: fixed;
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.65;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A1012;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1F323D;
+      border-radius: 6px;
+      border: 2px solid #0A1012;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10B981;
     }
 
     /* Header & Navigation */
@@ -527,128 +586,29 @@
       border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
-    /* Testimonials Section (Medical, Legal, Student, Tourist) */
-    .testimonials-section {
-      max-width: 1060px;
-      margin: 0 auto 55px;
-      padding: 0 20px;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 20px;
-    }
-
-    .testimonial-card {
-      background: var(--surface-card);
+    /* Purpose Card Explore Button */
+    .btn-card-explore {
+      margin-top: 12px;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    }
-
-    .testimonial-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      border-color: #10B981;
-    }
-
-    .testimonial-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .testimonial-avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 16px;
-      color: #FFFFFF;
-      flex-shrink: 0;
-    }
-
-    .avatar-medical { background: linear-gradient(135deg, #0288D1, #01579B); }
-    .avatar-legal { background: linear-gradient(135deg, #455A64, #263238); }
-    .avatar-student { background: linear-gradient(135deg, #7B1FA2, #4A148C); }
-    .avatar-transit { background: linear-gradient(135deg, #10B981, #059669); }
-
-    .testimonial-user-info h5 {
-      font-size: 15px;
+      color: #34D399;
+      font-size: 12.5px;
       font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 2px;
-    }
-
-    .testimonial-user-info span {
-      font-size: 12px;
-      color: #9CA3AF;
-      display: block;
-    }
-
-    .testimonial-badge {
+      padding: 7px 12px;
+      border-radius: 9px;
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      align-self: flex-start;
+      gap: 6px;
+      width: 100%;
+      justify-content: center;
+      transition: all 0.2s ease;
     }
-
-    .badge-med { background: rgba(2, 136, 209, 0.2); color: #38BDF8; }
-    .badge-law { background: rgba(148, 163, 184, 0.2); color: #CBD5E1; }
-    .badge-stu { background: rgba(168, 85, 247, 0.2); color: #C084FC; }
-    .badge-tour { background: rgba(16, 185, 129, 0.2); color: #34D399; }
-
-    .testimonial-stars {
-      color: #F59E0B;
-      font-size: 14px;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-
-    .testimonial-quote {
-      font-size: 13.5px;
-      color: #E5E7EB;
-      line-height: 1.55;
-      font-style: italic;
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .testimonial-footer {
-      border-top: 1px dashed var(--border-subtle);
-      padding-top: 12px;
-      margin-top: auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 11.5px;
-      color: #9CA3AF;
-    }
-
-    .testimonial-pill {
-      background: #080E0A;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-weight: 600;
-      color: #34D399;
-      border: 1px solid var(--border-subtle);
+    .btn-card-explore:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #FFFFFF;
+      transform: translateY(-1px);
     }
 
     /* Verified Partners Section */
@@ -2180,7 +2140,664 @@
       to { transform: rotate(360deg); }
     }
     
-  </style>
+  
+    /* ==========================================================================
+       DUAL COMMAND GATEWAY HUB (Search on Left, Booking on Right)
+       ========================================================================== */
+    .dual-portal-section {
+      padding: 50px 20px 70px;
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .dual-portal-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .dual-portal-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    /* Mobile Segmented Toggle Tabs */
+    .hub-mobile-tabs {
+      display: none;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: rgba(17, 26, 30, 0.95);
+      border: 1px solid var(--border-subtle);
+      padding: 6px;
+      border-radius: 14px;
+      position: sticky;
+      top: 76px;
+      z-index: 30;
+      backdrop-filter: blur(12px);
+    }
+
+    @media (max-width: 992px) {
+      .hub-mobile-tabs {
+        display: flex;
+      }
+    }
+
+    .hub-tab-btn {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .hub-tab-btn.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.08));
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+    }
+
+    /* Hub Column Panels */
+    .hub-column {
+      width: 100%;
+    }
+
+    .hub-panel-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(16px);
+      position: relative;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hub-panel-card:hover {
+      border-color: rgba(52, 211, 153, 0.3);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5), 0 0 25px rgba(16, 185, 129, 0.08);
+    }
+
+    .highlight-glow {
+      animation: panelHighlightPulse 1.8s ease;
+    }
+
+    @keyframes panelHighlightPulse {
+      0% {
+        border-color: #10B981;
+        box-shadow: 0 0 35px rgba(16, 185, 129, 0.5), inset 0 0 15px rgba(16, 185, 129, 0.2);
+        transform: scale(1.008);
+      }
+      50% {
+        border-color: #34D399;
+        box-shadow: 0 0 28px rgba(52, 211, 153, 0.4), inset 0 0 10px rgba(52, 211, 153, 0.15);
+      }
+      100% {
+        border-color: var(--border-subtle);
+        box-shadow: var(--shadow-lg);
+        transform: scale(1);
+      }
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .panel-title-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .panel-badge-icon {
+      font-size: 26px;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.25;
+    }
+
+    .panel-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .live-pulse-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.12);
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      display: inline-block;
+      box-shadow: 0 0 8px #10B981;
+      animation: dotPulse 1.8s infinite;
+    }
+
+    @keyframes dotPulse {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
+    }
+
+    /* Search Input Box */
+    .search-input-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .capital-search-input {
+      width: 100%;
+      padding: 14px 44px 14px 48px;
+      background: #0D161A;
+      border: 1px solid var(--border-medium);
+      border-radius: 14px;
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.25s ease;
+      outline: none;
+    }
+
+    .capital-search-input:focus {
+      border-color: #10B981;
+      background: #0E1A1F;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+    }
+
+    .capital-search-input::placeholder {
+      color: #64748B;
+      font-weight: 400;
+    }
+
+    .clear-search-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-muted);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .clear-search-btn:hover {
+      background: rgba(239, 68, 68, 0.3);
+      color: #FFFFFF;
+    }
+
+    /* Category Filter Pills */
+    .search-category-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .cat-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .cat-pill:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .cat-pill.active {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34D399;
+      border-color: rgba(16, 185, 129, 0.45);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.18);
+    }
+
+    /* Trending Suggestion Chips */
+    .quick-suggest-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px dashed var(--border-subtle);
+    }
+
+    .suggest-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .suggest-chip {
+      background: transparent;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: #FCD34D;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .suggest-chip:hover {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--accent-gold);
+      transform: translateY(-1px);
+    }
+
+    /* Results Meta & Container */
+    .search-results-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .results-hint {
+      color: #34D399;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .search-results-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 620px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .search-results-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .search-results-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+    }
+
+    /* Individual Place Card */
+    .search-place-card {
+      background: #0E171B;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 16px 18px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .search-place-card:hover {
+      background: #121E23;
+      border-color: rgba(52, 211, 153, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .place-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 10px;
+    }
+
+    .place-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.3;
+    }
+
+    .place-sector-badge {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #38BDF8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 9px;
+      border-radius: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      white-space: nowrap;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    .place-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .place-transit-tip {
+      font-size: 12px;
+      color: #FCD34D;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      padding: 6px 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .place-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-select-booking {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-select-booking:hover {
+      background: linear-gradient(135deg, #34D399, #10B981);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-view-map {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-view-map:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Empty state */
+    .empty-search-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+
+    /* Auto-Fill Notice Banner */
+    .autofill-notice {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      color: #34D399;
+      font-weight: 600;
+      animation: slideDownFade 0.3s ease;
+    }
+
+    @keyframes slideDownFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .notice-close {
+      background: none;
+      border: none;
+      color: #34D399;
+      cursor: pointer;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    .notice-close:hover { opacity: 1; }
+
+    /* Booking Form Layout & Floating Inputs */
+    .form-grid-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid-dual {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+
+    .booking-category-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+      background: #0B1317;
+      padding: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .b-tab-btn {
+      flex: 1;
+      padding: 9px 8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .b-tab-btn.active {
+      background: #14252E;
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .form-group label .req {
+      color: #F59E0B;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: #0B1317;
+      border: 1px solid var(--border-medium);
+      border-radius: 10px;
+      padding: 11px 14px;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #10B981;
+      background: #0E191F;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-submit-booking {
+      width: 100%;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      font-size: 15.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+      transition: all 0.25s ease;
+      margin-top: 8px;
+    }
+
+    .btn-submit-booking:hover {
+      background: linear-gradient(135deg, #34D399, #10B981);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(16, 185, 129, 0.5);
+    }
+
+    .btn-submit-booking:active {
+      transform: translateY(0);
+    }
+
+    .status-live-chip {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.1);
+      padding: 4px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .admin-quick-btn {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      padding: 4px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .admin-quick-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+    }
+
+    .success-card {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      animation: slideDownFade 0.3s ease;
+    }
+</style>
 </head>
 <body>
 
@@ -2195,7 +2812,10 @@
         </div>
       </a>
       <div class="header-actions">
-        <a href="#booking-section" class="btn btn-outline" style="border-color: #10B981; color: #FFFFFF;">
+        <a href="#search-section" class="btn btn-outline" style="border-color: rgba(255,255,255,0.2); color: #F1F5F9;">
+          <span>🔍</span> Search & Explore
+        </a>
+        <a href="#booking-section" class="btn btn-outline" style="border-color: #10B981; color: #34D399;">
           <span>📋</span> Book Ride / Stay
         </a>
         <button type="button" onclick="openAdminConsole()" class="btn btn-outline" style="border-color: #374151; color: #9CA3AF;" title="Backend Console for Admin">
@@ -2321,6 +2941,9 @@
         <span class="budget-tag">Patient Lodges</span>
         <span class="budget-tag">Metro Hospital Gate</span>
       </div>
+      <button type="button" class="btn-card-explore" onclick="filterSearchCategoryAndScroll('medical')">
+        <span>🔍</span> Search Medical Hubs & Stays ➔
+      </button>
     </div>
 
     <div class="purpose-card">
@@ -2332,6 +2955,9 @@
         <span class="budget-tag">Diplomatic Shuttle</span>
         <span class="budget-tag">Executive Sedans</span>
       </div>
+      <button type="button" class="btn-card-explore" onclick="filterSearchCategoryAndScroll('legal')">
+        <span>🔍</span> Search Courts & Diplomatic Gate ➔
+      </button>
     </div>
 
     <div class="purpose-card">
@@ -2343,6 +2969,9 @@
         <span class="budget-tag">Student Hostels</span>
         <span class="budget-tag">PKR 50 Metro Bus</span>
       </div>
+      <button type="button" class="btn-card-explore" onclick="filterSearchCategoryAndScroll('student')">
+        <span>🔍</span> Search NUST, Exams & Hostels ➔
+      </button>
     </div>
 
     <div class="purpose-card">
@@ -2354,6 +2983,9 @@
         <span class="budget-tag">Boutiques</span>
         <span class="budget-tag">inDrive & Yango</span>
       </div>
+      <button type="button" class="btn-card-explore" onclick="filterSearchCategoryAndScroll('shopping')">
+        <span>🔍</span> Search Malls & Bazaars ➔
+      </button>
     </div>
 
     <div class="purpose-card">
@@ -2365,6 +2997,9 @@
         <span class="budget-tag">Margalla Trails</span>
         <span class="budget-tag">Guided City Tours</span>
       </div>
+      <button type="button" class="btn-card-explore" onclick="filterSearchCategoryAndScroll('tourism')">
+        <span>🔍</span> Search Faisal Mosque & Trails ➔
+      </button>
     </div>
 
     <div class="purpose-card">
@@ -2376,279 +3011,283 @@
         <span class="budget-tag">Road Alerts</span>
         <span class="budget-tag">Direct Flight Hub</span>
       </div>
+      <button type="button" class="btn-card-explore" onclick="filterSearchCategoryAndScroll('transport')">
+        <span>🔍</span> Search 4x4 Fleet & Transit ➔
+      </button>
     </div>
   </div>
 
   <!-- Dedicated Booking Section: Transportation & Guest Houses (Firestore Integrated) -->
-  <section class="booking-section" id="booking-section">
-    <div class="booking-container">
-      <div class="section-title" style="margin-bottom: 24px;">
-        <div class="badge-pill" style="margin-bottom: 8px;">
-          <span>📋</span> Real-Time Cloud Booking
+  <!-- ==========================================================================
+       DUAL COMMAND GATEWAY HUB (Search on Left, Direct Booking on Right)
+       ========================================================================== -->
+  <section class="dual-portal-section" id="portal-hub">
+    <!-- Header -->
+    <div class="section-title" style="margin-bottom: 28px;">
+      <div class="badge-pill" style="margin-bottom: 8px;">
+        <span>⚡</span> Unified Capital Command Center
+      </div>
+      <h2>Search Islamabad On One Side • Book Services On The Other</h2>
+      <p>Explore verified hospitals, apex courts, entry tests, and scenic hotspots on the left — and directly reserve your multi-budget rides & verified guest houses on the right with real-time dispatch.</p>
+    </div>
+
+    <!-- Mobile View Switcher -->
+    <div class="hub-mobile-tabs" id="hubMobileTabs">
+      <button type="button" class="hub-tab-btn active" id="tabMobileSearch" onclick="switchHubMobileView('search')">
+        <span>🔍</span> Search & Explore Capital
+      </button>
+      <button type="button" class="hub-tab-btn" id="tabMobileBooking" onclick="switchHubMobileView('booking')">
+        <span>📅</span> Direct Booking Desk
+      </button>
+    </div>
+
+    <!-- Dual Split Layout -->
+    <div class="dual-portal-grid">
+      
+      <!-- SIDE 1: SEARCH & DISCOVERY ENGINE (LEFT) -->
+      <div class="hub-column hub-search-col" id="search-section">
+        <div class="hub-panel-card">
+          
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-badge-icon">🔍</span>
+              <div>
+                <h3 class="panel-title">Search & Discover Islamabad</h3>
+                <p class="panel-subtitle">Find sectors, hospitals, courts, metro stops & vetted stays</p>
+              </div>
+            </div>
+            <span class="live-pulse-badge">
+              <span class="live-dot"></span> Live Directory
+            </span>
+          </div>
+
+          <!-- Search Input Bar -->
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔎</span>
+            <input 
+              type="text" 
+              id="capitalSearchInput" 
+              class="capital-search-input" 
+              placeholder="Search Shifa, Supreme Court, NUST, Metro, Centaurus..." 
+              oninput="onCapitalSearchInput(this.value)"
+              autocomplete="off"
+            />
+            <button type="button" id="clearSearchBtn" class="clear-search-btn" style="display:none;" onclick="clearCapitalSearch()">✕</button>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="search-category-filter">
+            <button type="button" class="cat-pill active" onclick="filterSearchCategory('all', this)">All Sectors</button>
+            <button type="button" class="cat-pill" onclick="filterSearchCategory('medical', this)">🏥 Hospitals</button>
+            <button type="button" class="cat-pill" onclick="filterSearchCategory('legal', this)">⚖️ Courts</button>
+            <button type="button" class="cat-pill" onclick="filterSearchCategory('student', this)">🎓 Universities</button>
+            <button type="button" class="cat-pill" onclick="filterSearchCategory('transport', this)">🚌 Metro & Rides</button>
+            <button type="button" class="cat-pill" onclick="filterSearchCategory('stays', this)">🏨 Guest Houses</button>
+            <button type="button" class="cat-pill" onclick="filterSearchCategory('shopping', this)">🛍️ Malls</button>
+            <button type="button" class="cat-pill" onclick="filterSearchCategory('tourism', this)">🕌 Sightseeing</button>
+          </div>
+
+          <!-- Trending Suggestion Chips -->
+          <div class="quick-suggest-tags">
+            <span class="suggest-label">Trending:</span>
+            <button type="button" class="suggest-chip" onclick="quickFillSearch('Shifa Hospital')">Shifa H-8</button>
+            <button type="button" class="suggest-chip" onclick="quickFillSearch('Supreme Court')">Supreme Court</button>
+            <button type="button" class="suggest-chip" onclick="quickFillSearch('NUST')">NUST H-12</button>
+            <button type="button" class="suggest-chip" onclick="quickFillSearch('Metro Bus')">Metro Bus</button>
+            <button type="button" class="suggest-chip" onclick="quickFillSearch('Centaurus')">Centaurus Mall</button>
+            <button type="button" class="suggest-chip" onclick="quickFillSearch('Faisal Mosque')">Faisal Mosque</button>
+          </div>
+
+          <!-- Results Metadata -->
+          <div class="search-results-meta">
+            <span id="searchResultsCount">16 verified destinations ready</span>
+            <span class="results-hint">💡 Tap "Select for Booking" to auto-fill the form!</span>
+          </div>
+
+          <!-- Live Results Stream -->
+          <div class="search-results-container" id="searchResultsContainer">
+            <!-- Dynamically populated with interactive place cards -->
+          </div>
+
         </div>
-        <h2>Book Transportation & Verified Guest Houses</h2>
-        <p>Directly reserve airport transfers, hospital patient shuttles, court appearance sedans, university transit, and verified guest houses. Requests are logged directly to our 24/7 backend console in Firestore.</p>
       </div>
 
-      <!-- Category Filter Tabs -->
-      <div class="booking-category-tabs">
-        <button type="button" class="b-tab-btn active" id="tabCatAll" onclick="selectBookingCategory('combo', this)">
-          <span>🎁</span> Transport + Stay Package
-        </button>
-        <button type="button" class="b-tab-btn" id="tabCatTransport" onclick="selectBookingCategory('transport', this)">
-          <span>🚗</span> Transportation Only
-        </button>
-        <button type="button" class="b-tab-btn" id="tabCatStay" onclick="selectBookingCategory('stay', this)">
-          <span>🏡</span> Guest House / Lodging Only
-        </button>
-      </div>
-
-      <div class="booking-card">
-        <form id="visitorBookingForm" onsubmit="handleBookingSubmit(event)">
-          <!-- Hidden category state -->
-          <input type="hidden" id="bkCategory" value="combo" />
-
-          <div class="booking-form-grid">
-            <!-- 1. Full Name -->
-            <div class="form-group">
-              <label for="bkName">Visitor / Patient Name *</label>
-              <input type="text" id="bkName" placeholder="e.g. Dr. Salman Tariq / Haji Rafiq" required />
+      <!-- SIDE 2: DIRECT BOOKING & DISPATCH DESK (RIGHT) -->
+      <div class="hub-column hub-booking-col" id="booking-section">
+        <div class="hub-panel-card booking-card-wrapper" id="bookingCardWrapper">
+          
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-badge-icon">📅</span>
+              <div>
+                <h3 class="panel-title">Direct Booking & Dispatch Desk</h3>
+                <p class="panel-subtitle">Instant reservation for transport & vetted guest houses</p>
+              </div>
             </div>
-
-            <!-- 2. Phone / WhatsApp -->
-            <div class="form-group">
-              <label for="bkPhone">WhatsApp / Mobile Number *</label>
-              <input type="tel" id="bkPhone" placeholder="e.g. 0345 1234567 or +92..." required />
-            </div>
-
-            <!-- 3. Purpose of Visit -->
-            <div class="form-group">
-              <label for="bkPurpose">Primary Purpose of Visit *</label>
-              <select id="bkPurpose" required onchange="onPurposeChanged()">
-                <option value="🏥 Healthcare & Medical (Shifa/PIMS/Maroof)">🏥 Healthcare & Medical (Shifa / PIMS / Maroof)</option>
-                <option value="⚖️ Supreme Court / High Court / Legal">⚖️ Supreme Court / High Court / Legal Hearing</option>
-                <option value="🎓 University Exam / Studies (NUST/FAST/QAU)">🎓 University Exam / Entry Test (NUST / FAST / QAU)</option>
-                <option value="🛍️ Shopping & Family Leisure">🛍️ Shopping & Family Vacation</option>
-                <option value="🏔️ Northern Areas Transit (Murree/Hunza/Skardu)">🏔️ Northern Areas Transit (Murree / Hunza / Skardu)</option>
-                <option value="💼 Business / Diplomatic / Corporate">💼 Business / Diplomatic / Embassy Appointment</option>
-              </select>
-            </div>
-
-            <!-- 4. Required Service / Fleet Option -->
-            <div class="form-group">
-              <label for="bkServiceType">Preferred Service / Vehicle / Room *</label>
-              <select id="bkServiceType" required>
-                <option value="Complete Combo: Dedicated Sedan + Verified Guest House">⭐ Complete Combo: Dedicated Sedan + Verified Guest House</option>
-                <option value="Executive Chauffeur Sedan (Corolla/Civic)">🚗 Executive Chauffeur Sedan (Corolla / Civic)</option>
-                <option value="Wheelchair / Patient Hospital Cab">🚑 Wheelchair / Patient Cab (Hospital Transfer)</option>
-                <option value="4x4 Prado / SUV (Northern / Mountain Transit)">🚙 4x4 Prado / SUV (Northern & Mountain Transit)</option>
-                <option value="AC Grand Cabin Hiace (Family / Group Shuttle)">🚐 AC Grand Cabin Hiace (14 Seater)</option>
-                <option value="Patient-Friendly Ground Floor Guest House">🏡 Patient-Friendly Ground Floor Room (Near Shifa/PIMS)</option>
-                <option value="Executive Business Hotel (Blue Area / Central)">🏨 Executive Business Hotel (Blue Area / Red Zone)</option>
-                <option value="Student Hostel Bed / Room (Near Campus)">🎓 Student Hostel Bed / Room (Near NUST/FAST)</option>
-              </select>
-            </div>
-
-            <!-- 5. Arrival Date -->
-            <div class="form-group">
-              <label for="bkDate">Service / Arrival Date *</label>
-              <input type="date" id="bkDate" required />
-            </div>
-
-            <!-- 6. Number of Guests / Passengers -->
-            <div class="form-group">
-              <label for="bkGuests">Number of Guests / Passengers *</label>
-              <select id="bkGuests">
-                <option value="1 Person (Solo Traveler)">1 Person (Solo Traveler)</option>
-                <option value="2 Persons (Patient + Attendant / Couple)" selected>2 Persons (Patient + Attendant / Couple)</option>
-                <option value="3-4 Persons (Family)">3-4 Persons (Family)</option>
-                <option value="5-8 Persons (Group / Relatives)">5-8 Persons (Group / Relatives)</option>
-                <option value="9+ Persons (Large Delegation / Tour)">9+ Persons (Large Delegation / Tour)</option>
-              </select>
-            </div>
-
-            <!-- 7. Pickup Location / Sector -->
-            <div class="form-group">
-              <label for="bkLocation">Pickup Location / Destination Sector in Islamabad *</label>
-              <input type="text" id="bkLocation" placeholder="e.g. Islamabad Airport to Shifa H-8, or Daewoo Terminal" required />
-            </div>
-
-            <!-- 8. Origin City -->
-            <div class="form-group">
-              <label for="bkOrigin">Traveling From (City / Province)</label>
-              <input type="text" id="bkOrigin" placeholder="e.g. Lahore, Peshawar, Quetta, Karachi, Gilgit" />
-            </div>
-
-            <!-- 9. Special Needs / Notes -->
-            <div class="form-group" style="grid-column: 1 / -1;">
-              <label for="bkNotes">Special Needs or Detailed Instructions (Optional)</label>
-              <textarea id="bkNotes" rows="2" placeholder="e.g. Flight arrives at 11:30 PM; need lift/elevator in guest house; patient cannot walk long distances; require English/Urdu speaking chauffeur."></textarea>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="status-live-chip">
+                <span class="live-dot" style="background:#10B981;"></span> Firestore 24/7
+              </span>
+              <button type="button" onclick="openAdminConsole()" class="admin-quick-btn" title="Open Admin Backend Console">
+                🔒 Admin
+              </button>
             </div>
           </div>
 
-          <!-- Submit Buttons & Status -->
-          <div class="booking-submit-row">
+          <!-- Category Selector Tabs -->
+          <div class="booking-category-tabs">
+            <button type="button" class="b-tab-btn active" id="tabCatCombo" onclick="selectBookingCategory('combo', this)">
+              ⭐ Combo (Ride + Stay)
+            </button>
+            <button type="button" class="b-tab-btn" id="tabCatTransport" onclick="selectBookingCategory('transport', this)">
+              🚗 Transport Only
+            </button>
+            <button type="button" class="b-tab-btn" id="tabCatStay" onclick="selectBookingCategory('stay', this)">
+              🏨 Guest House Only
+            </button>
+          </div>
+
+          <!-- Auto-Fill Feedback Notice -->
+          <div id="autofillNotice" class="autofill-notice" style="display:none;">
+            <span>✨</span>
+            <span id="autofillText">Auto-populated location from Search!</span>
+            <button type="button" onclick="dismissAutofillNotice()" class="notice-close">✕</button>
+          </div>
+
+          <!-- Booking Form -->
+          <form id="visitorBookingForm" onsubmit="handleBookingSubmit(event)">
+            <input type="hidden" id="bkCategory" value="combo" />
+
+            <div class="form-grid-dual">
+              <!-- Name -->
+              <div class="form-group">
+                <label for="bkName">Your Full Name <span class="req">*</span></label>
+                <input type="text" id="bkName" placeholder="e.g. Dr. Salman Tariq / Haji Rafiq" required />
+              </div>
+
+              <!-- Phone / WhatsApp -->
+              <div class="form-group">
+                <label for="bkPhone">WhatsApp / Phone Number <span class="req">*</span></label>
+                <input type="tel" id="bkPhone" placeholder="e.g. 0345 1234567 or +92..." required />
+              </div>
+            </div>
+
+            <div class="form-grid-dual">
+              <!-- Purpose -->
+              <div class="form-group">
+                <label for="bkPurpose">Primary Purpose of Visit <span class="req">*</span></label>
+                <select id="bkPurpose" required onchange="onPurposeChanged()">
+                  <option value="" disabled selected>-- Select Your Purpose --</option>
+                  <option value="Healthcare & Hospital Checkup">🏥 Healthcare & Hospital Checkup (Shifa, PIMS, Maroof)</option>
+                  <option value="Supreme Court & Legal Hearing">⚖️ Supreme Court / High Court / Legal Appearance</option>
+                  <option value="University Entry Test & Academic">🎓 University Entry Test (NUST, FAST, QAU, Air)</option>
+                  <option value="Commercial Shopping & Dining">🛍️ Shopping & Lifestyle (Centaurus, Giga, F-7)</option>
+                  <option value="Scenic Sightseeing & Tourism">🕌 Scenic Sightseeing & Margalla Trails (Monal, Faisal Mosque)</option>
+                  <option value="Northern Transit & Gateway">🏔️ Northern Transit (Hunza, Skardu, Murree, Swat)</option>
+                  <option value="Diplomatic & Visa Interview">🌐 Diplomatic Enclave / Embassy Visa Interview</option>
+                  <option value="Business, Conference & Corporate">💼 Business, Conference & Secretariat Affairs</option>
+                </select>
+              </div>
+
+              <!-- Specific Service Tier -->
+              <div class="form-group">
+                <label for="bkServiceType">Preferred Service Tier <span class="req">*</span></label>
+                <select id="bkServiceType" required>
+                  <option value="Complete Combo: Dedicated Sedan + Verified Guest House" selected>⭐ Complete Combo: Dedicated Sedan + Verified Guest House</option>
+                  <option value="Airport / Daewoo Pickup Sedan (AC)">🚗 Airport / Daewoo Pickup Sedan (AC)</option>
+                  <option value="Hospital Patient Care Shuttle (Wheelchair Ready)">♿ Hospital Patient Care Shuttle (Wheelchair Ready)</option>
+                  <option value="Apex Court Executive Chauffeur (Constitution Ave Access)">🏛️ Apex Court Executive Chauffeur (Constitution Ave)</option>
+                  <option value="Student Entry Test Budget Cab / Metro Pass">🎓 Student Budget Cab / Metro Pass Support</option>
+                  <option value="Northern Tour Prado 4x4 / Hiace Grand Cabin">🏔️ Northern Tour 4x4 Prado / Hiace Grand Cabin</option>
+                  <option value="Family Verified Guest House (Proximity Sector)">🏨 Family Verified Guest House (F-7, F-8, G-8, I-8)</option>
+                  <option value="Executive Corporate Suite / Hotel Room">💼 Executive Corporate Suite / Hotel Room</option>
+                  <option value="Female Student / Patient Attendant Hostel">🔒 Female Student / Patient Attendant Hostel</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid-dual">
+              <!-- Date -->
+              <div class="form-group">
+                <label for="bkDate">Arrival Date in Islamabad <span class="req">*</span></label>
+                <input type="date" id="bkDate" required />
+              </div>
+
+              <!-- Number of Guests / Patients -->
+              <div class="form-group">
+                <label for="bkGuests">Total Travelers / Patients</label>
+                <select id="bkGuests">
+                  <option value="1 Person (Solo Traveler / Student)">1 Person (Solo Traveler / Student)</option>
+                  <option value="2 Persons (Patient + Attendant / Couple)">2 Persons (Patient + Attendant / Couple)</option>
+                  <option value="3-4 Persons (Small Family)" selected>3-4 Persons (Small Family)</option>
+                  <option value="5-7 Persons (Large Family / Delegation)">5-7 Persons (Large Family / Delegation)</option>
+                  <option value="8+ Persons (Group / Vans Required)">8+ Persons (Group / Vans Required)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Destination in Islamabad -->
+            <div class="form-group">
+              <label for="bkLocation">Pickup or Destination in Islamabad <span class="req">*</span></label>
+              <input type="text" id="bkLocation" placeholder="e.g. Islamabad Airport to Shifa H-8, or Daewoo to F-8" required />
+            </div>
+
+            <div class="form-grid-dual">
+              <!-- Origin City -->
+              <div class="form-group">
+                <label for="bkOrigin">Origin City / Region</label>
+                <input type="text" id="bkOrigin" placeholder="e.g. Lahore, Peshawar, Quetta, Karachi, Gilgit" />
+              </div>
+
+              <!-- Budget Tier -->
+              <div class="form-group">
+                <label for="bkBudget">Budget Preference</label>
+                <select id="bkBudget">
+                  <option value="Standard / Affordable (Best Value)" selected>Standard / Affordable (Best Value)</option>
+                  <option value="Economy / Student Friendly">Economy / Student Friendly</option>
+                  <option value="Executive / VIP Comfort">Executive / VIP Comfort</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Special Notes -->
+            <div class="form-group">
+              <label for="bkNotes">Special Requirements or Schedule Notes</label>
+              <textarea id="bkNotes" rows="2" placeholder="e.g. Flight arrives at 11:30 PM; need ground floor guest house; patient requires wheelchair support; driver with Constitution Ave access knowledge."></textarea>
+            </div>
+
+            <!-- Submit Button -->
             <button type="submit" class="btn-submit-booking" id="bkSubmitBtn">
               <span id="bkSubmitSpinner" style="display:none;" class="spinner-small"></span>
               <span id="bkSubmitText">🚀 Submit Booking to Firestore Desk</span>
             </button>
-            <button type="button" class="btn-wa-direct" onclick="submitBookingDirectWa()">
-              <span>💬</span> Fast WhatsApp Booking
-            </button>
-          </div>
+          </form>
 
-          <!-- Real-Time Feedback Alert -->
           <div id="bookingAlertMsg" style="display: none; margin-top: 16px;"></div>
-        </form>
 
-        <!-- Booking Success Confirmation Card -->
-        <div id="bookingSuccessCard" style="display: none; margin-top: 20px; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--primary); border-radius: 16px; padding: 24px; text-align: center;">
-          <div style="font-size: 40px; margin-bottom: 8px;">✅</div>
-          <h3 style="color: #34D399; font-size: 22px; margin-bottom: 6px;">Booking Request Logged in Firestore!</h3>
-          <p style="color: #D1D5DB; font-size: 14.5px; max-width: 600px; margin: 0 auto 16px;">
-            Your request has been successfully recorded in our backend console. Reference Number: <strong id="successBookingRef" style="color: #F59E0B; font-family: monospace; font-size: 16px;">#VI-BK-XXXX</strong>.
-          </p>
-          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-            <a id="successWaLink" href="#" target="_blank" class="btn btn-accent" style="padding: 10px 20px;">
-              <span>💬</span> Send to WhatsApp Concierge for Instant Confirmation
-            </a>
-            <button type="button" class="btn btn-outline" onclick="resetBookingForm()" style="padding: 10px 20px;">
-              Book Another Service
-            </button>
+          <!-- Confirmation Card -->
+          <div id="bookingSuccessCard" style="display: none; margin-top: 20px;" class="success-card">
+            <div style="font-size: 38px; margin-bottom: 8px;">🎉</div>
+            <h4 style="font-size: 20px; font-weight: 700; color: #34D399; margin-bottom: 8px;">Booking Confirmed & Recorded!</h4>
+            <p style="font-size: 14.5px; color: var(--text-muted); margin-bottom: 16px;">
+              Your request has been logged into our 24/7 Firestore desk. Reference ID: <strong id="successBookingRef" style="color: #F59E0B; font-family: 'Space Grotesk', monospace; font-size: 16px;">#VI-BK-XXXX</strong>.
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <a id="successWaLink" href="#" target="_blank" class="btn btn-accent" style="padding: 10px 20px;">
+                💬 Open WhatsApp Dispatch
+              </a>
+              <button type="button" onclick="resetBookingForm()" class="btn btn-outline" style="padding: 10px 18px; border-color: rgba(255,255,255,0.2);">
+                ➕ Book Another Service
+              </button>
+            </div>
           </div>
+
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- Testimonials Section (Medical, Legal, Student & Tourism Experiences) -->
-  <section class="testimonials-section" id="testimonials-section">
-    <div class="section-title">
-      <div class="badge-pill" style="margin-bottom: 8px;">
-        <span>⭐</span> Verified Visitor Experiences
-      </div>
-      <h2>Verified Visitor Experiences Across Pakistan & Abroad</h2>
-      <p>Real experiences from patients, advocates, university applicants, and families who rely on Visit Islamabad for end-to-end peace of mind.</p>
-    </div>
-
-    <div class="testimonials-grid">
-      <!-- 1. Medical Visitor Testimonial -->
-      <div class="testimonial-card">
-        <div>
-          <div class="testimonial-header">
-            <div class="testimonial-avatar avatar-medical">MR</div>
-            <div class="testimonial-user-info">
-              <h5>Haji Muhammad Rafiq & Family</h5>
-              <span>Multan (Southern Punjab) • Shifa Hospital OPD</span>
-            </div>
-          </div>
-
-          <div class="testimonial-badge badge-med">
-            <span>🏥</span> Medical Checkup & Patient Stay
-          </div>
-
-          <div class="testimonial-stars">★★★★★</div>
-
-          <p class="testimonial-quote">
-            "We traveled from Multan for my father's cardiac procedure at Shifa International. Finding accessible lodging and punctual transport used to be so stressful. Visit Islamabad booked us into a clean, ground-floor guest house just 6 minutes away and coordinated wheelchair-ready cab pickups right on time. A true blessing for families traveling for medical checkups."
-          </p>
-        </div>
-
-        <div class="testimonial-footer">
-          <span class="testimonial-pill">🏥 Shifa International</span>
-          <span class="testimonial-pill">♿ Patient Transport</span>
-          <span class="testimonial-pill">💰 Family Guest House</span>
-        </div>
-      </div>
-
-      <!-- 2. Legal / Supreme Court Visitor Testimonial -->
-      <div class="testimonial-card">
-        <div>
-          <div class="testimonial-header">
-            <div class="testimonial-avatar avatar-legal">TQ</div>
-            <div class="testimonial-user-info">
-              <h5>Advocate M. Tariq Qureshi</h5>
-              <span>Lahore High Court Bar • Supreme Court Case</span>
-            </div>
-          </div>
-
-          <div class="testimonial-badge badge-law">
-            <span>⚖️</span> Supreme Court & IHC Appearance
-          </div>
-
-          <div class="testimonial-stars">★★★★★</div>
-
-          <p class="testimonial-quote">
-            "Appearing before the Supreme Court at Constitution Avenue demands zero logistical headaches. The app arranged a dedicated executive sedan with a driver who understood red zone security cordons and gate entry timings. Having our itinerary and stay near the Secretariat coordinated in advance made the hearing day completely smooth."
-          </p>
-        </div>
-
-        <div class="testimonial-footer">
-          <span class="testimonial-pill">🏛️ Supreme Court / IHC</span>
-          <span class="testimonial-pill">🚗 Executive Chauffeur</span>
-          <span class="testimonial-pill">💼 Quiet Work Hotel</span>
-        </div>
-      </div>
-
-      <!-- 3. Student Visitor Testimonial -->
-      <div class="testimonial-card">
-        <div>
-          <div class="testimonial-header">
-            <div class="testimonial-avatar avatar-student">ZK</div>
-            <div class="testimonial-user-info">
-              <h5>Zoya Khan</h5>
-              <span>Peshawar, KPK • NUST NET & Entry Test</span>
-            </div>
-          </div>
-
-          <div class="testimonial-badge badge-stu">
-            <span>🎓</span> University Exam & Student Transit
-          </div>
-
-          <div class="testimonial-stars">★★★★★</div>
-
-          <p class="testimonial-quote">
-            "Traveling solo from KPK for the NUST NET exam at H-12 was daunting on a student budget. Visit Islamabad explained how to take the PKR 50 Orange Line Metro Bus from Daewoo terminal right to the campus gates and guided me to a safe, verified girls' hostel nearby. It saved me thousands of rupees and kept me totally safe."
-          </p>
-        </div>
-
-        <div class="testimonial-footer">
-          <span class="testimonial-pill">🎓 NUST H-12 / FAST</span>
-          <span class="testimonial-pill">🚌 PKR 50 Metro Bus</span>
-          <span class="testimonial-pill">🔒 Verified Student Hostel</span>
-        </div>
-      </div>
-
-      <!-- 4. Northern Transit & Tourism Testimonial -->
-      <div class="testimonial-card">
-        <div>
-          <div class="testimonial-header">
-            <div class="testimonial-avatar avatar-transit">FS</div>
-            <div class="testimonial-user-info">
-              <h5>Farhan & Ayesha Sheikh</h5>
-              <span>Karachi, Sindh • Sightseeing & Hunza Transit</span>
-            </div>
-          </div>
-
-          <div class="testimonial-badge badge-tour">
-            <span>🏔️</span> City Sightseeing & Northern Transit
-          </div>
-
-          <div class="testimonial-stars">★★★★★</div>
-
-          <p class="testimonial-quote">
-            "We flew into Islamabad with our children before heading to Hunza. The team picked us up from ISB Airport, arranged 2 days of relaxed sightseeing at Faisal Mosque, Monal, and Lok Virsa, then provided a rugged 4x4 Prado with an expert mountain driver for the Karakoram Highway. Transparent pricing, reliable support, and warm hospitality!"
-          </p>
-        </div>
-
-        <div class="testimonial-footer">
-          <span class="testimonial-pill">✈️ Airport ISB Transfer</span>
-          <span class="testimonial-pill">🚙 4x4 Prado Fleet</span>
-          <span class="testimonial-pill">⭐ Family Tour</span>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Verified Partners Section (Transport, Hospitality & Hostels) -->
   <div id="partners"></div>
@@ -4010,6 +4649,362 @@
       }
       renderAdminDashboard();
     }
+
+    
+    /* ==========================================================================
+       ISLAMABAD DIRECTORY & DUAL HUB SEARCH ENGINE
+       ========================================================================== */
+    const searchLocations = [
+      {
+        id: "loc-shifa",
+        name: "Shifa International Hospital",
+        sector: "Sector H-8/4",
+        category: "medical",
+        purpose: "Healthcare & Hospital Checkup",
+        desc: "Pakistan's leading tertiary care hospital. 24/7 emergency, specialized cardiac, oncology & organ transplant OPDs.",
+        transitTip: "Faizabad Metro interchange nearby • Patient wheelchair cab direct gate drop",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Shifa+International+Hospital+Islamabad"
+      },
+      {
+        id: "loc-pims",
+        name: "Pakistan Institute of Medical Sciences (PIMS)",
+        sector: "Sector G-8/3",
+        category: "medical",
+        purpose: "Healthcare & Hospital Checkup",
+        desc: "Major public apex healthcare center, Children's Hospital and Burn Care Center.",
+        transitTip: "Direct Red Line Metro Bus (PIMS Station) at hospital gate • Ground floor patient lodges",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=PIMS+Hospital+Islamabad"
+      },
+      {
+        id: "loc-maroof",
+        name: "Maroof International Hospital",
+        sector: "Sector F-10 Markaz",
+        category: "medical",
+        purpose: "Healthcare & Hospital Checkup",
+        desc: "Premier boutique private hospital in upscale F-10 with international patient coordination.",
+        transitTip: "Easy inDrive/Chauffeur access • Peaceful proximity guest houses in F-10/F-11",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Maroof+International+Hospital+Islamabad"
+      },
+      {
+        id: "loc-sc",
+        name: "Supreme Court of Pakistan",
+        sector: "Constitution Avenue, Red Zone",
+        category: "legal",
+        purpose: "Supreme Court & Legal Hearing",
+        desc: "Apex judicial court of Pakistan. Strict Red Zone security perimeter and formal cause list hearings.",
+        transitTip: "Executive Chauffeur with gate security protocol • Secretariat Metro station (1.2 km)",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Supreme+Court+of+Pakistan+Islamabad"
+      },
+      {
+        id: "loc-ihc",
+        name: "Islamabad High Court (IHC)",
+        sector: "Sector G-10/1",
+        category: "legal",
+        purpose: "Supreme Court & Legal Hearing",
+        desc: "Modern judicial complex handling appellate petitions, constitutional litigation, and bar chambers.",
+        transitTip: "Dedicated litigant parking • Orange Line Metro Kashmir Highway stop connects via cab",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Islamabad+High+Court+G-10"
+      },
+      {
+        id: "loc-diplomatic",
+        name: "Diplomatic Enclave Visa Terminal",
+        sector: "Sector G-5, Avenue 3",
+        category: "legal",
+        purpose: "Diplomatic & Visa Interview",
+        desc: "Official entry gateway for US, UK, Schengen, UAE and Saudi embassy visa interviews.",
+        transitTip: "Shuttle ticket PKR 500-1000 • Bring original CNIC/Passport & appointment slip",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Diplomatic+Shuttle+Service+Avenue+3+Islamabad"
+      },
+      {
+        id: "loc-nust",
+        name: "National University of Sciences & Technology (NUST)",
+        sector: "Sector H-12",
+        category: "student",
+        purpose: "University Entry Test & Academic",
+        desc: "Flagship STEM campus hosting national NET, MDCAT, GATE, and convocations.",
+        transitTip: "PKR 50 Orange Line Metro Bus stop directly at NUST Gate • Vetted student hostels in G-13/H-13",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=NUST+Sector+H-12+Islamabad"
+      },
+      {
+        id: "loc-fast",
+        name: "FAST-NUCES & Islamic University (IIUI)",
+        sector: "Sector H-9 / H-10",
+        category: "student",
+        purpose: "University Entry Test & Academic",
+        desc: "Top computer science and engineering institutions with major annual exam candidate surges.",
+        transitTip: "IJP Road & Kashmir Highway feeder routes • Student carpooling and hostel hubs",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=FAST+NUCES+H-9+Islamabad"
+      },
+      {
+        id: "loc-qau",
+        name: "Quaid-i-Azam University (QAU)",
+        sector: "Diplomatic Enclave Foothills",
+        category: "student",
+        purpose: "University Entry Test & Academic",
+        desc: "Pakistan's top-ranked public research university nestled in the scenic Margalla hills.",
+        transitTip: "Murree Road university shuttles • University hostel accommodations",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Quaid+i+Azam+University+Islamabad"
+      },
+      {
+        id: "loc-centaurus",
+        name: "The Centaurus Mall & Towers",
+        sector: "Sector F-8/4, Jinnah Avenue",
+        category: "shopping",
+        purpose: "Commercial Shopping & Dining",
+        desc: "Capital landmark mega mall featuring 300+ international brands, mega food court & cinema.",
+        transitTip: "Stock Exchange / Centaurus Red Line Metro Station directly linked via footbridge",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=The+Centaurus+Mall+Islamabad"
+      },
+      {
+        id: "loc-jinnah-super",
+        name: "Jinnah Super Market & Gol Market",
+        sector: "Sector F-7 Markaz",
+        category: "shopping",
+        purpose: "Commercial Shopping & Dining",
+        desc: "Cultural lifestyle core of Islamabad: books, artisan fabrics, jewelry, and rooftop terrace cafes.",
+        transitTip: "Central F-7 taxi stands • 10 mins from Blue Area business district",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Jinnah+Super+Market+F-7+Islamabad"
+      },
+      {
+        id: "loc-faisal-mosque",
+        name: "Faisal Mosque & Margalla Foothills",
+        sector: "Shah Faisal Avenue",
+        category: "tourism",
+        purpose: "Scenic Sightseeing & Tourism",
+        desc: "Iconic tent-shaped architectural masterpiece with capacity for 300,000 worshippers against the Margallas.",
+        transitTip: "Open sunrise to 10 PM • Modest dress observed • Guided family tours available",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Faisal+Mosque+Islamabad"
+      },
+      {
+        id: "loc-monal",
+        name: "Daman-e-Koh & Pir Sohawa Lookouts",
+        sector: "Margalla Hills National Park",
+        category: "tourism",
+        purpose: "Scenic Sightseeing & Tourism",
+        desc: "Panoramic bird's-eye views of the capital grid, Rawal Lake, and Margalla Ridge at 3,100 feet.",
+        transitTip: "Winding scenic mountain road (25 min drive from Zoo gate) • Inspected mountain cars advised",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Pir+Sohawa+Margalla+Hills+Islamabad"
+      },
+      {
+        id: "loc-daewoo",
+        name: "Daewoo Express Bus Terminal",
+        sector: "Motorway Link / 26 Chungi",
+        category: "transport",
+        purpose: "Northern Transit & Gateway",
+        desc: "24/7 intercity bus transit hub connecting Lahore, Peshawar, Multan, Faisalabad, and Northern cities.",
+        transitTip: "Orange Line Metro Faizabad shuttle • 24/7 pre-booked pickup sedans meet arriving buses",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Daewoo+Express+Bus+Terminal+Rawalpindi+Islamabad"
+      },
+      {
+        id: "loc-isb-airport",
+        name: "Islamabad International Airport (ISB)",
+        sector: "Airport Parkway / Fateh Jang Rd",
+        category: "transport",
+        purpose: "Northern Transit & Gateway",
+        desc: "Modern international gateway handling all domestic and overseas flights, Karakoram transit.",
+        transitTip: "Metro Green Line Airport Shuttle • Pre-arranged meet & greet chauffeurs with luggage space",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Islamabad+International+Airport"
+      },
+      {
+        id: "loc-vetted-stays",
+        name: "Sector F-7 & F-8 Executive Guest Houses",
+        sector: "Sectors F-7 / F-8 / G-8",
+        category: "stays",
+        purpose: "Healthcare & Hospital Checkup",
+        desc: "Vetted executive villas and patient-friendly ground floor guest houses with 24/7 power backup.",
+        transitTip: "Quiet residential streets • Proximity to hospitals and embassies • Elevator & ramp access",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Guest+Houses+Sector+F-7+Islamabad"
+      }
+    ];
+
+    let currentSearchCategory = "all";
+    let currentSearchQuery = "";
+
+    function renderSearchResults() {
+      const container = document.getElementById('searchResultsContainer');
+      const countLabel = document.getElementById('searchResultsCount');
+      if (!container) return;
+
+      const q = currentSearchQuery.toLowerCase().trim();
+      const filtered = searchLocations.filter(loc => {
+        const matchesCat = (currentSearchCategory === 'all' || loc.category === currentSearchCategory);
+        const matchesQuery = !q || (
+          loc.name.toLowerCase().includes(q) ||
+          loc.sector.toLowerCase().includes(q) ||
+          loc.desc.toLowerCase().includes(q) ||
+          loc.transitTip.toLowerCase().includes(q) ||
+          loc.purpose.toLowerCase().includes(q)
+        );
+        return matchesCat && matchesQuery;
+      });
+
+      if (countLabel) {
+        countLabel.textContent = `${filtered.length} verified destination${filtered.length === 1 ? '' : 's'} found`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-search-state">
+            <div style="font-size: 32px; margin-bottom: 8px;">🔍</div>
+            <p style="font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">No matching destinations found</p>
+            <p style="font-size: 13px;">Try searching for "Shifa", "Supreme Court", "NUST", "Metro", or "Guest House".</p>
+            <button type="button" onclick="clearCapitalSearch()" class="btn btn-outline" style="margin-top: 14px; padding: 6px 14px; font-size: 12.5px;">
+              Clear Search Query
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(loc => `
+        <div class="search-place-card" id="${loc.id}">
+          <div class="place-card-top">
+            <h4 class="place-title">${loc.name}</h4>
+            <span class="place-sector-badge">${loc.sector}</span>
+          </div>
+          <p class="place-desc">${loc.desc}</p>
+          <div class="place-transit-tip">
+            <span>⚡</span>
+            <span>${loc.transitTip}</span>
+          </div>
+          <div class="place-actions">
+            <button type="button" class="btn-select-booking" onclick="selectPlaceForBooking('${loc.name.replace(/'/g, "\\'")}', '${loc.sector}', '${loc.category}', '${loc.purpose.replace(/'/g, "\\'")}')">
+              <span>📅</span> Select for Booking
+            </button>
+            <a href="${loc.mapUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-map">
+              <span>🗺️</span> View Map
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function onCapitalSearchInput(value) {
+      currentSearchQuery = value;
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (clearBtn) {
+        clearBtn.style.display = value ? 'flex' : 'none';
+      }
+      renderSearchResults();
+    }
+
+    function clearCapitalSearch() {
+      const input = document.getElementById('capitalSearchInput');
+      if (input) input.value = '';
+      currentSearchQuery = '';
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (clearBtn) clearBtn.style.display = 'none';
+      renderSearchResults();
+    }
+
+    function filterSearchCategory(category, btn) {
+      currentSearchCategory = category;
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderSearchResults();
+    }
+
+    function quickFillSearch(term) {
+      const input = document.getElementById('capitalSearchInput');
+      if (input) {
+        input.value = term;
+        onCapitalSearchInput(term);
+      }
+    }
+
+    function filterSearchCategoryAndScroll(category) {
+      const hub = document.getElementById('portal-hub');
+      if (hub) {
+        hub.scrollIntoView({ behavior: 'smooth' });
+      }
+      switchHubMobileView('search');
+      const targetPill = document.querySelector(`.cat-pill[onclick*="'${category}'"]`);
+      filterSearchCategory(category, targetPill);
+    }
+
+    // Interactive bridge: selecting a location auto-populates the booking form on the right!
+    function selectPlaceForBooking(name, sector, category, purpose) {
+      // 1. If mobile, switch tab to booking desk
+      switchHubMobileView('booking');
+
+      // 2. Set Destination in form
+      const locInput = document.getElementById('bkLocation');
+      if (locInput) {
+        locInput.value = `${name} (${sector})`;
+      }
+
+      // 3. Set matching Purpose in dropdown
+      const purposeSelect = document.getElementById('bkPurpose');
+      if (purposeSelect && purpose) {
+        purposeSelect.value = purpose;
+      }
+
+      // 4. Update service category tabs if stay/ride specific
+      if (category === 'stays') {
+        selectBookingCategory('stay', document.getElementById('tabCatStay'));
+      } else if (category === 'transport') {
+        selectBookingCategory('transport', document.getElementById('tabCatTransport'));
+      }
+
+      // 5. Show auto-fill notice banner
+      const notice = document.getElementById('autofillNotice');
+      const noticeText = document.getElementById('autofillText');
+      if (notice && noticeText) {
+        noticeText.textContent = `Selected: ${name} (${sector}) — auto-filled into form!`;
+        notice.style.display = 'flex';
+      }
+
+      // 6. Highlight booking card wrapper with an attractive glow
+      const bookingCard = document.getElementById('bookingCardWrapper');
+      if (bookingCard) {
+        bookingCard.classList.remove('highlight-glow');
+        void bookingCard.offsetWidth; // trigger reflow
+        bookingCard.classList.add('highlight-glow');
+        bookingCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function dismissAutofillNotice() {
+      const notice = document.getElementById('autofillNotice');
+      if (notice) notice.style.display = 'none';
+    }
+
+    function switchHubMobileView(tab) {
+      const colSearch = document.getElementById('search-section');
+      const colBooking = document.getElementById('booking-section');
+      const tabSearch = document.getElementById('tabMobileSearch');
+      const tabBooking = document.getElementById('tabMobileBooking');
+
+      if (window.innerWidth <= 992) {
+        if (tab === 'search') {
+          if (colSearch) colSearch.style.display = 'block';
+          if (colBooking) colBooking.style.display = 'none';
+          if (tabSearch) tabSearch.classList.add('active');
+          if (tabBooking) tabBooking.classList.remove('active');
+        } else {
+          if (colSearch) colSearch.style.display = 'none';
+          if (colBooking) colBooking.style.display = 'block';
+          if (tabSearch) tabSearch.classList.remove('active');
+          if (tabBooking) tabBooking.classList.add('active');
+        }
+      } else {
+        if (colSearch) colSearch.style.display = 'block';
+        if (colBooking) colBooking.style.display = 'block';
+      }
+    }
+
+    // Initialize search results on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSearchResults();
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 992) {
+          const colSearch = document.getElementById('search-section');
+          const colBooking = document.getElementById('booking-section');
+          if (colSearch) colSearch.style.display = 'block';
+          if (colBooking) colBooking.style.display = 'block';
+        }
+      });
+    });
 
     // Category Selector on Booking Form
     function selectBookingCategory(category, btn) {
