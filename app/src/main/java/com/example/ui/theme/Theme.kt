@@ -1,69 +1,37 @@
 package com.example.ui.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme =
   darkColorScheme(
-    primary = MountainMint,
-    onPrimary = PinePrimaryDark,
-    primaryContainer = PinePrimary,
-    onPrimaryContainer = PinePrimaryContainer,
-    secondary = WarmGold,
-    onSecondary = OnWarmGoldContainer,
-    secondaryContainer = WarmGold,
-    tertiary = Terracotta,
-    background = BgDark,
-    surface = SurfaceDark,
-    surfaceVariant = SurfaceVariantDark,
-    onBackground = OnSurfaceDark,
-    onSurface = OnSurfaceDark,
-    onSurfaceVariant = OnSurfaceVariantDark
-  )
-
-private val LightColorScheme =
-  lightColorScheme(
-    primary = PinePrimary,
-    onPrimary = SurfaceLight,
-    primaryContainer = PinePrimaryContainer,
-    onPrimaryContainer = OnPinePrimaryContainer,
-    secondary = WarmGold,
-    onSecondary = SurfaceLight,
-    secondaryContainer = WarmGoldContainer,
-    onSecondaryContainer = OnWarmGoldContainer,
-    tertiary = MountainMint,
-    background = BgLight,
-    surface = SurfaceLight,
-    surfaceVariant = SurfaceVariantLight,
-    onBackground = OnSurfaceLight,
-    onSurface = OnSurfaceLight,
-    onSurfaceVariant = OnSurfaceVariantLight
+    primary = Color(0xFF10B981), // Vibrant Emerald Green
+    onPrimary = Color(0xFFFFFFFF), // Crisp White Text on Buttons
+    primaryContainer = Color(0xFF064E3B),
+    onPrimaryContainer = Color(0xFFD1FAE5),
+    secondary = Color(0xFFF59E0B), // Warm Gold
+    onSecondary = Color(0xFF000000),
+    secondaryContainer = Color(0xFF1E382B),
+    onSecondaryContainer = Color(0xFFFFFFFF),
+    tertiary = Color(0xFF34D399), // Mint Green
+    onTertiary = Color(0xFF064E3B),
+    background = Color(0xFF0A110D), // Deep dark obsidian background
+    surface = Color(0xFF111C16), // Dark green-tinted card surface
+    surfaceVariant = Color(0xFF182A21),
+    onBackground = Color(0xFFFFFFFF), // Pure White Text
+    onSurface = Color(0xFFFFFFFF), // Pure White Text
+    onSurfaceVariant = Color(0xFFE5E7EB),
+    outline = Color(0xFF244434)
   )
 
 @Composable
 fun MyApplicationTheme(
-  darkTheme: Boolean = isSystemInDarkTheme(),
-  // Dynamic color is available on Android 12+
-  dynamicColor: Boolean = true,
+  darkTheme: Boolean = true, // Default to Dark Theme as requested
+  dynamicColor: Boolean = false, // Keep intentional Emerald & White on Dark theme
   content: @Composable () -> Unit,
 ) {
-  val colorScheme =
-    when {
-      dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-        val context = LocalContext.current
-        if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-      }
-
-      darkTheme -> DarkColorScheme
-      else -> LightColorScheme
-    }
-
-  MaterialTheme(colorScheme = colorScheme, typography = Typography, content = content)
+  MaterialTheme(colorScheme = DarkColorScheme, typography = Typography, content = content)
 }
+

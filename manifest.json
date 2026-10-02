@@ -1,13 +1,13 @@
 {
   "name": "Visit Islamabad — Capital Gateway",
   "short_name": "Visit Islamabad",
-  "description": "A gateway to the visitors of all types and for all purposes — health & hospital checkups, Supreme & High Court hearings, universities & study, shopping, sightseeing, and northern transit.",
+  "description": "Visit Islamabad - A gateway to the visitors of all types and for all purposes. Health & hospital checkups, Supreme & High Court appearances, universities & study, shopping bazaars, tourism, transit to Northern Areas, and end-to-end multi-budget transport and verified stays.",
   "start_url": "/",
   "scope": "/",
   "id": "/",
   "display": "standalone",
-  "background_color": "#1B4D3E",
-  "theme_color": "#1B4D3E",
+  "background_color": "#080E0A",
+  "theme_color": "#080E0A",
   "orientation": "portrait-primary",
   "icons": [
     {

@@ -3,32 +3,32 @@ package com.example.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // Primary emerald/pine palette reflecting Margalla Hills
-val PinePrimary = Color(0xFF0C4A34)
-val PinePrimaryLight = Color(0xFF1B6A4C)
-val PinePrimaryDark = Color(0xFF06291C)
+val PinePrimary = Color(0xFF10B981) // Vibrant Emerald Green
+val PinePrimaryLight = Color(0xFF34D399) // Mint Green
+val PinePrimaryDark = Color(0xFF064E3B) // Deep Forest Green
 
 // Accents: Warm Gold & Mountain Mint
-val WarmGold = Color(0xFFD99B38)
-val WarmGoldLight = Color(0xFFF7DEAE)
-val MountainMint = Color(0xFF38B281)
-val Terracotta = Color(0xFFBF533B)
+val WarmGold = Color(0xFFF59E0B)
+val WarmGoldLight = Color(0xFFFDE68A)
+val MountainMint = Color(0xFF10B981)
+val Terracotta = Color(0xFFEF4444)
 
-// Neutral Light
-val BgLight = Color(0xFFF6F8F6)
-val SurfaceLight = Color(0xFFFFFFFF)
-val SurfaceVariantLight = Color(0xFFE8ECE9)
-val OnSurfaceLight = Color(0xFF14211B)
-val OnSurfaceVariantLight = Color(0xFF4C5D54)
+// Neutral Light / Default Dark Palette (Green + White Dark Theme)
+val BgLight = Color(0xFF0A110D)
+val SurfaceLight = Color(0xFF111C16)
+val SurfaceVariantLight = Color(0xFF182B21)
+val OnSurfaceLight = Color(0xFFFFFFFF)
+val OnSurfaceVariantLight = Color(0xFFE5E7EB)
 
-// Neutral Dark
-val BgDark = Color(0xFF0D1713)
-val SurfaceDark = Color(0xFF14241E)
-val SurfaceVariantDark = Color(0xFF1F352C)
-val OnSurfaceDark = Color(0xFFE5ECE8)
-val OnSurfaceVariantDark = Color(0xFFA1B3A9)
+// Neutral Dark (True Modern Dark Theme)
+val BgDark = Color(0xFF0A110D) // Obsidian green dark
+val SurfaceDark = Color(0xFF111C16) // Deep card dark
+val SurfaceVariantDark = Color(0xFF1A2D23) // Elevated card dark
+val OnSurfaceDark = Color(0xFFFFFFFF) // Pure crisp white text
+val OnSurfaceVariantDark = Color(0xFFD1D5DB) // Soft light grey text
 
-val PinePrimaryContainer = Color(0xFFD2EBDD)
-val OnPinePrimaryContainer = Color(0xFF032619)
-val WarmGoldContainer = Color(0xFFFFF1D6)
-val OnWarmGoldContainer = Color(0xFF4A3104)
+val PinePrimaryContainer = Color(0xFF064E3B)
+val OnPinePrimaryContainer = Color(0xFFE6FFFA)
+val WarmGoldContainer = Color(0xFF78350F)
+val OnWarmGoldContainer = Color(0xFFFEF3C7)
 

@@ -56,7 +56,7 @@ Whether arriving for specialized hospital treatments, appearing before high judi
    - Responsive across smartphones, tablets, laptops, and desktop computers.
 
 2. **Android Native App (APK):**
-   - Package: `visit-islamabad.apk` (~25 MB).
+   - Package: `visit-islamabad.apk` (~6.6 MB Ultra-Fast Download).
    - Compatible with Android 8.0 through Android 15+.
    - Download directly from `https://visitislamabad.web.app/visit-islamabad.apk` or via dynamic QR code.
 
