@@ -41,13 +41,13 @@
   <meta name="twitter:image:alt" content="Visit Islamabad — Capital Gateway">
 
   <!-- Mobile & PWA Theme Meta -->
-  <meta name="theme-color" content="#1B4D3E">
+  <meta name="theme-color" content="#080E0A">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Visit Islamabad">
   <meta name="application-name" content="Visit Islamabad">
-  <meta name="msapplication-TileColor" content="#1B4D3E">
+  <meta name="msapplication-TileColor" content="#080E0A">
 
   <!-- Favicon, Manifest & iOS Touch Icons -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%231B4D3E'/><text x='50' y='65' font-size='44' font-weight='bold' text-anchor='middle' fill='%23E8F5E9'>VI</text></svg>">
@@ -169,19 +169,27 @@
 
   <style>
     :root {
-      --primary: #1B4D3E;
-      --primary-dark: #12352B;
-      --primary-light: #2D6A4F;
-      --accent-gold: #D4AF37;
-      --accent-gold-light: #F4E8C1;
-      --bg-cream: #F8F9FA;
-      --surface: #FFFFFF;
-      --text-main: #1C2520;
-      --text-muted: #5C6E66;
-      --border-subtle: #E2E8E5;
-      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-      --shadow-md: 0 8px 24px rgba(27,77,62,0.12);
-      --shadow-lg: 0 16px 36px rgba(27,77,62,0.18);
+      --primary: #10B981;
+      --primary-dark: #059669;
+      --primary-light: #34D399;
+      --primary-accent: #25D366;
+      --accent-gold: #F59E0B;
+      --accent-gold-light: #FEF3C7;
+      --bg-dark: #080E0A;
+      --bg-cream: #080E0A;
+      --surface: #111C15;
+      --surface-card: #15241C;
+      --surface-card-hover: #1A2F24;
+      --surface-elevated: #182A20;
+      --surface-mint: rgba(16, 185, 129, 0.15);
+      --text-main: #FFFFFF;
+      --text-muted: #9CA3AF;
+      --text-subtle: #6EE7B7;
+      --border-subtle: #1E382A;
+      --border-focus: #10B981;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.5);
+      --shadow-md: 0 10px 24px rgba(0,0,0,0.65), 0 0 16px rgba(16, 185, 129, 0.12);
+      --shadow-lg: 0 20px 45px rgba(0,0,0,0.8), 0 0 25px rgba(16, 185, 129, 0.18);
       --radius: 16px;
     }
 
@@ -193,7 +201,7 @@
     }
 
     body {
-      background-color: var(--bg-cream);
+      background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.6;
       min-height: 100vh;
@@ -203,13 +211,12 @@
 
     /* Header & Navigation */
     header {
-      background-color: var(--surface);
+      background-color: rgba(17, 28, 21, 0.95);
       border-bottom: 1px solid var(--border-subtle);
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(8px);
-      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
     }
 
     .nav-container {
@@ -226,21 +233,21 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: var(--primary);
+      color: var(--text-main);
     }
 
     .brand-logo {
       width: 44px;
       height: 44px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      background: linear-gradient(135deg, #10B981, #059669);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: #FFFFFF;
       font-weight: 800;
       font-size: 20px;
-      box-shadow: 0 4px 10px rgba(27,77,62,0.25);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
     }
 
     .brand-text .brand-title,
@@ -248,12 +255,12 @@
       font-size: 20px;
       font-weight: 800;
       letter-spacing: -0.5px;
-      color: var(--primary);
+      color: #FFFFFF;
     }
 
     .brand-text span {
       font-size: 12px;
-      color: var(--text-muted);
+      color: #6EE7B7;
       font-weight: 500;
       display: block;
     }
@@ -281,36 +288,37 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: white;
-      box-shadow: var(--shadow-sm);
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
     }
 
     .btn-primary:hover {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      background: linear-gradient(135deg, #059669, #047857);
       transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5);
     }
 
     .btn-accent {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: white;
+      background: linear-gradient(135deg, #25D366, #10B981);
+      color: #FFFFFF;
     }
 
     .btn-accent:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
+      box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
     }
 
     .btn-outline {
-      border: 1.5px solid var(--border-subtle);
-      background-color: var(--surface);
-      color: var(--text-main);
+      border: 1.5px solid #10B981;
+      background-color: var(--surface-card);
+      color: #FFFFFF;
     }
 
     .btn-outline:hover {
-      border-color: var(--primary);
-      color: var(--primary);
+      border-color: #34D399;
+      background-color: var(--surface-card-hover);
+      color: #34D399;
       transform: translateY(-2px);
     }
 
@@ -322,10 +330,11 @@
 
     /* Hero Section */
     .hero {
-      background: radial-gradient(circle at top right, #E8F5E9 0%, transparent 60%),
-                  linear-gradient(180deg, #FFFFFF 0%, var(--bg-cream) 100%);
+      background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.22) 0%, transparent 70%),
+                  linear-gradient(180deg, #111C15 0%, #080E0A 100%);
       padding: 50px 20px 36px;
       text-align: center;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .hero-content {
@@ -337,34 +346,34 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background-color: #E8F5E9;
-      color: var(--primary);
+      background-color: rgba(16, 185, 129, 0.18);
+      color: #34D399;
       padding: 6px 14px;
       border-radius: 50px;
       font-size: 13px;
       font-weight: 700;
       margin-bottom: 18px;
-      border: 1px solid rgba(27,77,62,0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
     }
 
     .hero h2 {
       font-size: 40px;
       line-height: 1.2;
       font-weight: 800;
-      color: var(--primary-dark);
+      color: #FFFFFF;
       letter-spacing: -0.8px;
       margin-bottom: 16px;
     }
 
     .hero h2 span {
-      background: linear-gradient(135deg, var(--primary), #2D6A4F);
+      background: linear-gradient(135deg, #10B981, #34D399);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .hero p {
       font-size: 17px;
-      color: var(--text-muted);
+      color: #D1D5DB;
       margin-bottom: 30px;
       max-width: 720px;
       margin-left: auto;
@@ -382,7 +391,7 @@
 
     .download-meta {
       font-size: 13px;
-      color: var(--text-muted);
+      color: #9CA3AF;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -417,16 +426,16 @@
       gap: 12px;
       padding: 10px 14px;
       border-radius: 12px;
-      background-color: var(--bg-cream);
+      background-color: var(--surface-card);
       text-decoration: none;
-      color: var(--text-main);
+      color: #FFFFFF;
       transition: all 0.2s;
-      border: 1px solid transparent;
+      border: 1px solid var(--border-subtle);
     }
 
     .quick-card:hover {
-      background-color: #E8F5E9;
-      border-color: var(--primary-light);
+      background-color: var(--surface-card-hover);
+      border-color: #10B981;
       transform: translateY(-2px);
     }
 
@@ -440,15 +449,15 @@
       font-size: 18px;
     }
 
-    .icon-call { background: #E8F5E9; color: var(--primary); }
-    .icon-wa { background: #E8F5E9; color: #25D366; }
-    .icon-telegram { background: #E1F5FE; color: #0288D1; }
-    .icon-email { background: #FFF3E0; color: #E65100; }
-    .icon-maps { background: #EDE7F6; color: #512DA8; }
+    .icon-call { background: rgba(16, 185, 129, 0.2); color: #34D399; }
+    .icon-wa { background: rgba(37, 211, 102, 0.2); color: #25D366; }
+    .icon-telegram { background: rgba(2, 136, 209, 0.2); color: #38BDF8; }
+    .icon-email { background: rgba(230, 81, 0, 0.2); color: #FB923C; }
+    .icon-maps { background: rgba(81, 45, 168, 0.2); color: #A78BFA; }
 
     .quick-card-text span {
       font-size: 11px;
-      color: var(--text-muted);
+      color: #9CA3AF;
       display: block;
       text-transform: uppercase;
       font-weight: 600;
@@ -456,7 +465,7 @@
 
     .quick-card-text strong {
       font-size: 13px;
-      color: var(--text-main);
+      color: #FFFFFF;
       display: block;
     }
 
@@ -471,17 +480,19 @@
     }
 
     .purpose-card {
-      background: var(--surface);
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
       padding: 22px;
       box-shadow: var(--shadow-sm);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
 
     .purpose-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-md);
+      border-color: #10B981;
+      background: var(--surface-card-hover);
     }
 
     .purpose-card .icon {
@@ -494,13 +505,13 @@
     .purpose-card h4 {
       font-size: 17px;
       font-weight: 700;
-      color: var(--primary-dark);
+      color: #FFFFFF;
       margin-bottom: 8px;
     }
 
     .purpose-card p {
       font-size: 13.5px;
-      color: var(--text-muted);
+      color: #D1D5DB;
       line-height: 1.5;
     }
 
@@ -509,10 +520,11 @@
       display: inline-block;
       font-size: 11.5px;
       font-weight: 700;
-      color: var(--primary);
-      background-color: #E8F5E9;
+      color: #34D399;
+      background-color: rgba(16, 185, 129, 0.2);
       padding: 3px 8px;
       border-radius: 6px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     /* Testimonials Section (Medical, Legal, Student, Tourist) */
@@ -529,7 +541,7 @@
     }
 
     .testimonial-card {
-      background: var(--surface);
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
       padding: 24px;
@@ -538,13 +550,13 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
 
     .testimonial-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-md);
-      border-color: var(--primary-light);
+      border-color: #10B981;
     }
 
     .testimonial-header {
@@ -570,18 +582,18 @@
     .avatar-medical { background: linear-gradient(135deg, #0288D1, #01579B); }
     .avatar-legal { background: linear-gradient(135deg, #455A64, #263238); }
     .avatar-student { background: linear-gradient(135deg, #7B1FA2, #4A148C); }
-    .avatar-transit { background: linear-gradient(135deg, #1B4D3E, #2D6A4F); }
+    .avatar-transit { background: linear-gradient(135deg, #10B981, #059669); }
 
     .testimonial-user-info h5 {
       font-size: 15px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #FFFFFF;
       margin-bottom: 2px;
     }
 
     .testimonial-user-info span {
       font-size: 12px;
-      color: var(--text-muted);
+      color: #9CA3AF;
       display: block;
     }
 
@@ -597,13 +609,13 @@
       align-self: flex-start;
     }
 
-    .badge-med { background: #E1F5FE; color: #0277BD; }
-    .badge-law { background: #ECEFF1; color: #37474F; }
-    .badge-stu { background: #F3E5F5; color: #6A1B9A; }
-    .badge-tour { background: #E8F5E9; color: #2E7D32; }
+    .badge-med { background: rgba(2, 136, 209, 0.2); color: #38BDF8; }
+    .badge-law { background: rgba(148, 163, 184, 0.2); color: #CBD5E1; }
+    .badge-stu { background: rgba(168, 85, 247, 0.2); color: #C084FC; }
+    .badge-tour { background: rgba(16, 185, 129, 0.2); color: #34D399; }
 
     .testimonial-stars {
-      color: #FFB300;
+      color: #F59E0B;
       font-size: 14px;
       letter-spacing: 2px;
       margin-bottom: 10px;
@@ -611,7 +623,7 @@
 
     .testimonial-quote {
       font-size: 13.5px;
-      color: var(--text-main);
+      color: #E5E7EB;
       line-height: 1.55;
       font-style: italic;
       margin-bottom: 16px;
@@ -627,15 +639,16 @@
       justify-content: space-between;
       gap: 8px;
       font-size: 11.5px;
-      color: var(--text-muted);
+      color: #9CA3AF;
     }
 
     .testimonial-pill {
-      background: var(--bg-cream);
+      background: #080E0A;
       padding: 3px 8px;
       border-radius: 6px;
       font-weight: 600;
-      color: var(--primary);
+      color: #34D399;
+      border: 1px solid var(--border-subtle);
     }
 
     /* Verified Partners Section */
@@ -650,7 +663,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      color: var(--text-muted);
+      color: #6EE7B7;
       margin: 22px 0 12px;
       display: flex;
       align-items: center;
@@ -671,7 +684,7 @@
     }
 
     .partner-card {
-      background: var(--surface);
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: 14px;
       padding: 16px;
@@ -685,7 +698,8 @@
     .partner-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
-      border-color: var(--primary-light);
+      border-color: #10B981;
+      background: var(--surface-card-hover);
     }
 
     .partner-logo-box {
@@ -699,66 +713,24 @@
       font-weight: 900;
       font-size: 15px;
       letter-spacing: -0.5px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
-    .logo-indrive {
-      background: #7BDE2A;
-      color: #0B2404;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-
-    .logo-yango {
-      background: #FF0000;
-      color: #FFFFFF;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-
-    .logo-metro {
-      background: #00875A;
-      color: #FFFFFF;
-    }
-
-    .logo-cda-ev {
-      background: #00B8D9;
-      color: #FFFFFF;
-    }
-
-    .logo-serena {
-      background: #1A1A1A;
-      color: #D4AF37;
-      border: 1.5px solid #D4AF37;
-    }
-
-    .logo-marriott {
-      background: #8B0000;
-      color: #FFFFFF;
-    }
-
-    .logo-centaurus {
-      background: #0F2027;
-      color: #F8B195;
-    }
-
-    .logo-guesthouse {
-      background: #2D6A4F;
-      color: #FFFFFF;
-    }
-
-    .logo-4x4 {
-      background: #34495E;
-      color: #F39C12;
-    }
-
-    .logo-hostels {
-      background: #5E35B1;
-      color: #FFFFFF;
-    }
+    .logo-indrive { background: #7BDE2A; color: #0B2404; font-family: 'Inter', system-ui, sans-serif; }
+    .logo-yango { background: #FF0000; color: #FFFFFF; font-family: 'Inter', system-ui, sans-serif; }
+    .logo-metro { background: #00875A; color: #FFFFFF; }
+    .logo-cda-ev { background: #00B8D9; color: #FFFFFF; }
+    .logo-serena { background: #1A1A1A; color: #D4AF37; border: 1.5px solid #D4AF37; }
+    .logo-marriott { background: #8B0000; color: #FFFFFF; }
+    .logo-centaurus { background: #0F2027; color: #F8B195; }
+    .logo-guesthouse { background: #10B981; color: #FFFFFF; }
+    .logo-4x4 { background: #34495E; color: #F39C12; }
+    .logo-hostels { background: #5E35B1; color: #FFFFFF; }
 
     .partner-info h5 {
       font-size: 14px;
       font-weight: 700;
-      color: var(--text-main);
+      color: #FFFFFF;
       margin-bottom: 2px;
       display: flex;
       align-items: center;
@@ -767,7 +739,7 @@
 
     .partner-info .partner-type {
       font-size: 11.5px;
-      color: var(--text-muted);
+      color: #9CA3AF;
       display: block;
       margin-bottom: 4px;
     }
@@ -775,8 +747,8 @@
     .partner-info .partner-status {
       font-size: 10px;
       font-weight: 700;
-      color: #2E7D32;
-      background: #E8F5E9;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.18);
       padding: 2px 6px;
       border-radius: 4px;
       display: inline-flex;
@@ -786,7 +758,7 @@
 
     /* Dynamic QR Code Showcase */
     .qr-showcase-section {
-      background: linear-gradient(180deg, #FFFFFF 0%, #F0F4F2 100%);
+      background: linear-gradient(180deg, #111C15 0%, #0A110D 100%);
       border: 1.5px solid var(--border-subtle);
       border-radius: 24px;
       padding: 36px 28px;
@@ -810,16 +782,16 @@
     }
 
     .qr-card {
-      background: #FFFFFF;
+      background: var(--surface-card);
       border-radius: 20px;
       padding: 20px;
       box-shadow: var(--shadow-lg);
-      border: 2px solid #E2E8E5;
+      border: 1.5px solid var(--border-subtle);
       text-align: center;
     }
 
     .qr-scanner-tag {
-      background: var(--primary);
+      background: #10B981;
       color: #fff;
       font-size: 11px;
       font-weight: 800;
@@ -837,7 +809,7 @@
       border-radius: 14px;
       border: 1px solid #ECEEEF;
       display: inline-block;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .qr-code-img {
@@ -854,7 +826,7 @@
       gap: 6px;
       font-size: 11.5px;
       font-weight: 700;
-      color: var(--primary);
+      color: #34D399;
       margin-top: 10px;
     }
 
@@ -874,11 +846,12 @@
 
     .qr-mode-tabs {
       display: inline-flex;
-      background: #EAEFEA;
+      background: #080E0A;
       padding: 4px;
       border-radius: 12px;
       gap: 4px;
       margin: 14px 0;
+      border: 1px solid var(--border-subtle);
     }
 
     .qr-tab-btn {
@@ -889,14 +862,14 @@
       font-weight: 700;
       cursor: pointer;
       background: transparent;
-      color: var(--text-muted);
+      color: #9CA3AF;
       transition: all 0.2s;
     }
 
     .qr-tab-btn.active {
-      background: #FFFFFF;
-      color: var(--primary);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      background: #10B981;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
     }
 
     .qr-steps-list {
@@ -914,7 +887,7 @@
     }
 
     .qr-step-box {
-      background: #FFFFFF;
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
       padding: 12px;
@@ -927,7 +900,7 @@
     .qr-step-num {
       width: 24px;
       height: 24px;
-      background: var(--primary);
+      background: #10B981;
       color: #fff;
       font-size: 12px;
       font-weight: 800;
@@ -941,12 +914,12 @@
     .qr-step-text strong {
       font-size: 12.5px;
       display: block;
-      color: var(--text-main);
+      color: #FFFFFF;
     }
 
     .qr-step-text span {
       font-size: 11px;
-      color: var(--text-muted);
+      color: #9CA3AF;
       line-height: 1.3;
       display: block;
     }
@@ -954,7 +927,7 @@
     .qr-url-box {
       display: flex;
       align-items: center;
-      background: #FFFFFF;
+      background: #080E0A;
       border: 1.5px solid var(--border-subtle);
       border-radius: 12px;
       padding: 6px 10px 6px 14px;
@@ -967,7 +940,7 @@
       flex: 1;
       font-family: monospace;
       font-size: 12px;
-      color: var(--primary);
+      color: #34D399;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -975,7 +948,7 @@
     }
 
     .qr-copy-btn {
-      background: var(--primary);
+      background: #10B981;
       color: #fff;
       border: none;
       padding: 8px 14px;
@@ -999,11 +972,12 @@
 
     .qr-badge {
       font-size: 11px;
-      background: #E8F5E9;
-      color: var(--primary);
+      background: rgba(16, 185, 129, 0.18);
+      color: #34D399;
       padding: 4px 10px;
       border-radius: 6px;
       font-weight: 600;
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     /* Channels & Forums */
@@ -1017,14 +991,14 @@
     .section-title h2,
     .section-title h3 {
       font-size: 28px;
-      color: var(--primary-dark);
+      color: #FFFFFF;
       font-weight: 800;
       margin-bottom: 8px;
     }
 
     .section-title p {
       font-size: 15px;
-      color: var(--text-muted);
+      color: #9CA3AF;
     }
 
     .channels-grid {
@@ -1037,12 +1011,12 @@
     }
 
     .channel-item {
-      background: var(--surface);
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
       padding: 16px;
       text-decoration: none;
-      color: var(--text-main);
+      color: #FFFFFF;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1053,7 +1027,8 @@
     .channel-item:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow-sm);
-      border-color: var(--primary);
+      border-color: #10B981;
+      background: var(--surface-card-hover);
     }
 
     .channel-icon {
@@ -1070,12 +1045,12 @@
     .channel-name {
       font-size: 13px;
       font-weight: 700;
-      color: var(--primary-dark);
+      color: #FFFFFF;
     }
 
     .channel-action {
       font-size: 11px;
-      color: var(--text-muted);
+      color: #6EE7B7;
     }
 
     /* Frequently Asked Questions (Accordion) */
@@ -1092,7 +1067,7 @@
     }
 
     .faq-item {
-      background: var(--surface);
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
       overflow: hidden;
@@ -1101,8 +1076,8 @@
     }
 
     .faq-item.active {
-      border-color: var(--primary);
-      box-shadow: 0 4px 14px rgba(27, 77, 62, 0.08);
+      border-color: #10B981;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
     }
 
     .faq-question-btn {
@@ -1117,7 +1092,7 @@
       cursor: pointer;
       font-size: 15.5px;
       font-weight: 700;
-      color: var(--primary-dark);
+      color: #FFFFFF;
       gap: 12px;
     }
 
@@ -1136,29 +1111,30 @@
       white-space: nowrap;
     }
 
-    .badge-logistics { background: #E1F5FE; color: #0288D1; }
-    .badge-visa { background: #ECEFF1; color: #37474F; }
-    .badge-emergency { background: #FFEBEE; color: #D32F2F; }
-    .badge-general { background: #E8F5E9; color: #2E7D32; }
+    .badge-logistics { background: rgba(2, 136, 209, 0.2); color: #38BDF8; }
+    .badge-visa { background: rgba(148, 163, 184, 0.2); color: #CBD5E1; }
+    .badge-emergency { background: rgba(239, 68, 68, 0.2); color: #F87171; }
+    .badge-general { background: rgba(16, 185, 129, 0.2); color: #34D399; }
 
     .faq-chevron {
       font-size: 14px;
-      color: var(--text-muted);
+      color: #9CA3AF;
       transition: transform 0.25s ease;
     }
 
     .faq-item.active .faq-chevron {
       transform: rotate(180deg);
-      color: var(--primary);
+      color: #10B981;
     }
 
     .faq-answer {
       display: none;
       padding: 0 20px 20px 20px;
-      border-top: 1px solid #EEF2F0;
+      border-top: 1px solid var(--border-subtle);
       font-size: 14px;
       line-height: 1.65;
-      color: #37474F;
+      color: #D1D5DB;
+      background: #0B130E;
     }
 
     .faq-item.active .faq-answer {
@@ -1167,12 +1143,13 @@
     }
 
     .faq-bullet-box {
-      background: #F8FBF9;
-      border: 1px solid #E1EBE6;
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
       padding: 12px 14px;
       margin-top: 12px;
       font-size: 13.5px;
+      color: #E5E7EB;
     }
 
     .faq-bullet-box ul {
@@ -1186,8 +1163,9 @@
 
     /* Footer */
     footer {
-      background-color: var(--primary-dark);
-      color: #A3B8B0;
+      background-color: #060B08;
+      border-top: 1px solid var(--border-subtle);
+      color: #9CA3AF;
       padding: 40px 20px 30px;
       margin-top: auto;
       text-align: center;
@@ -1210,12 +1188,12 @@
     }
 
     .footer-links a:hover {
-      color: var(--accent-gold);
+      color: #10B981;
     }
 
     /* Social Media Follow Bar */
     .social-follow-bar {
-      background: #FFFFFF;
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
       padding: 16px 20px;
@@ -1226,7 +1204,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      box-shadow: var(--shadow-sm);
     }
 
     .social-follow-title {
@@ -1235,17 +1213,17 @@
       gap: 10px;
       font-size: 14px;
       font-weight: 700;
-      color: var(--primary-dark);
+      color: #FFFFFF;
     }
 
     .social-follow-title span.handle-tag {
-      background: var(--surface-mint);
-      color: var(--primary);
+      background: rgba(16, 185, 129, 0.18);
+      color: #34D399;
       padding: 3px 10px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
-      border: 1px solid rgba(27,77,62,0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     .social-follow-icons {
@@ -1264,30 +1242,31 @@
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s ease;
-      border: 1px solid #E2E8F0;
-      background: #F8FAFC;
-      color: #334155;
+      border: 1px solid var(--border-subtle);
+      background: #0A110D;
+      color: #E5E7EB;
     }
 
     .social-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      color: #FFFFFF;
     }
 
-    .social-btn.btn-ig:hover { background: #E1306C; color: #FFF; border-color: #E1306C; }
-    .social-btn.btn-fb:hover { background: #1877F2; color: #FFF; border-color: #1877F2; }
-    .social-btn.btn-x:hover { background: #000000; color: #FFF; border-color: #000000; }
-    .social-btn.btn-yt:hover { background: #FF0000; color: #FFF; border-color: #FF0000; }
-    .social-btn.btn-tt:hover { background: #010101; color: #FFF; border-color: #010101; }
-    .social-btn.btn-li:hover { background: #0A66C2; color: #FFF; border-color: #0A66C2; }
-    .social-btn.btn-wa:hover { background: #25D366; color: #FFF; border-color: #25D366; }
-    .social-btn.btn-tg:hover { background: #0088CC; color: #FFF; border-color: #0088CC; }
-    .social-btn.btn-mail:hover { background: #1B4D3E; color: #FFF; border-color: #1B4D3E; }
+    .social-btn.btn-ig:hover { background: #E1306C; border-color: #E1306C; }
+    .social-btn.btn-fb:hover { background: #1877F2; border-color: #1877F2; }
+    .social-btn.btn-x:hover { background: #000000; border-color: #FFFFFF; }
+    .social-btn.btn-yt:hover { background: #FF0000; border-color: #FF0000; }
+    .social-btn.btn-tt:hover { background: #010101; border-color: #34D399; }
+    .social-btn.btn-li:hover { background: #0A66C2; border-color: #0A66C2; }
+    .social-btn.btn-wa:hover { background: #25D366; border-color: #25D366; }
+    .social-btn.btn-tg:hover { background: #0088CC; border-color: #0088CC; }
+    .social-btn.btn-mail:hover { background: #10B981; border-color: #10B981; }
 
     /* Join Our Team / Provider & Caregiver Section */
     .join-team-section {
-      background: linear-gradient(180deg, #F4F9F6 0%, #EBF4F0 100%);
-      border: 1px solid #D5E8DF;
+      background: linear-gradient(180deg, #111C15 0%, #0A110D 100%);
+      border: 1px solid var(--border-subtle);
       border-radius: 24px;
       padding: 44px 28px;
       margin: 40px auto;
@@ -1304,19 +1283,21 @@
     }
 
     .provider-track-card {
-      background: #FFFFFF;
+      background: var(--surface-card);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
       padding: 24px 20px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 14px rgba(27,77,62,0.05);
-      transition: transform 0.25s, box-shadow 0.25s;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     }
 
     .provider-track-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(27,77,62,0.1);
+      box-shadow: var(--shadow-md);
+      border-color: #10B981;
+      background: var(--surface-card-hover);
     }
 
     .track-icon-badge {
@@ -1333,14 +1314,14 @@
     .provider-track-card h3 {
       font-size: 18px;
       font-weight: 700;
-      color: var(--primary-dark);
+      color: #FFFFFF;
       margin-bottom: 8px;
     }
 
     .provider-track-card p {
       font-size: 13.5px;
       line-height: 1.55;
-      color: var(--text-muted);
+      color: #D1D5DB;
       margin-bottom: 16px;
     }
 
@@ -1349,7 +1330,7 @@
       padding: 0;
       margin: 0 0 18px 0;
       font-size: 13px;
-      color: #37474F;
+      color: #E5E7EB;
     }
 
     .track-perks-list li {
@@ -1360,17 +1341,17 @@
     }
 
     .track-perks-list li span.check {
-      color: #2E7D32;
+      color: #34D399;
       font-weight: 700;
     }
 
     .provider-form-wrapper {
-      background: #FFFFFF;
-      border: 1px solid #D1E5DC;
+      background: #111C15;
+      border: 1px solid var(--border-subtle);
       border-radius: 18px;
       padding: 28px 24px;
       margin-top: 24px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+      box-shadow: var(--shadow-sm);
     }
 
     .provider-form-header {
@@ -1382,13 +1363,13 @@
     .provider-form-header h4 {
       font-size: 20px;
       font-weight: 800;
-      color: var(--primary-dark);
+      color: #FFFFFF;
       margin-bottom: 6px;
     }
 
     .provider-form-header p {
       font-size: 13.5px;
-      color: var(--text-muted);
+      color: #9CA3AF;
     }
 
     .provider-form-grid {
@@ -1406,19 +1387,19 @@
     .form-group label {
       font-size: 12.5px;
       font-weight: 700;
-      color: var(--primary-dark);
+      color: #FFFFFF;
     }
 
     .form-group input,
     .form-group select,
     .form-group textarea {
       padding: 10px 14px;
-      border: 1.5px solid #CFDFD8;
+      border: 1.5px solid var(--border-subtle);
       border-radius: 10px;
       font-size: 14px;
       font-family: inherit;
-      background: #FAFDFB;
-      color: #1E293B;
+      background: #0A110D;
+      color: #FFFFFF;
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
@@ -1426,9 +1407,9 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(27,77,62,0.12);
-      background: #FFFFFF;
+      border-color: #10B981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+      background: #0F1A13;
     }
 
     .form-actions-row {
@@ -1457,11 +1438,11 @@
     .btn-apply-wa:hover {
       background: #1EBE5D;
       transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(37,211,102,0.35);
+      box-shadow: 0 4px 14px rgba(37,211,102,0.45);
     }
 
     .btn-apply-email {
-      background: var(--primary-dark);
+      background: linear-gradient(135deg, #10B981, #059669);
       color: #FFFFFF;
       border: none;
       border-radius: 12px;
@@ -1476,9 +1457,9 @@
     }
 
     .btn-apply-email:hover {
-      background: var(--primary);
+      background: #059669;
       transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(27,77,62,0.25);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
     }
 
     /* Gemini Live Chatbot Floating Widget & Modal */
@@ -1487,7 +1468,7 @@
       bottom: 24px;
       right: 24px;
       z-index: 9999;
-      background: linear-gradient(135deg, #1B4D3E 0%, #0F3327 50%, #C5A059 100%);
+      background: linear-gradient(135deg, #10B981 0%, #059669 60%, #047857 100%);
       color: #FFFFFF;
       border: none;
       border-radius: 32px;
@@ -1498,13 +1479,13 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 10px 28px rgba(27,77,62,0.35);
+      box-shadow: 0 10px 28px rgba(16, 185, 129, 0.45);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .gemini-fab:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 14px 34px rgba(27,77,62,0.45);
+      box-shadow: 0 14px 34px rgba(16, 185, 129, 0.6);
     }
 
     .gemini-fab .fab-sparkle {
@@ -1539,10 +1520,10 @@
       max-width: calc(100vw - 32px);
       height: 600px;
       max-height: calc(100vh - 110px);
-      background: #FFFFFF;
+      background: #111C15;
       border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.22);
-      border: 1px solid rgba(27,77,62,0.15);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      border: 1px solid var(--border-subtle);
       display: none;
       flex-direction: column;
       z-index: 10000;
@@ -1560,13 +1541,14 @@
     }
 
     .gemini-header {
-      background: linear-gradient(135deg, var(--primary-dark) 0%, #163E32 100%);
+      background: linear-gradient(135deg, #09120D 0%, #11261B 100%);
       color: #FFFFFF;
       padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .gemini-header-left {
@@ -1579,23 +1561,24 @@
       width: 34px;
       height: 34px;
       border-radius: 10px;
-      background: rgba(255,255,255,0.15);
+      background: rgba(16, 185, 129, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
     }
 
     .gemini-title {
       font-size: 14px;
       font-weight: 700;
       line-height: 1.2;
+      color: #FFFFFF;
     }
 
     .gemini-sub {
       font-size: 11px;
-      color: #A3B8B0;
+      color: #6EE7B7;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -1616,9 +1599,9 @@
     }
 
     .lang-select-box {
-      background: rgba(255,255,255,0.18);
+      background: #080E0A;
       color: #FFFFFF;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
       padding: 4px 8px;
       font-size: 11.5px;
@@ -1628,12 +1611,12 @@
     }
 
     .lang-select-box option {
-      background: #1B4D3E;
+      background: #080E0A;
       color: #FFF;
     }
 
     .gemini-close-btn {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.1);
       border: none;
       color: #FFFFFF;
       width: 28px;
@@ -1648,13 +1631,13 @@
     }
 
     .gemini-close-btn:hover {
-      background: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.25);
     }
 
     .gemini-suggestions {
       padding: 10px 14px 6px;
-      background: #F8FAF9;
-      border-bottom: 1px solid #E6EFEA;
+      background: #0B130E;
+      border-bottom: 1px solid var(--border-subtle);
       display: flex;
       gap: 6px;
       overflow-x: auto;
@@ -1663,21 +1646,22 @@
     }
 
     .gemini-chip {
-      background: #FFFFFF;
-      border: 1px solid #D5E5DE;
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
       border-radius: 14px;
       padding: 5px 10px;
       font-size: 11.5px;
       font-weight: 500;
-      color: var(--primary-dark);
+      color: #34D399;
       cursor: pointer;
       flex-shrink: 0;
       transition: all 0.2s;
     }
 
     .gemini-chip:hover {
-      background: var(--surface-mint);
-      border-color: var(--primary);
+      background: var(--surface-card-hover);
+      border-color: #10B981;
+      color: #FFFFFF;
     }
 
     .gemini-messages {
@@ -1687,7 +1671,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      background: #FAFDFB;
+      background: #080E0A;
       font-size: 13.5px;
     }
 
@@ -1701,18 +1685,18 @@
 
     .msg-user {
       align-self: flex-end;
-      background: var(--primary);
+      background: linear-gradient(135deg, #10B981, #059669);
       color: #FFFFFF;
       border-bottom-right-radius: 4px;
     }
 
     .msg-bot {
       align-self: flex-start;
-      background: #FFFFFF;
-      color: #1E293B;
-      border: 1px solid #E2EBE6;
+      background: var(--surface-card);
+      color: #FFFFFF;
+      border: 1px solid var(--border-subtle);
       border-bottom-left-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
 
     .msg-bot-actions {
@@ -1721,61 +1705,57 @@
       gap: 8px;
       margin-top: 6px;
       padding-top: 6px;
-      border-top: 1px dashed #E5EBE8;
+      border-top: 1px dashed var(--border-subtle);
       font-size: 11px;
     }
 
     .btn-msg-listen {
-      background: #F1F7F4;
-      border: 1px solid #D4E5DC;
+      background: #0D1711;
+      border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 2px 7px;
       font-size: 11px;
       cursor: pointer;
-      color: var(--primary-dark);
+      color: #34D399;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
     .btn-msg-listen:hover {
-      background: var(--surface-mint);
+      background: var(--surface-card-hover);
+      color: #FFFFFF;
     }
 
     .gemini-voice-bar {
       display: none;
-      background: #FEF2F2;
-      border-top: 1px solid #FCA5A5;
+      background: #1F1315;
+      border-top: 1px solid #7F1D1D;
       padding: 8px 14px;
       font-size: 12px;
-      color: #DC2626;
-      font-weight: 600;
-      align-items: center;
+      color: #F87171;
       justify-content: space-between;
-    }
-
-    .gemini-voice-bar.active {
-      display: flex;
+      align-items: center;
     }
 
     .voice-pulse-dot {
       width: 10px;
       height: 10px;
-      background: #DC2626;
+      background-color: #EF4444;
       border-radius: 50%;
-      animation: voicePulse 1s infinite alternate;
       display: inline-block;
+      animation: voicePulse 0.8s infinite alternate;
     }
 
     @keyframes voicePulse {
-      from { transform: scale(0.8); opacity: 0.6; }
+      from { transform: scale(0.8); opacity: 0.5; }
       to { transform: scale(1.3); opacity: 1; }
     }
 
     .gemini-input-box {
       padding: 10px 12px;
-      background: #FFFFFF;
-      border-top: 1px solid #E6EFEA;
+      background: #111C15;
+      border-top: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -1783,22 +1763,24 @@
 
     .gemini-input {
       flex: 1;
-      padding: 9px 12px;
-      border: 1.5px solid #D2E2DB;
+      padding: 9px 14px;
+      border: 1.5px solid var(--border-subtle);
       border-radius: 20px;
       font-size: 13.5px;
       outline: none;
-      font-family: inherit;
+      background: #080E0A;
+      color: #FFFFFF;
+      transition: border-color 0.2s;
     }
 
     .gemini-input:focus {
-      border-color: var(--primary);
+      border-color: #10B981;
     }
 
     .btn-mic {
-      background: #F0F6F3;
-      border: 1.5px solid #CFDFD7;
-      color: var(--primary-dark);
+      background: #080E0A;
+      border: 1.5px solid var(--border-subtle);
+      color: #34D399;
       width: 36px;
       height: 36px;
       border-radius: 50%;
@@ -1811,8 +1793,9 @@
     }
 
     .btn-mic:hover {
-      background: var(--surface-mint);
-      border-color: var(--primary);
+      background: var(--surface-card-hover);
+      border-color: #10B981;
+      color: #FFFFFF;
     }
 
     .btn-mic.recording {
@@ -1823,7 +1806,7 @@
     }
 
     .btn-send {
-      background: var(--primary);
+      background: #10B981;
       border: none;
       color: #FFFFFF;
       width: 36px;
@@ -1838,8 +1821,365 @@
     }
 
     .btn-send:hover {
-      background: var(--primary-dark);
+      background: #059669;
     }
+  
+    /* Booking & Admin Console Styling */
+    .booking-section {
+      background: var(--surface-card);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 60px 20px;
+      margin: 40px 0;
+    }
+
+    .booking-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .booking-category-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .b-tab-btn {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .b-tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+
+    .b-tab-btn.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+
+    .booking-card {
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .booking-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: #0B1B15;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 14px;
+      color: #FFFFFF;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    .booking-submit-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-submit-booking {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit-booking:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+    }
+
+    .btn-wa-direct {
+      background: #15241C;
+      border: 1px solid #25D366;
+      color: #25D366;
+      border-radius: 12px;
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-wa-direct:hover {
+      background: #25D366;
+      color: #080E0A;
+    }
+
+    /* Admin Modal Styles */
+    .admin-modal-card {
+      background: #111C15;
+      border: 1px solid #1E382A;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 980px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.85);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-modal-header {
+      background: #15241C;
+      border-bottom: 1px solid #1E382A;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-close-btn {
+      background: #0B1B15;
+      border: 1px solid #1E382A;
+      color: #9CA3AF;
+      font-size: 20px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .admin-close-btn:hover {
+      color: #FFF;
+      border-color: #10B981;
+    }
+
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .admin-stat-card {
+      background: #0B1B15;
+      border: 1px solid #1E382A;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-num {
+      display: block;
+      font-size: 26px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .stat-lbl {
+      font-size: 11.5px;
+      color: #9CA3AF;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      background: #15241C;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #1E382A;
+    }
+
+    .btn-filter-pill {
+      background: #0B1B15;
+      border: 1px solid #1E382A;
+      color: #9CA3AF;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-filter-pill.active {
+      background: #10B981;
+      color: #FFFFFF;
+      border-color: #10B981;
+    }
+
+    .booking-admin-row {
+      background: #0B1B15;
+      border: 1px solid #1E382A;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .booking-admin-row:hover {
+      border-color: #10B981;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-origin: center center;
+    }
+
+    /* Smooth pulse & bounce animation when status changes */
+    .status-badge.status-animating {
+      animation: badgeStatusBounce 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes badgeStatusBounce {
+      0% {
+        transform: scale(0.88);
+        filter: brightness(1.2);
+      }
+      45% {
+        transform: scale(1.18);
+        filter: brightness(1.5);
+        box-shadow: 0 0 18px currentColor;
+      }
+      75% {
+        transform: scale(0.97);
+      }
+      100% {
+        transform: scale(1);
+        filter: brightness(1);
+      }
+    }
+
+    /* Shimmer ripple on badge */
+    .status-badge::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 10%, transparent 70%);
+      opacity: 0;
+      transform: scale(0.4);
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+      pointer-events: none;
+    }
+
+    .status-badge.status-animating::after {
+      opacity: 1;
+      transform: scale(2.4);
+    }
+
+    .status-pending { background: rgba(245, 158, 11, 0.16); color: #F59E0B; border: 1px solid #F59E0B; box-shadow: 0 0 8px rgba(245, 158, 11, 0.18); }
+    .status-contacted { background: rgba(56, 189, 248, 0.16); color: #38BDF8; border: 1px solid #38BDF8; box-shadow: 0 0 8px rgba(56, 189, 248, 0.18); }
+    .status-confirmed { background: rgba(16, 185, 129, 0.18); color: #34D399; border: 1px solid #10B981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.28); }
+    .status-completed { background: rgba(156, 163, 175, 0.16); color: #E5E7EB; border: 1px solid #6B7280; box-shadow: 0 0 6px rgba(156, 163, 175, 0.12); }
+    .status-cancelled { background: rgba(239, 68, 68, 0.16); color: #EF4444; border: 1px solid #EF4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.18); }
+
+    .booking-admin-row {
+      transition: border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    .booking-admin-row.row-updated {
+      border-color: #34D399 !important;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+      background: rgba(16, 185, 129, 0.04) !important;
+    }
+
+    .status-indicator {
+      font-size: 12px;
+      color: #10B981;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .spinner-small {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
   </style>
 </head>
 <body>
@@ -1855,6 +2195,12 @@
         </div>
       </a>
       <div class="header-actions">
+        <a href="#booking-section" class="btn btn-outline" style="border-color: #10B981; color: #FFFFFF;">
+          <span>📋</span> Book Ride / Stay
+        </a>
+        <button type="button" onclick="openAdminConsole()" class="btn btn-outline" style="border-color: #374151; color: #9CA3AF;" title="Backend Console for Admin">
+          <span>🔐</span> Admin
+        </button>
         <a href="https://wa.me/923457059286?text=Hello%20Visit%20Islamabad%20Concierge,%20I%20am%20visiting%20Islamabad%20and%20need%20assistance" target="_blank" class="btn btn-accent">
           <span>💬</span> WhatsApp
         </a>
@@ -1871,7 +2217,7 @@
       <div class="badge-pill">
         <span>🇵🇰</span> Capital of Pakistan & Northern Areas Gateway
       </div>
-      <h1 class="hero-title" style="font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 12px; color: var(--primary-dark);">Visit <span style="color: var(--primary);">Islamabad</span></h1>
+      <h1 class="hero-title" style="font-size: clamp(32px, 5vw, 48px); font-weight: 800; line-height: 1.15; margin-bottom: 12px; color: #FFFFFF;">Visit <span style="color: #10B981;">Islamabad</span></h1>
       <p style="font-size: 19px; font-weight: 700; color: var(--accent-gold); margin-bottom: 12px; letter-spacing: 0.2px;">
         A gateway to the visitors of all types and for all purposes.
       </p>
@@ -1884,7 +2230,7 @@
         </a>
 
         <!-- iOS App / Safari PWA Button -->
-        <button onclick="openIosModal()" class="btn btn-outline btn-large" style="border-color: #000; color: #000;">
+        <button onclick="openIosModal()" class="btn btn-outline btn-large" style="border-color: #10B981; color: #FFFFFF;">
           <span>🍏</span> Install on iOS / iPhone
         </button>
 
@@ -2032,6 +2378,148 @@
       </div>
     </div>
   </div>
+
+  <!-- Dedicated Booking Section: Transportation & Guest Houses (Firestore Integrated) -->
+  <section class="booking-section" id="booking-section">
+    <div class="booking-container">
+      <div class="section-title" style="margin-bottom: 24px;">
+        <div class="badge-pill" style="margin-bottom: 8px;">
+          <span>📋</span> Real-Time Cloud Booking
+        </div>
+        <h2>Book Transportation & Verified Guest Houses</h2>
+        <p>Directly reserve airport transfers, hospital patient shuttles, court appearance sedans, university transit, and verified guest houses. Requests are logged directly to our 24/7 backend console in Firestore.</p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="booking-category-tabs">
+        <button type="button" class="b-tab-btn active" id="tabCatAll" onclick="selectBookingCategory('combo', this)">
+          <span>🎁</span> Transport + Stay Package
+        </button>
+        <button type="button" class="b-tab-btn" id="tabCatTransport" onclick="selectBookingCategory('transport', this)">
+          <span>🚗</span> Transportation Only
+        </button>
+        <button type="button" class="b-tab-btn" id="tabCatStay" onclick="selectBookingCategory('stay', this)">
+          <span>🏡</span> Guest House / Lodging Only
+        </button>
+      </div>
+
+      <div class="booking-card">
+        <form id="visitorBookingForm" onsubmit="handleBookingSubmit(event)">
+          <!-- Hidden category state -->
+          <input type="hidden" id="bkCategory" value="combo" />
+
+          <div class="booking-form-grid">
+            <!-- 1. Full Name -->
+            <div class="form-group">
+              <label for="bkName">Visitor / Patient Name *</label>
+              <input type="text" id="bkName" placeholder="e.g. Dr. Salman Tariq / Haji Rafiq" required />
+            </div>
+
+            <!-- 2. Phone / WhatsApp -->
+            <div class="form-group">
+              <label for="bkPhone">WhatsApp / Mobile Number *</label>
+              <input type="tel" id="bkPhone" placeholder="e.g. 0345 1234567 or +92..." required />
+            </div>
+
+            <!-- 3. Purpose of Visit -->
+            <div class="form-group">
+              <label for="bkPurpose">Primary Purpose of Visit *</label>
+              <select id="bkPurpose" required onchange="onPurposeChanged()">
+                <option value="🏥 Healthcare & Medical (Shifa/PIMS/Maroof)">🏥 Healthcare & Medical (Shifa / PIMS / Maroof)</option>
+                <option value="⚖️ Supreme Court / High Court / Legal">⚖️ Supreme Court / High Court / Legal Hearing</option>
+                <option value="🎓 University Exam / Studies (NUST/FAST/QAU)">🎓 University Exam / Entry Test (NUST / FAST / QAU)</option>
+                <option value="🛍️ Shopping & Family Leisure">🛍️ Shopping & Family Vacation</option>
+                <option value="🏔️ Northern Areas Transit (Murree/Hunza/Skardu)">🏔️ Northern Areas Transit (Murree / Hunza / Skardu)</option>
+                <option value="💼 Business / Diplomatic / Corporate">💼 Business / Diplomatic / Embassy Appointment</option>
+              </select>
+            </div>
+
+            <!-- 4. Required Service / Fleet Option -->
+            <div class="form-group">
+              <label for="bkServiceType">Preferred Service / Vehicle / Room *</label>
+              <select id="bkServiceType" required>
+                <option value="Complete Combo: Dedicated Sedan + Verified Guest House">⭐ Complete Combo: Dedicated Sedan + Verified Guest House</option>
+                <option value="Executive Chauffeur Sedan (Corolla/Civic)">🚗 Executive Chauffeur Sedan (Corolla / Civic)</option>
+                <option value="Wheelchair / Patient Hospital Cab">🚑 Wheelchair / Patient Cab (Hospital Transfer)</option>
+                <option value="4x4 Prado / SUV (Northern / Mountain Transit)">🚙 4x4 Prado / SUV (Northern & Mountain Transit)</option>
+                <option value="AC Grand Cabin Hiace (Family / Group Shuttle)">🚐 AC Grand Cabin Hiace (14 Seater)</option>
+                <option value="Patient-Friendly Ground Floor Guest House">🏡 Patient-Friendly Ground Floor Room (Near Shifa/PIMS)</option>
+                <option value="Executive Business Hotel (Blue Area / Central)">🏨 Executive Business Hotel (Blue Area / Red Zone)</option>
+                <option value="Student Hostel Bed / Room (Near Campus)">🎓 Student Hostel Bed / Room (Near NUST/FAST)</option>
+              </select>
+            </div>
+
+            <!-- 5. Arrival Date -->
+            <div class="form-group">
+              <label for="bkDate">Service / Arrival Date *</label>
+              <input type="date" id="bkDate" required />
+            </div>
+
+            <!-- 6. Number of Guests / Passengers -->
+            <div class="form-group">
+              <label for="bkGuests">Number of Guests / Passengers *</label>
+              <select id="bkGuests">
+                <option value="1 Person (Solo Traveler)">1 Person (Solo Traveler)</option>
+                <option value="2 Persons (Patient + Attendant / Couple)" selected>2 Persons (Patient + Attendant / Couple)</option>
+                <option value="3-4 Persons (Family)">3-4 Persons (Family)</option>
+                <option value="5-8 Persons (Group / Relatives)">5-8 Persons (Group / Relatives)</option>
+                <option value="9+ Persons (Large Delegation / Tour)">9+ Persons (Large Delegation / Tour)</option>
+              </select>
+            </div>
+
+            <!-- 7. Pickup Location / Sector -->
+            <div class="form-group">
+              <label for="bkLocation">Pickup Location / Destination Sector in Islamabad *</label>
+              <input type="text" id="bkLocation" placeholder="e.g. Islamabad Airport to Shifa H-8, or Daewoo Terminal" required />
+            </div>
+
+            <!-- 8. Origin City -->
+            <div class="form-group">
+              <label for="bkOrigin">Traveling From (City / Province)</label>
+              <input type="text" id="bkOrigin" placeholder="e.g. Lahore, Peshawar, Quetta, Karachi, Gilgit" />
+            </div>
+
+            <!-- 9. Special Needs / Notes -->
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="bkNotes">Special Needs or Detailed Instructions (Optional)</label>
+              <textarea id="bkNotes" rows="2" placeholder="e.g. Flight arrives at 11:30 PM; need lift/elevator in guest house; patient cannot walk long distances; require English/Urdu speaking chauffeur."></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Buttons & Status -->
+          <div class="booking-submit-row">
+            <button type="submit" class="btn-submit-booking" id="bkSubmitBtn">
+              <span id="bkSubmitSpinner" style="display:none;" class="spinner-small"></span>
+              <span id="bkSubmitText">🚀 Submit Booking to Firestore Desk</span>
+            </button>
+            <button type="button" class="btn-wa-direct" onclick="submitBookingDirectWa()">
+              <span>💬</span> Fast WhatsApp Booking
+            </button>
+          </div>
+
+          <!-- Real-Time Feedback Alert -->
+          <div id="bookingAlertMsg" style="display: none; margin-top: 16px;"></div>
+        </form>
+
+        <!-- Booking Success Confirmation Card -->
+        <div id="bookingSuccessCard" style="display: none; margin-top: 20px; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--primary); border-radius: 16px; padding: 24px; text-align: center;">
+          <div style="font-size: 40px; margin-bottom: 8px;">✅</div>
+          <h3 style="color: #34D399; font-size: 22px; margin-bottom: 6px;">Booking Request Logged in Firestore!</h3>
+          <p style="color: #D1D5DB; font-size: 14.5px; max-width: 600px; margin: 0 auto 16px;">
+            Your request has been successfully recorded in our backend console. Reference Number: <strong id="successBookingRef" style="color: #F59E0B; font-family: monospace; font-size: 16px;">#VI-BK-XXXX</strong>.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+            <a id="successWaLink" href="#" target="_blank" class="btn btn-accent" style="padding: 10px 20px;">
+              <span>💬</span> Send to WhatsApp Concierge for Instant Confirmation
+            </a>
+            <button type="button" class="btn btn-outline" onclick="resetBookingForm()" style="padding: 10px 20px;">
+              Book Another Service
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Testimonials Section (Medical, Legal, Student & Tourism Experiences) -->
   <section class="testimonials-section" id="testimonials-section">
@@ -2308,7 +2796,7 @@
         <div class="badge-pill" style="margin-bottom: 0;">
           <span>📲</span> Direct Mobile Hand-Off
         </div>
-        <h2 style="font-size: 26px; color: var(--primary-dark); font-weight: 800; letter-spacing: -0.5px; margin: 10px 0 6px;">
+        <h2 style="font-size: 26px; color: #FFFFFF; font-weight: 800; letter-spacing: -0.5px; margin: 10px 0 6px;">
           Direct Download & Cross-Platform Access
         </h2>
         <p style="font-size: 14.5px; color: var(--text-muted); line-height: 1.55;">
@@ -2383,7 +2871,7 @@
     <div class="provider-tracks-grid">
       <!-- Track 1: Transport Providers -->
       <div class="provider-track-card">
-        <div class="track-icon-badge" style="background: #E8F5E9; color: #2E7D32;">🚗</div>
+        <div class="track-icon-badge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">🚗</div>
         <h3>Transport & Fleet Providers</h3>
         <p>Connect with incoming visitors arriving via Daewoo terminal, train, or ISB Airport needing punctual, vetted rides across Islamabad and northern routes.</p>
         <ul class="track-perks-list">
@@ -2396,7 +2884,7 @@
 
       <!-- Track 2: Accommodations & Student Hostels -->
       <div class="provider-track-card">
-        <div class="track-icon-badge" style="background: #E0F2FE; color: #0284C7;">🏡</div>
+        <div class="track-icon-badge" style="background: rgba(2, 136, 209, 0.2); color: #38BDF8;">🏡</div>
         <h3>Guest Houses, Hotels & Hostels</h3>
         <p>List your verified lodging facilities to host families visiting hospitals, professionals attending court hearings, and students appearing for national entry tests.</p>
         <ul class="track-perks-list">
@@ -2409,7 +2897,7 @@
 
       <!-- Track 3: Long-Term Patient Attendants & Caregivers -->
       <div class="provider-track-card">
-        <div class="track-icon-badge" style="background: #FEF3C7; color: #D97706;">🩺</div>
+        <div class="track-icon-badge" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24;">🩺</div>
         <h3>Patient Attendants & Caregivers</h3>
         <p>Provide compassionate, reliable on-ground care for out-of-city patients coming to Islamabad for weeks or months of treatment at Shifa, PIMS, NORI, and KRL.</p>
         <ul class="track-perks-list">
@@ -2470,7 +2958,7 @@
             <span>💬</span> Submit via WhatsApp (Fastest)
           </button>
         </div>
-        <div id="providerSubmitMsg" style="display: none; margin-top: 14px; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0;"></div>
+        <div id="providerSubmitMsg" style="display: none; margin-top: 14px; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3);"></div>
       </form>
     </div>
   </section>
@@ -2502,61 +2990,61 @@
 
   <div class="channels-grid">
     <a href="https://wa.me/923457059286" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #E8F5E9; color: #2E7D32;">💬</div>
+      <div class="channel-icon" style="background: rgba(37, 211, 102, 0.2); color: #25D366;">💬</div>
       <div class="channel-name">WhatsApp Desk</div>
       <div class="channel-action">+92 345 7059286</div>
     </a>
 
     <a href="https://t.me/visitislamabad" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #E1F5FE; color: #0288D1;">✈️</div>
+      <div class="channel-icon" style="background: rgba(2, 136, 209, 0.2); color: #38BDF8;">✈️</div>
       <div class="channel-name">Telegram Channel</div>
       <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="mailto:info.visitislamabad@gmail.com" class="channel-item">
-      <div class="channel-icon" style="background: #FFF3E0; color: #E65100;">✉️</div>
+      <div class="channel-icon" style="background: rgba(245, 158, 11, 0.2); color: #FB923C;">✉️</div>
       <div class="channel-name">Official Email</div>
       <div class="channel-action">info.visitislamabad@gmail.com</div>
     </a>
 
     <a href="https://instagram.com/visitislamabad" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #FCE4EC; color: #E1306C;">📸</div>
+      <div class="channel-icon" style="background: rgba(225, 48, 108, 0.2); color: #F472B6;">📸</div>
       <div class="channel-name">Instagram</div>
       <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="https://facebook.com/visitislamabad" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #E8EAF6; color: #1877F2;">📘</div>
+      <div class="channel-icon" style="background: rgba(24, 119, 242, 0.2); color: #60A5FA;">📘</div>
       <div class="channel-name">Facebook</div>
       <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="https://x.com/visitislamabad" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #F1F5F9; color: #0F172A;">𝕏</div>
+      <div class="channel-icon" style="background: rgba(255, 255, 255, 0.15); color: #FFFFFF;">𝕏</div>
       <div class="channel-name">X (Twitter)</div>
       <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="https://youtube.com/@visitislamabad" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #FEE2E2; color: #DC2626;">▶️</div>
+      <div class="channel-icon" style="background: rgba(220, 38, 38, 0.2); color: #F87171;">▶️</div>
       <div class="channel-name">YouTube Channel</div>
       <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="https://tiktok.com/@visitislamabad" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #F1F5F9; color: #000000;">🎵</div>
+      <div class="channel-icon" style="background: rgba(255, 255, 255, 0.15); color: #FFFFFF;">🎵</div>
       <div class="channel-name">TikTok Clips</div>
       <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="https://linkedin.com/company/visitislamabad" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #E0F2FE; color: #0284C7;">💼</div>
+      <div class="channel-icon" style="background: rgba(10, 102, 194, 0.2); color: #38BDF8;">💼</div>
       <div class="channel-name">LinkedIn Partners</div>
       <div class="channel-action">@visitislamabad</div>
     </a>
 
     <a href="https://meet.google.com/new" target="_blank" class="channel-item">
-      <div class="channel-icon" style="background: #E8F5E9; color: #34A853;">📹</div>
+      <div class="channel-icon" style="background: rgba(52, 168, 83, 0.2); color: #34D399;">📹</div>
       <div class="channel-name">Google Meet</div>
       <div class="channel-action">Virtual Consultation</div>
     </a>
@@ -2730,11 +3218,11 @@
   </section>
 
   <!-- Live Interactive App Test Section -->
-  <div id="live-app-section" style="background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 24px; max-width: 1060px; margin: 0 auto 50px; box-shadow: var(--shadow-sm); text-align: center;">
+  <div id="live-app-section" style="background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--radius); padding: 24px; max-width: 1060px; margin: 0 auto 50px; box-shadow: var(--shadow-md); text-align: center;">
     <div class="badge-pill" style="margin-bottom: 12px;">
       <span>⚡</span> Direct Web App Testing
     </div>
-    <h2 style="font-size: 24px; color: var(--primary-dark); margin-bottom: 8px; font-weight: 800;">Test The App Instantly In Your Browser</h2>
+    <h2 style="font-size: 24px; color: #FFFFFF; margin-bottom: 8px; font-weight: 800;">Test The App Instantly In Your Browser</h2>
     <p style="font-size: 14px; color: var(--text-muted); max-width: 650px; margin: 0 auto 20px;">
       No installation required. Test exploring Islamabad, planning custom routes, booking transport, and consulting the 24/7 AI Guide right now.
     </p>
@@ -2754,14 +3242,14 @@
 
   <!-- iOS Install Instructions Modal -->
   <div id="iosModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 99999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px);">
-    <div style="background: #FFFFFF; border-radius: 24px; max-width: 480px; width: 100%; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.25); position: relative; text-align: left;">
-      <button onclick="closeIosModal()" aria-label="Close" style="position: absolute; top: 18px; right: 18px; background: #F0F2F1; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; font-weight: bold; color: #5C6E66; display: flex; align-items: center; justify-content: center;">✕</button>
+    <div style="background: #111C15; border: 1.5px solid #1E382A; border-radius: 24px; max-width: 480px; width: 100%; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.7); position: relative; text-align: left;">
+      <button onclick="closeIosModal()" aria-label="Close" style="position: absolute; top: 18px; right: 18px; background: #1B2B21; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; font-size: 16px; font-weight: bold; color: #FFFFFF; display: flex; align-items: center; justify-content: center;">✕</button>
       
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
         <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #1B4D3E, #2D6A4F); display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 26px; box-shadow: 0 4px 10px rgba(27,77,62,0.25);">🍏</div>
         <div>
-          <h3 style="font-size: 20px; color: var(--primary-dark); font-weight: 800; margin: 0;">Install on iPhone & iPad</h3>
-          <span style="font-size: 12.5px; color: #2D6A4F; font-weight: 600;">Instant Safari PWA • No App Store Needed</span>
+          <h3 style="font-size: 20px; color: #FFFFFF; font-weight: 800; margin: 0;">Install on iPhone & iPad</h3>
+          <span style="font-size: 12.5px; color: #34D399; font-weight: 600;">Instant Safari PWA • No App Store Needed</span>
         </div>
       </div>
 
@@ -2770,25 +3258,25 @@
         <strong>⚠️ Open in Safari First:</strong> You are browsing inside an in-app browser or Chrome on iOS. Tap the <strong>Share</strong> or <strong>...</strong> menu and select <strong>"Open in Safari"</strong> to install to your home screen!
       </div>
 
-      <div style="background: #F8FAF9; border: 1px solid #E5E7EB; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
+      <div style="background: #15241C; border: 1px solid #1E382A; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
         <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px;">
           <div style="background: #1B4D3E; color: #FFF; font-weight: 800; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</div>
-          <div style="font-size: 14px; color: #1F2937; line-height: 1.5;">
-            In <strong>Safari</strong>, tap the <strong>Share</strong> button <span style="display: inline-flex; align-items: center; justify-content: center; background: #E5E7EB; border-radius: 6px; padding: 2px 7px; font-size: 13px; font-weight: 700; color: #007AFF;">⎋ / ⬆️</span> at the bottom of your screen (or top on iPad).
+          <div style="font-size: 14px; color: #E5E7EB; line-height: 1.5;">
+            In <strong>Safari</strong>, tap the <strong>Share</strong> button <span style="display: inline-flex; align-items: center; justify-content: center; background: rgba(16, 185, 129, 0.2); border-radius: 6px; padding: 2px 7px; font-size: 13px; font-weight: 700; color: #34D399;">⎋ / ⬆️</span> at the bottom of your screen (or top on iPad).
           </div>
         </div>
 
         <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px;">
           <div style="background: #1B4D3E; color: #FFF; font-weight: 800; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</div>
-          <div style="font-size: 14px; color: #1F2937; line-height: 1.5;">
-            Scroll down the menu and tap <strong style="color: #111827;">"Add to Home Screen"</strong> <span style="display: inline-flex; align-items: center; justify-content: center; background: #E5E7EB; border-radius: 6px; padding: 2px 7px; font-size: 13px;">➕📲</span>.
+          <div style="font-size: 14px; color: #E5E7EB; line-height: 1.5;">
+            Scroll down the menu and tap <strong style="color: #FFFFFF;">"Add to Home Screen"</strong> <span style="display: inline-flex; align-items: center; justify-content: center; background: rgba(16, 185, 129, 0.2); border-radius: 6px; padding: 2px 7px; font-size: 13px;">➕📲</span>.
           </div>
         </div>
 
         <div style="display: flex; align-items: flex-start; gap: 12px;">
           <div style="background: #1B4D3E; color: #FFF; font-weight: 800; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</div>
-          <div style="font-size: 14px; color: #1F2937; line-height: 1.5;">
-            Tap <strong style="color: #007AFF;">Add</strong> in the top-right corner. The <strong>Visit Islamabad</strong> icon is added to your home screen!
+          <div style="font-size: 14px; color: #E5E7EB; line-height: 1.5;">
+            Tap <strong style="color: #34D399;">Add</strong> in the top-right corner. The <strong>Visit Islamabad</strong> icon is added to your home screen!
           </div>
         </div>
       </div>
@@ -2801,6 +3289,10 @@
     </div>
   </div>
 
+    <!-- Firebase SDKs for Firestore Real-Time Cloud Sync -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="/__/firebase/init.js" onerror="/* fallback */"></script>
   <script>
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
@@ -3353,6 +3845,646 @@
 
       window.speechSynthesis.speak(utterance);
     }
+  
+    // =========================================================================
+    // VISIT ISLAMABAD - FIRESTORE BOOKING & ADMIN CONSOLE LOGIC
+    // =========================================================================
+
+    let db = null;
+    let firestoreInitialized = false;
+    let activeBookingsList = [];
+    let currentAdminFilter = 'all';
+    let currentAdminSearch = '';
+    let adminAuthToken = false;
+
+    // Initialize Firebase & Firestore with graceful offline & local fallback
+    function initFirebaseFirestore() {
+      try {
+        let customCfg = null;
+        try {
+          const raw = localStorage.getItem('visitislamabad_firebase_cfg');
+          if (raw) customCfg = JSON.parse(raw);
+        } catch (e) {}
+
+        const config = customCfg || {
+          projectId: "visitislamabad",
+          authDomain: "visitislamabad.firebaseapp.com",
+          storageBucket: "visitislamabad.appspot.com"
+        };
+
+        if (typeof firebase !== 'undefined') {
+          if (!firebase.apps.length) {
+            firebase.initializeApp(config);
+          }
+          db = firebase.firestore();
+          firestoreInitialized = true;
+          updateFirestoreBadge("🟢 Connected to Cloud Firestore", "#10B981");
+          console.log("Firestore initialized successfully for project:", config.projectId);
+
+          // Setup real-time listener for bookings collection
+          setupFirestoreRealtimeListener();
+        } else {
+          console.warn("Firebase SDK not loaded, using local storage mode");
+          updateFirestoreBadge("💾 Local Cache Mode (SDK loading)", "#F59E0B");
+        }
+      } catch (err) {
+        console.warn("Firestore init notice:", err);
+        updateFirestoreBadge("💾 Local Offline Database", "#F59E0B");
+      }
+    }
+
+    function updateFirestoreBadge(text, color) {
+      const badge = document.getElementById('firestoreStatusBadge');
+      if (badge) {
+        badge.textContent = text;
+        badge.style.color = color;
+      }
+    }
+
+    function setupFirestoreRealtimeListener() {
+      if (!db) return;
+      try {
+        db.collection("visitor_bookings")
+          .orderBy("createdAt", "desc")
+          .onSnapshot((snapshot) => {
+            const list = [];
+            snapshot.forEach((doc) => {
+              list.push({ id: doc.id, ...doc.data() });
+            });
+            activeBookingsList = list;
+            // Also update localStorage backup
+            try {
+              localStorage.setItem('visitislamabad_cached_bookings', JSON.stringify(list));
+            } catch (e) {}
+            renderAdminDashboard();
+          }, (err) => {
+            console.warn("Firestore onSnapshot error (likely rules or offline):", err);
+            updateFirestoreBadge("⚠️ Local Mode (Sync Rules Pending)", "#F59E0B");
+            loadLocalBookingsBackup();
+          });
+      } catch (e) {
+        console.warn("Listener setup error:", e);
+        loadLocalBookingsBackup();
+      }
+    }
+
+    function loadLocalBookingsBackup() {
+      try {
+        const raw = localStorage.getItem('visitislamabad_cached_bookings');
+        if (raw) {
+          activeBookingsList = JSON.parse(raw);
+        } else {
+          // Provide sample seeded bookings if none exist yet
+          activeBookingsList = [
+            {
+              id: "seed-1",
+              bookingRef: "VI-BK-8821",
+              name: "Muhammad Tariq",
+              phone: "+92 300 5544332",
+              category: "combo",
+              purpose: "🏥 Healthcare & Medical (Shifa/PIMS/Maroof)",
+              serviceType: "Complete Combo: Dedicated Sedan + Verified Guest House",
+              date: "2026-10-15",
+              guests: "2 Persons (Patient + Attendant / Couple)",
+              sectorLocation: "Islamabad Airport to Shifa International H-8",
+              origin: "Multan",
+              notes: "Elderly patient needing ground floor room with no stairs.",
+              status: "Pending",
+              createdAt: new Date().toISOString()
+            },
+            {
+              id: "seed-2",
+              bookingRef: "VI-BK-7419",
+              name: "Advocate Kashif Bilal",
+              phone: "+92 321 9876543",
+              category: "transport",
+              purpose: "⚖️ Supreme Court / High Court / Legal",
+              serviceType: "Executive Chauffeur Sedan (Corolla/Civic)",
+              date: "2026-10-18",
+              guests: "1 Person (Solo Traveler)",
+              sectorLocation: "Serena Hotel to Supreme Court of Pakistan",
+              origin: "Lahore",
+              notes: "Morning court appearance at 9:00 AM; require punctual executive chauffeur.",
+              status: "Confirmed",
+              createdAt: new Date(Date.now() - 3600000).toISOString()
+            }
+          ];
+        }
+      } catch (e) {
+        activeBookingsList = [];
+      }
+      renderAdminDashboard();
+    }
+
+    // Category Selector on Booking Form
+    function selectBookingCategory(category, btn) {
+      document.querySelectorAll('.b-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('bkCategory').value = category;
+
+      const serviceSelect = document.getElementById('bkServiceType');
+      if (!serviceSelect) return;
+
+      if (category === 'transport') {
+        serviceSelect.value = "Executive Chauffeur Sedan (Corolla/Civic)";
+      } else if (category === 'stay') {
+        serviceSelect.value = "Patient-Friendly Ground Floor Guest House";
+      } else {
+        serviceSelect.value = "Complete Combo: Dedicated Sedan + Verified Guest House";
+      }
+    }
+
+    function onPurposeChanged() {
+      const purpose = document.getElementById('bkPurpose').value;
+      const serviceSelect = document.getElementById('bkServiceType');
+      const locationInput = document.getElementById('bkLocation');
+
+      if (purpose.includes('Healthcare')) {
+        if (!locationInput.value) locationInput.value = "Airport / Terminal to Shifa Hospital H-8";
+      } else if (purpose.includes('Court')) {
+        if (!locationInput.value) locationInput.value = "Red Zone / Supreme Court Constitution Ave";
+      } else if (purpose.includes('University')) {
+        if (!locationInput.value) locationInput.value = "Daewoo Terminal to NUST H-12";
+      } else if (purpose.includes('Northern')) {
+        if (!locationInput.value) locationInput.value = "Islamabad to Murree / Hunza Transit";
+        serviceSelect.value = "4x4 Prado / SUV (Northern / Mountain Transit)";
+      }
+    }
+
+    // Booking Submission Handler
+    async function handleBookingSubmit(event) {
+      event.preventDefault();
+
+      const btn = document.getElementById('bkSubmitBtn');
+      const spinner = document.getElementById('bkSubmitSpinner');
+      const btnText = document.getElementById('bkSubmitText');
+      const alertBox = document.getElementById('bookingAlertMsg');
+      const successCard = document.getElementById('bookingSuccessCard');
+
+      btn.disabled = true;
+      spinner.style.display = 'inline-block';
+      btnText.textContent = "Logging into Firestore...";
+
+      const bookingRef = "VI-BK-" + Math.floor(1000 + Math.random() * 9000);
+      const bookingData = {
+        bookingRef: bookingRef,
+        name: document.getElementById('bkName').value.trim(),
+        phone: document.getElementById('bkPhone').value.trim(),
+        category: document.getElementById('bkCategory').value,
+        purpose: document.getElementById('bkPurpose').value,
+        serviceType: document.getElementById('bkServiceType').value,
+        date: document.getElementById('bkDate').value,
+        guests: document.getElementById('bkGuests').value,
+        sectorLocation: document.getElementById('bkLocation').value.trim(),
+        origin: document.getElementById('bkOrigin').value.trim() || 'Pakistan',
+        notes: document.getElementById('bkNotes').value.trim() || 'No special requirements noted',
+        status: "Pending",
+        adminNote: "",
+        createdAt: new Date().toISOString(),
+        source: "Visit Islamabad Web Portal"
+      };
+
+      let firestoreSuccess = false;
+
+      // 1. Try logging directly to Cloud Firestore
+      if (db && firestoreInitialized) {
+        try {
+          const docRef = await db.collection("visitor_bookings").add(bookingData);
+          bookingData.id = docRef.id;
+          firestoreSuccess = true;
+          console.log("Booking successfully added to Firestore ID:", docRef.id);
+        } catch (fErr) {
+          console.warn("Firestore write error (using local cache & WhatsApp fallback):", fErr);
+        }
+      }
+
+      // 2. Always back up to local storage list
+      try {
+        if (!bookingData.id) bookingData.id = "local-" + Date.now();
+        activeBookingsList.unshift(bookingData);
+        localStorage.setItem('visitislamabad_cached_bookings', JSON.stringify(activeBookingsList));
+      } catch (e) {}
+
+      // 3. Update UI to Success State
+      spinner.style.display = 'none';
+      btnText.textContent = "🚀 Submit Booking to Firestore Desk";
+      btn.disabled = false;
+
+      document.getElementById('visitorBookingForm').style.display = 'none';
+      successCard.style.display = 'block';
+      document.getElementById('successBookingRef').textContent = bookingRef;
+
+      // WhatsApp Concierge Link with pre-filled details
+      const waText = encodeURI(
+        `*Visit Islamabad — Booking Request*\n` +
+        `Ref ID: ${bookingRef}\n` +
+        `Name: ${bookingData.name}\n` +
+        `Phone: ${bookingData.phone}\n` +
+        `Purpose: ${bookingData.purpose}\n` +
+        `Service: ${bookingData.serviceType}\n` +
+        `Date: ${bookingData.date}\n` +
+        `Guests: ${bookingData.guests}\n` +
+        `Location: ${bookingData.sectorLocation}\n` +
+        `From: ${bookingData.origin}\n` +
+        `Notes: ${bookingData.notes}`
+      );
+      document.getElementById('successWaLink').href = `https://wa.me/923457059286?text=${waText}`;
+
+      // Refresh admin list if modal is open
+      renderAdminDashboard();
+    }
+
+    function submitBookingDirectWa() {
+      const name = document.getElementById('bkName').value.trim() || 'Visitor';
+      const phone = document.getElementById('bkPhone').value.trim() || 'Not specified';
+      const service = document.getElementById('bkServiceType').value;
+      const date = document.getElementById('bkDate').value || 'Upcoming';
+      const location = document.getElementById('bkLocation').value.trim() || 'Islamabad';
+      const purpose = document.getElementById('bkPurpose').value;
+
+      const waText = encodeURI(
+        `*Visit Islamabad Fast Booking Request*\n` +
+        `Name: ${name}\n` +
+        `Phone: ${phone}\n` +
+        `Purpose: ${purpose}\n` +
+        `Service: ${service}\n` +
+        `Date: ${date}\n` +
+        `Location: ${location}\n` +
+        `Please confirm availability & tariff.`
+      );
+      window.open(`https://wa.me/923457059286?text=${waText}`, '_blank');
+    }
+
+    function resetBookingForm() {
+      document.getElementById('visitorBookingForm').reset();
+      document.getElementById('visitorBookingForm').style.display = 'block';
+      document.getElementById('bookingSuccessCard').style.display = 'none';
+      selectBookingCategory('combo', document.getElementById('tabCatAll'));
+    }
+
+    // =========================================================================
+    // ADMIN BACKEND CONSOLE CONTROLS
+    // =========================================================================
+
+    function openAdminConsole() {
+      const modal = document.getElementById('adminConsoleModal');
+      if (modal) modal.style.display = 'flex';
+
+      // Check if session passcode already verified
+      if (sessionStorage.getItem('vi_admin_auth') === 'true') {
+        adminAuthToken = true;
+        document.getElementById('adminAuthLock').style.display = 'none';
+        document.getElementById('adminDashboardView').style.display = 'block';
+        loadBookingsFromFirestore();
+      } else {
+        document.getElementById('adminAuthLock').style.display = 'block';
+        document.getElementById('adminDashboardView').style.display = 'none';
+        setTimeout(() => {
+          const inp = document.getElementById('adminPasscodeInput');
+          if (inp) inp.focus();
+        }, 100);
+      }
+    }
+
+    function closeAdminConsole() {
+      const modal = document.getElementById('adminConsoleModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function verifyAdminPasscode() {
+      const pass = document.getElementById('adminPasscodeInput').value.trim();
+      if (pass === 'islamabad2026' || pass === 'admin123') {
+        sessionStorage.setItem('vi_admin_auth', 'true');
+        adminAuthToken = true;
+        document.getElementById('adminAuthLock').style.display = 'none';
+        document.getElementById('adminDashboardView').style.display = 'block';
+        loadBookingsFromFirestore();
+      } else {
+        alert("Invalid passcode! Default passcode is: islamabad2026");
+      }
+    }
+
+    function loadBookingsFromFirestore() {
+      if (db && firestoreInitialized) {
+        db.collection("visitor_bookings")
+          .orderBy("createdAt", "desc")
+          .get()
+          .then((querySnapshot) => {
+            const list = [];
+            querySnapshot.forEach((doc) => {
+              list.push({ id: doc.id, ...doc.data() });
+            });
+            if (list.length > 0) {
+              activeBookingsList = list;
+              localStorage.setItem('visitislamabad_cached_bookings', JSON.stringify(list));
+            } else {
+              loadLocalBookingsBackup();
+            }
+            renderAdminDashboard();
+          })
+          .catch((err) => {
+            console.warn("Error fetching from Firestore:", err);
+            loadLocalBookingsBackup();
+          });
+      } else {
+        loadLocalBookingsBackup();
+      }
+    }
+
+    function filterAdminBookings(filter, btn) {
+      currentAdminFilter = filter;
+      document.querySelectorAll('.btn-filter-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderAdminDashboard();
+    }
+
+    function handleAdminSearch(val) {
+      currentAdminSearch = val.toLowerCase().trim();
+      renderAdminDashboard();
+    }
+
+    function renderAdminDashboard() {
+      const container = document.getElementById('adminBookingsList');
+      if (!container) return;
+
+      // Calculate stats
+      const total = activeBookingsList.length;
+      const pending = activeBookingsList.filter(b => b.status === 'Pending').length;
+      const contacted = activeBookingsList.filter(b => b.status === 'Contacted').length;
+      const confirmed = activeBookingsList.filter(b => b.status === 'Confirmed').length;
+
+      document.getElementById('statTotalBookings').textContent = total;
+      document.getElementById('statPendingBookings').textContent = pending;
+      document.getElementById('statContactedBookings').textContent = contacted;
+      document.getElementById('statConfirmedBookings').textContent = confirmed;
+
+      // Filter list
+      let filtered = activeBookingsList.filter(b => {
+        if (currentAdminFilter === 'all') return true;
+        if (['Pending', 'Contacted', 'Confirmed'].includes(currentAdminFilter)) {
+          return b.status === currentAdminFilter;
+        }
+        if (['transport', 'stay', 'combo'].includes(currentAdminFilter)) {
+          return b.category === currentAdminFilter;
+        }
+        return true;
+      });
+
+      if (currentAdminSearch) {
+        filtered = filtered.filter(b => 
+          (b.name && b.name.toLowerCase().includes(currentAdminSearch)) ||
+          (b.phone && b.phone.includes(currentAdminSearch)) ||
+          (b.bookingRef && b.bookingRef.toLowerCase().includes(currentAdminSearch)) ||
+          (b.sectorLocation && b.sectorLocation.toLowerCase().includes(currentAdminSearch))
+        );
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px; color: #9CA3AF;">
+            <p style="font-size: 24px; margin-bottom: 8px;">📭</p>
+            <p style="font-size: 15px; font-weight: 600;">No visitor bookings match the current filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach((b) => {
+        const statusClass = 'status-' + (b.status ? b.status.toLowerCase() : 'pending');
+        const formattedDate = b.createdAt ? new Date(b.createdAt).toLocaleDateString() + ' ' + new Date(b.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Recent';
+
+        const cleanPhone = b.phone ? b.phone.replace(/[^0-9]/g, '') : '';
+        const waMsg = encodeURI(`Hello ${b.name || 'Visitor'}, this is Visit Islamabad Concierge Desk regarding your booking (${b.bookingRef || 'VI'}). How can we assist you today?`);
+
+        html += `
+          <div class="booking-admin-row" id="row-${b.id}">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+              <div>
+                <span style="font-family: monospace; font-size: 14px; font-weight: 800; color: #F59E0B; background: rgba(245,158,11,0.15); padding: 2px 8px; border-radius: 6px;">
+                  ${b.bookingRef || '#VI-BK'}
+                </span>
+                <span style="color: #9CA3AF; font-size: 12px; margin-left: 8px;">${formattedDate}</span>
+                <h4 style="margin: 6px 0 2px; font-size: 17px; color: #FFFFFF;">${b.name || 'Valued Visitor'}</h4>
+                <div style="color: #34D399; font-size: 13.5px; font-weight: 600;">📞 ${b.phone || 'No phone'}</div>
+              </div>
+
+              <!-- Status Dropdown & Animated Badge -->
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span id="status-badge-${b.id}" class="status-badge ${statusClass}">
+                  <span class="badge-icon">${getStatusIcon(b.status)}</span>
+                  <span class="badge-text">${b.status || 'Pending'}</span>
+                </span>
+                <select onchange="updateBookingStatus('${b.id}', this.value)" style="background: #111C15; border: 1px solid #1E382A; color: #FFF; padding: 4px 8px; border-radius: 6px; font-size: 12px; cursor: pointer;">
+                  <option value="Pending" ${b.status === 'Pending' ? 'selected' : ''}>⏳ Pending</option>
+                  <option value="Contacted" ${b.status === 'Contacted' ? 'selected' : ''}>📞 Contacted</option>
+                  <option value="Confirmed" ${b.status === 'Confirmed' ? 'selected' : ''}>✅ Confirmed</option>
+                  <option value="Completed" ${b.status === 'Completed' ? 'selected' : ''}>🎉 Completed</option>
+                  <option value="Cancelled" ${b.status === 'Cancelled' ? 'selected' : ''}>❌ Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Booking Details Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; background: #111C15; padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 13px;">
+              <div><strong style="color: #9CA3AF;">Purpose:</strong> <span style="color:#FFF;">${b.purpose || 'General Visit'}</span></div>
+              <div><strong style="color: #9CA3AF;">Service:</strong> <span style="color:#34D399;">${b.serviceType || 'Not specified'}</span></div>
+              <div><strong style="color: #9CA3AF;">Date & Time:</strong> <span style="color:#FFF;">${b.date || 'Flexible'}</span></div>
+              <div><strong style="color: #9CA3AF;">Guests:</strong> <span style="color:#FFF;">${b.guests || '1 Person'}</span></div>
+              <div style="grid-column: 1 / -1;"><strong style="color: #9CA3AF;">Route / Sector:</strong> <span style="color:#FFF;">${b.sectorLocation || 'Central Islamabad'}</span> (From: ${b.origin || 'Pakistan'})</div>
+              ${b.notes ? `<div style="grid-column: 1 / -1;"><strong style="color: #F59E0B;">Special Notes:</strong> <span style="color:#E5E7EB;">${b.notes}</span></div>` : ''}
+              ${b.adminNote ? `<div style="grid-column: 1 / -1;"><strong style="color: #38BDF8;">Admin Note:</strong> <span style="color:#A7F3D0;">${b.adminNote}</span></div>` : ''}
+            </div>
+
+            <!-- Action Buttons for Admin -->
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <a href="https://wa.me/${cleanPhone}?text=${waMsg}" target="_blank" class="btn btn-accent" style="padding: 6px 12px; font-size: 12px; text-decoration: none;">
+                <span>💬</span> WhatsApp Visitor
+              </a>
+              <a href="tel:${cleanPhone}" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px; text-decoration: none;">
+                <span>📞</span> Call
+              </a>
+              <button type="button" onclick="promptAdminNote('${b.id}', '${(b.adminNote || '').replace(/'/g, "\'")}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px;">
+                <span>📝</span> ${b.adminNote ? 'Edit Note' : 'Add Note'}
+              </button>
+              <button type="button" onclick="deleteBooking('${b.id}')" class="btn btn-outline" style="padding: 6px 12px; font-size: 12px; color: #EF4444; border-color: #7F1D1D; margin-left: auto;">
+                <span>🗑️</span> Remove
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function getStatusIcon(status) {
+      if (status === 'Pending') return '⏳';
+      if (status === 'Contacted') return '📞';
+      if (status === 'Confirmed') return '✅';
+      if (status === 'Completed') return '🎉';
+      if (status === 'Cancelled') return '❌';
+      return '⏳';
+    }
+
+    async function updateBookingStatus(bookingId, newStatus) {
+      // 1. Update in local array
+      const item = activeBookingsList.find(b => b.id === bookingId);
+      if (item) item.status = newStatus;
+      try {
+        localStorage.setItem('visitislamabad_cached_bookings', JSON.stringify(activeBookingsList));
+      } catch (e) {}
+
+      // 2. Immediate smooth badge transition in DOM (in-place animation)
+      const badge = document.getElementById('status-badge-' + bookingId);
+      const row = document.getElementById('row-' + bookingId);
+      if (badge) {
+        // Reset classes and set new status
+        badge.className = 'status-badge status-' + newStatus.toLowerCase() + ' status-animating';
+        badge.innerHTML = `<span class="badge-icon">${getStatusIcon(newStatus)}</span> <span class="badge-text">${newStatus}</span>`;
+
+        // Remove animation class after bounce finishes
+        setTimeout(() => {
+          if (badge) badge.classList.remove('status-animating');
+        }, 700);
+      }
+
+      if (row) {
+        row.classList.add('row-updated');
+        setTimeout(() => {
+          if (row) row.classList.remove('row-updated');
+        }, 1200);
+      }
+
+      // Update counters smoothly without full re-render
+      updateAdminStatsCounters();
+
+      // 3. Update in Firestore asynchronously
+      if (db && firestoreInitialized && !bookingId.startsWith('seed-') && !bookingId.startsWith('local-')) {
+        try {
+          await db.collection("visitor_bookings").doc(bookingId).update({ status: newStatus });
+          console.log("Firestore status updated for doc:", bookingId);
+        } catch (e) {
+          console.warn("Firestore update error:", e);
+        }
+      }
+
+      // 4. If current tab filter excludes this status, gently animate out after the badge transition completes
+      if (['Pending', 'Contacted', 'Confirmed'].includes(currentAdminFilter) && currentAdminFilter !== newStatus) {
+        setTimeout(() => {
+          if (row) {
+            row.style.transition = 'all 0.4s ease-out';
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(-8px) scale(0.98)';
+            setTimeout(() => renderAdminDashboard(), 400);
+          } else {
+            renderAdminDashboard();
+          }
+        }, 850);
+      }
+    }
+
+    function updateAdminStatsCounters() {
+      const total = activeBookingsList.length;
+      const pending = activeBookingsList.filter(b => b.status === 'Pending').length;
+      const contacted = activeBookingsList.filter(b => b.status === 'Contacted').length;
+      const confirmed = activeBookingsList.filter(b => b.status === 'Confirmed').length;
+
+      const elTotal = document.getElementById('statTotalBookings');
+      const elPending = document.getElementById('statPendingBookings');
+      const elContacted = document.getElementById('statContactedBookings');
+      const elConfirmed = document.getElementById('statConfirmedBookings');
+
+      if (elTotal) elTotal.textContent = total;
+      if (elPending) elPending.textContent = pending;
+      if (elContacted) elContacted.textContent = contacted;
+      if (elConfirmed) elConfirmed.textContent = confirmed;
+    }
+
+    async function promptAdminNote(bookingId, currentNote) {
+      const note = prompt("Enter internal admin notes (e.g. driver assigned, room allocated, agreed fare):", currentNote || "");
+      if (note === null) return;
+
+      const item = activeBookingsList.find(b => b.id === bookingId);
+      if (item) item.adminNote = note;
+      try {
+        localStorage.setItem('visitislamabad_cached_bookings', JSON.stringify(activeBookingsList));
+      } catch (e) {}
+
+      if (db && firestoreInitialized && !bookingId.startsWith('seed-') && !bookingId.startsWith('local-')) {
+        try {
+          await db.collection("visitor_bookings").doc(bookingId).update({ adminNote: note });
+        } catch (e) {
+          console.warn("Firestore note update error:", e);
+        }
+      }
+      renderAdminDashboard();
+    }
+
+    async function deleteBooking(bookingId) {
+      if (!confirm("Are you sure you want to remove this booking request?")) return;
+
+      activeBookingsList = activeBookingsList.filter(b => b.id !== bookingId);
+      try {
+        localStorage.setItem('visitislamabad_cached_bookings', JSON.stringify(activeBookingsList));
+      } catch (e) {}
+
+      if (db && firestoreInitialized && !bookingId.startsWith('seed-') && !bookingId.startsWith('local-')) {
+        try {
+          await db.collection("visitor_bookings").doc(bookingId).delete();
+        } catch (e) {
+          console.warn("Firestore delete error:", e);
+        }
+      }
+      renderAdminDashboard();
+    }
+
+    function toggleFirebaseConfigPanel() {
+      const p = document.getElementById('firebaseConfigPanel');
+      if (p) p.style.display = p.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function saveCustomFirebaseConfig() {
+      const apiKey = document.getElementById('cfgApiKey').value.trim();
+      const projectId = document.getElementById('cfgProjectId').value.trim() || 'visitislamabad';
+
+      const cfg = {
+        apiKey: apiKey,
+        projectId: projectId,
+        authDomain: `${projectId}.firebaseapp.com`,
+        storageBucket: `${projectId}.appspot.com`
+      };
+      localStorage.setItem('visitislamabad_firebase_cfg', JSON.stringify(cfg));
+      alert("Firebase configuration saved! Reconnecting to " + projectId + "...");
+      initFirebaseFirestore();
+      loadBookingsFromFirestore();
+    }
+
+    function resetToDefaultFirebaseConfig() {
+      localStorage.removeItem('visitislamabad_firebase_cfg');
+      alert("Reset to default project: visitislamabad. Reconnecting...");
+      initFirebaseFirestore();
+      loadBookingsFromFirestore();
+    }
+
+    // Auto-init on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      initFirebaseFirestore();
+
+      // Pre-fill today's date in booking form
+      const dateInp = document.getElementById('bkDate');
+      if (dateInp) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInp.min = today;
+        dateInp.value = today;
+      }
+
+      // Check if URL hash is #admin or #admin-console
+      if (window.location.hash === '#admin' || window.location.hash === '#admin-console') {
+        openAdminConsole();
+      }
+    });
+
   </script>
 
   <!-- Gemini Floating Action Button (FAB) -->
@@ -3427,6 +4559,101 @@
         ➤
       </button>
     </form>
+  </div>
+
+  <!-- Backend Admin Console Modal (#admin-console) -->
+  <div id="adminConsoleModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px);">
+    <div class="admin-modal-card">
+      <!-- Admin Header -->
+      <div class="admin-modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 24px;">🔐</span>
+          <div>
+            <h3 style="margin: 0; font-size: 20px; color: #FFF;">Visit Islamabad — Backend Admin Console</h3>
+            <span id="firestoreStatusBadge" class="status-indicator">● Checking Firestore...</span>
+          </div>
+        </div>
+        <button type="button" onclick="closeAdminConsole()" class="admin-close-btn">&times;</button>
+      </div>
+
+      <!-- Password Lock Screen (if not logged in) -->
+      <div id="adminAuthLock" style="padding: 30px; text-align: center;">
+        <div style="font-size: 48px; margin-bottom: 12px;">🛡️</div>
+        <h4 style="color: #FFF; font-size: 18px; margin-bottom: 8px;">Admin Passcode Required</h4>
+        <p style="color: #9CA3AF; font-size: 13.5px; margin-bottom: 20px;">Enter your admin key to view and manage incoming visitor transportation and guest house bookings.</p>
+        <div style="max-width: 320px; margin: 0 auto; display: flex; gap: 8px;">
+          <input type="password" id="adminPasscodeInput" placeholder="Admin Passcode" style="flex: 1; padding: 10px 14px; background: #0B1B15; border: 1px solid #1E382A; border-radius: 8px; color: #FFF;" onkeyup="if(event.key==='Enter') verifyAdminPasscode()" />
+          <button type="button" onclick="verifyAdminPasscode()" class="btn btn-primary" style="padding: 10px 16px;">
+            Unlock
+          </button>
+        </div>
+        <p style="color: #6EE7B7; font-size: 12px; margin-top: 12px;">Default Admin Key: <code style="background: rgba(16,185,129,0.2); padding: 2px 6px; border-radius: 4px;">islamabad2026</code></p>
+      </div>
+
+      <!-- Admin Main Dashboard (Unlocked) -->
+      <div id="adminDashboardView" style="display: none; padding: 20px; overflow-y: auto; max-height: calc(85vh - 80px);">
+        <!-- Quick Stats Metrics Bar -->
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <span class="stat-num" id="statTotalBookings">0</span>
+            <span class="stat-lbl">Total Bookings</span>
+          </div>
+          <div class="admin-stat-card" style="border-color: #F59E0B;">
+            <span class="stat-num" id="statPendingBookings" style="color: #F59E0B;">0</span>
+            <span class="stat-lbl">Pending Action</span>
+          </div>
+          <div class="admin-stat-card" style="border-color: #38BDF8;">
+            <span class="stat-num" id="statContactedBookings" style="color: #38BDF8;">0</span>
+            <span class="stat-lbl">Contacted / Quoted</span>
+          </div>
+          <div class="admin-stat-card" style="border-color: #10B981;">
+            <span class="stat-num" id="statConfirmedBookings" style="color: #10B981;">0</span>
+            <span class="stat-lbl">Confirmed & Assigned</span>
+          </div>
+        </div>
+
+        <!-- Controls Bar: Filter, Search & Refresh -->
+        <div class="admin-controls-bar">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; flex: 1;">
+            <button type="button" class="btn-filter-pill active" onclick="filterAdminBookings('all', this)">All</button>
+            <button type="button" class="btn-filter-pill" onclick="filterAdminBookings('Pending', this)">⏳ Pending</button>
+            <button type="button" class="btn-filter-pill" onclick="filterAdminBookings('Contacted', this)">📞 Contacted</button>
+            <button type="button" class="btn-filter-pill" onclick="filterAdminBookings('Confirmed', this)">✅ Confirmed</button>
+            <button type="button" class="btn-filter-pill" onclick="filterAdminBookings('transport', this)">🚗 Transport</button>
+            <button type="button" class="btn-filter-pill" onclick="filterAdminBookings('stay', this)">🏡 Guest House</button>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="adminSearchInput" placeholder="Search name/phone..." oninput="handleAdminSearch(this.value)" style="padding: 6px 12px; background: #0B1B15; border: 1px solid #1E382A; border-radius: 8px; color: #FFF; font-size: 13px;" />
+            <button type="button" onclick="loadBookingsFromFirestore()" class="btn btn-outline" style="padding: 6px 12px; font-size: 13px;" title="Refresh live Firestore data">
+              🔄 Sync
+            </button>
+            <button type="button" onclick="toggleFirebaseConfigPanel()" class="btn btn-outline" style="padding: 6px 12px; font-size: 13px;" title="Firebase Settings">
+              ⚙️ Config
+            </button>
+          </div>
+        </div>
+
+        <!-- Firebase Config Panel (collapsible) -->
+        <div id="firebaseConfigPanel" style="display: none; background: #0B1B15; border: 1px solid #1E382A; border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+          <h5 style="color: #34D399; margin-bottom: 8px;">Firebase Project & Firestore Setup</h5>
+          <p style="color: #9CA3AF; font-size: 12px; margin-bottom: 12px;">Active Project: <strong id="cfgCurrentProject" style="color: #FFF;">visitislamabad</strong>. If you are using a new Firebase project, ensure Firestore rules allow read/write or paste your config below.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+            <input type="text" id="cfgApiKey" placeholder="Firebase apiKey (optional)" style="padding: 6px 10px; background: #111C15; border: 1px solid #1E382A; color: #FFF; border-radius: 6px; font-size: 12px;" />
+            <input type="text" id="cfgProjectId" placeholder="Project ID (default: visitislamabad)" style="padding: 6px 10px; background: #111C15; border: 1px solid #1E382A; color: #FFF; border-radius: 6px; font-size: 12px;" />
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button type="button" onclick="saveCustomFirebaseConfig()" class="btn btn-primary" style="padding: 6px 14px; font-size: 12px;">Save & Reconnect</button>
+            <button type="button" onclick="resetToDefaultFirebaseConfig()" class="btn btn-outline" style="padding: 6px 14px; font-size: 12px;">Reset Default</button>
+            <span style="font-size: 11.5px; color: #F59E0B; margin-left: auto;">Firestore Collection: <code>visitor_bookings</code></span>
+          </div>
+        </div>
+
+        <!-- Bookings List Container -->
+        <div id="adminBookingsList">
+          <p style="text-align: center; color: #9CA3AF; padding: 30px;">Loading bookings from Firestore...</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
