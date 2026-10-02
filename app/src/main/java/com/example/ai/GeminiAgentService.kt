@@ -13,10 +13,36 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
-enum class AiTaskComplexity {
-    GENERAL_CHAT,       // Uses gemini-3.5-flash for general multi-turn conversation
-    COMPLEX_ITINERARY,  // Uses gemini-3.1-pro-preview for complex reasoning and bespoke itineraries
-    FAST_QUERY          // Uses gemini-3.1-flash-lite-preview for rapid response tasks
+enum class AiTaskComplexity(
+    val modelId: String,
+    val title: String,
+    val badge: String,
+    val description: String
+) {
+    GENERAL_CHAT(
+        modelId = "gemini-3.5-flash",
+        title = "Gemini 3.5 Flash",
+        badge = "💬 General",
+        description = "General multi-turn chat with search grounding"
+    ),
+    COMPLEX_ITINERARY(
+        modelId = "gemini-3.1-pro-preview",
+        title = "Gemini 3.1 Pro",
+        badge = "🧠 Complex",
+        description = "Advanced reasoning & bespoke itineraries"
+    ),
+    FAST_QUERY(
+        modelId = "gemini-3.1-flash-lite",
+        title = "Gemini 3.1 Flash Lite",
+        badge = "⚡ Fast",
+        description = "Rapid response for fares & quick queries"
+    ),
+    LIVE_VOICE_CONVERSATION(
+        modelId = "gemini-3.8-live",
+        title = "Gemini 3.8 Live",
+        badge = "🎙️ Live API",
+        description = "Real-time voice conversation with Live API"
+    )
 }
 
 class GeminiAgentService {
@@ -76,11 +102,7 @@ class GeminiAgentService {
         conversationHistory: List<ChatMessage>,
         complexity: AiTaskComplexity
     ): String {
-        val modelName = when (complexity) {
-            AiTaskComplexity.COMPLEX_ITINERARY -> "gemini-3.1-pro-preview"
-            AiTaskComplexity.GENERAL_CHAT -> "gemini-3.5-flash"
-            AiTaskComplexity.FAST_QUERY -> "gemini-3.1-flash-lite-preview"
-        }
+        val modelName = complexity.modelId
 
         val url = "https://generativelanguage.googleapis.com/v1beta/models/$modelName:generateContent?key=$apiKey"
         val systemInstruction = getAgentSystemInstruction(agent)
@@ -121,12 +143,14 @@ class GeminiAgentService {
                 })
             })
             put("contents", contentsJson)
-            // Live Search Grounding for verified, real-world capital information
-            put("tools", JSONArray().apply {
-                put(JSONObject().apply {
-                    put("googleSearch", JSONObject())
+            // Live Search Grounding for verified, real-world capital information (enabled for general tasks with gemini-3.5-flash)
+            if (complexity == AiTaskComplexity.GENERAL_CHAT) {
+                put("tools", JSONArray().apply {
+                    put(JSONObject().apply {
+                        put("googleSearch", JSONObject())
+                    })
                 })
-            })
+            }
             put("generationConfig", JSONObject().apply {
                 put("temperature", if (complexity == AiTaskComplexity.COMPLEX_ITINERARY) 0.4 else 0.7)
                 put("topP", 0.95)

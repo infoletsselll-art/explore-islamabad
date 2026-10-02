@@ -3718,18 +3718,53 @@
       processGeminiQuery(text);
     }
 
+    let geminiMultiTurnHistory = [];
+    let currentGeminiModel = 'gemini-3.5-flash';
+
+    function onGeminiModelChange(model) {
+      currentGeminiModel = model;
+      if (model === 'gemini-3.8-live') {
+        const voiceBar = document.getElementById('geminiVoiceBar');
+        if (voiceBar) {
+          document.getElementById('geminiVoiceStatusText').textContent = "🎙️ Gemini 3.8 Live (Live API) Active • Speak now!";
+          voiceBar.classList.add('active');
+        }
+      }
+    }
+
     function processGeminiQuery(userQuery) {
       addUserMessage(userQuery);
+      geminiMultiTurnHistory.push({ role: 'user', text: userQuery });
 
       // Typing indicator
       const typingId = 'typing_' + Date.now();
       showTypingIndicator(typingId);
 
+      const delay = currentGeminiModel === 'gemini-3.1-flash-lite' ? 350 : (currentGeminiModel === 'gemini-3.1-pro-preview' ? 950 : 600);
+
       setTimeout(() => {
         removeTypingIndicator(typingId);
-        const botResponse = generateGeminiResponse(userQuery);
+        const botResponse = generateGeminiResponse(userQuery, currentGeminiModel);
+        geminiMultiTurnHistory.push({ role: 'model', text: botResponse });
         addBotMessage(botResponse);
-      }, 700);
+
+        // If Gemini 3.8 Live API model is selected, automatically speak response
+        if (currentGeminiModel === 'gemini-3.8-live') {
+          speakLiveResponse(botResponse);
+        }
+      }, delay);
+    }
+
+    function speakLiveResponse(text) {
+      if (!window.speechSynthesis) return;
+      try {
+        window.speechSynthesis.cancel();
+        const clean = text.replace(/[*#_`~>•-]/g, ' ').trim();
+        const utter = new SpeechSynthesisUtterance(clean);
+        utter.lang = currentGeminiLang;
+        utter.rate = 1.0;
+        window.speechSynthesis.speak(utter);
+      } catch (e) {}
     }
 
     function generateGeminiResponse(query) {
@@ -4506,13 +4541,19 @@
         </div>
       </div>
       <div class="gemini-header-controls">
+        <select class="lang-select-box" id="geminiModelSelect" onchange="onGeminiModelChange(this.value)" title="Select Gemini Model Engine" style="font-weight: 600; color: #34D399; border-color: #10B981;">
+          <option value="gemini-3.5-flash" selected>💬 3.5 Flash (General)</option>
+          <option value="gemini-3.1-flash-lite">⚡ 3.1 Flash Lite (Fast)</option>
+          <option value="gemini-3.1-pro-preview">🧠 3.1 Pro (Complex)</option>
+          <option value="gemini-3.8-live">🎙️ 3.8 Live (Live API)</option>
+        </select>
         <select class="lang-select-box" id="geminiLangSelect" onchange="onGeminiLangChange(this.value)" title="Select Voice & Chat Language">
-          <option value="ur-PK" selected>🇵🇰 Urdu (اردو)</option>
+          <option value="ur-PK" selected>🇵🇰 Urdu</option>
           <option value="en-US">🇬🇧 English</option>
-          <option value="ps-PK">🇵🇰 Pashto (پښتو)</option>
-          <option value="pa-PK">🇵🇰 Punjabi (پنجابی)</option>
-          <option value="ar-SA">🇸🇦 Arabic (العربية)</option>
-          <option value="zh-CN">🇨🇳 Chinese (中文)</option>
+          <option value="ps-PK">🇵🇰 Pashto</option>
+          <option value="pa-PK">🇵🇰 Punjabi</option>
+          <option value="ar-SA">🇸🇦 Arabic</option>
+          <option value="zh-CN">🇨🇳 Chinese</option>
         </select>
         <button class="gemini-close-btn" onclick="toggleGeminiChat()" title="Close Chat">&times;</button>
       </div>

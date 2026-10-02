@@ -4,8 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.speech.tts.TextToSpeech
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ai.AiTaskComplexity
 import com.example.ai.GeminiAgentService
 import com.example.data.SampleData
 import com.example.data.local.AppDatabase
@@ -25,6 +27,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class IslamabadViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -62,6 +65,17 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     private val _activeAgent = MutableStateFlow(AgentType.ALL_PURPOSE_CONCIERGE)
     val activeAgent: StateFlow<AgentType> = _activeAgent.asStateFlow()
 
+    private val _selectedComplexity = MutableStateFlow(AiTaskComplexity.GENERAL_CHAT)
+    val selectedComplexity: StateFlow<AiTaskComplexity> = _selectedComplexity.asStateFlow()
+
+    private val _isLiveVoiceActive = MutableStateFlow(false)
+    val isLiveVoiceActive: StateFlow<Boolean> = _isLiveVoiceActive.asStateFlow()
+
+    private val _isSpeakingAudio = MutableStateFlow(false)
+    val isSpeakingAudio: StateFlow<Boolean> = _isSpeakingAudio.asStateFlow()
+
+    private var textToSpeechEngine: TextToSpeech? = null
+
     private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
     val messages: StateFlow<List<ChatMessage>> = _messages.asStateFlow()
 
@@ -96,6 +110,66 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     init {
         // Initialize chat with default greeting from ALL_PURPOSE_CONCIERGE
         setAgent(AgentType.ALL_PURPOSE_CONCIERGE)
+
+        try {
+            textToSpeechEngine = TextToSpeech(application) { status ->
+                if (status == TextToSpeech.SUCCESS) {
+                    textToSpeechEngine?.language = Locale.ENGLISH
+                }
+            }
+        } catch (e: Throwable) {
+            // Graceful fallback if TTS service is unavailable in container/emulator
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        try {
+            textToSpeechEngine?.stop()
+            textToSpeechEngine?.shutdown()
+        } catch (e: Throwable) {}
+    }
+
+    fun setComplexity(complexity: AiTaskComplexity) {
+        _selectedComplexity.value = complexity
+        _userMessageToast.value = "Active Model: ${complexity.title}"
+    }
+
+    fun toggleLiveVoice() {
+        val newState = !_isLiveVoiceActive.value
+        _isLiveVoiceActive.value = newState
+        if (newState) {
+            _selectedComplexity.value = AiTaskComplexity.LIVE_VOICE_CONVERSATION
+            _userMessageToast.value = "Gemini 3.8 Live (Live API) voice conversation activated."
+            speakText("Gemini 3.8 Live conversation active. How can I assist your visit to Islamabad?")
+        } else {
+            stopSpeaking()
+            _selectedComplexity.value = AiTaskComplexity.GENERAL_CHAT
+            _userMessageToast.value = "Live voice conversation deactivated."
+        }
+    }
+
+    fun speakText(text: String) {
+        try {
+            textToSpeechEngine?.stop()
+            val cleanText = text.replace(Regex("[*#_`~>•-]"), " ").trim()
+            _isSpeakingAudio.value = true
+            textToSpeechEngine?.speak(
+                cleanText,
+                TextToSpeech.QUEUE_FLUSH,
+                null,
+                "gemini_tts_${System.currentTimeMillis()}"
+            )
+        } catch (e: Throwable) {
+            _isSpeakingAudio.value = false
+        }
+    }
+
+    fun stopSpeaking() {
+        try {
+            textToSpeechEngine?.stop()
+        } catch (e: Throwable) {}
+        _isSpeakingAudio.value = false
     }
 
     fun isItemBookmarked(id: String): Boolean {
@@ -239,7 +313,7 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         sendMessage("Tell me about visiting ${destination.name} (${destination.category}) in ${destination.locationSector}. What are key tips, metro bus access, and advice?")
     }
 
-    fun sendMessage(userText: String) {
+    fun sendMessage(userText: String, overrideComplexity: AiTaskComplexity? = null) {
         val trimmed = userText.trim()
         if (trimmed.isEmpty()) return
 
@@ -249,18 +323,24 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
             isFromUser = true,
             agentType = agent
         )
-        _messages.value = _messages.value + userMsg
+        val updatedHistory = _messages.value + userMsg
+        _messages.value = updatedHistory
 
+        val complexity = overrideComplexity ?: _selectedComplexity.value
         _isAgentTyping.value = true
+
         viewModelScope.launch {
             try {
-                val reply = agentService.consultAgent(agent, trimmed)
+                val reply = agentService.consultAgentMultiTurn(agent, updatedHistory, complexity)
                 val agentMsg = ChatMessage(
                     text = reply,
                     isFromUser = false,
                     agentType = agent
                 )
                 _messages.value = _messages.value + agentMsg
+                if (_isLiveVoiceActive.value) {
+                    speakText(reply)
+                }
             } catch (e: Exception) {
                 val errorMsg = ChatMessage(
                     text = "I am ready to assist you. Here is advice for ${agent.title}: Let me know if you would like to book transport (Metro, inDrive, Yango, 4x4), hotels, or visit schedules!",
