@@ -365,3 +365,26 @@ data class VisitorTestimonial(
     val review: String,
     val tripSummaryPills: List<String>
 )
+
+data class NorthernDeal(
+    val id: String,
+    val name: String,
+    val destination: String,
+    val summerSeason: Boolean,
+    val winterSeason: Boolean,
+    val desc: String,
+    val amenities: List<String>,
+    val summerOnPrice: Int,
+    val summerOffPrice: Int,
+    val winterOnPrice: Int,
+    val winterOffPrice: Int,
+    val packageTip: String
+)
+
+data class RewardVoucher(
+    val id: String,
+    val title: String,
+    val desc: String,
+    val pointsCost: Int,
+    val iconEmoji: String
+)

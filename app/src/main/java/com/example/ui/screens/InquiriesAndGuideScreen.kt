@@ -28,6 +28,8 @@ import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.ContactPhone
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.Landscape
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Share
@@ -102,6 +104,28 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
                 onClick = { selectedSubTab = 1 },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.CreditCard, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Loyalty & Cards", fontWeight = FontWeight.Bold)
+                    }
+                }
+            )
+            Tab(
+                selected = selectedSubTab == 2,
+                onClick = { selectedSubTab = 2 },
+                text = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Default.Landscape, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Northern Deals", fontWeight = FontWeight.Bold)
+                    }
+                }
+            )
+            Tab(
+                selected = selectedSubTab == 3,
+                onClick = { selectedSubTab = 3 },
+                text = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Bookmark, contentDescription = null, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(6.dp))
                         Text("Bookmarks (${bookmarks.size})", fontWeight = FontWeight.Bold)
@@ -109,8 +133,8 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
                 }
             )
             Tab(
-                selected = selectedSubTab == 2,
-                onClick = { selectedSubTab = 2 },
+                selected = selectedSubTab == 4,
+                onClick = { selectedSubTab = 4 },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.ContactPhone, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -120,8 +144,8 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
                 }
             )
             Tab(
-                selected = selectedSubTab == 3,
-                onClick = { selectedSubTab = 3 },
+                selected = selectedSubTab == 5,
+                onClick = { selectedSubTab = 5 },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Info, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -211,6 +235,14 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
             }
         }
         1 -> {
+            // Loyalty Cards, Points & Referral
+            LoyaltyAndCardsContent(viewModel = viewModel)
+        }
+        2 -> {
+            // Northern Summer/Winter Expeditions & Off-Season Deals
+            NorthernDealsContent(viewModel = viewModel)
+        }
+        3 -> {
             // Bookmarks List via Room Database
             BookmarksListContent(
                 bookmarks = bookmarks,
@@ -218,14 +250,14 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
                 onNavigateToExplore = { viewModel.selectTab(0) }
             )
         }
-        2 -> {
+        4 -> {
             // Official Contacts, Forums & AI Support
             OfficialContactsAndForumsContent(
                 context = context,
                 viewModel = viewModel
             )
         }
-        3 -> {
+        5 -> {
             // Tourist Toolkit & Essentials
             LazyColumn(
                 contentPadding = PaddingValues(16.dp, 16.dp, 16.dp, 96.dp),

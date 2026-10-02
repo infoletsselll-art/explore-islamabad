@@ -107,6 +107,34 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     private val _userMessageToast = MutableStateFlow<String?>(null)
     val userMessageToast: StateFlow<String?> = _userMessageToast.asStateFlow()
 
+    // Loyalty, Prepaid/Postpaid Cards & Referral State
+    private val _loyaltyPoints = MutableStateFlow(1450)
+    val loyaltyPoints: StateFlow<Int> = _loyaltyPoints.asStateFlow()
+
+    private val _prepaidBalance = MutableStateFlow(18500)
+    val prepaidBalance: StateFlow<Int> = _prepaidBalance.asStateFlow()
+
+    private val _postpaidCreditUsed = MutableStateFlow(15000)
+    val postpaidCreditUsed: StateFlow<Int> = _postpaidCreditUsed.asStateFlow()
+
+    private val _postpaidCreditLimit = MutableStateFlow(100000)
+    val postpaidCreditLimit: StateFlow<Int> = _postpaidCreditLimit.asStateFlow()
+
+    val referralCode: String = "ISB-VIP-8421"
+
+    private val _referralsCount = MutableStateFlow(4)
+    val referralsCount: StateFlow<Int> = _referralsCount.asStateFlow()
+
+    private val _referralEarnings = MutableStateFlow(4500)
+    val referralEarnings: StateFlow<Int> = _referralEarnings.asStateFlow()
+
+    // Northern Areas Summer/Winter & Off-season Deals State
+    private val _northernSeason = MutableStateFlow("summer") // "summer" | "winter"
+    val northernSeason: StateFlow<String> = _northernSeason.asStateFlow()
+
+    private val _isOffSeasonDeals = MutableStateFlow(true)
+    val isOffSeasonDeals: StateFlow<Boolean> = _isOffSeasonDeals.asStateFlow()
+
     init {
         // Initialize chat with default greeting from ALL_PURPOSE_CONCIERGE
         setAgent(AgentType.ALL_PURPOSE_CONCIERGE)
@@ -516,6 +544,86 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
             }
         } catch (e: Exception) {
             _userMessageToast.value = "Unable to open application. Contact: ${OfficialContacts.OFFICIAL_PHONE}"
+        }
+    }
+
+    fun reloadPrepaidCard(amount: Int) {
+        _prepaidBalance.value += amount
+        val bonusPts = amount / 50
+        _loyaltyPoints.value += bonusPts
+        _userMessageToast.value = "Reloaded PKR ${"%,d".format(amount)} to Capital Prepaid Card! +$bonusPts bonus points."
+    }
+
+    fun claimDailyCheckIn() {
+        _loyaltyPoints.value += 25
+        _userMessageToast.value = "Daily Check-in claimed! +25 Loyalty Points added."
+    }
+
+    fun redeemRewardVoucher(voucher: com.example.model.RewardVoucher) {
+        if (_loyaltyPoints.value < voucher.pointsCost) {
+            _userMessageToast.value = "Insufficient points! Need ${voucher.pointsCost} pts."
+            return
+        }
+        _loyaltyPoints.value -= voucher.pointsCost
+        val code = "VI-" + voucher.title.take(3).uppercase() + "-" + (1000..9999).random()
+        _userMessageToast.value = "Redeemed: ${voucher.title}! Voucher Code: $code"
+    }
+
+    fun transferReferralToPrepaid() {
+        val earnings = _referralEarnings.value
+        if (earnings > 0) {
+            _prepaidBalance.value += earnings
+            _referralEarnings.value = 0
+            _userMessageToast.value = "Transferred PKR ${"%,d".format(earnings)} referral reward to Prepaid Card!"
+        }
+    }
+
+    fun shareReferralIntent(context: Context) {
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Explore Islamabad and Northern Areas with Visit Islamabad! Use my Referral Code *$referralCode* to get an instant PKR 1,000 DISCOUNT on your first booking: https://visitislamabad.web.app"
+            )
+        }
+        context.startActivity(Intent.createChooser(shareIntent, "Share Referral Code via WhatsApp / SMS"))
+    }
+
+    fun setNorthernSeason(season: String) {
+        _northernSeason.value = season
+    }
+
+    fun toggleOffSeasonDeals() {
+        _isOffSeasonDeals.value = !_isOffSeasonDeals.value
+        val stateName = if (_isOffSeasonDeals.value) "Off-Season Deals Active (Up to 50% OFF)" else "Standard On-Season Tariffs"
+        _userMessageToast.value = stateName
+    }
+
+    fun bookNorthernDeal(deal: com.example.model.NorthernDeal, context: Context) {
+        val isSummer = _northernSeason.value == "summer"
+        val isOff = _isOffSeasonDeals.value
+        val regularPrice = if (isSummer) deal.summerOnPrice else deal.winterOnPrice
+        val finalPrice = if (isOff) {
+            if (isSummer) deal.summerOffPrice else deal.winterOffPrice
+        } else regularPrice
+        val discount = ((regularPrice - finalPrice).toDouble() / regularPrice * 100).toInt()
+
+        viewModelScope.launch {
+            val inquiry = InquiryEntity(
+                serviceTitle = "Northern Expedition: ${deal.name}",
+                category = "Northern Tour",
+                clientName = "Explorer / Guest",
+                contactInfo = OfficialContacts.OFFICIAL_PHONE,
+                dates = if (isSummer) "Summer Season (May-Oct)" else "Winter Season (Nov-Apr)",
+                origin = "Islamabad Gateway",
+                details = "[OFF-SEASON PROMO ${discount}% OFF] ${deal.name} (${deal.destination}). Tariffs: PKR ${"%,d".format(finalPrice)} (Reg: PKR ${"%,d".format(regularPrice)}). ${deal.packageTip}",
+                estimatedCostPkr = finalPrice.toLong(),
+                estimatedCostUsd = (finalPrice / 280),
+                status = "Pending"
+            )
+            inquiryDao.insertInquiry(inquiry)
+            _userMessageToast.value = "Northern trip request for ${deal.name} saved! Contact concierge on WhatsApp."
+            openDirectWhatsApp(context, inquiry)
         }
     }
 }

@@ -2797,6 +2797,674 @@
       text-align: center;
       animation: slideDownFade 0.3s ease;
     }
+
+    /* ==========================================================================
+       LOYALTY CARDS, POINTS & REFERRAL PROGRAM STYLES
+       ========================================================================== */
+    .loyalty-rewards-section {
+      padding: 60px 20px 70px;
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .loyalty-tabs-bar {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .loyalty-tab-btn {
+      padding: 10px 22px;
+      border-radius: 25px;
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-card);
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .loyalty-tab-btn:hover {
+      background: var(--surface-card-hover);
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .loyalty-tab-btn.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(16, 185, 129, 0.1));
+      color: #34D399;
+      border-color: #10B981;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Digital Loyalty Cards Display */
+    .cards-showcase-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 860px) {
+      .cards-showcase-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Realistic Digital Card */
+    .digital-card-wrap {
+      perspective: 1000px;
+    }
+
+    .digital-card {
+      border-radius: 20px;
+      padding: 26px 28px;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.35s ease;
+    }
+
+    .digital-card:hover {
+      transform: translateY(-4px) rotateX(2deg);
+    }
+
+    /* Holographic sheen overlay */
+    .digital-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 60%);
+      pointer-events: none;
+      transform: rotate(25deg);
+    }
+
+    .card-prepaid {
+      background: linear-gradient(135deg, #064E3B 0%, #10B981 50%, #059669 100%);
+      color: #FFFFFF;
+    }
+
+    .card-postpaid {
+      background: linear-gradient(135deg, #111827 0%, #1F2937 40%, #0F172A 100%);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #FFFFFF;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(245, 158, 11, 0.15);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .card-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: 0.5px;
+    }
+
+    .card-type-tag {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      letter-spacing: 0.8px;
+    }
+
+    .card-chip-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .card-emv-chip {
+      width: 40px;
+      height: 30px;
+      background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%);
+      border-radius: 6px;
+      border: 1px solid #D97706;
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.4);
+    }
+
+    .card-nfc-icon {
+      font-size: 20px;
+      opacity: 0.85;
+    }
+
+    .card-number {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      z-index: 2;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 2;
+    }
+
+    .card-holder-group span {
+      display: block;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      opacity: 0.75;
+      letter-spacing: 1px;
+    }
+
+    .card-holder-group strong {
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .card-balance-group {
+      text-align: right;
+    }
+
+    .card-balance-group span {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      opacity: 0.8;
+      letter-spacing: 1px;
+    }
+
+    .card-balance-group strong {
+      font-size: 18px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    .card-meta-panel {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card-features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .card-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-features-list li span.tick {
+      color: #34D399;
+      font-weight: bold;
+    }
+
+    .card-action-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Loyalty Points & Tier Progress */
+    .loyalty-summary-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 30px;
+      margin-bottom: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .loyalty-summary-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .points-metric-box {
+      background: #0E171B;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .points-score {
+      font-size: 44px;
+      font-weight: 900;
+      color: #34D399;
+      font-family: 'Space Grotesk', monospace;
+      line-height: 1.1;
+    }
+
+    .tier-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(245, 158, 11, 0.15);
+      color: #FCD34D;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+    }
+
+    .tier-progress-track {
+      background: #0B1317;
+      border-radius: 12px;
+      height: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      margin: 12px 0 6px;
+    }
+
+    .tier-progress-fill {
+      background: linear-gradient(90deg, #10B981, #F59E0B);
+      height: 100%;
+      border-radius: 12px;
+      transition: width 0.6s ease;
+    }
+
+    .rewards-store-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .reward-voucher-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+
+    .reward-voucher-card:hover {
+      border-color: rgba(52, 211, 153, 0.35);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .voucher-points-cost {
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 800;
+      color: var(--accent-gold);
+      font-size: 14px;
+    }
+
+    /* Referral Program Box */
+    .referral-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .referral-hero-row {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 800px) {
+      .referral-hero-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .code-box-display {
+      background: #0B1317;
+      border: 1px dashed #10B981;
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+
+    .referral-code-text {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 24px;
+      font-weight: 800;
+      color: #34D399;
+      letter-spacing: 2px;
+    }
+
+    .referral-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .referral-stat-card {
+      background: #0E171B;
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .referral-stat-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    .referral-stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ==========================================================================
+       NORTHERN AREAS EXPEDITIONS & SEASONAL HOTEL DEALS
+       ========================================================================== */
+    .northern-section {
+      padding: 60px 20px 70px;
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Season & On/Off-Season Command Bar */
+    .seasonal-control-bar {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 22px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .season-toggle-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .season-btn {
+      padding: 10px 22px;
+      border-radius: 20px;
+      border: 1px solid var(--border-subtle);
+      background: #0B1317;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .season-btn.active {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      border-color: #10B981;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+
+    .offseason-switch-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #0D161A;
+      padding: 8px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .offseason-switch-label {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #FCD34D;
+    }
+
+    /* Switch toggle */
+    .switch-toggle-btn {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      background: #374151;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: none;
+    }
+
+    .switch-toggle-btn.active {
+      background: #10B981;
+    }
+
+    .switch-toggle-handle {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .switch-toggle-btn.active .switch-toggle-handle {
+      transform: translateX(24px);
+    }
+
+    /* Off-season active announcement banner */
+    .offseason-banner-active {
+      background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.15));
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin-bottom: 26px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #FCD34D;
+      font-weight: 600;
+      font-size: 14px;
+      animation: slideDownFade 0.3s ease;
+    }
+
+    /* Northern Deals Grid */
+    .northern-deals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .northern-deals-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .northern-hotel-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .northern-hotel-card:hover {
+      border-color: rgba(52, 211, 153, 0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.08);
+    }
+
+    .deal-ribbon-tag {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: linear-gradient(135deg, #EF4444, #DC2626);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+    }
+
+    .hotel-location-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: #38BDF8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 8px;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    .hotel-name {
+      font-size: 19px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .hotel-season-note {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .hotel-amenities-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .amenity-chip {
+      background: #0B1317;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .hotel-price-box {
+      background: #0B1317;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price-regular {
+      font-size: 13px;
+      color: #94A3B8;
+      text-decoration: line-through;
+    }
+
+    .price-active {
+      font-size: 22px;
+      font-weight: 900;
+      color: #34D399;
+      font-family: 'Space Grotesk', monospace;
+    }
+
+    .price-unit {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+
+    .btn-book-deal {
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      border: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-book-deal:hover {
+      background: linear-gradient(135deg, #34D399, #10B981);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+    }
 </style>
 </head>
 <body>
@@ -3285,6 +3953,340 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+
+    <!-- ==========================================================================
+       NORTHERN AREAS SUMMER & WINTER EXPEDITIONS (ON-SEASON & OFF-SEASON DEALS)
+       ========================================================================== -->
+  <section class="northern-section" id="northern-expeditions-section">
+    <div class="section-title">
+      <div class="badge-pill" style="margin-bottom: 8px;">
+        <span>🏔️</span> Gateway to Northern Pakistan
+      </div>
+      <h2>Northern Areas Expeditions & Vetted Hotel Deals</h2>
+      <p>Seamless mountain tours from Islamabad to Hunza, Skardu, Naran, and Malam Jabba. Explore on-season splendor or unlock massive off-season discounts with verified luxury hotels and 4x4 Prado fleets.</p>
+    </div>
+
+    <!-- Seasonal & Off-Season Control Bar -->
+    <div class="seasonal-control-bar">
+      <!-- Season Switcher -->
+      <div class="season-toggle-buttons">
+        <button type="button" class="season-btn active" id="btnSeasonSummer" onclick="setNorthernSeason('summer')">
+          <span>☀️</span> Summer Expeditions (May - Oct)
+        </button>
+        <button type="button" class="season-btn" id="btnSeasonWinter" onclick="setNorthernSeason('winter')">
+          <span>❄️</span> Winter Snow Adventures (Nov - Apr)
+        </button>
+      </div>
+
+      <!-- Off-Season Discount Switch -->
+      <div class="offseason-switch-card">
+        <div>
+          <span class="offseason-switch-label">⚡ Off-Season Deals Mode</span>
+          <div style="font-size: 11px; color: var(--text-muted);">Save 35% - 50% on Hotels & 4x4 Rides</div>
+        </div>
+        <button type="button" class="switch-toggle-btn active" id="offSeasonToggleBtn" onclick="toggleOffSeasonMode()" aria-label="Toggle Off-Season Discount Pricing">
+          <span class="switch-toggle-handle"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dynamic Off-Season Banner -->
+    <div id="offSeasonBanner" class="offseason-banner-active">
+      <span style="font-size: 20px;">🔥</span>
+      <div>
+        <strong>OFF-SEASON DISCOUNTS ACTIVE:</strong> Enjoy peaceful valleys, lower crowds, and guaranteed savings of up to 50% on five-star resorts and chauffeur 4x4 fleets across Gilgit-Baltistan & KPK!
+      </div>
+    </div>
+
+    <!-- Dynamic Deals Grid -->
+    <div class="northern-deals-grid" id="northernDealsContainer">
+      <!-- Dynamically populated via renderNorthernDeals() -->
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       LOYALTY PROGRAM, PREPAID & POSTPAID CARDS, REFER & EARN
+       ========================================================================== -->
+  <section class="loyalty-rewards-section" id="loyalty-rewards-section">
+    <div class="section-title">
+      <div class="badge-pill" style="margin-bottom: 8px;">
+        <span>🎁</span> Member Privileges & Perks
+      </div>
+      <h2>Loyalty Cards, Points Program & Referral Rewards</h2>
+      <p>Continuous visitors earn loyalty points on every ride, tour, and stay. Carry our digital Prepaid or Postpaid loyalty cards and refer friends to unlock instant cash rewards.</p>
+    </div>
+
+    <!-- Sub-Tabs Navigation -->
+    <div class="loyalty-tabs-bar">
+      <button type="button" class="loyalty-tab-btn active" id="tabLoyaltyCards" onclick="showLoyaltyTab('cards')">
+        <span>💳</span> Prepaid & Postpaid Loyalty Cards
+      </button>
+      <button type="button" class="loyalty-tab-btn" id="tabLoyaltyPoints" onclick="showLoyaltyTab('points')">
+        <span>⭐</span> Loyalty Points & Rewards Store
+      </button>
+      <button type="button" class="loyalty-tab-btn" id="tabLoyaltyRefer" onclick="showLoyaltyTab('refer')">
+        <span>🤝</span> Refer a Friend & Earn PKR 1,500
+      </button>
+    </div>
+
+    <!-- TAB 1: PREPAID & POSTPAID DIGITAL CARDS -->
+    <div id="panelLoyaltyCards" class="loyalty-panel-content">
+      <div class="cards-showcase-container">
+        
+        <!-- CARD 1: PREPAID CAPITAL PASS (GREEN CARD) -->
+        <div class="digital-card-wrap">
+          <div class="digital-card card-prepaid">
+            <div class="card-top">
+              <div class="card-brand">
+                <span>🇵🇰</span> Visit Islamabad
+              </div>
+              <span class="card-type-tag">Prepaid Cash Card</span>
+            </div>
+
+            <div class="card-chip-row">
+              <div class="card-emv-chip"></div>
+              <span class="card-nfc-icon">📶</span>
+            </div>
+
+            <div class="card-number">4829 •••• •••• 1048</div>
+
+            <div class="card-bottom">
+              <div class="card-holder-group">
+                <span>Cardholder</span>
+                <strong>CAPITAL VISITOR PASS</strong>
+              </div>
+              <div class="card-balance-group">
+                <span>Loaded Balance</span>
+                <strong id="prepaidBalanceDisplay">PKR 18,500</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-meta-panel">
+            <h4 style="font-size: 16px; color: #FFFFFF;">Capital Green Prepaid Privileges</h4>
+            <ul class="card-features-list">
+              <li><span class="tick">✓</span> Instant 5% cashback loaded back on every ride & hotel stay</li>
+              <li><span class="tick">✓</span> Contactless tap-and-pay for Metro, Daewoo terminal shuttles & airport transfers</li>
+              <li><span class="tick">✓</span> Zero reload fees and instant balance top-up via JazzCash, EasyPaisa, or Cards</li>
+            </ul>
+            <div class="card-action-bar">
+              <button type="button" class="btn btn-primary" onclick="openReloadModal(5000)" style="flex:1; padding: 10px;">
+                <span>➕</span> Reload PKR 5,000
+              </button>
+              <button type="button" class="btn btn-outline" onclick="openReloadModal(15000)" style="flex:1; padding: 10px;">
+                <span>➕</span> Reload PKR 15,000
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: POSTPAID MARGALLA PLATINUM CARD -->
+        <div class="digital-card-wrap">
+          <div class="digital-card card-postpaid">
+            <div class="card-top">
+              <div class="card-brand">
+                <span style="color: #F59E0B;">👑</span> Margalla Platinum
+              </div>
+              <span class="card-type-tag" style="border-color: rgba(245, 158, 11, 0.4); color: #FCD34D;">Postpaid Credit</span>
+            </div>
+
+            <div class="card-chip-row">
+              <div class="card-emv-chip"></div>
+              <span class="card-nfc-icon" style="color: #F59E0B;">📶</span>
+            </div>
+
+            <div class="card-number" style="color: #FDE68A;">9104 •••• •••• 7731</div>
+
+            <div class="card-bottom">
+              <div class="card-holder-group">
+                <span style="color: #FCD34D;">Executive Member</span>
+                <strong>CORPORATE & FREQUENT TRAVELER</strong>
+              </div>
+              <div class="card-balance-group">
+                <span style="color: #FCD34D;">Available Credit</span>
+                <strong style="color: #FDE68A;" id="postpaidCreditDisplay">PKR 85,000 / 100K</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-meta-panel">
+            <h4 style="font-size: 16px; color: #FFFFFF;">Margalla Executive Postpaid Privileges</h4>
+            <ul class="card-features-list">
+              <li><span class="tick">✓</span> Zero upfront payment for emergency hospital transfers & Supreme Court sedans</li>
+              <li><span class="tick">✓</span> 30-day revolving credit line up to PKR 100,000 with 0% markup</li>
+              <li><span class="tick">✓</span> 24/7 dedicated executive concierge desk & priority 4x4 mountain fleet allocation</li>
+            </ul>
+            <div class="card-action-bar">
+              <button type="button" class="btn btn-accent" onclick="applyPostpaidLimitIncrease()" style="flex:1; padding: 10px;">
+                <span>📈</span> Request Limit Increase
+              </button>
+              <button type="button" class="btn btn-outline" onclick="viewPostpaidStatement()" style="flex:1; padding: 10px;">
+                <span>📄</span> Monthly Statement
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 2: LOYALTY POINTS & REWARDS STORE -->
+    <div id="panelLoyaltyPoints" class="loyalty-panel-content" style="display: none;">
+      <div class="loyalty-summary-card">
+        <div class="points-metric-box">
+          <div style="font-size: 13px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Your Loyalty Balance</div>
+          <div class="points-score" id="userLoyaltyPoints">1,450</div>
+          <div style="font-size: 12px; color: #34D399; font-weight: 600;">Reward Points Available</div>
+          <div class="tier-badge-pill">
+            <span>⭐</span> Gold Voyager Tier
+          </div>
+          <div style="margin-top: 14px;">
+            <button type="button" onclick="claimDailyCheckin()" class="btn btn-outline" style="padding: 7px 14px; font-size: 12px; border-color: #34D399; color: #34D399;">
+              <span>🎁</span> Claim Daily 25 Pts
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size: 20px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">Tier Progress: 550 pts to Margalla Platinum</h3>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+            Earn 100 pts per airport/city ride, 250 pts per verified guest house night, and 500 pts per Northern expedition. Reach Platinum for free quarterly airport pickups and zero off-season cancellation fees!
+          </p>
+          <div class="tier-progress-track">
+            <div class="tier-progress-fill" style="width: 72.5%;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted);">
+            <span>Silver (0 pts)</span>
+            <span style="color: #FCD34D; font-weight: bold;">Gold (500 pts)</span>
+            <span>Platinum (2,000 pts)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rewards Redemption Grid -->
+      <h3 style="font-size: 19px; font-weight: 700; color: #FFFFFF; margin-bottom: 16px;">Redeem Points For Travel Vouchers</h3>
+      <div class="rewards-store-grid">
+        <div class="reward-voucher-card">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:24px;">🥾</span>
+              <span class="voucher-points-cost">400 Points</span>
+            </div>
+            <h4 style="font-size: 15.5px; font-weight: 700; color: #FFFFFF;">Margalla Hiking & Nature Guide</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Free veteran guide for Trail 3 or Trail 5 up to Monal lookouts. Worth PKR 3,000.</p>
+          </div>
+          <button type="button" onclick="redeemReward('Margalla Guide', 400)" class="btn btn-outline" style="margin-top: 14px; padding: 8px;">
+            Redeem Voucher
+          </button>
+        </div>
+
+        <div class="reward-voucher-card">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:24px;">🚗</span>
+              <span class="voucher-points-cost">600 Points</span>
+            </div>
+            <h4 style="font-size: 15.5px; font-weight: 700; color: #FFFFFF;">Airport Express Sedan Pickup</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Complimentary dedicated Corolla/Civic transfer from ISB Airport to any sector. Worth PKR 4,500.</p>
+          </div>
+          <button type="button" onclick="redeemReward('Airport Transfer', 600)" class="btn btn-outline" style="margin-top: 14px; padding: 8px;">
+            Redeem Voucher
+          </button>
+        </div>
+
+        <div class="reward-voucher-card">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:24px;">🏨</span>
+              <span class="voucher-points-cost">800 Points</span>
+            </div>
+            <h4 style="font-size: 15.5px; font-weight: 700; color: #FFFFFF;">20% Off Vetted Guest House</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Direct 20% discount voucher for any verified stay in F-7, F-8, G-8 or I-8.</p>
+          </div>
+          <button type="button" onclick="redeemReward('20% Hotel Discount', 800)" class="btn btn-outline" style="margin-top: 14px; padding: 8px;">
+            Redeem Voucher
+          </button>
+        </div>
+
+        <div class="reward-voucher-card">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-size:24px;">⛽</span>
+              <span class="voucher-points-cost">1,200 Points</span>
+            </div>
+            <h4 style="font-size: 15.5px; font-weight: 700; color: #FFFFFF;">PKR 2,500 Northern Fuel Voucher</h4>
+            <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">Direct credit waiver applied toward your 4x4 Prado or Hiace fuel budget to Hunza/Skardu.</p>
+          </div>
+          <button type="button" onclick="redeemReward('Fuel Voucher', 1200)" class="btn btn-outline" style="margin-top: 14px; padding: 8px;">
+            Redeem Voucher
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: REFER A FRIEND & EARN REWARDS -->
+    <div id="panelLoyaltyRefer" class="loyalty-panel-content" style="display: none;">
+      <div class="referral-card">
+        <div class="referral-hero-row">
+          <div>
+            <span class="badge-pill" style="margin-bottom: 10px;">
+              <span>💸</span> Earn Rewards With Every Invite
+            </span>
+            <h3 style="font-size: 24px; font-weight: 800; color: #FFFFFF; line-height: 1.25;">
+              Share Visit Islamabad • Both You & Your Friend Earn Rewards!
+            </h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px; line-height: 1.6;">
+              When your referred friend books their first airport ride, patient shuttle, or northern tour:
+              <br>• <strong>Your Friend Gets:</strong> Instant <strong>PKR 1,000 Welcome Discount</strong> on their first booking.
+              <br>• <strong>You Earn:</strong> <strong>PKR 1,500 Cash Reward Credit</strong> + <strong>200 Loyalty Points</strong> added directly to your Capital Card!
+            </p>
+
+            <div class="code-box-display">
+              <div>
+                <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Your Unique Referral Code</div>
+                <div class="referral-code-text" id="myReferralCode">ISB-VIP-8421</div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button type="button" onclick="copyReferralCode()" class="btn btn-primary" style="padding: 8px 16px; font-size: 12.5px;">
+                  📋 Copy Code
+                </button>
+                <button type="button" onclick="shareReferralWhatsApp()" class="btn btn-accent" style="padding: 8px 16px; font-size: 12.5px;">
+                  💬 WhatsApp Share
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Referral Stats Box -->
+          <div style="background: #0B1317; border-radius: 18px; padding: 22px; border: 1px solid var(--border-subtle);">
+            <h4 style="font-size: 15px; font-weight: 700; color: #FFFFFF; margin-bottom: 14px;">Your Referral Impact</h4>
+            <div class="referral-stats-grid">
+              <div class="referral-stat-card">
+                <div class="referral-stat-val">4</div>
+                <div class="referral-stat-label">Friends Invited</div>
+              </div>
+              <div class="referral-stat-card">
+                <div class="referral-stat-val">3</div>
+                <div class="referral-stat-label">Trips Booked</div>
+              </div>
+              <div class="referral-stat-card">
+                <div class="referral-stat-val" style="color: #34D399;">PKR 4,500</div>
+                <div class="referral-stat-label">Cash Rewards Earned</div>
+              </div>
+              <div class="referral-stat-card">
+                <div class="referral-stat-val" style="color: #FCD34D;">600 pts</div>
+                <div class="referral-stat-label">Bonus Loyalty Points</div>
+              </div>
+            </div>
+            <button type="button" onclick="claimReferralCredit()" class="btn btn-primary" style="width: 100%; margin-top: 14px; font-size: 13px;">
+              ⚡ Transfer PKR 4,500 to Prepaid Card
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -4992,6 +5994,340 @@
         if (colBooking) colBooking.style.display = 'block';
       }
     }
+
+    
+    /* ==========================================================================
+       NORTHERN EXPEDITIONS & SEASONAL HOTEL DEALS JAVASCRIPT
+       ========================================================================== */
+    let currentNorthernSeason = 'summer';
+    let isOffSeasonActive = true;
+
+    const northernHotelDeals = [
+      {
+        id: "deal-luxus-hunza",
+        name: "Luxus Hunza Resort (Attabad Lake)",
+        location: "Hunza Valley, Gilgit-Baltistan",
+        summerSeason: true,
+        winterSeason: true,
+        desc: "Overwater luxury chalets on the turquoise Attabad Lake. Private balconies, central heating, motorboat safari access.",
+        amenities: ["Free Breakfast", "Lake View Chalet", "4x4 Prado Ready", "Heated Rooms"],
+        summerOnPrice: 58000,
+        summerOffPrice: 31900, // 45% off
+        winterOnPrice: 42000,
+        winterOffPrice: 24500, // 42% off
+        packageTip: "Off-Season Spring/Autumn special includes free 1-hour Attabad boat cruise!"
+      },
+      {
+        id: "deal-serena-shigar",
+        name: "Serena Shigar Fort Palace",
+        location: "Shigar Valley, Skardu",
+        summerSeason: true,
+        winterSeason: true,
+        desc: "400-year-old Raja palace restored into an authentic heritage hotel at the base of Karakoram peaks.",
+        amenities: ["Royal Heritage Suite", "Orchard Dining", "K2 Gateway Tour", "Fireplace Lounge"],
+        summerOnPrice: 54000,
+        summerOffPrice: 28500, // 47% off
+        winterOnPrice: 45000,
+        winterOffPrice: 23000, // 49% off
+        packageTip: "Off-season deal saves PKR 25,500/night with traditional Balti feast included."
+      },
+      {
+        id: "deal-pc-malamjabba",
+        name: "Pearl Continental Malam Jabba Ski Resort",
+        location: "Swat Valley, Khyber Pakhtunkhwa",
+        summerSeason: true,
+        winterSeason: true,
+        desc: "Pakistan's premier alpine ski resort with dual 800-meter chairlifts, snow tubing, zipline and panoramic valley views.",
+        amenities: ["Chairlift Pass", "Ski Gear Rental", "Indoor Heated Pool", "Terrace Cafe"],
+        summerOnPrice: 42000,
+        summerOffPrice: 22800, // 46% off (Summer off-season for ski)
+        winterOnPrice: 52000,
+        winterOffPrice: 32000, // 38% off (Early bird snow deal)
+        packageTip: "Off-season summer escape: Lush green pine slopes & 46% hotel discount."
+      },
+      {
+        id: "deal-arcadian-naran",
+        name: "Arcadian Sprucewoods Resort",
+        location: "Shogran & Naran Valley",
+        summerSeason: true,
+        winterSeason: false,
+        desc: "Nestled in pine woods overlooking Siri Paye plateau. Gateway to Lake Saif-ul-Malook and Babusar Pass.",
+        amenities: ["Pine Forest Views", "4x4 Jeep to Lake", "Bonfire Dinners", "Trekking Guides"],
+        summerOnPrice: 36000,
+        summerOffPrice: 18500, // 49% off
+        winterOnPrice: 30000,
+        winterOffPrice: 16000,
+        packageTip: "September-October off-season autumn foliage deal at half price!"
+      },
+      {
+        id: "deal-lockwood-murree",
+        name: "Lockwood & Cecil Heritage Hotels",
+        location: "Murree & Nathia Gali",
+        summerSeason: true,
+        winterSeason: true,
+        desc: "Victorian charm in the quiet pine hills of Murree. 45 minutes from Islamabad with fast transit.",
+        amenities: ["Mall Road Proximity", "Victorian Fireplace", "Executive Chauffeur", "24/7 Power"],
+        summerOnPrice: 32000,
+        summerOffPrice: 16800, // 48% off
+        winterOnPrice: 38000,
+        winterOffPrice: 21000, // 45% off
+        packageTip: "Midweek off-season deals avoid traffic jams and save 48% on boutique rooms."
+      },
+      {
+        id: "deal-prado-expedition",
+        name: "7-Day Ultimate Northern 4x4 Prado Expedition",
+        location: "Islamabad to Hunza, Skardu & Babusar",
+        summerSeason: true,
+        winterSeason: true,
+        desc: "Dedicated Toyota Prado SUV, inspected mountain tires, veteran Karakoram driver, all fuel and tolls covered.",
+        amenities: ["Dedicated 4x4 SUV", "Expert Mountain Chauffeur", "All Fuel & Tolls Included", "Road Alert GPS"],
+        summerOnPrice: 175000,
+        summerOffPrice: 108000, // 38% off
+        winterOnPrice: 160000,
+        winterOffPrice: 99000, // 38% off
+        packageTip: "Massive Off-Season saving of PKR 67,000 for families traveling together!"
+      }
+    ];
+
+    function renderNorthernDeals() {
+      const container = document.getElementById('northernDealsContainer');
+      if (!container) return;
+
+      const filtered = northernHotelDeals.filter(d => {
+        return (currentNorthernSeason === 'summer' && d.summerSeason) ||
+               (currentNorthernSeason === 'winter' && d.winterSeason);
+      });
+
+      container.innerHTML = filtered.map(deal => {
+        let activePrice, regularPrice, discountPercent;
+
+        if (currentNorthernSeason === 'summer') {
+          regularPrice = deal.summerOnPrice;
+          activePrice = isOffSeasonActive ? deal.summerOffPrice : deal.summerOnPrice;
+        } else {
+          regularPrice = deal.winterOnPrice;
+          activePrice = isOffSeasonActive ? deal.winterOffPrice : deal.winterOnPrice;
+        }
+
+        discountPercent = Math.round(((regularPrice - activePrice) / regularPrice) * 100);
+
+        return `
+          <div class="northern-hotel-card">
+            ${isOffSeasonActive && discountPercent > 0 ? `
+              <div class="deal-ribbon-tag">🔥 ${discountPercent}% OFF</div>
+            ` : `
+              <div class="deal-ribbon-tag" style="background:#10B981;">VERIFIED PARTNER</div>
+            `}
+
+            <div>
+              <span class="hotel-location-tag">${deal.location}</span>
+              <h3 class="hotel-name">${deal.name}</h3>
+              <p class="hotel-season-note">${deal.desc}</p>
+              
+              <div class="hotel-amenities-row">
+                ${deal.amenities.map(a => `<span class="amenity-chip">✓ ${a}</span>`).join('')}
+              </div>
+            </div>
+
+            <div>
+              <div class="hotel-price-box">
+                <div>
+                  <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">
+                    ${isOffSeasonActive ? '⚡ Off-Season Deal' : 'On-Season Tariff'}
+                  </div>
+                  ${isOffSeasonActive && discountPercent > 0 ? `
+                    <div class="price-regular">PKR ${regularPrice.toLocaleString()}</div>
+                  ` : ''}
+                  <div class="price-active">
+                    PKR ${activePrice.toLocaleString()} 
+                    <span class="price-unit">${deal.id === 'deal-prado-expedition' ? '/ 7-Day Tour' : '/ Night'}</span>
+                  </div>
+                </div>
+
+                ${isOffSeasonActive ? `
+                  <div style="text-align: right;">
+                    <span style="font-size: 12px; color: #FCD34D; font-weight: bold;">Save PKR ${(regularPrice - activePrice).toLocaleString()}</span>
+                  </div>
+                ` : ''}
+              </div>
+
+              <button type="button" class="btn-book-deal" onclick="bookNorthernDeal('${deal.name.replace(/'/g, "\\'")}', '${deal.location}', ${activePrice}, ${discountPercent})">
+                <span>⚡</span> Book This Northern Deal With Discount
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setNorthernSeason(season) {
+      currentNorthernSeason = season;
+      const btnSummer = document.getElementById('btnSeasonSummer');
+      const btnWinter = document.getElementById('btnSeasonWinter');
+
+      if (season === 'summer') {
+        if (btnSummer) btnSummer.classList.add('active');
+        if (btnWinter) btnWinter.classList.remove('active');
+      } else {
+        if (btnSummer) btnSummer.classList.remove('active');
+        if (btnWinter) btnWinter.classList.add('active');
+      }
+
+      renderNorthernDeals();
+    }
+
+    function toggleOffSeasonMode() {
+      isOffSeasonActive = !isOffSeasonActive;
+      const btn = document.getElementById('offSeasonToggleBtn');
+      const banner = document.getElementById('offSeasonBanner');
+
+      if (btn) {
+        if (isOffSeasonActive) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+
+      if (banner) {
+        banner.style.display = isOffSeasonActive ? 'flex' : 'none';
+      }
+
+      renderNorthernDeals();
+    }
+
+    function bookNorthernDeal(hotelName, destination, price, discountPercent) {
+      // 1. Scroll to Booking form in the Dual Hub
+      const bookingSection = document.getElementById('booking-section');
+      if (bookingSection) {
+        bookingSection.scrollIntoView({ behavior: 'smooth' });
+      }
+      switchHubMobileView('booking');
+
+      // 2. Auto-fill form fields
+      const locInput = document.getElementById('bkLocation');
+      if (locInput) locInput.value = `${hotelName}, ${destination}`;
+
+      const purposeSelect = document.getElementById('bkPurpose');
+      if (purposeSelect) purposeSelect.value = "Northern Transit & Gateway";
+
+      const serviceSelect = document.getElementById('bkServiceType');
+      if (serviceSelect) {
+        if (hotelName.includes('Prado') || hotelName.includes('Expedition')) {
+          serviceSelect.value = "Northern Tour Prado 4x4 / Hiace Grand Cabin";
+        } else {
+          serviceSelect.value = "Complete Combo: Dedicated Sedan + Verified Guest House";
+        }
+      }
+
+      const notesInput = document.getElementById('bkNotes');
+      if (notesInput) {
+        const seasonName = currentNorthernSeason.toUpperCase();
+        notesInput.value = `[NORTHERN ${seasonName} DEAL APPLIED] ${hotelName} (${destination}) @ PKR ${price.toLocaleString()}. Discount: ${discountPercent}% OFF. Please confirm room & mountain driver availability.`;
+      }
+
+      // 3. Trigger auto-fill notification
+      const notice = document.getElementById('autofillNotice');
+      const noticeText = document.getElementById('autofillText');
+      if (notice && noticeText) {
+        noticeText.textContent = `Applied ${discountPercent}% Discount Deal for ${hotelName}!`;
+        notice.style.display = 'flex';
+      }
+
+      // 4. Highlight booking card wrapper
+      const bookingCard = document.getElementById('bookingCardWrapper');
+      if (bookingCard) {
+        bookingCard.classList.remove('highlight-glow');
+        void bookingCard.offsetWidth;
+        bookingCard.classList.add('highlight-glow');
+      }
+    }
+
+    /* ==========================================================================
+       LOYALTY PROGRAM, PREPAID/POSTPAID CARDS & REFERRAL JAVASCRIPT
+       ========================================================================== */
+    let userPrepaidBalance = 18500;
+    let userPostpaidCreditUsed = 15000;
+    let userLoyaltyPointsVal = 1450;
+    const referralCode = "ISB-VIP-8421";
+
+    function showLoyaltyTab(tabId) {
+      document.querySelectorAll('.loyalty-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.loyalty-panel-content').forEach(p => p.style.display = 'none');
+
+      if (tabId === 'cards') {
+        document.getElementById('tabLoyaltyCards').classList.add('active');
+        document.getElementById('panelLoyaltyCards').style.display = 'block';
+      } else if (tabId === 'points') {
+        document.getElementById('tabLoyaltyPoints').classList.add('active');
+        document.getElementById('panelLoyaltyPoints').style.display = 'block';
+      } else if (tabId === 'refer') {
+        document.getElementById('tabLoyaltyRefer').classList.add('active');
+        document.getElementById('panelLoyaltyRefer').style.display = 'block';
+      }
+    }
+
+    function openReloadModal(amount) {
+      userPrepaidBalance += amount;
+      document.getElementById('prepaidBalanceDisplay').textContent = `PKR ${userPrepaidBalance.toLocaleString()}`;
+      alert(`🎉 Successfully reloaded PKR ${amount.toLocaleString()} onto your Capital Prepaid Card!\nNew Balance: PKR ${userPrepaidBalance.toLocaleString()}\nYou also earned ${Math.round(amount / 50)} bonus loyalty points.`);
+      userLoyaltyPointsVal += Math.round(amount / 50);
+      const ptsElem = document.getElementById('userLoyaltyPoints');
+      if (ptsElem) ptsElem.textContent = userLoyaltyPointsVal.toLocaleString();
+    }
+
+    function applyPostpaidLimitIncrease() {
+      alert("✅ Your request for a Postpaid Limit Increase to PKR 150,000 has been submitted to the Visit Islamabad corporate billing desk. You will receive an SMS confirmation within 2 hours.");
+    }
+
+    function viewPostpaidStatement() {
+      alert("📄 Margalla Executive Postpaid Statement (Current Cycle):\nTotal Limit: PKR 100,000\nUsed Balance: PKR 15,000 (Supreme Court Chauffeur + Shifa Patient Transfer)\nAvailable: PKR 85,000\nDue Date: 30 days from billing (0% Markup)");
+    }
+
+    function claimDailyCheckin() {
+      userLoyaltyPointsVal += 25;
+      const ptsElem = document.getElementById('userLoyaltyPoints');
+      if (ptsElem) ptsElem.textContent = userLoyaltyPointsVal.toLocaleString();
+      alert("⭐ Daily Check-In Claimed! +25 Loyalty Points added to your account.\nTotal Points: " + userLoyaltyPointsVal.toLocaleString());
+    }
+
+    function redeemReward(title, cost) {
+      if (userLoyaltyPointsVal < cost) {
+        alert(`❌ Insufficient points. You need ${cost} points for ${title}, but currently have ${userLoyaltyPointsVal} points.`);
+        return;
+      }
+      userLoyaltyPointsVal -= cost;
+      const ptsElem = document.getElementById('userLoyaltyPoints');
+      if (ptsElem) ptsElem.textContent = userLoyaltyPointsVal.toLocaleString();
+
+      const voucherCode = "VI-" + title.substring(0, 3).toUpperCase() + "-" + Math.floor(1000 + Math.random() * 9000);
+      alert(`🎉 Voucher Redeemed!\nReward: ${title}\nVoucher Code: ${voucherCode}\nThis code is active for 60 days on all partner bookings.`);
+    }
+
+    function copyReferralCode() {
+      navigator.clipboard.writeText(referralCode).then(() => {
+        alert(`📋 Referral Code copied to clipboard: ${referralCode}\nShare it with friends traveling to Islamabad or Northern Areas!`);
+      }).catch(() => {
+        prompt("Copy your referral code:", referralCode);
+      });
+    }
+
+    function shareReferralWhatsApp() {
+      const text = encodeURI(
+        `Hi! I recommend using Visit Islamabad for your travel, hospital transfers, apex court visits, and Northern Area tours (Hunza/Skardu).\n` +
+        `Use my Referral Code *${referralCode}* to get an instant *PKR 1,000 DISCOUNT* on your first booking!\n` +
+        `Book online: https://visitislamabad.web.app`
+      );
+      window.open(`https://wa.me/?text=${text}`, '_blank');
+    }
+
+    function claimReferralCredit() {
+      userPrepaidBalance += 4500;
+      document.getElementById('prepaidBalanceDisplay').textContent = `PKR ${userPrepaidBalance.toLocaleString()}`;
+      alert("🎉 PKR 4,500 in referral rewards has been transferred to your Capital Prepaid Green Card! New Balance: PKR " + userPrepaidBalance.toLocaleString());
+    }
+
+    // Initialize Northern Deals on DOM Ready
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNorthernDeals();
+    });
 
     // Initialize search results on DOM load
     document.addEventListener('DOMContentLoaded', () => {

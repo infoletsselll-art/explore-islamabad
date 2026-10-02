@@ -825,4 +825,122 @@ object SampleData {
             tripSummaryPills = listOf("✈️ Airport Pick & Drop", "🚙 4x4 Prado Fleet", "⭐ Family Tour")
         )
     )
+
+    val rewardVouchers = listOf(
+        com.example.model.RewardVoucher(
+            id = "vouch_margalla",
+            title = "Margalla Mountain Guide",
+            desc = "Free veteran guide for Trail 3 or Trail 5 to Monal lookouts. Worth PKR 3,000.",
+            pointsCost = 400,
+            iconEmoji = "🥾"
+        ),
+        com.example.model.RewardVoucher(
+            id = "vouch_airport",
+            title = "Airport Express Sedan Pickup",
+            desc = "Complimentary Corolla/Civic sedan transfer from ISB Airport to any sector. Worth PKR 4,500.",
+            pointsCost = 600,
+            iconEmoji = "🚗"
+        ),
+        com.example.model.RewardVoucher(
+            id = "vouch_hotel_disc",
+            title = "20% Off Vetted Guest House",
+            desc = "Direct 20% discount voucher for any verified stay in Sectors F-7, F-8, G-8, or I-8.",
+            pointsCost = 800,
+            iconEmoji = "🏨"
+        ),
+        com.example.model.RewardVoucher(
+            id = "vouch_fuel",
+            title = "PKR 2,500 Northern Fuel Voucher",
+            desc = "Direct credit waiver applied toward your 4x4 Prado or Hiace fuel budget to Hunza/Skardu.",
+            pointsCost = 1200,
+            iconEmoji = "⛽"
+        )
+    )
+
+    val northernDeals = listOf(
+        com.example.model.NorthernDeal(
+            id = "deal-luxus-hunza",
+            name = "Luxus Hunza Resort (Attabad Lake)",
+            destination = "Hunza Valley, Gilgit-Baltistan",
+            summerSeason = true,
+            winterSeason = true,
+            desc = "Overwater luxury chalets on turquoise Attabad Lake. Private balconies, central heating, boat safari.",
+            amenities = listOf("Free Breakfast", "Lake View Chalet", "4x4 Prado Ready", "Central Heating"),
+            summerOnPrice = 58000,
+            summerOffPrice = 31900,
+            winterOnPrice = 42000,
+            winterOffPrice = 24500,
+            packageTip = "Off-Season special includes free 1-hour Attabad boat cruise!"
+        ),
+        com.example.model.NorthernDeal(
+            id = "deal-serena-shigar",
+            name = "Serena Shigar Fort Palace",
+            destination = "Shigar Valley, Skardu",
+            summerSeason = true,
+            winterSeason = true,
+            desc = "400-year-old restored Raja palace at the base of Karakoram peaks. Authentic royal heritage.",
+            amenities = listOf("Royal Heritage Suite", "Orchard Dining", "K2 Gateway Tour", "Fireplace Lounge"),
+            summerOnPrice = 54000,
+            summerOffPrice = 28500,
+            winterOnPrice = 45000,
+            winterOffPrice = 23000,
+            packageTip = "Off-season deal saves PKR 25,500/night with traditional Balti feast."
+        ),
+        com.example.model.NorthernDeal(
+            id = "deal-pc-malamjabba",
+            name = "Pearl Continental Malam Jabba Ski Resort",
+            destination = "Swat Valley, KPK",
+            summerSeason = true,
+            winterSeason = true,
+            desc = "Pakistan's premier alpine ski resort with dual 800m chairlifts, snow tubing, zipline and valley views.",
+            amenities = listOf("Chairlift Pass", "Ski Gear Rental", "Indoor Heated Pool", "Terrace Cafe"),
+            summerOnPrice = 42000,
+            summerOffPrice = 22800,
+            winterOnPrice = 52000,
+            winterOffPrice = 32000,
+            packageTip = "Summer off-season: Lush pine slopes & 46% discount."
+        ),
+        com.example.model.NorthernDeal(
+            id = "deal-arcadian-naran",
+            name = "Arcadian Sprucewoods Resort",
+            destination = "Shogran & Naran Valley",
+            summerSeason = true,
+            winterSeason = false,
+            desc = "Nestled in pine woods overlooking Siri Paye plateau. Gateway to Lake Saif-ul-Malook and Babusar Pass.",
+            amenities = listOf("Pine Forest Views", "4x4 Jeep to Lake", "Bonfire Dinners", "Trekking Guides"),
+            summerOnPrice = 36000,
+            summerOffPrice = 18500,
+            winterOnPrice = 30000,
+            winterOffPrice = 16000,
+            packageTip = "Autumn off-season foliage deal at half price!"
+        ),
+        com.example.model.NorthernDeal(
+            id = "deal-lockwood-murree",
+            name = "Lockwood & Cecil Heritage Hotels",
+            destination = "Murree & Nathia Gali",
+            summerSeason = true,
+            winterSeason = true,
+            desc = "Victorian charm in quiet pine hills. 45 minutes from Islamabad with executive chauffeurs.",
+            amenities = listOf("Mall Road Proximity", "Victorian Fireplace", "Executive Chauffeur", "24/7 Power"),
+            summerOnPrice = 32000,
+            summerOffPrice = 16800,
+            winterOnPrice = 38000,
+            winterOffPrice = 21000,
+            packageTip = "Midweek off-season deals save 48% on boutique rooms."
+        ),
+        com.example.model.NorthernDeal(
+            id = "deal-prado-expedition",
+            name = "7-Day Ultimate Northern 4x4 Prado Expedition",
+            destination = "Islamabad to Hunza, Skardu & Babusar",
+            summerSeason = true,
+            winterSeason = true,
+            desc = "Dedicated Toyota Prado SUV, inspected mountain tires, veteran Karakoram driver, all fuel and tolls covered.",
+            amenities = listOf("Dedicated 4x4 SUV", "Expert Mountain Chauffeur", "All Fuel & Tolls Included", "Road Alert GPS"),
+            summerOnPrice = 175000,
+            summerOffPrice = 108000,
+            winterOnPrice = 160000,
+            winterOffPrice = 99000,
+            packageTip = "Save PKR 67,000 on off-season 7-day family tours!"
+        )
+    )
 }
