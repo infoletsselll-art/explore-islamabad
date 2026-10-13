@@ -73,8 +73,12 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
     val inquiries by viewModel.savedInquiries.collectAsState()
     val bookmarks by viewModel.savedBookmarks.collectAsState()
     val useUsd by viewModel.useUsd.collectAsState()
-    var selectedSubTab by remember { mutableIntStateOf(0) }
+    val selectedSubTab by viewModel.hubSubTab.collectAsState()
     val context = LocalContext.current
+
+    androidx.activity.compose.BackHandler(enabled = selectedSubTab != 0) {
+        viewModel.selectHubSubTab(0)
+    }
 
     Column(
         modifier = Modifier
@@ -90,7 +94,7 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
         ) {
             Tab(
                 selected = selectedSubTab == 0,
-                onClick = { selectedSubTab = 0 },
+                onClick = { viewModel.selectHubSubTab(0) },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.AutoMirrored.Filled.ReceiptLong, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -101,7 +105,7 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
             )
             Tab(
                 selected = selectedSubTab == 1,
-                onClick = { selectedSubTab = 1 },
+                onClick = { viewModel.selectHubSubTab(1) },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.CreditCard, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -112,7 +116,7 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
             )
             Tab(
                 selected = selectedSubTab == 2,
-                onClick = { selectedSubTab = 2 },
+                onClick = { viewModel.selectHubSubTab(2) },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Landscape, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -123,7 +127,7 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
             )
             Tab(
                 selected = selectedSubTab == 3,
-                onClick = { selectedSubTab = 3 },
+                onClick = { viewModel.selectHubSubTab(3) },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Bookmark, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -134,7 +138,7 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
             )
             Tab(
                 selected = selectedSubTab == 4,
-                onClick = { selectedSubTab = 4 },
+                onClick = { viewModel.selectHubSubTab(4) },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.ContactPhone, contentDescription = null, modifier = Modifier.size(16.dp))
@@ -145,7 +149,7 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
             )
             Tab(
                 selected = selectedSubTab == 5,
-                onClick = { selectedSubTab = 5 },
+                onClick = { viewModel.selectHubSubTab(5) },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.Info, contentDescription = null, modifier = Modifier.size(16.dp))

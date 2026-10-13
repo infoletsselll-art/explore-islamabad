@@ -45,26 +45,33 @@ class ExampleRobolectricTest {
     }
 
     @Test
-    fun `verify 7 AI agents are configured`() {
+    fun `verify 6 AI agents are configured`() {
         val agents = AgentType.values()
-        assertEquals(7, agents.size)
-        assertTrue(agents.contains(AgentType.CITY_GUIDE))
-        assertTrue(agents.contains(AgentType.HILL_STATIONS))
+        assertEquals(6, agents.size)
+        assertTrue(agents.contains(AgentType.ALL_PURPOSE_CONCIERGE))
+        assertTrue(agents.contains(AgentType.HEALTH_MEDICAL))
+        assertTrue(agents.contains(AgentType.COURTS_OFFICIAL))
+        assertTrue(agents.contains(AgentType.STUDY_ACADEMICS))
+        assertTrue(agents.contains(AgentType.TRANSIT_BUDGET))
         assertTrue(agents.contains(AgentType.NORTHERN_GATEWAY))
-        assertTrue(agents.contains(AgentType.HOTEL_CONCIERGE))
-        assertTrue(agents.contains(AgentType.TRANSPORT_FLEET))
-        assertTrue(agents.contains(AgentType.CAMPING_ADVENTURE))
-        assertTrue(agents.contains(AgentType.CUSTOM_TOUR_PLANNER))
     }
 
     @Test
     fun `verify sample destinations and services exist`() {
         assertTrue(SampleData.destinations.isNotEmpty())
         assertTrue(SampleData.travelServices.isNotEmpty())
+        assertTrue(SampleData.northernDeals.isNotEmpty())
         assertTrue(SampleData.destinations.any { it.name.contains("Faisal Mosque") })
-        assertTrue(SampleData.destinations.any { it.name.contains("Murree") || it.name.contains("Nathia") })
-        assertTrue(SampleData.travelServices.any { it.category == "Pick & Drop" })
-        assertTrue(SampleData.travelServices.any { it.category == "Camping & Adventure" })
+        assertTrue(SampleData.travelServices.any { it.category == "Transport & Transit" })
+    }
+
+    @Test
+    fun `verify northern deals seasonal pricing and off-season discounts`() {
+        val deal = SampleData.northernDeals.first()
+        assertTrue(deal.summerOnPrice > deal.summerOffPrice)
+        assertTrue(deal.winterOnPrice > deal.winterOffPrice)
+        val savingSummer = deal.summerOnPrice - deal.summerOffPrice
+        assertTrue(savingSummer > 0)
     }
 
     @Test
@@ -74,7 +81,7 @@ class ExampleRobolectricTest {
             clientName = "Sarah Jenkins",
             contactInfo = "+447123456789",
             serviceTitle = "Airport ISB 24/7 Pick & Drop",
-            category = "Pick & Drop",
+            category = "Transport & Transit",
             origin = "London, UK",
             dates = "2026-10-15",
             details = "Arrival at 04:30 AM via Qatar Airways",

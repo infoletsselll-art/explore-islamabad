@@ -40,6 +40,10 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     private val _selectedTab = MutableStateFlow(0)
     val selectedTab: StateFlow<Int> = _selectedTab.asStateFlow()
 
+    // Hub Sub-Tab: 0 = Inquiries, 1 = Loyalty & Cards, 2 = Northern Deals, 3 = Bookmarks, 4 = Contacts & Forums
+    private val _hubSubTab = MutableStateFlow(0)
+    val hubSubTab: StateFlow<Int> = _hubSubTab.asStateFlow()
+
     // Currency toggle: false = PKR, true = USD
     private val _useUsd = MutableStateFlow(false)
     val useUsd: StateFlow<Boolean> = _useUsd.asStateFlow()
@@ -262,6 +266,20 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun selectTab(index: Int) {
         _selectedTab.value = index
+    }
+
+    fun selectHubSubTab(index: Int) {
+        _hubSubTab.value = index
+    }
+
+    fun navigateToLoyaltyTab() {
+        _selectedTab.value = 4
+        _hubSubTab.value = 1
+    }
+
+    fun navigateToNorthernDealsTab() {
+        _selectedTab.value = 4
+        _hubSubTab.value = 2
     }
 
     fun toggleCurrency() {

@@ -111,6 +111,65 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
             )
         }
 
+        // Northern Areas & Loyalty Program Discovery Row
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Surface(
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    shape = RoundedCornerShape(14.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { viewModel.navigateToNorthernDealsTab() }
+                ) {
+                    Row(
+                        modifier = Modifier.padding(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("🏔️", fontSize = 22.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text("Northern Deals", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = PinePrimary)
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Surface(
+                                    color = Color(0xFFEF4444),
+                                    shape = RoundedCornerShape(4.dp)
+                                ) {
+                                    Text("50% OFF", color = Color.White, fontSize = 8.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp))
+                                }
+                            }
+                            Text("Hunza & Skardu Stays", fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                }
+
+                Surface(
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    shape = RoundedCornerShape(14.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { viewModel.navigateToLoyaltyTab() }
+                ) {
+                    Row(
+                        modifier = Modifier.padding(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("💳", fontSize = 22.sp)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text("Loyalty & Cards", fontWeight = FontWeight.Bold, fontSize = 12.sp, color = WarmGold)
+                            Text("Earn PKR 1,500 Referrals", fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                }
+            }
+        }
+
         // Purpose Selection & Essentials Column (Interactive Preview)
         item {
             PurposeSelectionColumn(

@@ -3486,6 +3486,12 @@
         <a href="#booking-section" class="btn btn-outline" style="border-color: #10B981; color: #34D399;">
           <span>📋</span> Book Ride / Stay
         </a>
+        <a href="#northern-expeditions-section" class="btn btn-outline" style="border-color: rgba(56, 189, 248, 0.4); color: #38BDF8;">
+          <span>🏔️</span> Northern Deals
+        </a>
+        <a href="#loyalty-rewards-section" class="btn btn-outline" style="border-color: rgba(245, 158, 11, 0.4); color: #FCD34D;">
+          <span>🎁</span> Loyalty & Refer
+        </a>
         <button type="button" onclick="openAdminConsole()" class="btn btn-outline" style="border-color: #374151; color: #9CA3AF;" title="Backend Console for Admin">
           <span>🔐</span> Admin
         </button>
@@ -3922,6 +3928,18 @@
             <div class="form-group">
               <label for="bkNotes">Special Requirements or Schedule Notes</label>
               <textarea id="bkNotes" rows="2" placeholder="e.g. Flight arrives at 11:30 PM; need ground floor guest house; patient requires wheelchair support; driver with Constitution Ave access knowledge."></textarea>
+            </div>
+
+            <!-- Referral Code or Loyalty Voucher Discount -->
+            <div class="form-group" style="margin-top: 4px;">
+              <label for="bkPromoCode">Referral Code or Loyalty Voucher (Optional)</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="bkPromoCode" placeholder="e.g. ISB-VIP-8421 or VI-AIR-2910" style="text-transform: uppercase;" />
+                <button type="button" onclick="applyBookingPromoCode()" class="btn btn-outline" style="white-space: nowrap; border-color: #10B981; color: #34D399; font-size: 13px; padding: 0 16px;">
+                  Apply Code
+                </button>
+              </div>
+              <div id="promoCodeStatus" style="font-size: 12px; margin-top: 5px; display: none;"></div>
             </div>
 
             <!-- Submit Button -->
@@ -6322,6 +6340,43 @@
       userPrepaidBalance += 4500;
       document.getElementById('prepaidBalanceDisplay').textContent = `PKR ${userPrepaidBalance.toLocaleString()}`;
       alert("🎉 PKR 4,500 in referral rewards has been transferred to your Capital Prepaid Green Card! New Balance: PKR " + userPrepaidBalance.toLocaleString());
+    }
+
+    function applyBookingPromoCode() {
+      const codeInput = document.getElementById('bkPromoCode');
+      const statusElem = document.getElementById('promoCodeStatus');
+      if (!codeInput || !statusElem) return;
+      const code = codeInput.value.trim().toUpperCase();
+      if (!code) {
+        statusElem.style.display = 'block';
+        statusElem.style.color = '#EF4444';
+        statusElem.textContent = 'Please enter a referral code or loyalty voucher code.';
+        return;
+      }
+
+      const notes = document.getElementById('bkNotes');
+      if (code === 'ISB-VIP-8421') {
+        statusElem.style.display = 'block';
+        statusElem.style.color = '#34D399';
+        statusElem.textContent = '🎉 Referral Code Applied! PKR 1,000 Welcome Discount credited. Referrer earns PKR 1,500 + 200 Loyalty Points!';
+        if (notes && !notes.value.includes('ISB-VIP-8421')) {
+          notes.value = `[REFERRAL CODE: ISB-VIP-8421 APPLIED - PKR 1,000 WELCOME DISCOUNT CREDITED] ` + notes.value;
+        }
+      } else if (code.startsWith('VI-')) {
+        statusElem.style.display = 'block';
+        statusElem.style.color = '#34D399';
+        statusElem.textContent = `🎉 Loyalty Reward Voucher ${code} verified & applied to this reservation!`;
+        if (notes && !notes.value.includes(code)) {
+          notes.value = `[LOYALTY VOUCHER: ${code} APPLIED] ` + notes.value;
+        }
+      } else {
+        statusElem.style.display = 'block';
+        statusElem.style.color = '#F59E0B';
+        statusElem.textContent = `Promo code "${code}" recorded for dispatch verification upon confirmation.`;
+        if (notes && !notes.value.includes(code)) {
+          notes.value = `[PROMO CODE: ${code}] ` + notes.value;
+        }
+      }
     }
 
     // Initialize Northern Deals on DOM Ready
