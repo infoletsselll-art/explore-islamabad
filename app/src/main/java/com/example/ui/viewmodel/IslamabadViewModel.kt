@@ -9,9 +9,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ai.AiTaskComplexity
 import com.example.ai.GeminiAgentService
+import com.example.auth.GoogleAuthHelper
 import com.example.data.SampleData
 import com.example.data.local.AppDatabase
 import com.example.data.local.InquiryEntity
+import com.example.data.model.BookmarkFirestore
+import com.example.data.model.InquiryFirestore
+import com.example.data.model.UserProfileFirestore
+import com.example.data.repository.IslamabadFirestoreRepository
 import com.example.model.ActionType
 import com.example.model.AgentType
 import com.example.model.ChatMessage
@@ -21,6 +26,8 @@ import com.example.model.SocialForum
 import com.example.model.TourRequirement
 import com.example.model.TravelService
 import com.example.model.VisitorPurpose
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -35,6 +42,17 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     private val inquiryDao = db.inquiryDao()
     private val bookmarkDao = db.bookmarkDao()
     private val agentService = GeminiAgentService()
+
+    // Firebase Firestore & Authentication
+    private val firestoreRepo = IslamabadFirestoreRepository(application.applicationContext)
+    private val auth = FirebaseAuth.getInstance()
+    private val googleAuthHelper = GoogleAuthHelper(auth)
+
+    private val _currentUser = MutableStateFlow<FirebaseUser?>(auth.currentUser)
+    val currentUser: StateFlow<FirebaseUser?> = _currentUser.asStateFlow()
+
+    private val _isSigningIn = MutableStateFlow(false)
+    val isSigningIn: StateFlow<Boolean> = _isSigningIn.asStateFlow()
 
     // Navigation Tab: 0 = Explore, 1 = AI Agents, 2 = Services, 3 = Custom Planner, 4 = Inquiries & Guide
     private val _selectedTab = MutableStateFlow(0)
@@ -143,6 +161,14 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         // Initialize chat with default greeting from ALL_PURPOSE_CONCIERGE
         setAgent(AgentType.ALL_PURPOSE_CONCIERGE)
 
+        auth.addAuthStateListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            _currentUser.value = user
+            if (user != null) {
+                syncUserWithFirestore(user)
+            }
+        }
+
         try {
             textToSpeechEngine = TextToSpeech(application) { status ->
                 if (status == TextToSpeech.SUCCESS) {
@@ -152,6 +178,50 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         } catch (e: Throwable) {
             // Graceful fallback if TTS service is unavailable in container/emulator
         }
+    }
+
+    private fun syncUserWithFirestore(user: FirebaseUser) {
+        viewModelScope.launch {
+            firestoreRepo.observeUserProfile(user.uid).collect { profile ->
+                if (profile != null) {
+                    _loyaltyPoints.value = profile.loyaltyPoints.toInt()
+                    _prepaidBalance.value = profile.prepaidBalance.toInt()
+                    _referralEarnings.value = profile.referralEarnings.toInt()
+                } else {
+                    val newProfile = UserProfileFirestore(
+                        displayName = user.displayName ?: "Valued Traveler",
+                        email = user.email ?: "",
+                        loyaltyPoints = _loyaltyPoints.value.toLong(),
+                        prepaidBalance = _prepaidBalance.value.toLong(),
+                        referralCode = referralCode,
+                        referralEarnings = _referralEarnings.value.toLong()
+                    )
+                    try {
+                        firestoreRepo.saveUserProfile(user.uid, newProfile)
+                    } catch (e: Exception) {}
+                }
+            }
+        }
+    }
+
+    fun signInWithGoogle(context: Context) {
+        viewModelScope.launch {
+            _isSigningIn.value = true
+            val result = googleAuthHelper.signInWithGoogle(context)
+            _isSigningIn.value = false
+            result.onSuccess { user ->
+                _userMessageToast.value = "Signed in as ${user.displayName ?: user.email} via Google"
+            }.onFailure { err ->
+                if (err !is androidx.credentials.exceptions.GetCredentialCancellationException) {
+                    _userMessageToast.value = "Google sign-in error: ${err.message}"
+                }
+            }
+        }
+    }
+
+    fun signOut() {
+        googleAuthHelper.signOut()
+        _userMessageToast.value = "Signed out from Google account"
     }
 
     override fun onCleared() {
@@ -210,8 +280,12 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun toggleBookmarkDestination(destination: Destination) {
         viewModelScope.launch {
+            val user = _currentUser.value
             if (isItemBookmarked(destination.id)) {
                 bookmarkDao.deleteById(destination.id)
+                user?.let { u ->
+                    try { firestoreRepo.removeBookmark(u.uid, destination.id) } catch (e: Exception) {}
+                }
                 _userMessageToast.value = "Removed from Bookmarks"
             } else {
                 val entity = com.example.data.local.BookmarkEntity(
@@ -225,6 +299,23 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
                     ratingOrVehicle = "★ ${destination.rating}"
                 )
                 bookmarkDao.insertBookmark(entity)
+                user?.let { u ->
+                    try {
+                        firestoreRepo.saveBookmark(
+                            u.uid,
+                            BookmarkFirestore(
+                                id = destination.id,
+                                itemType = "DESTINATION",
+                                title = destination.name,
+                                subtitle = destination.subtitle,
+                                category = destination.category,
+                                detailSnippet = entity.detailSnippet,
+                                priceOrDistance = entity.priceOrDistance,
+                                ratingOrVehicle = entity.ratingOrVehicle
+                            )
+                        )
+                    } catch (e: Exception) {}
+                }
                 _userMessageToast.value = "Saved to Bookmarks!"
             }
         }
@@ -232,8 +323,12 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun toggleBookmarkService(service: TravelService) {
         viewModelScope.launch {
+            val user = _currentUser.value
             if (isItemBookmarked(service.id)) {
                 bookmarkDao.deleteById(service.id)
+                user?.let { u ->
+                    try { firestoreRepo.removeBookmark(u.uid, service.id) } catch (e: Exception) {}
+                }
                 _userMessageToast.value = "Removed from Bookmarks"
             } else {
                 val entity = com.example.data.local.BookmarkEntity(
@@ -252,6 +347,23 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
                     ratingOrVehicle = service.vehicleOrType
                 )
                 bookmarkDao.insertBookmark(entity)
+                user?.let { u ->
+                    try {
+                        firestoreRepo.saveBookmark(
+                            u.uid,
+                            BookmarkFirestore(
+                                id = service.id,
+                                itemType = entity.itemType,
+                                title = service.title,
+                                subtitle = service.subtitle,
+                                category = service.category,
+                                detailSnippet = entity.detailSnippet,
+                                priceOrDistance = entity.priceOrDistance,
+                                ratingOrVehicle = entity.ratingOrVehicle
+                            )
+                        )
+                    } catch (e: Exception) {}
+                }
                 _userMessageToast.value = "Saved to Bookmarks!"
             }
         }
@@ -260,6 +372,9 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     fun removeBookmark(id: String) {
         viewModelScope.launch {
             bookmarkDao.deleteById(id)
+            _currentUser.value?.let { u ->
+                try { firestoreRepo.removeBookmark(u.uid, id) } catch (e: Exception) {}
+            }
             _userMessageToast.value = "Bookmark removed"
         }
     }
@@ -400,6 +515,48 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    private suspend fun saveInquiryToFirestoreIfSignedIn(entity: InquiryEntity) {
+        val user = _currentUser.value ?: return
+        try {
+            firestoreRepo.createInquiry(
+                userId = user.uid,
+                inquiry = InquiryFirestore(
+                    serviceTitle = entity.serviceTitle,
+                    category = entity.category,
+                    clientName = entity.clientName,
+                    contactInfo = entity.contactInfo,
+                    dates = entity.dates,
+                    origin = entity.origin,
+                    details = entity.details,
+                    estimatedCostPkr = entity.estimatedCostPkr,
+                    estimatedCostUsd = entity.estimatedCostUsd.toLong(),
+                    status = entity.status
+                )
+            )
+        } catch (e: Exception) {
+            // Handled via repository logging
+        }
+    }
+
+    private fun persistUserProfileToFirestore() {
+        val user = _currentUser.value ?: return
+        viewModelScope.launch {
+            try {
+                val profile = UserProfileFirestore(
+                    displayName = user.displayName ?: "Valued Traveler",
+                    email = user.email ?: "",
+                    loyaltyPoints = _loyaltyPoints.value.toLong(),
+                    prepaidBalance = _prepaidBalance.value.toLong(),
+                    referralCode = referralCode,
+                    referralEarnings = _referralEarnings.value.toLong()
+                )
+                firestoreRepo.saveUserProfile(user.uid, profile)
+            } catch (e: Exception) {
+                // Handled in repository
+            }
+        }
+    }
+
     fun submitServiceInquiry(
         service: TravelService,
         clientName: String,
@@ -422,6 +579,7 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
                 status = "Inquiry Confirmed"
             )
             inquiryDao.insertInquiry(entity)
+            saveInquiryToFirestoreIfSignedIn(entity)
             _bookingTargetService.value = null
             _userMessageToast.value = "Inquiry submitted! Our 24/7 team will contact you."
         }
@@ -486,6 +644,7 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
                 status = "Tailored Request Saved"
             )
             inquiryDao.insertInquiry(entity)
+            saveInquiryToFirestoreIfSignedIn(entity)
             _userMessageToast.value = "Tailored plan saved to My Inquiries!"
             selectTab(4) // Move to Inquiries
         }
@@ -569,11 +728,13 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         _prepaidBalance.value += amount
         val bonusPts = amount / 50
         _loyaltyPoints.value += bonusPts
+        persistUserProfileToFirestore()
         _userMessageToast.value = "Reloaded PKR ${"%,d".format(amount)} to Capital Prepaid Card! +$bonusPts bonus points."
     }
 
     fun claimDailyCheckIn() {
         _loyaltyPoints.value += 25
+        persistUserProfileToFirestore()
         _userMessageToast.value = "Daily Check-in claimed! +25 Loyalty Points added."
     }
 
@@ -583,6 +744,7 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
             return
         }
         _loyaltyPoints.value -= voucher.pointsCost
+        persistUserProfileToFirestore()
         val code = "VI-" + voucher.title.take(3).uppercase() + "-" + (1000..9999).random()
         _userMessageToast.value = "Redeemed: ${voucher.title}! Voucher Code: $code"
     }
@@ -592,6 +754,7 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         if (earnings > 0) {
             _prepaidBalance.value += earnings
             _referralEarnings.value = 0
+            persistUserProfileToFirestore()
             _userMessageToast.value = "Transferred PKR ${"%,d".format(earnings)} referral reward to Prepaid Card!"
         }
     }
@@ -640,6 +803,7 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
                 status = "Pending"
             )
             inquiryDao.insertInquiry(inquiry)
+            saveInquiryToFirestoreIfSignedIn(inquiry)
             _userMessageToast.value = "Northern trip request for ${deal.name} saved! Contact concierge on WhatsApp."
             openDirectWhatsApp(context, inquiry)
         }

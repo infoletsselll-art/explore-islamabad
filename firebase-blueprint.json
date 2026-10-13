@@ -1,0 +1,149 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile including loyalty points and wallet balances",
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the user"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "loyaltyPoints": {
+          "type": "integer",
+          "description": "Accumulated loyalty rewards points"
+        },
+        "prepaidBalance": {
+          "type": "integer",
+          "description": "Current prepaid Margalla card balance in PKR"
+        },
+        "referralCode": {
+          "type": "string",
+          "description": "Personal referral code for inviting friends"
+        },
+        "referralEarnings": {
+          "type": "integer",
+          "description": "Earned referral commission in PKR"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last update"
+        }
+      },
+      "required": ["displayName", "email", "loyaltyPoints", "prepaidBalance", "referralCode", "referralEarnings"]
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Visitor booking or trip guidance inquiry",
+      "type": "object",
+      "properties": {
+        "serviceTitle": {
+          "type": "string",
+          "description": "Title of the requested service or package"
+        },
+        "category": {
+          "type": "string",
+          "description": "Service category (Transport, Stays, Judicial, Medical, Exams, Northern)"
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Client full name"
+        },
+        "contactInfo": {
+          "type": "string",
+          "description": "Phone or email contact information"
+        },
+        "dates": {
+          "type": "string",
+          "description": "Visit or service dates"
+        },
+        "origin": {
+          "type": "string",
+          "description": "Departure city or country"
+        },
+        "details": {
+          "type": "string",
+          "description": "Special requirements or schedule notes"
+        },
+        "estimatedCostPkr": {
+          "type": "integer",
+          "description": "Estimated cost in PKR"
+        },
+        "estimatedCostUsd": {
+          "type": "integer",
+          "description": "Estimated cost in USD"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the inquiry (e.g. Pending, Confirmed)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Submission server timestamp"
+        }
+      },
+      "required": ["serviceTitle", "category", "clientName", "contactInfo", "status", "createdAt"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "Saved travel destination, hotel, or transit option",
+      "type": "object",
+      "properties": {
+        "itemType": {
+          "type": "string",
+          "description": "Type of saved item (DESTINATION, HOTEL, TRANSPORT, TOUR)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Name of the item"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Location or subtitle"
+        },
+        "category": {
+          "type": "string",
+          "description": "Primary category"
+        },
+        "detailSnippet": {
+          "type": "string",
+          "description": "Short description"
+        },
+        "priceOrDistance": {
+          "type": "string",
+          "description": "Cost or distance info"
+        },
+        "ratingOrVehicle": {
+          "type": "string",
+          "description": "Rating or vehicle type"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Bookmark timestamp"
+        }
+      },
+      "required": ["itemType", "title", "subtitle", "category", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile with loyalty balance and referral data"
+    },
+    "/users/{userId}/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "User-specific service requests and bookings"
+    },
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": "Bookmark",
+      "description": "User-specific saved items and favorites"
+    }
+  }
+}

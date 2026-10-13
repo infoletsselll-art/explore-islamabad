@@ -15,8 +15,12 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.CloudDone
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material.icons.automirrored.outlined.ReceiptLong
@@ -92,6 +96,9 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
     val savedInquiries by viewModel.savedInquiries.collectAsState()
     val savedBookmarks by viewModel.savedBookmarks.collectAsState()
     val toastMessage by viewModel.userMessageToast.collectAsState()
+    val currentUser by viewModel.currentUser.collectAsState()
+    val isSigningIn by viewModel.isSigningIn.collectAsState()
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(toastMessage) {
@@ -130,7 +137,7 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
                                 color = Color.White
                             )
                             Text(
-                                text = "24/7 Concierge Hotline: ${com.example.model.OfficialContacts.OFFICIAL_PHONE}",
+                                text = "24/7 Concierge: ${com.example.model.OfficialContacts.OFFICIAL_PHONE}",
                                 fontSize = 10.sp,
                                 color = Color.White.copy(alpha = 0.9f),
                                 fontWeight = FontWeight.Medium
@@ -139,6 +146,41 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
                     }
                 },
                 actions = {
+                    // Google Sign-In / Account status
+                    Surface(
+                        color = Color.White.copy(alpha = 0.18f),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier
+                            .padding(end = 6.dp)
+                            .clickable(enabled = !isSigningIn) {
+                                if (currentUser == null) {
+                                    viewModel.signInWithGoogle(context)
+                                } else {
+                                    viewModel.signOut()
+                                }
+                            }
+                            .testTag("google_auth_appbar_btn")
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Icon(
+                                imageVector = if (currentUser != null) Icons.Default.CloudDone else Icons.Default.AccountCircle,
+                                contentDescription = "Google Account",
+                                tint = if (currentUser != null) Color(0xFF4ADE80) else WarmGold,
+                                modifier = Modifier.size(15.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = if (isSigningIn) "..." else if (currentUser != null) "Cloud Synced" else "Sign In",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
+                        }
+                    }
+
                     // Currency toggle
                     Surface(
                         color = Color.White.copy(alpha = 0.18f),

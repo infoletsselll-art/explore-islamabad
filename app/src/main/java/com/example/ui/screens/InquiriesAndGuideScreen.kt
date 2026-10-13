@@ -25,6 +25,8 @@ import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.CloudDone
 import androidx.compose.material.icons.filled.ContactPhone
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
@@ -158,6 +160,92 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
                     }
                 }
             )
+        }
+
+        // Firebase Cloud Sync & Google Auth Banner
+        val currentUser by viewModel.currentUser.collectAsState()
+        val isSigningIn by viewModel.isSigningIn.collectAsState()
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .testTag("google_cloud_sync_card"),
+            shape = RoundedCornerShape(14.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = if (currentUser != null) PinePrimary.copy(alpha = 0.08f) else WarmGold.copy(alpha = 0.12f)
+            ),
+            border = androidx.compose.foundation.BorderStroke(
+                1.dp,
+                if (currentUser != null) PinePrimary.copy(alpha = 0.3f) else WarmGold.copy(alpha = 0.4f)
+            )
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(
+                                if (currentUser != null) PinePrimary else WarmGold,
+                                CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = if (currentUser != null) Icons.Default.CheckCircle else Icons.Default.CloudDone,
+                            contentDescription = null,
+                            tint = if (currentUser != null) Color.White else Color.Black,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Column {
+                        Text(
+                            text = if (currentUser != null) "Cloud Synced (asia-southeast1)" else "Firebase Cloud Backup",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = if (currentUser != null)
+                                "${currentUser?.displayName ?: currentUser?.email} • Firestore Active"
+                            else
+                                "Sign in with Google to sync bookings, cards & points",
+                            fontSize = 11.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                if (currentUser == null) {
+                    Button(
+                        onClick = { viewModel.signInWithGoogle(context) },
+                        enabled = !isSigningIn,
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
+                        modifier = Modifier.testTag("google_sign_in_button")
+                    ) {
+                        Text(if (isSigningIn) "Connecting..." else "Sign in with Google", fontSize = 11.sp)
+                    }
+                } else {
+                    OutlinedButton(
+                        onClick = { viewModel.signOut() },
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier.testTag("google_sign_out_button")
+                    ) {
+                        Text("Sign Out", fontSize = 11.sp)
+                    }
+                }
+            }
         }
 
         when (selectedSubTab) {

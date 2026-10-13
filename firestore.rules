@@ -1,0 +1,69 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidUserProfile(data) {
+      return data.displayName is string && data.displayName.size() >= 1 && data.displayName.size() <= 100 &&
+             data.email is string && data.email.size() >= 3 && data.email.size() <= 120 &&
+             data.loyaltyPoints is int && data.loyaltyPoints >= 0 &&
+             data.prepaidBalance is int && data.prepaidBalance >= 0 &&
+             data.referralCode is string && data.referralCode.size() >= 3 && data.referralCode.size() <= 30 &&
+             data.referralEarnings is int && data.referralEarnings >= 0 &&
+             (!('updatedAt' in data) || (data.updatedAt is timestamp && data.updatedAt <= request.time));
+    }
+
+    function isValidInquiry(data) {
+      return data.serviceTitle is string && data.serviceTitle.size() >= 1 && data.serviceTitle.size() <= 200 &&
+             data.category is string && data.category.size() >= 1 && data.category.size() <= 100 &&
+             data.clientName is string && data.clientName.size() >= 1 && data.clientName.size() <= 100 &&
+             data.contactInfo is string && data.contactInfo.size() >= 1 && data.contactInfo.size() <= 100 &&
+             data.status is string && data.status.size() >= 1 && data.status.size() <= 50 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             (!('dates' in data) || (data.dates is string && data.dates.size() <= 100)) &&
+             (!('origin' in data) || (data.origin is string && data.origin.size() <= 100)) &&
+             (!('details' in data) || (data.details is string && data.details.size() <= 1000)) &&
+             (!('estimatedCostPkr' in data) || (data.estimatedCostPkr is int && data.estimatedCostPkr >= 0)) &&
+             (!('estimatedCostUsd' in data) || (data.estimatedCostUsd is int && data.estimatedCostUsd >= 0));
+    }
+
+    function isValidBookmark(data) {
+      return data.itemType is string && data.itemType.size() >= 1 && data.itemType.size() <= 50 &&
+             data.title is string && data.title.size() >= 1 && data.title.size() <= 200 &&
+             data.subtitle is string && data.subtitle.size() <= 200 &&
+             data.category is string && data.category.size() <= 100 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             (!('detailSnippet' in data) || (data.detailSnippet is string && data.detailSnippet.size() <= 500)) &&
+             (!('priceOrDistance' in data) || (data.priceOrDistance is string && data.priceOrDistance.size() <= 100)) &&
+             (!('ratingOrVehicle' in data) || (data.ratingOrVehicle is string && data.ratingOrVehicle.size() <= 100));
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUserProfile(request.resource.data);
+      allow update: if isOwner(userId) && isValidUserProfile(request.resource.data);
+      allow delete: if isOwner(userId);
+
+      match /inquiries/{inquiryId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidInquiry(request.resource.data);
+        allow update: if isOwner(userId) && isValidInquiry(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+
+      match /bookmarks/{bookmarkId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidBookmark(request.resource.data);
+        allow update: if isOwner(userId) && isValidBookmark(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}
