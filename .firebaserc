@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "visitislamabad"
+    "default": "gen-lang-client-0419287081",
+    "visitislamabad": "visitislamabad"
   }
 }

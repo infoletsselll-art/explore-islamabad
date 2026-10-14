@@ -1,5 +1,9 @@
 package com.example.ui.screens
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -61,10 +65,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.example.ai.AiTaskComplexity
 import com.example.model.AgentType
 import com.example.model.ChatMessage
@@ -81,6 +87,9 @@ fun AgentsChatScreen(viewModel: IslamabadViewModel) {
     val selectedComplexity by viewModel.selectedComplexity.collectAsState()
     val isLiveVoiceActive by viewModel.isLiveVoiceActive.collectAsState()
     val isSpeakingAudio by viewModel.isSpeakingAudio.collectAsState()
+    val isListeningVoice by viewModel.isListeningVoice.collectAsState()
+    val voiceRmsDb by viewModel.voiceRmsDb.collectAsState()
+    val liveVoiceTranscript by viewModel.liveVoiceTranscript.collectAsState()
 
     var inputMessage by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
@@ -108,7 +117,7 @@ fun AgentsChatScreen(viewModel: IslamabadViewModel) {
             }
         )
 
-        // Model Complexity Selector (Gemini 3.5 Flash, 3.1 Pro, 3.1 Flash Lite, 3.8 Live)
+        // Model Complexity Selector (Gemini 3.8 Flash, 3.8 Live, 3.1 Pro, 3.1 Flash Lite)
         ModelComplexityBar(
             selectedComplexity = selectedComplexity,
             onSelectComplexity = { viewModel.setComplexity(it) }
@@ -118,8 +127,13 @@ fun AgentsChatScreen(viewModel: IslamabadViewModel) {
         AnimatedVisibility(visible = isLiveVoiceActive) {
             LiveVoiceConversationBanner(
                 isSpeaking = isSpeakingAudio,
+                isListening = isListeningVoice,
+                rmsDb = voiceRmsDb,
+                transcript = liveVoiceTranscript,
+                onStartListening = { viewModel.startListeningVoice() },
+                onStopListening = { viewModel.stopListeningVoice() },
                 onStopVoice = { viewModel.toggleLiveVoice() },
-                onSendVoiceSample = { prompt -> viewModel.sendMessage(prompt) }
+                onSendVoiceSample = { prompt -> viewModel.sendMessage(prompt, overrideComplexity = AiTaskComplexity.LIVE_VOICE_CONVERSATION) }
             )
         }
 
@@ -244,31 +258,46 @@ fun ModelComplexityBar(
 @Composable
 fun LiveVoiceConversationBanner(
     isSpeaking: Boolean,
+    isListening: Boolean,
+    rmsDb: Float,
+    transcript: String,
+    onStartListening: () -> Unit,
+    onStopListening: () -> Unit,
     onStopVoice: () -> Unit,
     onSendVoiceSample: (String) -> Unit
 ) {
+    val context = LocalContext.current
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            onStartListening()
+        }
+    }
+
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
-    val scale by infiniteTransition.animateFloat(
-        initialValue = 0.92f,
-        targetValue = 1.15f,
+    val pulseScale by infiniteTransition.animateFloat(
+        initialValue = 0.94f,
+        targetValue = 1.14f,
         animationSpec = infiniteRepeatable(
-            animation = tween(650, easing = FastOutSlowInEasing),
+            animation = tween(600, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         ),
-        label = "scale"
+        label = "pulseScale"
     )
 
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF0B291E)
+            containerColor = Color(0xFF072118)
         ),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(18.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 6.dp)
-            .border(1.dp, PinePrimary, RoundedCornerShape(16.dp))
+            .border(1.5.dp, if (isListening) Color(0xFF10B981) else PinePrimary, RoundedCornerShape(18.dp))
     ) {
         Column(modifier = Modifier.padding(14.dp)) {
+            // Header Row: Status, Model badge & Close Button
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -277,46 +306,68 @@ fun LiveVoiceConversationBanner(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Box(
                         modifier = Modifier
-                            .size(32.dp)
-                            .scale(scale)
-                            .background(PinePrimary.copy(alpha = 0.3f), CircleShape),
+                            .size(36.dp)
+                            .scale(if (isListening || isSpeaking) pulseScale else 1f)
+                            .background(
+                                if (isListening) Color(0xFF10B981) else if (isSpeaking) WarmGold else PinePrimary,
+                                CircleShape
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = if (isSpeaking) Icons.Default.GraphicEq else Icons.Default.Mic,
                             contentDescription = null,
-                            tint = Color(0xFF34D399),
-                            modifier = Modifier.size(18.dp)
+                            tint = Color.White,
+                            modifier = Modifier.size(20.dp)
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "Gemini 3.8 Live",
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Surface(
+                                color = Color(0xFF10B981).copy(alpha = 0.25f),
+                                shape = RoundedCornerShape(6.dp)
+                            ) {
+                                Text(
+                                    text = "LIVE API",
+                                    fontSize = 9.5.sp,
+                                    fontWeight = FontWeight.Black,
+                                    color = Color(0xFF34D399),
+                                    modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
+                                )
+                            }
+                        }
                         Text(
-                            text = "Gemini 3.8 Live (Live API)",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 13.5.sp,
-                            color = Color.White
-                        )
-                        Text(
-                            text = if (isSpeaking) "Live AI speaking response..." else "Live microphone ready • Speak now",
+                            text = when {
+                                isSpeaking -> "🔊 Speaking AI response aloud..."
+                                isListening -> "🎙️ Listening to your voice... Speak now"
+                                else -> "Tap 'Speak' or select a voice prompt below"
+                            },
                             fontSize = 11.5.sp,
-                            color = Color(0xFFA7F3D0)
+                            color = if (isListening) Color(0xFF6EE7B7) else Color(0xFFA7F3D0)
                         )
                     }
                 }
 
                 Surface(
-                    color = Color.Red.copy(alpha = 0.2f),
+                    color = Color.Red.copy(alpha = 0.22f),
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.clickable { onStopVoice() }
                 ) {
                     Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             imageVector = Icons.Default.Stop,
-                            contentDescription = "Stop",
+                            contentDescription = "End Live Voice",
                             tint = Color(0xFFEF4444),
                             modifier = Modifier.size(14.dp)
                         )
@@ -331,43 +382,156 @@ fun LiveVoiceConversationBanner(
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            // Real-time audio waveform animation & live transcription
+            if (isListening || isSpeaking || transcript.isNotBlank()) {
+                Spacer(modifier = Modifier.height(10.dp))
+                Surface(
+                    color = Color.Black.copy(alpha = 0.35f),
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Visual Wave Bars
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(3.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            val activeHeight = (8 + rmsDb * 3).coerceIn(6f, 24f).dp
+                            Box(modifier = Modifier.size(width = 3.dp, height = activeHeight).background(Color(0xFF34D399), RoundedCornerShape(2.dp)))
+                            Box(modifier = Modifier.size(width = 3.dp, height = (activeHeight * 0.7f).coerceAtLeast(6.dp)).background(Color(0xFF34D399), RoundedCornerShape(2.dp)))
+                            Box(modifier = Modifier.size(width = 3.dp, height = (activeHeight * 1.2f).coerceIn(6.dp, 28.dp)).background(Color(0xFF34D399), RoundedCornerShape(2.dp)))
+                            Box(modifier = Modifier.size(width = 3.dp, height = (activeHeight * 0.8f).coerceAtLeast(6.dp)).background(Color(0xFF34D399), RoundedCornerShape(2.dp)))
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = if (transcript.isNotBlank()) transcript else "Listening for speech...",
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            maxLines = 2
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Action row: Live Push-To-Talk Mic button
             Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Surface(
+                    color = if (isListening) Color(0xFFEF4444) else Color(0xFF10B981),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.clickable {
+                        if (isListening) {
+                            onStopListening()
+                        } else {
+                            val hasPermission = ContextCompat.checkSelfPermission(
+                                context,
+                                Manifest.permission.RECORD_AUDIO
+                            ) == PackageManager.PERMISSION_GRANTED
+                            if (hasPermission) {
+                                onStartListening()
+                            } else {
+                                permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                            }
+                        }
+                    }
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 7.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = if (isListening) Icons.Default.MicOff else Icons.Default.Mic,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = if (isListening) "Stop Listening" else "Tap to Speak",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+
+                Text(
+                    text = "or ask instant voice prompt:",
+                    fontSize = 11.sp,
+                    color = Color(0xFF9CA3AF)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Horizontal Voice Questions Carousel covering all visitor purposes
+            LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = "Tap to ask voice prompt:",
-                    fontSize = 10.5.sp,
-                    color = Color(0xFF9CA3AF),
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                )
-                Surface(
-                    color = Color.White.copy(alpha = 0.1f),
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier.clickable { onSendVoiceSample("What is the fastest way to get to Shifa Hospital from Daewoo terminal?") }
-                ) {
-                    Text(
-                        text = "Hospital Transit",
-                        fontSize = 10.5.sp,
-                        color = Color.White,
-                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                item {
+                    VoicePromptChip(
+                        label = "🏥 Hospital Transit",
+                        onClick = { onSendVoiceSample("What is the fastest transport to Shifa International Hospital from airport?") }
                     )
                 }
-                Surface(
-                    color = Color.White.copy(alpha = 0.1f),
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier.clickable { onSendVoiceSample("What is the cost of renting a 4x4 Prado for 3 days to Murree and Hunza?") }
-                ) {
-                    Text(
-                        text = "4x4 Rates",
-                        fontSize = 10.5.sp,
-                        color = Color.White,
-                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                item {
+                    VoicePromptChip(
+                        label = "⚖️ Supreme Court Access",
+                        onClick = { onSendVoiceSample("What are the entry rules and gate timings for Supreme Court proceedings?") }
+                    )
+                }
+                item {
+                    VoicePromptChip(
+                        label = "🎓 NUST Exam Metro",
+                        onClick = { onSendVoiceSample("How do I reach NUST H-12 via Orange Line Metro for university entrance exams?") }
+                    )
+                }
+                item {
+                    VoicePromptChip(
+                        label = "🛍️ Shopping Concierge",
+                        onClick = { onSendVoiceSample("Tell me about shopping in Centaurus Mall and Raja Bazaar.") }
+                    )
+                }
+                item {
+                    VoicePromptChip(
+                        label = "🏔️ 4x4 Prado Murree Rates",
+                        onClick = { onSendVoiceSample("What is the fare for a 4x4 Prado for 3 days to Murree, Nathia Gali, and Hunza?") }
+                    )
+                }
+                item {
+                    VoicePromptChip(
+                        label = "🍽️ Saidpur Dining",
+                        onClick = { onSendVoiceSample("Recommend best heritage dining spots in Saidpur Village and Monal.") }
                     )
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun VoicePromptChip(label: String, onClick: () -> Unit) {
+    Surface(
+        color = Color.White.copy(alpha = 0.12f),
+        shape = RoundedCornerShape(10.dp),
+        modifier = Modifier.clickable { onClick() }
+    ) {
+        Text(
+            text = label,
+            fontSize = 11.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp)
+        )
     }
 }
 

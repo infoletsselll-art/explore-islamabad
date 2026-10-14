@@ -639,6 +639,101 @@ object SampleData {
             ),
             vehicleOrType = "Food & Dining Experience",
             isPopular = false
+        ),
+        TravelService(
+            id = "shopping_bazaar_concierge",
+            title = "Shopping Bazaars & Centaurus Mall Concierge",
+            category = "Shopping & Bazaars",
+            subtitle = "Centaurus, Giga Mall, F-7 Jinnah Super & Raja Bazaar",
+            description = "Complete shopping guidance and seamless chauffeur drops across Islamabad's elite malls and historic bazaars. Explore luxury brands at Centaurus, artisan carpets in F-6, fashion in Jinnah Super, and wholesale bridal fabrics in Raja Bazaar.",
+            pricePkr = 4500,
+            priceUsd = 16,
+            priceUnit = "half-day shopping trip",
+            budgetTier = BudgetTier.COMFORT_STANDARD,
+            includedFeatures = listOf(
+                "Dedicated air-conditioned car for luggage and multi-stop shopping",
+                "Best shopping locations: Centaurus, Giga Mall, Safa Gold & F-7",
+                "Assistance with authentic Pakistani shawls, leather & dry fruits",
+                "Driver handles mall parking while you shop comfortably"
+            ),
+            vehicleOrType = "Shopping & Mall Shuttle",
+            isPopular = true
+        ),
+        TravelService(
+            id = "medical_consultation_concierge",
+            title = "Medical Consultations & Hospital Care Logistics",
+            category = "Medical & Court Logistics",
+            subtitle = "Shifa, PIMS, Maroof, Kulsum doctor appointments & patient stays",
+            description = "Specialized support for patients and families visiting Islamabad for health checkups. Includes hospital appointments, proximity guest houses with wheelchair access, 24/7 medicine delivery, and patient round-trip transport.",
+            pricePkr = 5500,
+            priceUsd = 20,
+            priceUnit = "per day care assist",
+            budgetTier = BudgetTier.COMFORT_STANDARD,
+            includedFeatures = listOf(
+                "Patient transport to Shifa International, PIMS or Maroof Hospital",
+                "Vetted patient guest house coordination with home-cooked meals",
+                "Assistance with diagnostic lab tests (IDC, Chughtai) & reports",
+                "24/7 emergency hotline & wheelchair accessible vehicles"
+            ),
+            vehicleOrType = "Patient Care & Hospital Transit",
+            isPopular = true
+        ),
+        TravelService(
+            id = "supreme_court_legal_logistics",
+            title = "Supreme Court & High Court Proceedings Escort",
+            category = "Medical & Court Logistics",
+            subtitle = "Constitution Ave & Sector G-10 hearings, chambers & stays",
+            description = "Tailor-made logistics for litigants, advocates, and witnesses. We arrange quiet accommodation near G-10 Judicial Complex or Blue Area, early morning court transport, CNIC gate entry guidance, and lawyer chamber coordination.",
+            pricePkr = 6000,
+            priceUsd = 22,
+            priceUnit = "per court day",
+            budgetTier = BudgetTier.COMFORT_STANDARD,
+            includedFeatures = listOf(
+                "On-time morning transit to Supreme Court or High Court G-10",
+                "Security clearance tips and Red Zone gate pass navigation",
+                "Quiet guest houses for case preparation with fast WiFi & printer access",
+                "Flexible driver waiting during court hearing proceedings"
+            ),
+            vehicleOrType = "Court & Legal Chauffeur",
+            isPopular = true
+        ),
+        TravelService(
+            id = "student_university_exam_pkg",
+            title = "University Entrance Examinations & Student Package",
+            category = "Guided Packages",
+            subtitle = "NUST, FAST, QAU, COMSATS, Air Univ tests & safe hostels",
+            description = "Designed for ambitious students visiting from Punjab, Sindh, KPK, and Balochistan for university entry tests (NET, NU, NTS, MDCAT). Includes verified safe student accommodation, test center drop, and study-friendly facilities.",
+            pricePkr = 3000,
+            priceUsd = 11,
+            priceUnit = "per test day",
+            budgetTier = BudgetTier.BUDGET_SAVER,
+            includedFeatures = listOf(
+                "Guaranteed on-time drop at NUST (H-12), FAST (H-9) or QAU",
+                "Safe, verified student hostel or guest house near exam centers",
+                "Metro Bus Orange/Red line transit guidance (PKR 50/ride)",
+                "Quiet study environment with generator backup & high-speed WiFi"
+            ),
+            vehicleOrType = "Student Transit & Hostel Stay",
+            isPopular = true
+        ),
+        TravelService(
+            id = "majestic_northern_expedition",
+            title = "Majestic Northern Areas 4x4 Custom Tour",
+            category = "Guided Packages",
+            subtitle = "Murree, Nathia Gali, Kaghan, Swat & Hunza bespoke expeditions",
+            description = "Islamabad is your gateway to northern wonders. We craft tailor-based itineraries with luxury 4x4 Prado or Hiace vans, certified mountain drivers, alpine pine hotels, and breathtaking mountain passes for national & international visitors.",
+            pricePkr = 22000,
+            priceUsd = 80,
+            priceUnit = "per day expedition",
+            budgetTier = BudgetTier.EXECUTIVE_VIP,
+            includedFeatures = listOf(
+                "Tailored itinerary for Murree, Nathia Gali, Naran or Hunza Valley",
+                "Luxury 4x4 Toyota Prado TX or Fortuner with licensed mountain captain",
+                "Boutique alpine pine chalets & riverside resort reservations",
+                "24/7 weather, road status, and highway safety monitoring"
+            ),
+            vehicleOrType = "4x4 Mountain Expedition",
+            isPopular = true
         )
     )
 

@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.CloudDone
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material.icons.automirrored.outlined.ReceiptLong
 import androidx.compose.material.icons.filled.AutoAwesome
@@ -64,6 +65,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.model.AgentType
+import com.example.ui.components.AboutVisitIslamabadDialog
 import com.example.ui.screens.AgentsChatScreen
 import com.example.ui.screens.CustomPlannerScreen
 import com.example.ui.screens.ExploreScreen
@@ -98,6 +100,7 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
     val toastMessage by viewModel.userMessageToast.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState()
     val isSigningIn by viewModel.isSigningIn.collectAsState()
+    val showAboutDialog by viewModel.showAboutDialog.collectAsState()
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -146,6 +149,35 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
                     }
                 },
                 actions = {
+                    // About Visit Islamabad Button (Introduction & Purpose)
+                    Surface(
+                        color = WarmGold.copy(alpha = 0.22f),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier
+                            .padding(end = 6.dp)
+                            .clickable { viewModel.openAboutDialog() }
+                            .testTag("about_app_appbar_btn")
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Info,
+                                contentDescription = "About Visit Islamabad",
+                                tint = WarmGold,
+                                modifier = Modifier.size(15.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "About",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
+                        }
+                    }
+
                     // Google Sign-In / Account status
                     Surface(
                         color = Color.White.copy(alpha = 0.18f),
@@ -354,6 +386,13 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
                 4 -> InquiriesAndGuideScreen(viewModel = viewModel)
             }
         }
+    }
+
+    if (showAboutDialog) {
+        AboutVisitIslamabadDialog(
+            viewModel = viewModel,
+            onDismiss = { viewModel.closeAboutDialog() }
+        )
     }
 }
 

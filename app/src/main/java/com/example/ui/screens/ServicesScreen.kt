@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Check
@@ -58,9 +59,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.data.SampleData
+import com.example.model.AboutVisitIslamabad
 import com.example.model.BudgetTier
 import com.example.model.OfficialContacts
 import com.example.model.TravelService
+import com.example.ui.components.AboutVisitIslamabadHeroCard
 import com.example.ui.theme.MountainMint
 import com.example.ui.theme.PinePrimary
 import com.example.ui.theme.WarmGold
@@ -72,7 +75,15 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
     val useUsd by viewModel.useUsd.collectAsState()
     val targetService by viewModel.bookingTargetService.collectAsState()
 
-    val categories = listOf("All", "Transport & Transit", "Stays & Hotels", "Guided Packages", "Dining & Food")
+    val categories = listOf(
+        "All",
+        "Transport & Transit",
+        "Stays & Hotels",
+        "Shopping & Bazaars",
+        "Dining & Food",
+        "Medical & Court Logistics",
+        "Guided Packages"
+    )
 
     val filteredServices = if (selectedCategory == "All") {
         SampleData.travelServices
@@ -86,78 +97,17 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
             .testTag("services_screen_list"),
         contentPadding = PaddingValues(bottom = 96.dp)
     ) {
-        // Services Header
+        // VISIT ISLAMABAD Introduction & 24/7 Services Hero
         item {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(PinePrimary)
-                    .padding(20.dp)
+                    .padding(16.dp)
             ) {
-                Surface(
-                    color = WarmGold,
-                    shape = RoundedCornerShape(12.dp)
-                ) {
-                    Text(
-                        text = "CURATED SERVICES & VERIFIED RESERVATIONS",
-                        fontSize = 10.5.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "Transport, Accommodation & Guided Itineraries",
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = Color.White
+                AboutVisitIslamabadHeroCard(
+                    viewModel = viewModel,
+                    showInteractiveAiGrid = true
                 )
-
-                Text(
-                    text = "Accessible transit starting from PKR 50 via the Metro Bus network to on-demand inDrive/Yango, executive chauffeurs, and 4x4 mountain SUVs. Vetted patient guest houses, student hostels, and 5-star suites.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.White.copy(alpha = 0.9f),
-                    lineHeight = 16.sp
-                )
-
-                Spacer(modifier = Modifier.height(14.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Button(
-                        onClick = { viewModel.toggleCurrency() },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = PinePrimary),
-                        shape = RoundedCornerShape(20.dp),
-                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp)
-                    ) {
-                        Icon(Icons.Default.CurrencyExchange, contentDescription = null, modifier = Modifier.size(16.dp))
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = if (useUsd) "Show in PKR (Rs)" else "Show in USD ($)",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp
-                        )
-                    }
-
-                    Surface(
-                        color = Color.White.copy(alpha = 0.2f),
-                        shape = RoundedCornerShape(12.dp)
-                    ) {
-                        Text(
-                            text = "24/7 Hotline: ${OfficialContacts.OFFICIAL_PHONE}",
-                            color = Color.White,
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
-                        )
-                    }
-                }
             }
         }
 
@@ -307,7 +257,8 @@ fun ServicesScreen(viewModel: IslamabadViewModel) {
                 useUsd = useUsd,
                 isBookmarked = isBookmarked,
                 onToggleBookmark = { viewModel.toggleBookmarkService(service) },
-                onBookNow = { viewModel.openBookingDialog(service) }
+                onBookNow = { viewModel.openBookingDialog(service) },
+                onAskLiveAgent = { viewModel.askLiveAgentForService(service) }
             )
         }
     }
@@ -331,7 +282,8 @@ fun ServiceCard(
     useUsd: Boolean,
     isBookmarked: Boolean,
     onToggleBookmark: () -> Unit,
-    onBookNow: () -> Unit
+    onBookNow: () -> Unit,
+    onAskLiveAgent: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -462,14 +414,32 @@ fun ServiceCard(
                     )
                 }
 
-                Button(
-                    onClick = onBookNow,
-                    colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
-                    shape = RoundedCornerShape(12.dp),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                    modifier = Modifier.testTag("book_button_${service.id}")
-                ) {
-                    Text("Book / Inquire", fontWeight = FontWeight.Bold)
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(
+                        onClick = onAskLiveAgent,
+                        shape = RoundedCornerShape(12.dp),
+                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+                        modifier = Modifier.testTag("ask_ai_button_${service.id}")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.AutoAwesome,
+                            contentDescription = null,
+                            tint = PinePrimary,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text("Ask AI", fontSize = 11.5.sp, fontWeight = FontWeight.Bold, color = PinePrimary)
+                    }
+
+                    Button(
+                        onClick = onBookNow,
+                        colors = ButtonDefaults.buttonColors(containerColor = PinePrimary),
+                        shape = RoundedCornerShape(12.dp),
+                        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 6.dp),
+                        modifier = Modifier.testTag("book_button_${service.id}")
+                    ) {
+                        Text("Book", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    }
                 }
             }
         }

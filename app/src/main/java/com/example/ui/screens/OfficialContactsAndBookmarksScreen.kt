@@ -258,7 +258,15 @@ fun OfficialContactsAndForumsContent(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier.testTag("official_contacts_content")
     ) {
-        // Hero Card for Direct Support & AI Automation
+        // About Visit Islamabad - Introduction, Purpose & AI Task Execution
+        item {
+            com.example.ui.components.AboutVisitIslamabadHeroCard(
+                viewModel = viewModel,
+                showInteractiveAiGrid = true
+            )
+        }
+
+        // Direct Assistance Hotline Card
         item {
             Card(
                 shape = RoundedCornerShape(20.dp),
@@ -273,7 +281,7 @@ fun OfficialContactsAndForumsContent(
                             shape = RoundedCornerShape(8.dp)
                         ) {
                             Text(
-                                text = "24/7 AI AUTOMATION & AGENTS",
+                                text = "DIRECT 24/7 ASSISTANCE HOTLINES",
                                 color = Color.Black,
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.ExtraBold,

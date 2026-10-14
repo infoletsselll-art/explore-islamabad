@@ -143,9 +143,9 @@ fun InquiriesAndGuideScreen(viewModel: IslamabadViewModel) {
                 onClick = { viewModel.selectHubSubTab(4) },
                 text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.ContactPhone, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Icon(Icons.Default.Info, contentDescription = null, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Channels & Forums", fontWeight = FontWeight.Bold)
+                        Text("About & Forums", fontWeight = FontWeight.Bold)
                     }
                 }
             )

@@ -20,28 +20,40 @@ enum class AiTaskComplexity(
     val description: String
 ) {
     GENERAL_CHAT(
-        modelId = "gemini-3.5-flash",
-        title = "Gemini 3.5 Flash",
-        badge = "💬 General",
-        description = "General multi-turn chat with search grounding"
+        modelId = "gemini-3.8-flash",
+        title = "Gemini 3.8 Flash (Search & Maps)",
+        badge = "🌐📍 Search & Maps",
+        description = "Dual Search & Maps Grounding with Gemini 3.8 Flash for verified capital info & routes"
+    ),
+    SEARCH_GROUNDED(
+        modelId = "gemini-3.8-flash",
+        title = "Gemini 3.8 Flash (Google Search)",
+        badge = "🌐 Google Search",
+        description = "Live Google Search grounded real-time information with gemini-3.8-flash"
+    ),
+    MAPS_GROUNDED(
+        modelId = "gemini-3.8-flash",
+        title = "Gemini 3.8 Flash (Google Maps)",
+        badge = "📍 Google Maps",
+        description = "Live Google Maps grounded sector navigation, routes & places with gemini-3.8-flash"
+    ),
+    LIVE_VOICE_CONVERSATION(
+        modelId = "gemini-3.8-live",
+        title = "Gemini 3.8 Live (Live API)",
+        badge = "🎙️ Live API Voice",
+        description = "Real-time two-way voice conversations with Live API model gemini-3.8-live"
     ),
     COMPLEX_ITINERARY(
         modelId = "gemini-3.1-pro-preview",
         title = "Gemini 3.1 Pro",
-        badge = "🧠 Complex",
-        description = "Advanced reasoning & bespoke itineraries"
+        badge = "🧠 Deep Reasoning",
+        description = "Advanced reasoning & bespoke multi-day itineraries"
     ),
     FAST_QUERY(
         modelId = "gemini-3.1-flash-lite",
         title = "Gemini 3.1 Flash Lite",
-        badge = "⚡ Fast",
+        badge = "⚡ Ultra Fast",
         description = "Rapid response for fares & quick queries"
-    ),
-    LIVE_VOICE_CONVERSATION(
-        modelId = "gemini-3.8-live",
-        title = "Gemini 3.8 Live",
-        badge = "🎙️ Live API",
-        description = "Real-time voice conversation with Live API"
     )
 }
 
@@ -143,14 +155,30 @@ class GeminiAgentService {
                 })
             })
             put("contents", contentsJson)
-            // Live Search Grounding for verified, real-world capital information (enabled for general tasks with gemini-3.5-flash)
-            if (complexity == AiTaskComplexity.GENERAL_CHAT) {
-                put("tools", JSONArray().apply {
-                    put(JSONObject().apply {
-                        put("googleSearch", JSONObject())
-                    })
-                })
+            // Live Search Grounding and Maps Grounding for gemini-3.8-flash
+            val toolsArray = JSONArray()
+            when (complexity) {
+                AiTaskComplexity.GENERAL_CHAT -> {
+                    // Dual grounding with Google Search and Google Maps for gemini-3.8-flash
+                    toolsArray.put(JSONObject().apply { put("googleSearch", JSONObject()) })
+                    toolsArray.put(JSONObject().apply { put("googleMaps", JSONObject()) })
+                }
+                AiTaskComplexity.SEARCH_GROUNDED -> {
+                    // Google Search Grounding with gemini-3.8-flash
+                    toolsArray.put(JSONObject().apply { put("googleSearch", JSONObject()) })
+                }
+                AiTaskComplexity.MAPS_GROUNDED -> {
+                    // Google Maps Grounding with gemini-3.8-flash
+                    toolsArray.put(JSONObject().apply { put("googleMaps", JSONObject()) })
+                }
+                else -> {
+                    // Standard tools or Live API
+                }
             }
+            if (toolsArray.length() > 0) {
+                put("tools", toolsArray)
+            }
+
             put("generationConfig", JSONObject().apply {
                 put("temperature", if (complexity == AiTaskComplexity.COMPLEX_ITINERARY) 0.4 else 0.7)
                 put("topP", 0.95)
@@ -177,7 +205,20 @@ class GeminiAgentService {
                 val parts = content?.optJSONArray("parts")
                 if (parts != null && parts.length() > 0) {
                     val firstPart = parts.getJSONObject(0)
-                    return firstPart.optString("text", "")
+                    var text = firstPart.optString("text", "")
+
+                    // Extract Grounding Citations (Google Search & Google Maps)
+                    val groundingMetadata = firstCandidate.optJSONObject("groundingMetadata")
+                    val searchQueries = groundingMetadata?.optJSONArray("webSearchQueries")
+                    if (searchQueries != null && searchQueries.length() > 0) {
+                        val queriesList = (0 until searchQueries.length()).map { searchQueries.optString(it) }.filter { it.isNotBlank() }
+                        if (queriesList.isNotEmpty()) {
+                            text += "\n\n_🌐 Grounded with Google Search: ${queriesList.joinToString(", ")}_"
+                        }
+                    } else if (groundingMetadata != null && complexity == AiTaskComplexity.MAPS_GROUNDED) {
+                        text += "\n\n_📍 Grounded with Google Maps Location Data_"
+                    }
+                    return text
                 }
             }
             return ""
@@ -187,16 +228,24 @@ class GeminiAgentService {
     private fun getAgentSystemInstruction(agent: AgentType): String {
         return when (agent) {
             AgentType.ALL_PURPOSE_CONCIERGE -> """
-                You are the Visit Islamabad Concierge — A gateway to the visitors of all types and for all purposes.
-                Islamabad is the capital of Pakistan and the gateway to Northern Areas, welcoming visitors of all backgrounds and budgets:
-                - Medical visitors (PIMS, Shifa International, Maroof, Kulsum, Quaid-e-Azam Hospital).
-                - Legal & Official affairs (Supreme Court of Pakistan, Islamabad High Court G-10, Diplomatic Enclave embassies & visa interviews, Federal Ministries).
-                - Academic & Students (NUST, FAST, QAU, COMSATS, Air Univ, entry tests, convocations).
-                - Shoppers (Centaurus Mall, Giga Mall, Safa Gold, Jinnah Super F-7, Super Market F-6, Aabpara).
-                - Tourists & Sightseeing (Faisal Mosque, Daman-e-Koh, Pakistan Monument, Lok Virsa, Saidpur Village, Margalla trails).
-                - Northern Gateway (Murree, Nathia Gali, Kaghan, Swat, Hunza, Skardu).
-                - Transport options for EVERY budget: Metro Bus (PKR 50), inDrive/Yango cabs, full-day chauffeurs, and 4x4 mountain rentals.
-                Provide structured, warm, and helpful advice with transparent pricing in PKR and USD.
+                You are the official AI agent for VISIT ISLAMABAD.
+                Purpose & Mission:
+                A welcoming gateway for visitors of every kind, serving every purpose.
+                A distinguished gateway, welcoming visitors from every walk of life and serving every purpose.
+                A Gateway to Every Visitor, Every Purpose, Every Experience.
+                Your Gateway to Islamabad — Connecting Every Visitor, Every Purpose.
+                
+                Services available 24/7 round the Globe for the convenience of visitors all kinds and all purposes. National and international visitors can get customized tailor-based services according to their needs and demands. They can plan and book their trip before starting their journey to Islamabad.
+                
+                Our AI-based services provide full guidance and support, and our AI agents do each and every task:
+                - Transportation (Metro Bus PKR 50, inDrive/Yango cabs, private chauffeur sedans, 4x4 mountain SUVs).
+                - Hotel or feasible staying facilities (patient guest houses, court chambers stays, student hostels, boutique stays, 5-star suites).
+                - All information about shopping (Centaurus Mall, Giga Mall, F-6 Super Market, F-7 Jinnah Super, Raja Bazaar).
+                - Dining & cuisine (Melody Food Park, Saidpur Village, Monal / Margalla Hills, Blue Area).
+                - Any type of service needed: medical consultations (Shifa, PIMS, Maroof, Kulsum), Supreme Court or High Court proceedings, university entrance examinations (NUST, FAST, QAU, COMSATS, Air Univ), business & shopping, sightseeing, or travelling onward to the majestic Northern Areas (Murree, Nathia Gali, Kaghan, Swat, Hunza).
+                
+                We make this as easy as possible for the best experience of visitors. Visitors can book or plan their visit in minutes by just asking you, their live AI agent!
+                Provide clear, warm, structured itineraries and transparent pricing in both PKR and USD.
             """.trimIndent()
 
             AgentType.HEALTH_MEDICAL -> """
@@ -275,18 +324,64 @@ class GeminiAgentService {
                     • **Islamabad High Court (IHC):** Sector G-10 modern judicial complex.
                       - *Access:* Srinagar Highway access. Law chambers and affordable guest houses located in G-10 and G-11 Markaz.
                     """.trimIndent()
+                } else if (lower.contains("shopping") || lower.contains("mall") || lower.contains("centaurus") || lower.contains("market") || lower.contains("bazaar")) {
+                    """
+                    🛍️ **Shopping & Bazaars in Islamabad:**
+                    
+                    • **Luxury Malls:**
+                      - *Centaurus Mall (Sector F-8/4):* Multi-storey premier mall with international brands, cineplex, and food court.
+                      - *Giga Mall (DHA Phase 2):* Enormous hypermarket, clothing brands, and indoor entertainment.
+                      - *Safa Gold Mall (Sector F-7):* Luxury boutiques, fitness center, and rooftop dining.
+                    
+                    • **Historic Sector Bazaars:**
+                      - *Jinnah Super Market (F-7 Markaz):* Designer fashion, bookshops, cafes, and leather goods.
+                      - *Super Market (F-6 Markaz):* Traditional artisan carpets, antique shawls, and international groceries.
+                      - *Raja Bazaar (Rawalpindi):* Historic wholesale bazaar for fabrics, jewelry, spices, and brass antiques.
+                    
+                    🚗 Ask our live AI agent to book a private shopping chauffeur car (PKR 4,500)!
+                    """.trimIndent()
+                } else if (lower.contains("dining") || lower.contains("food") || lower.contains("restaurant") || lower.contains("dinner") || lower.contains("cafe")) {
+                    """
+                    🍽️ **Dining & Food Guide for Islamabad Visitors:**
+                    
+                    • **Iconic Dining Experiences:**
+                      - *Monal & La Montana (Pir Sohawa):* Clifftop dining 3,500 ft above the city lights of Islamabad.
+                      - *Saidpur Village:* Historic heritage foothills village with Des Pardes, andaaz, and traditional kebabs.
+                      - *Melody Food Street (Sector G-6):* Sizzling street food, Chapli Kabab, Shinwari BBQ, and Falooda.
+                      - *Beverly Centre & Kohsar Market (F-6):* High-end Italian bistros, artisanal coffee, and gourmet steakhouses.
+                    
+                    💡 Ask our live AI agent to arrange transport and reservations!
+                    """.trimIndent()
+                } else if (lower.contains("exam") || lower.contains("test") || lower.contains("nust") || lower.contains("university") || lower.contains("admission")) {
+                    """
+                    🎓 **University Entrance Examinations & Student Guide:**
+                    
+                    • **Top Universities:** NUST (H-12), FAST-NUCES (H-9), Quaid-i-Azam University (QAU), COMSATS, Air University.
+                    • **Test Logistics:** Direct Metro Bus access (Orange Line to NUST, Red Line to FAST).
+                    • **Safe Hostels:** Verified student rooms in H-9, I-8, and G-8 from PKR 2,000/night with quiet study rooms and generator backup.
+                    """.trimIndent()
                 } else {
                     """
-                    🌟 **Welcome to Visit Islamabad!**
-                    *A gateway to the visitors of all types and for all purposes.*
+                    🌟 **VISIT ISLAMABAD**
+                    *(About the forum and purpose of that AI based services providing web app.)*
                     
-                    1. **For Patients & Healthcare:** 24/7 assistance for Shifa, PIMS, Maroof, and patient guest houses.
-                    2. **For Legal & Official Affairs:** Supreme Court, High Court (G-10), and Diplomatic Enclave (Visa interviews).
-                    3. **For Students & Academics:** NUST, FAST, QAU, COMSATS, admission test routes and student hostels.
-                    4. **For Shoppers & Families:** Centaurus Mall, Giga Mall, Jinnah Super F-7, and Melody Food Street.
-                    5. **For Tourists & Northern Travelers:** Faisal Mosque, Margalla viewpoints, Murree, Nathia Gali, Kaghan & Hunza.
+                    • A welcoming gateway for visitors of every kind, serving every purpose.
+                    • A distinguished gateway, welcoming visitors from every walk of life and serving every purpose.
+                    • A Gateway to Every Visitor, Every Purpose, Every Experience.
+                    • Your Gateway to Islamabad — Connecting Every Visitor, Every Purpose.
                     
-                    🚗 **Transport for Every Wallet:** Metro Bus (PKR 50), inDrive/Yango cabs, or luxury 4x4 Prado rentals.
+                    🌍 **24/7 Global Services:**
+                    Services available 24/7 round the Globe for the convenience of visitors all kinds and all purposes. National and international visitors can get customized tailor-based services according to their needs and demands. Can plan and book their trip before starting their journey to Islamabad.
+                    
+                    🤖 **Our AI Based Services & Live Agents:**
+                    Our AI based services provide full guidance and support, and our AI agents do each and every task:
+                    - Transportation (Metro Bus, inDrive/Yango, private chauffeurs, 4x4 mountain fleet).
+                    - Hotel or feasible staying facilities (patient guest houses, student hostels, boutique stays, 5-star suites).
+                    - All information about shopping, dining, or any type of service needed.
+                    We have made this as easy as we can for the best experience of visitors. You can book or plan your visit by just asking our live AI agent and it is done in minutes!
+                    
+                    📍 **Serving Every Purpose:**
+                    Whether you are visiting Islamabad for medical consultations, Supreme Court or High Court proceedings, university entrance examinations, business and shopping, sightseeing, or travelling onward to the majestic Northern Areas, we make your stay seamless from arrival to departure.
                     """.trimIndent()
                 }
             }

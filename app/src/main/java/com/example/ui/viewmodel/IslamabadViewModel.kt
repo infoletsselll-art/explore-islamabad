@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,6 +32,7 @@ import com.example.model.TravelService
 import com.example.model.VisitorPurpose
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -83,6 +88,12 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     private val _bookingTargetService = MutableStateFlow<TravelService?>(null)
     val bookingTargetService: StateFlow<TravelService?> = _bookingTargetService.asStateFlow()
 
+    private val _showAboutDialog = MutableStateFlow(false)
+    val showAboutDialog: StateFlow<Boolean> = _showAboutDialog.asStateFlow()
+
+    fun openAboutDialog() { _showAboutDialog.value = true }
+    fun closeAboutDialog() { _showAboutDialog.value = false }
+
     // Active AI Agent & Chat State
     private val _activeAgent = MutableStateFlow(AgentType.ALL_PURPOSE_CONCIERGE)
     val activeAgent: StateFlow<AgentType> = _activeAgent.asStateFlow()
@@ -97,6 +108,16 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     val isSpeakingAudio: StateFlow<Boolean> = _isSpeakingAudio.asStateFlow()
 
     private var textToSpeechEngine: TextToSpeech? = null
+    private var speechRecognizer: SpeechRecognizer? = null
+
+    private val _isListeningVoice = MutableStateFlow(false)
+    val isListeningVoice: StateFlow<Boolean> = _isListeningVoice.asStateFlow()
+
+    private val _voiceRmsDb = MutableStateFlow(0f)
+    val voiceRmsDb: StateFlow<Float> = _voiceRmsDb.asStateFlow()
+
+    private val _liveVoiceTranscript = MutableStateFlow("")
+    val liveVoiceTranscript: StateFlow<String> = _liveVoiceTranscript.asStateFlow()
 
     private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
     val messages: StateFlow<List<ChatMessage>> = _messages.asStateFlow()
@@ -227,6 +248,8 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
     override fun onCleared() {
         super.onCleared()
         try {
+            speechRecognizer?.destroy()
+            speechRecognizer = null
             textToSpeechEngine?.stop()
             textToSpeechEngine?.shutdown()
         } catch (e: Throwable) {}
@@ -237,6 +260,79 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         _userMessageToast.value = "Active Model: ${complexity.title}"
     }
 
+    fun startListeningVoice() {
+        viewModelScope.launch(Dispatchers.Main) {
+            try {
+                stopSpeaking()
+                if (!SpeechRecognizer.isRecognitionAvailable(getApplication())) {
+                    _userMessageToast.value = "Speech recognition unavailable. Tap a voice prompt below!"
+                    return@launch
+                }
+                speechRecognizer?.destroy()
+                speechRecognizer = SpeechRecognizer.createSpeechRecognizer(getApplication()).apply {
+                    setRecognitionListener(object : RecognitionListener {
+                        override fun onReadyForSpeech(params: Bundle?) {
+                            _isListeningVoice.value = true
+                            _liveVoiceTranscript.value = "Listening... Speak your request"
+                        }
+                        override fun onBeginningOfSpeech() {
+                            _liveVoiceTranscript.value = "Recording voice input..."
+                        }
+                        override fun onRmsChanged(rmsdB: Float) {
+                            _voiceRmsDb.value = (rmsdB / 2f).coerceIn(0f, 10f)
+                        }
+                        override fun onBufferReceived(buffer: ByteArray?) {}
+                        override fun onEndOfSpeech() {
+                            _isListeningVoice.value = false
+                            _liveVoiceTranscript.value = "Processing with Gemini 3.8 Live API..."
+                        }
+                        override fun onError(error: Int) {
+                            _isListeningVoice.value = false
+                            _voiceRmsDb.value = 0f
+                        }
+                        override fun onResults(results: Bundle?) {
+                            _isListeningVoice.value = false
+                            _voiceRmsDb.value = 0f
+                            val matches = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                            val text = matches?.firstOrNull()?.trim()
+                            if (!text.isNullOrBlank()) {
+                                _liveVoiceTranscript.value = text
+                                sendMessage(text, overrideComplexity = AiTaskComplexity.LIVE_VOICE_CONVERSATION)
+                            }
+                        }
+                        override fun onPartialResults(partialResults: Bundle?) {
+                            val matches = partialResults?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                            matches?.firstOrNull()?.let {
+                                _liveVoiceTranscript.value = it
+                            }
+                        }
+                        override fun onEvent(eventType: Int, params: Bundle?) {}
+                    })
+                }
+                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+                    putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+                }
+                speechRecognizer?.startListening(intent)
+                _isListeningVoice.value = true
+            } catch (e: Exception) {
+                _isListeningVoice.value = false
+                _userMessageToast.value = "Voice input error: ${e.message}"
+            }
+        }
+    }
+
+    fun stopListeningVoice() {
+        viewModelScope.launch(Dispatchers.Main) {
+            try {
+                speechRecognizer?.stopListening()
+                _isListeningVoice.value = false
+                _voiceRmsDb.value = 0f
+            } catch (e: Exception) {}
+        }
+    }
+
     fun toggleLiveVoice() {
         val newState = !_isLiveVoiceActive.value
         _isLiveVoiceActive.value = newState
@@ -244,7 +340,9 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
             _selectedComplexity.value = AiTaskComplexity.LIVE_VOICE_CONVERSATION
             _userMessageToast.value = "Gemini 3.8 Live (Live API) voice conversation activated."
             speakText("Gemini 3.8 Live conversation active. How can I assist your visit to Islamabad?")
+            startListeningVoice()
         } else {
+            stopListeningVoice()
             stopSpeaking()
             _selectedComplexity.value = AiTaskComplexity.GENERAL_CHAT
             _userMessageToast.value = "Live voice conversation deactivated."
@@ -472,6 +570,26 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
         setAgent(targetAgent)
         selectTab(1) // Switch to AI Agents chat
         sendMessage("Tell me about visiting ${destination.name} (${destination.category}) in ${destination.locationSector}. What are key tips, metro bus access, and advice?")
+    }
+
+    fun askLiveAgentToPlanAndBookTask(taskCategory: String, promptDetails: String) {
+        val targetAgent = when {
+            taskCategory.contains("Medical", ignoreCase = true) || promptDetails.contains("hospital", ignoreCase = true) || promptDetails.contains("medical", ignoreCase = true) -> AgentType.HEALTH_MEDICAL
+            taskCategory.contains("Court", ignoreCase = true) || promptDetails.contains("court", ignoreCase = true) || promptDetails.contains("legal", ignoreCase = true) -> AgentType.COURTS_OFFICIAL
+            taskCategory.contains("Exam", ignoreCase = true) || promptDetails.contains("university", ignoreCase = true) || promptDetails.contains("student", ignoreCase = true) -> AgentType.STUDY_ACADEMICS
+            taskCategory.contains("Transport", ignoreCase = true) || promptDetails.contains("metro", ignoreCase = true) || promptDetails.contains("cab", ignoreCase = true) -> AgentType.TRANSIT_BUDGET
+            taskCategory.contains("Northern", ignoreCase = true) || promptDetails.contains("murree", ignoreCase = true) || promptDetails.contains("nathia", ignoreCase = true) -> AgentType.NORTHERN_GATEWAY
+            else -> AgentType.ALL_PURPOSE_CONCIERGE
+        }
+        setAgent(targetAgent)
+        selectTab(1) // Move to AI Agents Live Chat
+        sendMessage(promptDetails)
+        _userMessageToast.value = "Consulting ${targetAgent.title} Live AI Agent..."
+    }
+
+    fun askLiveAgentForService(service: TravelService) {
+        val prompt = "Hello! I want to plan and book '${service.title}' (${service.category}). The stated rate is PKR ${"%,d".format(service.pricePkr)} ($${service.priceUsd}) ${service.priceUnit}. Please provide complete guidance, customize this service for my visit, and help me finalize transportation and hotel staying facilities."
+        askLiveAgentToPlanAndBookTask(service.category, prompt)
     }
 
     fun sendMessage(userText: String, overrideComplexity: AiTaskComplexity? = null) {

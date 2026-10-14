@@ -27,7 +27,7 @@
     ],
     "rewrites": [
       {
-        "source": "!**/*.@(apk|jpg|jpeg|png|gif|svg|webp|js|css|json|ico|xml|txt)",
+        "source": "**",
         "destination": "/index.html"
       }
     ],

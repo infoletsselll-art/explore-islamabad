@@ -3,29 +3,64 @@
 # Visit Islamabad - Cloudflare Pages Deployment Script
 # ==============================================================================
 # Usage:
-#   1. Using Wrangler CLI: ./deploy-cloudflare.sh
-#   2. Or drag-and-drop cloudflare_pages_deploy.zip into Cloudflare Pages Dashboard
+#   Option 1 (Automated with API token):
+#     export CLOUDFLARE_API_TOKEN="your-token"
+#     ./deploy-cloudflare.sh
+#
+#   Option 2 (Direct Web Upload - 100% Free & Zero Config):
+#     Simply drag and drop 'cloudflare_pages_deploy.zip' at:
+#     https://dash.cloudflare.com/?to=/:account/pages
 # ==============================================================================
 
 set -e
 
 echo "=========================================================="
-echo "  🚀 Packaging & Deploying Visit Islamabad to Cloudflare Pages"
+echo "  🚀 Packaging Visit Islamabad for Cloudflare Pages"
 echo "=========================================================="
 
-# Ensure ZIP package is up to date
-zip -u -r cloudflare_pages_deploy.zip public/
+# 1. Ensure latest APK is in public directory
+if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
+    echo "Syncing latest compiled APK (12.9 MB) to public/..."
+    cp -f app/build/outputs/apk/debug/app-debug.apk public/visit-islamabad.apk
+    cp -f app/build/outputs/apk/debug/app-debug.apk visit-islamabad.apk
+fi
 
-# If wrangler is installed, deploy directly
-if command -v wrangler &> /dev/null || npx wrangler --version &> /dev/null; then
-    echo "Deploying via Cloudflare Wrangler..."
-    npx wrangler pages deploy public --project-name=visitislamabad
+# 2. Sync index.html, headers, and redirects
+cp -f index.html public/index.html
+cp -f _headers public/_headers
+cp -f _redirects public/_redirects
+
+# 3. Build pristine cloudflare_pages_deploy.zip with root-level assets
+echo "Creating cloudflare_pages_deploy.zip..."
+rm -f cloudflare_pages_deploy.zip
+(cd public && zip -q -r ../cloudflare_pages_deploy.zip . -x ".*" -x "__MACOSX*")
+
+ZIP_SIZE=$(du -h cloudflare_pages_deploy.zip | cut -f1)
+echo "✅ Package created: cloudflare_pages_deploy.zip ($ZIP_SIZE)"
+
+# 4. Attempt deployment via Wrangler if API token or credentials are available
+if [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+    echo "🔑 Cloudflare API token detected. Deploying via Wrangler..."
+    npx wrangler pages deploy public --project-name=visitislamabad --commit-dirty=true
+elif [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+    echo "🔑 Cloudflare Account detected. Deploying via Wrangler..."
+    npx wrangler pages deploy public --project-name=visitislamabad --commit-dirty=true
 else
-    echo "Wrangler CLI not found."
-    echo "👉 You can upload cloudflare_pages_deploy.zip directly at:"
-    echo "   https://dash.cloudflare.com/?to=/:account/pages"
+    echo "----------------------------------------------------------"
+    echo "ℹ️  Cloudflare Credentials Notice:"
+    echo "   To deploy automatically via terminal:"
+    echo "     export CLOUDFLARE_API_TOKEN=\"your-api-token\""
+    echo "     npx wrangler pages deploy public --project-name=visitislamabad"
+    echo ""
+    echo "👉 Direct Drag-and-Drop Deployment (Recommended & Instant):"
+    echo "   1. Open Cloudflare Pages: https://dash.cloudflare.com/?to=/:account/pages"
+    echo "   2. Click 'Create application' -> 'Pages' -> 'Upload assets'"
+    echo "   3. Project name: visitislamabad"
+    echo "   4. Drag and drop 'cloudflare_pages_deploy.zip'"
+    echo "   5. Click 'Deploy site' — your website goes live immediately!"
+    echo "----------------------------------------------------------"
 fi
 
 echo "=========================================================="
-echo "  ✅ Cloudflare Pages Deployment Ready!"
+echo "  🎉 Cloudflare Pages Deployment Package Ready!"
 echo "=========================================================="
