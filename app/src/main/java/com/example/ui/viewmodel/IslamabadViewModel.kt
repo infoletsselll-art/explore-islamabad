@@ -787,7 +787,7 @@ class IslamabadViewModel(application: Application) : AndroidViewModel(applicatio
             
             🌐 Official Web: ${OfficialContacts.WEBPAGE_URL}
             📧 Email: ${OfficialContacts.OFFICIAL_EMAIL}
-            📱 Hotline / WhatsApp / Telegram: ${OfficialContacts.OFFICIAL_PHONE}
+            📱 Hotline / WhatsApp / Telegram / Text: ${OfficialContacts.OFFICIAL_PHONE_INTL} (${OfficialContacts.OFFICIAL_PHONE})
             _Booked via ${OfficialContacts.APP_NAME} 24/7 AI Desk_
         """.trimIndent()
 

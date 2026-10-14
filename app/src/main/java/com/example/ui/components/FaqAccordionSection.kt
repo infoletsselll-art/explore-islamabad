@@ -125,8 +125,8 @@ fun FaqAccordionSection(
                     "inDrive & Yango: Available 24/7 at International & Domestic arrival lanes",
                     "Dedicated Chauffeur: Pre-booked executive pickup with round-the-clock greeting"
                 ),
-                actionButtonText = "Call Airport Desk (0345-7059286)",
-                actionIntentUrl = "tel:+923457059286"
+                actionButtonText = "Call Airport Desk (0343-0673404)",
+                actionIntentUrl = "tel:+923430673404"
             ),
             FaqItem(
                 id = "faq_logistics_northern",
@@ -140,7 +140,7 @@ fun FaqAccordionSection(
                     "Mountain Fleet: Inspected 4x4 vehicles with high-altitude licensed drivers"
                 ),
                 actionButtonText = "Chat on WhatsApp for 4x4 Fleet",
-                actionIntentUrl = "https://wa.me/923457059286?text=Hello!%20I%20need%204x4%20transport%20for%20Northern%20Areas."
+                actionIntentUrl = "https://wa.me/923430673404?text=Hello!%20I%20need%204x4%20transport%20for%20Northern%20Areas."
             ),
 
             // --- 2. Visa & Consular Assistance ---
@@ -202,7 +202,7 @@ fun FaqAccordionSection(
                     "24/7 Pharmacy Hubs: Shaheen Chemist, D.Watson & Clinix in Blue Area and F-10"
                 ),
                 actionButtonText = "Call Patient Coordinator",
-                actionIntentUrl = "tel:+923457059286"
+                actionIntentUrl = "tel:+923430673404"
             ),
 
             // --- 4. General Support ---
@@ -211,14 +211,14 @@ fun FaqAccordionSection(
                 question = "How does the Visit Islamabad 24/7 Concierge and helpline assist visitors?",
                 category = "General Support",
                 icon = Icons.AutoMirrored.Filled.HelpOutline,
-                answer = "Visit Islamabad connects visitors with round-the-clock telephone and WhatsApp guidance at 0345 7059286 (+92 345 7059286), multi-agent AI assistants, customized itinerary architects, and verified transit/hotel partners. Travelers can also share inquiries via WhatsApp or use the web platform at visitislamabad.web.app.",
+                answer = "Visit Islamabad connects visitors with round-the-clock telephone and WhatsApp guidance at 0343 0673404 (+92 343 0673404), multi-agent AI assistants, customized itinerary architects, and verified transit/hotel partners. Travelers can also share inquiries via WhatsApp or use the web platform at visitislamabad.web.app.",
                 keyPoints = listOf(
-                    "Official Concierge Hotline: 0345 7059286 (Call, WhatsApp & Telegram)",
+                    "Official Concierge Hotline: 0343 0673404 (Call, WhatsApp, Telegram & Direct Text)",
                     "Official Email: info.visitislamabad@gmail.com",
                     "Live Web Platform: https://visitislamabad.web.app/"
                 ),
                 actionButtonText = "Open WhatsApp Helpline",
-                actionIntentUrl = "https://wa.me/923457059286?text=Hello%20Visit%20Islamabad!%20I%20have%20an%20inquiry."
+                actionIntentUrl = "https://wa.me/923430673404?text=Hello%20Visit%20Islamabad!%20I%20have%20an%20inquiry."
             )
         )
     }

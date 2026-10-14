@@ -3,9 +3,10 @@
 
 **Live Website & Web App:** [https://visitislamabad.web.app/](https://visitislamabad.web.app/)  
 **Direct Android APK Download:** [https://visitislamabad.web.app/visit-islamabad.apk](https://visitislamabad.web.app/visit-islamabad.apk)  
-**24/7 Helpline & WhatsApp:** [+92 345 7059286](https://wa.me/923457059286)  
+**24/7 Helpline, WhatsApp, Telegram & Direct Text:** [+92 343 0673404](https://wa.me/923430673404) | Direct Call: 0343 0673404  
 **Official Email:** [info.visitislamabad@gmail.com](mailto:info.visitislamabad@gmail.com)  
-**Official Socials:** `@visitislamabad` (Instagram, Facebook, X, YouTube, TikTok, LinkedIn, Telegram)
+**Official Telegram:** [https://t.me/+923430673404](https://t.me/+923430673404)  
+**Official Socials:** `@visitislamabad` (Instagram, Facebook, X, YouTube, TikTok, LinkedIn)
 
 ---
 

@@ -73,6 +73,8 @@ import com.example.ui.components.FaqAccordionSection
 import com.example.ui.components.PurposeSelectionColumn
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.ui.platform.LocalContext
+import android.content.Intent
+import android.net.Uri
 
 @Composable
 fun ExploreScreen(viewModel: IslamabadViewModel) {
@@ -108,6 +110,54 @@ fun ExploreScreen(viewModel: IslamabadViewModel) {
             HeroHeader(
                 onConsultAgents = { viewModel.selectTab(1) },
                 onPlanVisit = { viewModel.selectTab(3) }
+            )
+        }
+
+        // Single-Line Quick Access Toolbar (Clickable Icons for all Info & Services)
+        item {
+            SingleLineServicesToolbar(
+                onCallHelpline = {
+                    try {
+                        context.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:+923430673404")))
+                    } catch (_: Exception) {}
+                },
+                onOpenWhatsApp = {
+                    try {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20need%20assistance.")))
+                    } catch (_: Exception) {}
+                },
+                onOpenTelegram = {
+                    try {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/+923430673404")))
+                    } catch (_: Exception) {}
+                },
+                onOpenDirectText = {
+                    try {
+                        context.startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:+923430673404")).apply {
+                            putExtra("sms_body", "Hi Visit Islamabad! I need assistance.")
+                        })
+                    } catch (_: Exception) {}
+                },
+                onOpenEmail = {
+                    try {
+                        context.startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:info.visitislamabad@gmail.com")))
+                    } catch (_: Exception) {}
+                },
+                onOpenMaps = {
+                    try {
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/dir/?api=1&destination=Faisal+Mosque+Islamabad")))
+                    } catch (_: Exception) {}
+                },
+                onLiveAi = { viewModel.selectTab(1) },
+                onRides = { viewModel.selectTab(2) },
+                onHotels = { viewModel.selectTab(2) },
+                onNorthernDeals = { viewModel.navigateToNorthernDealsTab() },
+                onEmergency = {
+                    try {
+                        context.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:1122")))
+                    } catch (_: Exception) {}
+                },
+                onRewards = { viewModel.navigateToLoyaltyTab() }
             )
         }
 
@@ -1196,5 +1246,175 @@ fun ChannelsAndForumsHomeSection(
         }
     }
 }
+
+@Composable
+fun SingleLineServicesToolbar(
+    onCallHelpline: () -> Unit,
+    onOpenWhatsApp: () -> Unit,
+    onOpenTelegram: () -> Unit,
+    onOpenDirectText: () -> Unit,
+    onOpenEmail: () -> Unit,
+    onOpenMaps: () -> Unit,
+    onLiveAi: () -> Unit,
+    onRides: () -> Unit,
+    onHotels: () -> Unit,
+    onNorthernDeals: () -> Unit,
+    onEmergency: () -> Unit,
+    onRewards: () -> Unit
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.65f),
+        shape = RoundedCornerShape(999.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, PinePrimary.copy(alpha = 0.35f)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 14.dp, vertical = 6.dp)
+            .testTag("single_line_services_toolbar")
+    ) {
+        LazyRow(
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            item {
+                ToolbarIconPill(
+                    icon = "📞",
+                    label = "Helpline",
+                    badge = "24/7",
+                    badgeColor = PinePrimary,
+                    onClick = onCallHelpline
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "💬",
+                    label = "WhatsApp",
+                    onClick = onOpenWhatsApp
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "✈️",
+                    label = "Telegram",
+                    onClick = onOpenTelegram
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "📱",
+                    label = "Direct Text",
+                    onClick = onOpenDirectText
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "✉️",
+                    label = "Email",
+                    onClick = onOpenEmail
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "🗺️",
+                    label = "Maps GPS",
+                    onClick = onOpenMaps
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "🎙️",
+                    label = "Live AI",
+                    badge = "AI",
+                    badgeColor = Color(0xFF38BDF8),
+                    onClick = onLiveAi
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "🚗",
+                    label = "Rides & 4x4",
+                    onClick = onRides
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "🏨",
+                    label = "Hotels",
+                    onClick = onHotels
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "🏔️",
+                    label = "Northern",
+                    onClick = onNorthernDeals
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "🆘",
+                    label = "Rescue 1122",
+                    badge = "SOS",
+                    badgeColor = Color(0xFFEF4444),
+                    onClick = onEmergency
+                )
+            }
+            item {
+                ToolbarIconPill(
+                    icon = "🎁",
+                    label = "Rewards",
+                    badge = "PKR 1.5K",
+                    badgeColor = WarmGold,
+                    onClick = onRewards
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ToolbarIconPill(
+    icon: String,
+    label: String,
+    badge: String? = null,
+    badgeColor: Color = PinePrimary,
+    onClick: () -> Unit
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.surface,
+        shape = RoundedCornerShape(999.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
+        modifier = Modifier.clickable(onClick = onClick)
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            Text(text = icon, fontSize = 14.sp)
+            Text(
+                text = label,
+                fontSize = 11.5.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            if (badge != null) {
+                Surface(
+                    color = badgeColor.copy(alpha = 0.2f),
+                    shape = RoundedCornerShape(999.dp)
+                ) {
+                    Text(
+                        text = badge,
+                        fontSize = 8.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = badgeColor,
+                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
 
 

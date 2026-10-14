@@ -140,7 +140,7 @@ fun IslamabadAIApp(viewModel: IslamabadViewModel = viewModel()) {
                                 color = Color.White
                             )
                             Text(
-                                text = "24/7 Concierge: ${com.example.model.OfficialContacts.OFFICIAL_PHONE}",
+                                text = "24/7 Concierge: ${com.example.model.OfficialContacts.OFFICIAL_PHONE_DISPLAY}",
                                 fontSize = 10.sp,
                                 color = Color.White.copy(alpha = 0.9f),
                                 fontWeight = FontWeight.Medium

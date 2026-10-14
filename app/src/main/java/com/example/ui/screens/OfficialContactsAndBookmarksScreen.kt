@@ -560,8 +560,8 @@ fun OfficialContactsAndForumsContent(
                     )
                     ContactDetailRow(
                         icon = Icons.Default.Phone,
-                        label = "Official Cell / WhatsApp / Telegram",
-                        value = "${OfficialContacts.OFFICIAL_PHONE} (${OfficialContacts.OFFICIAL_PHONE_INTL})"
+                        label = "Official Cell / WhatsApp / Telegram / Direct Text",
+                        value = "${OfficialContacts.OFFICIAL_PHONE_DISPLAY} (${OfficialContacts.OFFICIAL_PHONE_INTL})"
                     )
                 }
             }

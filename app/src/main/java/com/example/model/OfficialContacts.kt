@@ -28,8 +28,11 @@ object OfficialContacts {
     const val WEBPAGE_URL = "https://visitislamabad.web.app"
     const val CUSTOM_DOMAIN = "visitislamabad.com"
     const val OFFICIAL_EMAIL = "info.visitislamabad@gmail.com"
-    const val OFFICIAL_PHONE = "03457059286"
-    const val OFFICIAL_PHONE_INTL = "+923457059286"
+    const val OFFICIAL_PHONE = "03430673404"
+    const val OFFICIAL_PHONE_INTL = "+923430673404"
+    const val OFFICIAL_PHONE_DISPLAY = "0343 0673404"
+    const val OFFICIAL_WHATSAPP = "+923430673404"
+    const val OFFICIAL_TELEGRAM = "https://t.me/+923430673404"
     const val SUPPORT_HOURS = "24/7 AI Automation & All-Purpose Visitor Support"
     const val TAGLINE = "A welcoming gateway for visitors of every kind, serving every purpose."
 }

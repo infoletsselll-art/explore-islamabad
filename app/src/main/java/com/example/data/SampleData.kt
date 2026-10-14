@@ -768,17 +768,17 @@ object SampleData {
             category = "Instant Messaging",
             description = "Connect directly with our 24/7 visitor concierge on WhatsApp. Get instant quotes, hotel bookings, and transit assistance.",
             actionType = ActionType.OPEN_WHATSAPP,
-            actionUrl = "https://wa.me/923457059286?text=Hi%20Islamabad%20Gateway!%20I%20am%20planning%20a%20visit%20to%20Islamabad%20and%20need%20assistance.",
+            actionUrl = "https://wa.me/923430673404?text=Hi%20Islamabad%20Gateway!%20I%20am%20planning%20a%20visit%20to%20Islamabad%20and%20need%20assistance.",
             isPrimarySupport = true
         ),
         SocialForum(
             id = "telegram",
             name = "Telegram Channel & Bot",
-            handleOrTarget = "@islamabadgateway",
+            handleOrTarget = "+923430673404",
             category = "Instant Messaging",
             description = "Instant Telegram support for domestic and international travelers. Live agent inquiries and booking dispatch.",
             actionType = ActionType.OPEN_TELEGRAM,
-            actionUrl = "https://t.me/+923457059286",
+            actionUrl = "https://t.me/+923430673404",
             isPrimarySupport = true
         ),
         SocialForum(
