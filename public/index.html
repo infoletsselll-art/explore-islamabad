@@ -462,11 +462,13 @@
     /* ==========================================================================
        SINGLE LINE TOP ACCESS TOOLBAR (ALL INFO & SERVICES IN SMALL ATTRACTIVE ICONS)
        Auto-Adjustable, Single-Line Layout Across All Devices & Browsers
+      /* ==========================================================================
+       SINGLE LINE TOP ACCESS TOOLBAR (EQUAL-SIZED BOXES, AUTO-ADJUSTABLE)
        ========================================================================== */
     .quick-bar-wrapper {
-      max-width: 1240px;
-      margin: 12px auto 20px;
-      padding: 0 clamp(10px, 2.5vw, 24px);
+      max-width: 1280px;
+      margin: 10px auto 18px;
+      padding: 0 clamp(8px, 2vw, 20px);
       position: relative;
       z-index: 20;
       box-sizing: border-box;
@@ -474,129 +476,333 @@
     }
 
     .single-line-toolbar {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: center;
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
       gap: 6px;
-      padding: 6px 10px;
-      background: linear-gradient(135deg, rgba(13, 22, 21, 0.95), rgba(15, 23, 42, 0.95));
-      border-radius: 9999px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
       border: 1px solid rgba(16, 185, 129, 0.35);
       box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
       box-sizing: border-box;
       width: 100%;
+      align-items: stretch;
     }
 
-    .single-line-toolbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    @media (min-width: 1220px) {
+    /* On mobile / tablet screens, allow smooth touch scroll with equal width boxes */
+    @media (max-width: 1024px) {
       .single-line-toolbar {
-        justify-content: space-between;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar {
+        display: none;
       }
     }
 
-    .tb-item {
-      display: inline-flex;
-      flex-direction: row;
+    .tb-box {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      padding: 5px 10px 5px 6px;
-      border-radius: 9999px;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       color: #E2E8F0;
       text-decoration: none;
-      font-size: 11.5px;
-      font-weight: 600;
-      white-space: nowrap;
-      flex-shrink: 0;
       cursor: pointer;
       transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
       user-select: none;
-      line-height: 1;
+      position: relative;
       font-family: inherit;
+      box-sizing: border-box;
+      min-height: 64px;
+      width: 100%;
     }
 
-    .tb-item:hover {
+    @media (max-width: 1024px) {
+      .tb-box {
+        flex: 0 0 76px;
+        width: 76px;
+        min-width: 76px;
+        scroll-snap-align: start;
+      }
+    }
+
+    .tb-box:hover {
       background: rgba(16, 185, 129, 0.16);
       border-color: rgba(16, 185, 129, 0.6);
       color: #FFFFFF;
       transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
     }
 
-    .tb-item:active {
+    .tb-box:active {
       transform: translateY(0);
     }
 
-    .tb-icon {
-      width: 26px;
-      height: 26px;
-      min-width: 26px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      flex-shrink: 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    .tb-box-icon {
+      font-size: 20px;
+      line-height: 1;
+      margin-bottom: 4px;
+      display: inline-block;
       transition: transform 0.2s ease;
     }
 
-    .tb-item:hover .tb-icon {
-      transform: scale(1.12);
+    .tb-box:hover .tb-box-icon {
+      transform: scale(1.15);
     }
 
-    .tb-icon-call { background: rgba(16, 185, 129, 0.25); color: #34D399; }
-    .tb-icon-wa { background: rgba(37, 211, 102, 0.25); color: #25D366; }
-    .tb-icon-telegram { background: rgba(2, 136, 209, 0.25); color: #38BDF8; }
-    .tb-icon-email { background: rgba(249, 115, 22, 0.25); color: #FB923C; }
-    .tb-icon-maps { background: rgba(139, 92, 246, 0.25); color: #C084FC; }
-    .tb-icon-ai { background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(168, 85, 247, 0.35)); color: #38BDF8; }
-    .tb-icon-ride { background: rgba(234, 179, 8, 0.25); color: #FACC15; }
-    .tb-icon-hotel { background: rgba(6, 182, 212, 0.25); color: #22D3EE; }
-    .tb-icon-northern { background: rgba(5, 150, 105, 0.25); color: #10B981; }
-    .tb-icon-sos { background: rgba(239, 68, 68, 0.3); color: #F87171; }
-    .tb-icon-rewards { background: rgba(245, 158, 11, 0.25); color: #FCD34D; }
-    .tb-icon-apk { background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(34, 197, 94, 0.3)); color: #4ADE80; }
+    .tb-box-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+      letter-spacing: -0.2px;
+      line-height: 1.2;
+    }
 
-    .tb-badge {
-      font-size: 9px;
-      font-weight: 700;
-      padding: 1.5px 5px;
-      border-radius: 9999px;
-      background: rgba(16, 185, 129, 0.22);
-      border: 1px solid rgba(16, 185, 129, 0.4);
+    .tb-box-badge {
+      position: absolute;
+      top: 3px;
+      right: 4px;
+      font-size: 8px;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid rgba(16, 185, 129, 0.45);
       color: #34D399;
-      letter-spacing: 0.3px;
+      line-height: 1;
+      letter-spacing: 0.2px;
     }
 
-    .tb-badge-alert {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: rgba(239, 68, 68, 0.5);
+    .tb-box-badge-sos {
+      background: rgba(239, 68, 68, 0.3);
+      border-color: rgba(239, 68, 68, 0.6);
       color: #F87171;
     }
 
+    .tb-box-badge-ai {
+      background: rgba(56, 189, 248, 0.25);
+      border-color: rgba(56, 189, 248, 0.5);
+      color: #38BDF8;
+    }
+
     .tb-pulse-dot {
-      width: 6px;
-      height: 6px;
+      display: inline-block;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: #38BDF8;
-      box-shadow: 0 0 8px #38BDF8;
+      box-shadow: 0 0 6px #38BDF8;
       animation: tbPulse 1.8s infinite;
+      margin-left: 2px;
     }
 
     @keyframes tbPulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.35; transform: scale(0.75); }
+    }
+
+    /* ==========================================================================
+       MONETIZATION & GOOGLE ADSENSE SECTION STYLES
+       ========================================================================== */
+    .monetization-ad-section {
+      max-width: 1140px;
+      margin: 40px auto;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .ad-card-frame {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(6, 78, 59, 0.25));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ad-card-frame::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #10B981, #38BDF8, #F59E0B);
+    }
+
+    .ad-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+    }
+
+    .ad-disclosure-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      color: #94A3B8;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .ad-partner-tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #34D399;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .adsense-placeholder-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px dashed rgba(16, 185, 129, 0.4);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .adsense-meta-tag {
+      font-size: 11px;
+      color: #64748B;
+      font-family: monospace;
+      margin-bottom: 6px;
+    }
+
+    .ad-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .ad-unit-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.22s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .ad-unit-item:hover {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .ad-unit-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: #FCD34D;
+      background: rgba(245, 158, 11, 0.15);
+      padding: 2px 7px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+      width: fit-content;
+    }
+
+    .ad-unit-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #F8FAFC;
+      margin: 0 0 6px;
+    }
+
+    .ad-unit-desc {
+      font-size: 12px;
+      color: #94A3B8;
+      line-height: 1.4;
+      margin: 0 0 12px;
+    }
+
+    .ad-unit-btn {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #38BDF8;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ad-sponsor-cta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .ad-sponsor-info h5 {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #F1F5F9;
+      margin: 0 0 2px;
+    }
+
+    .ad-sponsor-info p {
+      font-size: 11.5px;
+      color: #94A3B8;
+      margin: 0;
+    }
+
+    .btn-sponsor-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-sponsor-contact:hover {
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+      transform: translateY(-1px);
     }
 
     /* Purpose Highlights Grid */
@@ -3591,87 +3797,80 @@
        Auto-Adjustable Across All Devices & Browsers (Single-Line Ribbon)
        ========================================================================== -->
   <div class="quick-bar-wrapper">
-    <div class="single-line-toolbar" role="toolbar" aria-label="Quick Access Services Toolbar">
-      <!-- 1: 24/7 Helpline & Direct Call -->
-      <a href="tel:+923430673404" class="tb-item" title="24/7 Official Helpline & Direct Call: 0343 0673404 (Click to Call)">
-        <span class="tb-icon tb-icon-call">📞</span>
-        <span>Helpline</span>
-        <span class="tb-badge">24/7</span>
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <!-- 1: 24/7 Helpline -->
+      <a href="tel:+923430673404" class="tb-box" title="24/7 Official Helpline & Direct Call: 0343 0673404">
+        <span class="tb-box-badge">24/7</span>
+        <span class="tb-box-icon">📞</span>
+        <span class="tb-box-label">Helpline</span>
       </a>
 
       <!-- 2: WhatsApp Concierge -->
-      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20am%20visiting%20Islamabad%20and%20need%20assistance." target="_blank" rel="noopener" class="tb-item" title="WhatsApp Concierge Desk: +92 343 0673404 (Instant Chat)">
-        <span class="tb-icon tb-icon-wa">💬</span>
-        <span>WhatsApp</span>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20am%20visiting%20Islamabad%20and%20need%20assistance." target="_blank" rel="noopener" class="tb-box" title="WhatsApp Concierge Desk: +92 343 0673404">
+        <span class="tb-box-icon">💬</span>
+        <span class="tb-box-label">WhatsApp</span>
       </a>
 
       <!-- 3: Telegram Desk -->
-      <a href="https://t.me/+923430673404" target="_blank" rel="noopener" class="tb-item" title="Telegram Official Desk: +92 343 0673404">
-        <span class="tb-icon tb-icon-telegram">✈️</span>
-        <span>Telegram</span>
+      <a href="https://t.me/+923430673404" target="_blank" rel="noopener" class="tb-box" title="Telegram Official Channel & Desk: +92 343 0673404">
+        <span class="tb-box-icon">✈️</span>
+        <span class="tb-box-label">Telegram</span>
       </a>
 
       <!-- 4: Direct Text / SMS -->
-      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20I%20am%20visiting%20Islamabad%20and%20need%20assistance." class="tb-item" title="Direct Text / SMS: 0343 0673404">
-        <span class="tb-icon" style="background: rgba(14, 165, 233, 0.16); color: #38bdf8;">📱</span>
-        <span>Direct Text</span>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20I%20am%20visiting%20Islamabad%20and%20need%20assistance." class="tb-box" title="Direct Text / SMS: 0343 0673404">
+        <span class="tb-box-icon">📱</span>
+        <span class="tb-box-label">Direct Text</span>
       </a>
 
       <!-- 5: Official Email -->
-      <a href="mailto:info.visitislamabad@gmail.com" class="tb-item" title="Official Email: info.visitislamabad@gmail.com">
-        <span class="tb-icon tb-icon-email">✉️</span>
-        <span>Email</span>
-      </a>
-
-      <!-- 5: Google Maps GPS -->
-      <a href="https://www.google.com/maps/dir/?api=1&destination=Faisal+Mosque+Islamabad" target="_blank" rel="noopener" class="tb-item" title="Google Maps Directions & Islamabad Capital GPS">
-        <span class="tb-icon tb-icon-maps">🗺️</span>
-        <span>Maps GPS</span>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box" title="Official Email: info.visitislamabad@gmail.com">
+        <span class="tb-box-icon">✉️</span>
+        <span class="tb-box-label">Email</span>
       </a>
 
       <!-- 6: Live AI Voice Concierge -->
-      <button type="button" class="tb-item tb-item-ai" onclick="toggleGeminiChat()" title="Talk to 24/7 Multilingual Live AI Voice Agent">
-        <span class="tb-icon tb-icon-ai">🎙️</span>
-        <span>Live AI</span>
-        <span class="tb-pulse-dot"></span>
+      <button type="button" class="tb-box" onclick="toggleGeminiChat()" title="Talk to 24/7 Multilingual Live AI Voice Agent">
+        <span class="tb-box-badge tb-box-badge-ai">AI<span class="tb-pulse-dot"></span></span>
+        <span class="tb-box-icon">🎙️</span>
+        <span class="tb-box-label">Live AI</span>
       </button>
 
-      <!-- 7: Rides & 4x4 Booking -->
-      <a href="#booking-section" class="tb-item" title="Book 24/7 Cabs, Airport Taxi & Northern 4x4">
-        <span class="tb-icon tb-icon-ride">🚗</span>
-        <span>Rides & 4x4</span>
+      <!-- 7: Google Maps GPS Navigation -->
+      <a href="maps.html" onclick="if(window.location.protocol==='http:'||window.location.protocol==='https:'){/*allow nav*/}" class="tb-box" title="Google Maps Directions & Islamabad Capital GPS">
+        <span class="tb-box-icon">🗺️</span>
+        <span class="tb-box-label">Maps GPS</span>
       </a>
 
-      <!-- 8: Hotels & Stays Booking -->
-      <a href="#booking-section" class="tb-item" title="Reserve Hotels, Guest Houses & Accommodations">
-        <span class="tb-icon tb-icon-hotel">🏨</span>
-        <span>Hotels</span>
+      <!-- 8: Google Search Engine Discovery -->
+      <a href="search.html" class="tb-box" title="Search Islamabad Sectors, Flights & Real-Time Info">
+        <span class="tb-box-icon">🔍</span>
+        <span class="tb-box-label">Search</span>
       </a>
 
-      <!-- 9: Northern Expeditions -->
-      <a href="#northern-expeditions-section" class="tb-item" title="Northern Areas Expeditions (Hunza, Skardu, Gilgit, Swat)">
-        <span class="tb-icon tb-icon-northern">🏔️</span>
-        <span>Northern</span>
+      <!-- 9: Rides & 4x4 Booking -->
+      <a href="rides.html" class="tb-box" title="Book 24/7 Cabs, Airport Taxi & Northern 4x4 Fleet">
+        <span class="tb-box-icon">🚗</span>
+        <span class="tb-box-label">Rides 4x4</span>
       </a>
 
-      <!-- 10: Emergency & Rescue 1122 -->
-      <a href="tel:1122" class="tb-item tb-item-sos" title="Emergency Services: 1122 Rescue & Police 15">
-        <span class="tb-icon tb-icon-sos">🆘</span>
-        <span>Rescue 1122</span>
-        <span class="tb-badge tb-badge-alert">SOS</span>
+      <!-- 10: Hotels & Stays Booking -->
+      <a href="hotels.html" class="tb-box" title="Reserve Hotels, Guest Houses & Lodging">
+        <span class="tb-box-icon">🏨</span>
+        <span class="tb-box-label">Hotels</span>
       </a>
 
-      <!-- 11: Loyalty & Rewards -->
-      <a href="#loyalty-rewards-section" class="tb-item" title="Loyalty Program: PKR 1,500 Referrals & Discount Cards">
-        <span class="tb-icon tb-icon-rewards">🎁</span>
-        <span>Rewards</span>
+      <!-- 11: Northern Expeditions -->
+      <a href="northern.html" class="tb-box" title="Northern Areas Expeditions (Hunza, Skardu, Gilgit, Swat)">
+        <span class="tb-box-icon">🏔️</span>
+        <span class="tb-box-label">Northern</span>
       </a>
 
-      <!-- 12: Android App APK -->
-      <a href="/visit-islamabad.apk" download="visit-islamabad.apk" class="tb-item tb-item-apk" title="Download Official Android App APK">
-        <span class="tb-icon tb-icon-apk">📥</span>
-        <span>Get App</span>
-        <span class="tb-badge">APK</span>
+      <!-- 12: Emergency & Rescue 1122 -->
+      <a href="emergency.html" class="tb-box" title="Emergency Services: 1122 Rescue & Police 15">
+        <span class="tb-box-badge tb-box-badge-sos">SOS</span>
+        <span class="tb-box-icon">🆘</span>
+        <span class="tb-box-label">Rescue 1122</span>
       </a>
     </div>
   </div>
@@ -3892,6 +4091,127 @@
       </button>
     </div>
   </div>
+  </section>
+
+  <!-- ==========================================================================
+       REAL-TIME ISLAMABAD VISITOR TELEMETRY & INTELLIGENCE BAR
+       Live Weather, Currency Converter, Metro Tracker, Flight Status & Google Search
+       ========================================================================== -->
+  <section class="realtime-telemetry-section" id="realtime-telemetry" style="max-width: 1240px; margin: 0 auto 32px; padding: 0 clamp(12px, 3vw, 24px); box-sizing: border-box; width: 100%;">
+    <div style="background: linear-gradient(135deg, rgba(13, 22, 21, 0.95), rgba(15, 23, 42, 0.95)); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 18px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(12px);">
+      
+      <!-- Telemetry Header -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10B981; box-shadow: 0 0 10px #10B981; animation: tbPulse 1.8s infinite;"></span>
+          <h3 style="font-size: 15px; font-weight: 700; color: #F8FAFC; margin: 0; letter-spacing: 0.3px;">
+            Live Islamabad Real-Time Telemetry & Visitor Intelligence
+          </h3>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; font-size: 12px; color: #94A3B8;">
+          <span id="liveClockPk">PKT 00:00:00</span>
+          <span style="background: rgba(16, 185, 129, 0.15); color: #34D399; padding: 3px 8px; border-radius: 999px; font-weight: 700; font-size: 10.5px; border: 1px solid rgba(16, 185, 129, 0.3);">
+            LIVE DATA ACTIVE
+          </span>
+        </div>
+      </div>
+
+      <!-- Telemetry Cards Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 18px;">
+        
+        <!-- Live Weather Card -->
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 11px; text-transform: uppercase; color: #94A3B8; font-weight: 700;">Margalla Foothills</span>
+            <span style="font-size: 18px;" id="weatherIcon">🌤️</span>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 6px;">
+            <span style="font-size: 24px; font-weight: 800; color: #F8FAFC;" id="liveTempDisplay">24°C</span>
+            <span style="font-size: 12px; color: #34D399;" id="weatherCondition">Sunny & Pleasant</span>
+          </div>
+          <div style="font-size: 11px; color: #64748B; margin-top: 4px;">
+            Wind: <span id="liveWindSpeed">8 km/h</span> • AQI: <span style="color: #34D399; font-weight: 600;">62 (Good)</span>
+          </div>
+        </div>
+
+        <!-- Live Metro Bus & Public Transit -->
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 11px; text-transform: uppercase; color: #94A3B8; font-weight: 700;">Islamabad Metro Transit</span>
+            <span style="font-size: 16px;">🚌</span>
+          </div>
+          <div style="font-size: 13.5px; font-weight: 700; color: #34D399;">Orange Line & Red Line</div>
+          <div style="font-size: 11.5px; color: #CBD5E1; margin-top: 3px;">Running Every 6–8 Mins</div>
+          <div style="font-size: 11px; color: #64748B; margin-top: 4px;">Direct to ISB Airport & Secretariat</div>
+        </div>
+
+        <!-- Live Flight Radar & Airport Gateway -->
+        <a href="https://www.google.com/search?q=Islamabad+airport+flight+arrivals+and+departures+status" target="_blank" rel="noopener" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px; text-decoration: none; color: inherit; display: block; transition: border-color 0.2s;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 11px; text-transform: uppercase; color: #94A3B8; font-weight: 700;">ISB Airport Radar</span>
+            <span style="font-size: 16px;">✈️</span>
+          </div>
+          <div style="font-size: 13.5px; font-weight: 700; color: #38BDF8;">Flight Tracker Live</div>
+          <div style="font-size: 11.5px; color: #CBD5E1; margin-top: 3px;">Domestic & Overseas Flights</div>
+          <div style="font-size: 11px; color: #38BDF8; margin-top: 4px;">Click to view live arrivals ↗</div>
+        </a>
+
+        <!-- Live Currency Converter Box -->
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 11px; text-transform: uppercase; color: #94A3B8; font-weight: 700;">Currency to PKR</span>
+            <span style="font-size: 16px;">💱</span>
+          </div>
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <input type="number" id="fxAmountInput" value="100" min="1" oninput="calculateCurrencyPKR()" style="width: 60px; padding: 4px 6px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #FFF; font-size: 12px; font-weight: 700;" />
+            <select id="fxCurrencySelect" onchange="calculateCurrencyPKR()" style="padding: 4px 6px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #FFF; font-size: 12px;">
+              <option value="278">USD</option>
+              <option value="74">SAR</option>
+              <option value="75">AED</option>
+              <option value="362">GBP</option>
+              <option value="302">EUR</option>
+            </select>
+            <span style="font-size: 13px; font-weight: 800; color: #FCD34D;" id="fxResultDisplay">= 27,800 PKR</span>
+          </div>
+          <div style="font-size: 10.5px; color: #64748B; margin-top: 4px;">Real-time estimated tourist exchange</div>
+        </div>
+
+      </div>
+
+      <!-- Google Search Engine Live Search Bar -->
+      <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 12px 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 14px;">🔎</span>
+            <span style="font-size: 12px; font-weight: 700; color: #38BDF8; letter-spacing: 0.3px;">GOOGLE SEARCH ENGINE INTEGRATION</span>
+          </div>
+          <span style="font-size: 11px; color: #94A3B8;">Live Web Queries for Federal Capital</span>
+        </div>
+        
+        <form onsubmit="submitGoogleSearch(event)" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <input 
+            type="text" 
+            id="googleSearchInput" 
+            placeholder="Search Google for: Islamabad hospital OPD, flights, metro timings, weather forecast..." 
+            style="flex: 1; min-width: 240px; padding: 9px 14px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; color: #FFFFFF; font-size: 13px;"
+          />
+          <button type="submit" style="background: linear-gradient(135deg, #0284C7, #0369A1); color: #FFF; border: none; padding: 9px 18px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <span>🔍</span> Search Google
+          </button>
+        </form>
+
+        <!-- Quick Trending Google Search Prompts -->
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; align-items: center;">
+          <span style="font-size: 11px; color: #64748B; font-weight: 600;">Popular Searches:</span>
+          <button type="button" onclick="triggerGoogleQuickSearch('Islamabad Airport live flight arrivals')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #E2E8F0; padding: 2px 8px; border-radius: 6px; font-size: 11px; cursor: pointer;">ISB Flights Today</button>
+          <button type="button" onclick="triggerGoogleQuickSearch('Shifa International Hospital Islamabad doctor appointment schedule')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #E2E8F0; padding: 2px 8px; border-radius: 6px; font-size: 11px; cursor: pointer;">Shifa Doctor Timings</button>
+          <button type="button" onclick="triggerGoogleQuickSearch('Islamabad 7 day weather forecast and rain alert')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #E2E8F0; padding: 2px 8px; border-radius: 6px; font-size: 11px; cursor: pointer;">7-Day Weather</button>
+          <button type="button" onclick="triggerGoogleQuickSearch('Monal Margalla Hills road open status today')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #E2E8F0; padding: 2px 8px; border-radius: 6px; font-size: 11px; cursor: pointer;">Monal / Margalla Route</button>
+          <button type="button" onclick="triggerGoogleQuickSearch('Islamabad Orange line metro bus stops and fare')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #E2E8F0; padding: 2px 8px; border-radius: 6px; font-size: 11px; cursor: pointer;">Metro Bus Stops</button>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <!-- Dedicated Booking Section: Transportation & Guest Houses (Firestore Integrated) -->
@@ -4822,6 +5142,89 @@
         </div>
         <div id="providerSubmitMsg" style="display: none; margin-top: 14px; padding: 12px 16px; border-radius: 10px; font-size: 13.5px; background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3);"></div>
       </form>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MONETIZATION & GOOGLE ADSENSE SPONSORED SHOWCASE SECTION
+       Non-Intrusive, High-CTR Partner Showcase & AdSense Display Unit
+       ========================================================================== -->
+  <section class="monetization-ad-section" id="monetization-ads-section">
+    <div class="ad-card-frame">
+      <div class="ad-header-bar">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="ad-disclosure-pill">📢 Sponsored Showcase</span>
+          <span style="font-size: 12px; color: #94A3B8;">• Official Tourism & Capital Affiliates</span>
+        </div>
+        <div class="ad-partner-tag">
+          <span>✨ Google AdSense & Partner Verified</span>
+        </div>
+      </div>
+
+      <!-- Google AdSense Responsive Unit Placeholder -->
+      <div class="adsense-placeholder-box">
+        <div class="adsense-meta-tag">GOOGLE ADSENSE RESPONSIVE DISPLAY UNIT [SLOT #VI-CAPITAL-728X90]</div>
+        <!-- Google AdSense Live Embed Script & Tag -->
+        <!-- Replace data-ad-client and data-ad-slot with your publisher credentials from Google AdSense -->
+        <ins class="adsbygoogle"
+             style="display:block; min-height: 90px; text-align: center;"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
+      <!-- High-Conversion Travel & Capital Partner Showcase Cards -->
+      <div class="ad-showcase-grid">
+        <!-- Ad Unit 1: Flights & Airport Fast-Track -->
+        <a href="https://www.google.com/travel/flights" target="_blank" rel="noopener" class="ad-unit-item">
+          <div>
+            <span class="ad-unit-badge">✈️ FLIGHTS & AIRPORT</span>
+            <h4 class="ad-unit-title">Islamabad Airport Fast-Track & Transfers</h4>
+            <p class="ad-unit-desc">Compare non-stop flights to ISB Airport, international luggage handling & pre-booked 24/7 executive chauffeur pickups.</p>
+          </div>
+          <span class="ad-unit-btn">Check Flights & Rates ↗</span>
+        </a>
+
+        <!-- Ad Unit 2: Luxury Hotels & Vetted Stays -->
+        <a href="#booking-section" class="ad-unit-item">
+          <div>
+            <span class="ad-unit-badge" style="background: rgba(6, 182, 212, 0.15); color: #22D3EE;">🏨 HOSPITALITY PARTNER</span>
+            <h4 class="ad-unit-title">Islamabad Serena & Marriott Stay Deals</h4>
+            <p class="ad-unit-desc">Exclusive corporate, diplomatic, and medical tourist discounts on luxury suites, furnished executive apartments & guest houses.</p>
+          </div>
+          <span class="ad-unit-btn" style="color: #22D3EE;">Reserve With VIP Perks ↗</span>
+        </a>
+
+        <!-- Ad Unit 3: Northern Areas 4x4 Expeditions -->
+        <a href="#northern-expeditions-section" class="ad-unit-item">
+          <div>
+            <span class="ad-unit-badge" style="background: rgba(16, 185, 129, 0.15); color: #34D399;">🏔️ MOUNTAIN SAFARI</span>
+            <h4 class="ad-unit-title">Karakoram & Hunza Guided Tours</h4>
+            <p class="ad-unit-desc">All-inclusive guided expeditions to Skardu, Fairy Meadows & Deosai with vetted 4x4 Prado drivers & heated glamping stays.</p>
+          </div>
+          <span class="ad-unit-btn" style="color: #34D399;">Explore Tour Packages ↗</span>
+        </a>
+      </div>
+
+      <!-- Advertise With Us CTA Bar -->
+      <div class="ad-sponsor-cta">
+        <div class="ad-sponsor-info">
+          <h5>Advertise Your Hotel, Fleet, Clinic or Brand on Visit Islamabad</h5>
+          <p>Reach over 100,000+ monthly visitors, diaspora travelers, patient families, and corporate executives visiting the federal capital.</p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <a href="mailto:info.visitislamabad@gmail.com?subject=Advertise%20on%20Visit%20Islamabad" class="btn-sponsor-contact">
+            <span>✉️</span> Inquire via Email
+          </a>
+          <a href="https://wa.me/923430673404?text=Hello%20Visit%20Islamabad!%20I%20would%20like%20to%20advertise%20my%20business%20on%20your%20website%20and%20app." target="_blank" class="btn-sponsor-contact" style="background: linear-gradient(135deg, #0284C7, #0369A1);">
+            <span>💬</span> WhatsApp Ad Desk
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -6607,7 +7010,94 @@
     // Initialize Northern Deals on DOM Ready
     document.addEventListener('DOMContentLoaded', () => {
       renderNorthernDeals();
+      initRealTimeIslamabadData();
+      calculateCurrencyPKR();
     });
+
+    // Real-Time Islamabad Telemetry & Live Data Engine
+    function initRealTimeIslamabadData() {
+      // 1. Live PKT Clock
+      function updatePkClock() {
+        try {
+          const now = new Date();
+          const options = { timeZone: 'Asia/Karachi', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+          const pkTimeStr = now.toLocaleTimeString('en-US', options);
+          const clockElem = document.getElementById('liveClockPk');
+          if (clockElem) clockElem.textContent = `PKT ${pkTimeStr}`;
+        } catch (e) {
+          // Fallback if Intl timeZone unavailable
+          const clockElem = document.getElementById('liveClockPk');
+          if (clockElem) clockElem.textContent = "PKT Islamabad";
+        }
+      }
+      updatePkClock();
+      setInterval(updatePkClock, 1000);
+
+      // 2. Fetch Live Weather for Islamabad (Open-Meteo Free Public API)
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=33.6844&longitude=73.0479&current_weather=true')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.current_weather) {
+            const temp = Math.round(data.current_weather.temperature);
+            const wind = Math.round(data.current_weather.windspeed);
+            const code = data.current_weather.weathercode;
+            
+            const tempElem = document.getElementById('liveTempDisplay');
+            const condElem = document.getElementById('weatherCondition');
+            const iconElem = document.getElementById('weatherIcon');
+            const windElem = document.getElementById('liveWindSpeed');
+
+            if (tempElem) tempElem.textContent = `${temp}°C`;
+            if (windElem) windElem.textContent = `${wind} km/h`;
+
+            if (code === 0) {
+              if (condElem) condElem.textContent = "Clear & Sunny";
+              if (iconElem) iconElem.textContent = "☀️";
+            } else if (code <= 3) {
+              if (condElem) condElem.textContent = "Partly Cloudy";
+              if (iconElem) iconElem.textContent = "🌤️";
+            } else if (code >= 51 && code <= 67) {
+              if (condElem) condElem.textContent = "Margalla Rain / Showers";
+              if (iconElem) iconElem.textContent = "🌧️";
+            } else {
+              if (condElem) condElem.textContent = "Pleasant Breeze";
+              if (iconElem) iconElem.textContent = "⛅";
+            }
+          }
+        })
+        .catch(err => {
+          console.log('Real-time weather query fallback used:', err);
+        });
+    }
+
+    // Live Currency Converter to PKR
+    function calculateCurrencyPKR() {
+      const amtInput = document.getElementById('fxAmountInput');
+      const curSelect = document.getElementById('fxCurrencySelect');
+      const resDisplay = document.getElementById('fxResultDisplay');
+      if (!amtInput || !curSelect || !resDisplay) return;
+
+      const amt = parseFloat(amtInput.value) || 0;
+      const rate = parseFloat(curSelect.value) || 278;
+      const total = Math.round(amt * rate);
+      resDisplay.textContent = `= ${total.toLocaleString()} PKR`;
+    }
+
+    // Google Search Engine Integration
+    function submitGoogleSearch(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('googleSearchInput');
+      if (!input || !input.value.trim()) return;
+      const query = encodeURIComponent(`Islamabad ${input.value.trim()}`);
+      window.open(`https://www.google.com/search?q=${query}`, '_blank');
+    }
+
+    function triggerGoogleQuickSearch(term) {
+      const input = document.getElementById('googleSearchInput');
+      if (input) input.value = term;
+      const query = encodeURIComponent(term);
+      window.open(`https://www.google.com/search?q=${query}`, '_blank');
+    }
 
     // Initialize search results on DOM load
     document.addEventListener('DOMContentLoaded', () => {

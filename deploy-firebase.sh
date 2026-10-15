@@ -83,15 +83,17 @@ else
     echo "  ./deploy-firebase.sh <your-project-id>"
 fi
 
-# 4. Ensure latest APK and web assets are synchronized into public/
+# 4. Ensure latest APK and all web assets are synchronized into public/
 echo "Synchronizing static web files and latest APK into public/..."
 if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
     cp -f app/build/outputs/apk/debug/app-debug.apk public/visit-islamabad.apk
     cp -f app/build/outputs/apk/debug/app-debug.apk visit-islamabad.apk
 fi
-cp -f index.html public/index.html
-cp -f _headers public/_headers
-cp -f _redirects public/_redirects
+cp -f *.html public/ || true
+cp -f ads.txt public/ads.txt || true
+cp -f sitemap.xml public/sitemap.xml || true
+cp -f _headers public/_headers || true
+cp -f _redirects public/_redirects || true
 
 # 5. Deploy only hosting files
 echo "Deploying hosting files to Firebase Hosting..."

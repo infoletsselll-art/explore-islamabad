@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Hotels, Guest Houses & Stays | Visit Islamabad Gateway</title>
+  <meta name="description" content="Reserve verified guest houses, luxury hotels, and patient-friendly accommodations in Islamabad near Shifa, PIMS, and Blue Area. Call/WhatsApp: 0343 0673404.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-gold: #F59E0B;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--primary-emerald); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 36px 28px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(26px, 4vw, 38px); font-weight: 800; color: #FFF; margin-bottom: 12px; }
+    .hero-banner p { font-size: 15px; color: var(--text-muted); max-width: 760px; margin: 0 auto 20px; }
+
+    .hotels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+    .hotel-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+    .hotel-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary-emerald);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .hotel-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 9px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+    .hotel-card h3 { font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 6px; }
+    .hotel-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+    .hotel-price { font-size: 20px; font-weight: 800; color: #FCD34D; margin-bottom: 14px; }
+    .hotel-perks { list-style: none; margin-bottom: 18px; }
+    .hotel-perks li { font-size: 12.5px; color: #CBD5E1; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+    .card-actions { display: flex; gap: 10px; }
+    .btn-book {
+      flex: 1; text-align: center; background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFF; padding: 9px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700;
+    }
+    .btn-wa {
+      flex: 1; text-align: center; background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.4); color: #25D366; padding: 9px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700;
+    }
+    footer { border-top: 1px solid var(--border-subtle); margin-top: 50px; padding-top: 24px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">VI</div>
+        <div>
+          <span class="brand-title">Visit Islamabad</span>
+          <span class="brand-subtitle">Vetted Stays & Executive Lodging</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box" title="Helpline: 0343 0673404"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20want%20to%20reserve%20a%20stay." target="_blank" class="tb-box" title="WhatsApp: +92 343 0673404"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20I%20need%20a%20hotel." class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box"><span class="tb-box-badge tb-box-badge-ai">AI</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box" style="border-color: #10B981; background: rgba(16,185,129,0.15);"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box"><span class="tb-box-badge tb-box-badge-sos">SOS</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>Verified Guest Houses, Executive Suites & Stays</h1>
+      <p>Hand-inspected, family-safe accommodations across Islamabad. Clean linen, attached bathrooms, UPS backup, high-speed Wi-Fi, and proximity to hospitals, universities, and commercial sectors.</p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a href="tel:+923430673404" class="btn-home" style="background: #10B981; color: #FFF; border: none; padding: 10px 22px; font-weight: 700;">📞 Call Accommodations Desk: 0343 0673404</a>
+        <a href="https://wa.me/923430673404?text=Hello!%20I%20need%20a%20guest%20house%20in%20Islamabad." target="_blank" class="btn-home" style="background: rgba(37, 211, 102, 0.2); border-color: #25D366; color: #25D366; padding: 10px 22px;">💬 WhatsApp Availability Check</a>
+      </div>
+    </div>
+
+    <div class="hotels-grid">
+      <!-- Patient Ground Floor Guest House -->
+      <div class="hotel-card">
+        <div>
+          <span class="hotel-badge">🏥 HOSPITAL ZONE (H-8 / G-8)</span>
+          <h3>Patient-Friendly Ground Floor Guest House</h3>
+          <p>Within 4 minutes of Shifa International and PIMS Hospital. Zero-step entry, wheelchair ramps, and calm peaceful environment.</p>
+          <div class="hotel-price">PKR 4,500 – 6,500 <span style="font-size: 12px; color: #94A3B8; font-weight: 400;">/ Night</span></div>
+          <ul class="hotel-perks">
+            <li>✓ Ground Floor Room with Zero Steps</li>
+            <li>✓ Clean Attached Bath & Hot Water</li>
+            <li>✓ Home-cooked Healthy Patient Meals on Order</li>
+            <li>✓ 24/7 Generator & Solar Power Backup</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-book">📞 Reserve Room</a>
+          <a href="https://wa.me/923430673404?text=I%20want%20to%20reserve%20a%20patient-friendly%20ground%20floor%20room." target="_blank" class="btn-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Blue Area Executive Suite -->
+      <div class="hotel-card">
+        <div>
+          <span class="hotel-badge" style="color: #38BDF8; background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.3);">⚖️ BUSINESS & LEGAL (F-6 / BLUE AREA)</span>
+          <h3>Blue Area Executive Corporate Suites</h3>
+          <p>Walking distance from Supreme Court, High Court, and central corporate offices. Soundproof rooms with high-speed fiber internet.</p>
+          <div class="hotel-price">PKR 7,500 – 11,000 <span style="font-size: 12px; color: #94A3B8; font-weight: 400;">/ Night</span></div>
+          <ul class="hotel-perks">
+            <li>✓ Dedicated Work Desk & High-Speed Wi-Fi</li>
+            <li>✓ Breakfast Included & Express Laundry</li>
+            <li>✓ 5 Minutes to Constitution Avenue Red Zone</li>
+            <li>✓ Secure Basement Car Parking</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-book">📞 Reserve Suite</a>
+          <a href="https://wa.me/923430673404?text=I%20want%20to%20reserve%20an%20executive%20suite%20in%20Blue%20Area." target="_blank" class="btn-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Student & Budget Lodging -->
+      <div class="hotel-card">
+        <div>
+          <span class="hotel-badge" style="color: #FCD34D; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3);">🎓 STUDENT & BUDGET (G-9 / G-11)</span>
+          <h3>Entry Test & Student Hostels (Boys & Girls)</h3>
+          <p>Affordable, safe, and vetted lodgings for candidates taking exams at NUST H-12, FAST G-9, or federal recruitment commissions.</p>
+          <div class="hotel-price">PKR 1,800 – 2,800 <span style="font-size: 12px; color: #94A3B8; font-weight: 400;">/ Night</span></div>
+          <ul class="hotel-perks">
+            <li>✓ Separate Secure Warden-Supervised Facilities</li>
+            <li>✓ Wi-Fi, Study Tables & 3-Time Mess Food</li>
+            <li>✓ Direct Metro Bus Access (Peshawar Mor Exchange)</li>
+            <li>✓ Quiet Study Atmosphere</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-book">📞 Reserve Bed</a>
+          <a href="https://wa.me/923430673404?text=I%20need%20student%20hostel%20accommodation%20for%20an%20entry%20test." target="_blank" class="btn-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • Verified Accommodations & Lodging</p>
+    <p style="margin-top: 6px;">Call / WhatsApp: +92 343 0673404 • Official Email: info.visitislamabad@gmail.com • Web: visitislamabad.org / visitislamabad.xyz</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Google Maps & Sector GPS Navigation | Visit Islamabad Gateway</title>
+  <meta name="description" content="Interactive Google Maps directions, GPS coordinates, and route navigation for Islamabad hospitals, courts, airport, and tourist attractions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-blue: #38BDF8;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--primary-emerald); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: #FFF; margin-bottom: 10px; }
+    .hero-banner p { font-size: 14.5px; color: var(--text-muted); max-width: 720px; margin: 0 auto 18px; }
+
+    .map-frame-box {
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin-bottom: 30px;
+      background: #000;
+    }
+    .map-frame-box iframe {
+      width: 100%;
+      height: 480px;
+      border: 0;
+      display: block;
+    }
+
+    .destinations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .dest-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .dest-card:hover {
+      transform: translateY(-2px);
+      border-color: #38BDF8;
+    }
+    .dest-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 4px; }
+    .dest-sector { font-size: 12px; color: #34D399; font-weight: 600; margin-bottom: 8px; }
+    .dest-desc { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.4; }
+    .btn-gps {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38BDF8;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-gps:hover { background: #38BDF8; color: #000; }
+    footer { border-top: 1px solid var(--border-subtle); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">🗺️</div>
+        <div>
+          <span class="brand-title">Visit Islamabad Maps</span>
+          <span class="brand-subtitle">Google Maps GPS & Capital Navigator</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20need%20directions." target="_blank" class="tb-box"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20GPS%20query." class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box"><span class="tb-box-badge tb-box-badge-ai">AI</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box" style="border-color: #10B981; background: rgba(16,185,129,0.15);"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box"><span class="tb-box-badge tb-box-badge-sos">SOS</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>Google Maps & Live Capital GPS Directions</h1>
+      <p>Navigate the federal capital with confidence. Tap any location below to open real-time turn-by-turn driving, metro bus transit, and walking directions directly in Google Maps.</p>
+    </div>
+
+    <!-- Live Google Map Embed of Islamabad -->
+    <div class="map-frame-box">
+      <iframe 
+        title="Google Map of Islamabad"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d106198.05608027732!2d72.93488812676757!3d33.71447069176311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbfd07891722f%3A0x6059515c3bdb02b6!2sIslamabad%2C%20Islamabad%20Capital%20Territory!5e0!3m2!1sen!2spk!4v1700000000000!5m2!1sen!2spk" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <!-- Quick GPS Navigation Hub Cards -->
+    <div class="destinations-grid">
+      <!-- Faisal Mosque -->
+      <div class="dest-card">
+        <div>
+          <div class="dest-title">Faisal Mosque</div>
+          <div class="dest-sector">Sector E-8 / Margalla Foothills</div>
+          <p class="dest-desc">The iconic national landmark of Pakistan, featuring Turkish architecture nestled against the Margalla Hills.</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Faisal+Mosque+Islamabad" target="_blank" rel="noopener" class="btn-gps">🗺️ Navigate in Google Maps ↗</a>
+      </div>
+
+      <!-- Shifa Hospital -->
+      <div class="dest-card">
+        <div>
+          <div class="dest-title">Shifa International Hospital</div>
+          <div class="dest-sector">Sector H-8/4, Islamabad</div>
+          <p class="dest-desc">Premier tertiary medical and surgical complex. Organ transplants, oncology, cardiac, and emergency trauma.</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Shifa+International+Hospital+Islamabad" target="_blank" rel="noopener" class="btn-gps">🗺️ Navigate to Shifa H-8 ↗</a>
+      </div>
+
+      <!-- Supreme Court of Pakistan -->
+      <div class="dest-card">
+        <div>
+          <div class="dest-title">Supreme Court of Pakistan</div>
+          <div class="dest-sector">Constitution Avenue, Red Zone</div>
+          <p class="dest-desc">Apex constitutional court of Pakistan. Close to Prime Minister Secretariat, Parliament, and Foreign Office.</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Supreme+Court+of+Pakistan+Constitution+Avenue" target="_blank" rel="noopener" class="btn-gps">🗺️ Navigate to Red Zone ↗</a>
+      </div>
+
+      <!-- Islamabad International Airport -->
+      <div class="dest-card">
+        <div>
+          <div class="dest-title">Islamabad International Airport (ISB)</div>
+          <div class="dest-sector">Fateh Jang Road / Airport Express</div>
+          <p class="dest-desc">Federal international gateway for all overseas flights, domestic connections, and Karakoram tourism.</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Islamabad+International+Airport" target="_blank" rel="noopener" class="btn-gps">🗺️ Navigate to ISB Airport ↗</a>
+      </div>
+
+      <!-- NUST University -->
+      <div class="dest-card">
+        <div>
+          <div class="dest-title">NUST Main Campus</div>
+          <div class="dest-sector">Sector H-12, Kashmir Highway</div>
+          <p class="dest-desc">Top science & technology university hosting nationwide NET entry tests, convocation, and student dormitories.</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=NUST+Main+Campus+Islamabad" target="_blank" rel="noopener" class="btn-gps">🗺️ Navigate to NUST H-12 ↗</a>
+      </div>
+
+      <!-- Centaurus Mall & Blue Area -->
+      <div class="dest-card">
+        <div>
+          <div class="dest-title">The Centaurus Mall</div>
+          <div class="dest-sector">Sector F-8/4 & Jinnah Avenue</div>
+          <p class="dest-desc">Mega shopping, fine dining, Cineplex cinema, international brand outlets, and corporate towers in central capital.</p>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=The+Centaurus+Mall+Islamabad" target="_blank" rel="noopener" class="btn-gps">🗺️ Navigate to Centaurus ↗</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • Google Maps & GPS Navigation</p>
+    <p style="margin-top: 6px;">Call / WhatsApp: +92 343 0673404 • Official Email: info.visitislamabad@gmail.com</p>
+  </footer>
+
+</body>
+</html>

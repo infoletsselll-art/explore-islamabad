@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Emergency SOS 1122 & Police 15 | Visit Islamabad Gateway</title>
+  <meta name="description" content="Immediate emergency numbers for Islamabad: Rescue 1122, Police 15, hospital ambulances, and 24/7 visitor SOS desk.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-red: #EF4444;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(239, 68, 68, 0.35);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #EF4444, #B91C1C);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--accent-red); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(239, 68, 68, 0.2); border-color: #EF4444; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(239, 68, 68, 0.16);
+      border-color: rgba(239, 68, 68, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(15, 23, 42, 0.8));
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: #FFF; margin-bottom: 10px; }
+    .hero-banner p { font-size: 14.5px; color: #FCA5A5; max-width: 720px; margin: 0 auto 18px; }
+
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+    .sos-card {
+      background: var(--surface-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .sos-card:hover {
+      border-color: #EF4444;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.2);
+    }
+    .sos-icon { font-size: 30px; margin-bottom: 8px; }
+    .sos-title { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 4px; }
+    .sos-desc { font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px; }
+    .btn-dial {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: linear-gradient(135deg, #EF4444, #B91C1C); color: #FFF;
+      padding: 11px; border-radius: 10px; font-weight: 800; font-size: 14px; text-decoration: none;
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+    }
+    footer { border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">🆘</div>
+        <div>
+          <span class="brand-title">Emergency & Rescue</span>
+          <span class="brand-subtitle">Capital Rapid Response 1122 & 15</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404?text=EMERGENCY%20ASSISTANCE%20NEEDED" target="_blank" class="tb-box"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404?body=EMERGENCY%20HELP" class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box"><span class="tb-box-badge tb-box-badge-ai">AI</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box" style="border-color: #EF4444; background: rgba(239,68,68,0.2);"><span class="tb-box-badge tb-box-badge-sos">ACTIVE</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>Emergency Services & Immediate Assistance</h1>
+      <p>If you or someone in your group requires immediate medical rescue, police intervention, or road assistance in Islamabad, tap the quick dial buttons below.</p>
+    </div>
+
+    <div class="emergency-grid">
+      <!-- 1122 -->
+      <div class="sos-card" style="border-color: rgba(239, 68, 68, 0.4);">
+        <div>
+          <div class="sos-icon">🚑</div>
+          <div class="sos-title">Rescue 1122 (Ambulance & Fire)</div>
+          <p class="sos-desc">Trained paramedics, advanced life support ambulances, and emergency medical transport across all Islamabad sectors.</p>
+        </div>
+        <a href="tel:1122" class="btn-dial">📞 Dial 1122 (Toll Free)</a>
+      </div>
+
+      <!-- Police 15 -->
+      <div class="sos-card" style="border-color: rgba(56, 189, 248, 0.4);">
+        <div>
+          <div class="sos-icon">👮</div>
+          <div class="sos-title">Islamabad Capital Police (15)</div>
+          <p class="sos-desc">Immediate law enforcement, safety protection, lost child assistance, and tourist security patrol.</p>
+        </div>
+        <a href="tel:15" class="btn-dial" style="background: linear-gradient(135deg, #0284C7, #0369A1);">📞 Dial Police 15</a>
+      </div>
+
+      <!-- Visit Islamabad 24/7 Helpline -->
+      <div class="sos-card" style="border-color: rgba(16, 185, 129, 0.4);">
+        <div>
+          <div class="sos-icon">🌟</div>
+          <div class="sos-title">Official Concierge & SOS Desk</div>
+          <p class="sos-desc">24/7 dedicated assistance for out-of-city visitors, hospital admissions, late-night transit, and emergency lodging.</p>
+        </div>
+        <a href="tel:+923430673404" class="btn-dial" style="background: linear-gradient(135deg, #10B981, #059669);">📞 Dial 0343 0673404</a>
+      </div>
+
+      <!-- Motorway Police 130 -->
+      <div class="sos-card">
+        <div>
+          <div class="sos-icon">🛣️</div>
+          <div class="sos-title">National Motorway Police (130)</div>
+          <p class="sos-desc">Road breakdown, towing, flat tire, and accident assistance on M-1, M-2, and Islamabad Expressway.</p>
+        </div>
+        <a href="tel:130" class="btn-dial" style="background: linear-gradient(135deg, #F59E0B, #D97706);">📞 Dial 130</a>
+      </div>
+
+      <!-- Shifa Hospital Emergency ER -->
+      <div class="sos-card">
+        <div>
+          <div class="sos-icon">🏥</div>
+          <div class="sos-title">Shifa Hospital Emergency ER</div>
+          <p class="sos-desc">Direct emergency department triage line for cardiac, trauma, ICU, and pediatric emergency admissions.</p>
+        </div>
+        <a href="tel:+923430673404" class="btn-dial">📞 Connect Shifa ER Liaison</a>
+      </div>
+
+      <!-- Fire Brigade 16 -->
+      <div class="sos-card">
+        <div>
+          <div class="sos-icon">🚒</div>
+          <div class="sos-title">Capital Fire Brigade (16)</div>
+          <p class="sos-desc">Rapid response firefighting and civil defense operations for buildings, markets, and Margalla forest fires.</p>
+        </div>
+        <a href="tel:16" class="btn-dial">📞 Dial 16 Fire Brigade</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • 24/7 Emergency & Safety Response</p>
+    <p style="margin-top: 6px;">Official Helpline: +92 343 0673404 • Email: info.visitislamabad@gmail.com</p>
+  </footer>
+
+</body>
+</html>

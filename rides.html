@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Rides & 4x4 Mountain Fleet | Visit Islamabad Gateway</title>
+  <meta name="description" content="Book 24/7 airport cabs, executive chauffeur sedans, and heavy-duty 4x4 Prado jeeps in Islamabad. Call/WhatsApp: 0343 0673404.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-gold: #F59E0B;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--primary-emerald); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 36px 28px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(26px, 4vw, 38px); font-weight: 800; color: #FFF; margin-bottom: 12px; }
+    .hero-banner p { font-size: 15px; color: var(--text-muted); max-width: 760px; margin: 0 auto 20px; }
+
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+    .fleet-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+    }
+    .fleet-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary-emerald);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .fleet-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 9px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+    .fleet-card h3 { font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 6px; }
+    .fleet-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+    .fleet-rate { font-size: 20px; font-weight: 800; color: #FCD34D; margin-bottom: 14px; }
+    .fleet-specs { list-style: none; margin-bottom: 18px; }
+    .fleet-specs li { font-size: 12.5px; color: #CBD5E1; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
+    .card-actions { display: flex; gap: 10px; }
+    .btn-book {
+      flex: 1; text-align: center; background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFF; padding: 9px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700;
+    }
+    .btn-wa {
+      flex: 1; text-align: center; background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.4); color: #25D366; padding: 9px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 700;
+    }
+    footer { border-top: 1px solid var(--border-subtle); margin-top: 50px; padding-top: 24px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">VI</div>
+        <div>
+          <span class="brand-title">Visit Islamabad</span>
+          <span class="brand-subtitle">24/7 Fleet & Mountain Mobility</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box" title="Helpline: 0343 0673404"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20want%20to%20book%20a%20ride." target="_blank" class="tb-box" title="WhatsApp: +92 343 0673404"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20I%20need%20a%20cab." class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box"><span class="tb-box-badge tb-box-badge-ai">AI</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box" style="border-color: #10B981; background: rgba(16,185,129,0.15);"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box"><span class="tb-box-badge tb-box-badge-sos">SOS</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>24/7 Capital Cabs, Chauffeurs & Northern 4x4 Fleet</h1>
+      <p>Clean, air-conditioned sedans, high-roof Hiace vans, and heavy-duty 4x4 mountain vehicles with vetted, polite chauffeurs. Zero surge pricing, 24/7 airport dispatch, and instant WhatsApp booking.</p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a href="tel:+923430673404" class="btn-home" style="background: #10B981; color: #FFF; border: none; padding: 10px 22px; font-weight: 700;">📞 Call Fleet Dispatch: 0343 0673404</a>
+        <a href="https://wa.me/923430673404?text=Hello!%20I%20need%20an%20urgent%20cab%20in%20Islamabad." target="_blank" class="btn-home" style="background: rgba(37, 211, 102, 0.2); border-color: #25D366; color: #25D366; padding: 10px 22px;">💬 WhatsApp Instant Booking</a>
+      </div>
+    </div>
+
+    <div class="fleet-grid">
+      <!-- Sedan -->
+      <div class="fleet-card">
+        <div>
+          <span class="fleet-badge">CITY & AIRPORT SEDAN</span>
+          <h3>Toyota Corolla / Yaris / Honda Civic</h3>
+          <p>Ideal for airport transfers, Shifa/PIMS hospital visits, Supreme Court hearings, and business commutes across Islamabad & Rawalpindi.</p>
+          <div class="fleet-rate">PKR 3,500 – 4,500 <span style="font-size: 12px; color: #94A3B8; font-weight: 400;">/ Airport Drop</span></div>
+          <ul class="fleet-specs">
+            <li>✓ Air Conditioned & Clean Interior</li>
+            <li>✓ Punctual Flight Tracking</li>
+            <li>✓ Dedicated Professional Chauffeur</li>
+            <li>✓ Luggage Assistance Included</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-book">📞 Call Now</a>
+          <a href="https://wa.me/923430673404?text=I%20want%20to%20book%20a%20Corolla%20sedan." target="_blank" class="btn-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Hiace Grand Cabin -->
+      <div class="fleet-card">
+        <div>
+          <span class="fleet-badge" style="color: #38BDF8; background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.3);">FAMILY & GROUP VAN</span>
+          <h3>Toyota Hiace Grand Cabin (12–14 Seater)</h3>
+          <p>Perfect for large families, wedding guests, university test delegations, and corporate teams traveling together.</p>
+          <div class="fleet-rate">PKR 9,500 – 14,000 <span style="font-size: 12px; color: #94A3B8; font-weight: 400;">/ Full Day City</span></div>
+          <ul class="fleet-specs">
+            <li>✓ 14 Comfortable Reclining Seats</li>
+            <li>✓ Dual AC & Huge Luggage Trunk</li>
+            <li>✓ Experienced Highway Driver</li>
+            <li>✓ Intercity Travel Permitted</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-book">📞 Call Now</a>
+          <a href="https://wa.me/923430673404?text=I%20want%20to%20book%20a%20Grand%20Cabin%20van." target="_blank" class="btn-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- Prado 4x4 -->
+      <div class="fleet-card">
+        <div>
+          <span class="fleet-badge" style="color: #FCD34D; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3);">NORTHERN 4X4 SUV</span>
+          <h3>Toyota Prado TX / V8 / Fortuner</h3>
+          <p>Built for the Karakoram Highway, Babusar Pass, Skardu Shangrila, Hunza Attabad Lake, and Margalla mountain terrain.</p>
+          <div class="fleet-rate">PKR 16,000 – 22,000 <span style="font-size: 12px; color: #94A3B8; font-weight: 400;">/ Day (Northern Route)</span></div>
+          <ul class="fleet-specs">
+            <li>✓ Heavy-Duty 4x4 Mountain Capabilities</li>
+            <li>✓ Experienced Mountain Drivers with First Aid</li>
+            <li>✓ Fuel, Tolls & Driver Lodging Options</li>
+            <li>✓ Roof Rack for Heavy Luggage & Gear</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-book">📞 Call Now</a>
+          <a href="https://wa.me/923430673404?text=I%20want%20to%20book%20a%20Toyota%20Prado%204x4." target="_blank" class="btn-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • 24/7 Fleet & Transport Services</p>
+    <p style="margin-top: 6px;">Call / WhatsApp: +92 343 0673404 • Official Email: info.visitislamabad@gmail.com • Web: visitislamabad.org / visitislamabad.xyz</p>
+  </footer>
+
+</body>
+</html>

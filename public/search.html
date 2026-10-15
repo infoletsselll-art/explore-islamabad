@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Google Search Engine & Capital Directory | Visit Islamabad Gateway</title>
+  <meta name="description" content="Search verified hospitals, courts, universities, metro stops, flights, and weather in Islamabad via integrated Google Search Engine.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-blue: #38BDF8;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--primary-emerald); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: #FFF; margin-bottom: 10px; }
+    .hero-banner p { font-size: 14.5px; color: var(--text-muted); max-width: 720px; margin: 0 auto 18px; }
+
+    /* Search Box */
+    .search-card {
+      background: var(--surface-card);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      margin-bottom: 36px;
+    }
+    .search-input-row {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .search-input-field {
+      flex: 1; min-width: 260px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #FFF;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input-field:focus { border-color: #38BDF8; }
+    .btn-search-go {
+      background: linear-gradient(135deg, #0284C7, #0369A1);
+      color: #FFF; border: none; padding: 12px 22px; border-radius: 10px;
+      font-weight: 700; font-size: 14px; cursor: pointer;
+    }
+    .popular-queries { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .pop-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #E2E8F0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pop-btn:hover { background: rgba(56, 189, 248, 0.15); border-color: #38BDF8; color: #FFF; }
+
+    /* Directory Categories Grid */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .cat-box {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .cat-box h3 { font-size: 16px; color: #FFF; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .cat-box ul { list-style: none; font-size: 13px; color: #CBD5E1; }
+    .cat-box ul li { margin-bottom: 6px; }
+    .cat-box ul li a { color: #38BDF8; text-decoration: none; }
+    .cat-box ul li a:hover { text-decoration: underline; }
+    footer { border-top: 1px solid var(--border-subtle); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">🔍</div>
+        <div>
+          <span class="brand-title">Visit Islamabad Search</span>
+          <span class="brand-subtitle">Google Engine & Capital Directory</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20have%20a%20search%20inquiry." target="_blank" class="tb-box"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20Search%20query." class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box"><span class="tb-box-badge tb-box-badge-ai">AI</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box" style="border-color: #10B981; background: rgba(16,185,129,0.15);"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box"><span class="tb-box-badge tb-box-badge-sos">SOS</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>Google Search Engine & Verified Capital Directory</h1>
+      <p>Search live web results for Islamabad flights, hospital OPD schedules, court cause lists, university entry exams, and sector routes directly via Google.</p>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-card">
+      <form onsubmit="runGoogleSearch(event)">
+        <div class="search-input-row">
+          <input type="text" id="mainSearchInput" class="search-input-field" placeholder="Search Google for: Islamabad hospital OPD, flights, metro bus, hotels..." required />
+          <button type="submit" class="btn-search-go">🔍 Search Google Live</button>
+        </div>
+      </form>
+      <div class="popular-queries">
+        <span style="font-size: 11.5px; color: #94A3B8; font-weight: 600;">Trending:</span>
+        <button type="button" class="pop-btn" onclick="quickSearch('Islamabad Airport live flight arrivals today')">✈️ Flight Arrivals</button>
+        <button type="button" class="pop-btn" onclick="quickSearch('Shifa International Hospital OPD appointment schedule')">🏥 Shifa OPD</button>
+        <button type="button" class="pop-btn" onclick="quickSearch('Supreme Court of Pakistan daily cause list')">⚖️ Supreme Court List</button>
+        <button type="button" class="pop-btn" onclick="quickSearch('Islamabad 7 day weather forecast rain alert')">🌤️ Rain & Weather</button>
+        <button type="button" class="pop-btn" onclick="quickSearch('Islamabad Orange line metro bus timings to Airport')">🚌 Metro to Airport</button>
+      </div>
+    </div>
+
+    <!-- Directory Categories Grid -->
+    <div class="cat-grid">
+      <!-- Hospitals -->
+      <div class="cat-box">
+        <h3>🏥 Major Hospitals & Clinics</h3>
+        <ul>
+          <li>• <a href="https://www.google.com/search?q=Shifa+International+Hospital+Islamabad" target="_blank">Shifa International (Sector H-8/4)</a></li>
+          <li>• <a href="https://www.google.com/search?q=PIMS+Hospital+Islamabad" target="_blank">PIMS Hospital (Sector G-8/3)</a></li>
+          <li>• <a href="https://www.google.com/search?q=NORI+Cancer+Hospital+Islamabad" target="_blank">NORI Cancer Hospital (Sector G-8/3)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Kulsum+International+Hospital+Islamabad" target="_blank">Kulsum International (Blue Area)</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal & Courts -->
+      <div class="cat-box">
+        <h3>⚖️ Courts & Constitutional Bodies</h3>
+        <ul>
+          <li>• <a href="https://www.google.com/search?q=Supreme+Court+of+Pakistan+Constitution+Avenue" target="_blank">Supreme Court of Pakistan (Red Zone)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Islamabad+High+Court+Sector+G-10" target="_blank">Islamabad High Court (Sector G-10)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Federal+Shariat+Court+Islamabad" target="_blank">Federal Shariat Court (Constitution Ave)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Election+Commission+of+Pakistan+Islamabad" target="_blank">Election Commission (Secretariat)</a></li>
+        </ul>
+      </div>
+
+      <!-- Universities -->
+      <div class="cat-box">
+        <h3>🎓 Universities & Test Centers</h3>
+        <ul>
+          <li>• <a href="https://www.google.com/search?q=NUST+University+Islamabad+H-12" target="_blank">NUST Main Campus (Sector H-12)</a></li>
+          <li>• <a href="https://www.google.com/search?q=FAST+NUCES+Islamabad+G-9" target="_blank">FAST-NUCES (Sector G-9/4)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Quaid-i-Azam+University+Islamabad" target="_blank">Quaid-i-Azam University (Margalla)</a></li>
+          <li>• <a href="https://www.google.com/search?q=COMSATS+University+Islamabad" target="_blank">COMSATS (Park Road Chak Shahzad)</a></li>
+        </ul>
+      </div>
+
+      <!-- Transport Hubs -->
+      <div class="cat-box">
+        <h3>🚌 Metro, Terminals & Airport</h3>
+        <ul>
+          <li>• <a href="https://www.google.com/search?q=Islamabad+International+Airport+flight+status" target="_blank">Islamabad Int'l Airport (ISB)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Daewoo+Bus+Terminal+Rawalpindi+Islamabad" target="_blank">Daewoo Express Terminal (Motorway Chowk)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Islamabad+Railway+Station+Sector+I-9" target="_blank">Islamabad Railway Station (Margalla I-9)</a></li>
+          <li>• <a href="https://www.google.com/search?q=Orange+Line+Metro+Bus+Islamabad" target="_blank">Orange Line Metro (Airport Route)</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • Search Engine & Verified Directory</p>
+    <p style="margin-top: 6px;">Call / WhatsApp: +92 343 0673404 • Official Email: info.visitislamabad@gmail.com</p>
+  </footer>
+
+  <script>
+    function runGoogleSearch(e) {
+      e.preventDefault();
+      const input = document.getElementById('mainSearchInput');
+      if (!input || !input.value.trim()) return;
+      const query = encodeURIComponent(`Islamabad ${input.value.trim()}`);
+      window.open(`https://www.google.com/search?q=${query}`, '_blank');
+    }
+
+    function quickSearch(term) {
+      const input = document.getElementById('mainSearchInput');
+      if (input) input.value = term;
+      const query = encodeURIComponent(term);
+      window.open(`https://www.google.com/search?q=${query}`, '_blank');
+    }
+  </script>
+</body>
+</html>

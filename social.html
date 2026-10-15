@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Social Media Forums & Automated Chatbots Hub | Visit Islamabad</title>
+  <meta name="description" content="Connect with our automated 24/7 chatbots across WhatsApp, Telegram, Facebook Messenger, and Instagram. Instant visitor answers for Islamabad.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-blue: #38BDF8;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--primary-emerald); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: #FFF; margin-bottom: 10px; }
+    .hero-banner p { font-size: 14.5px; color: var(--text-muted); max-width: 720px; margin: 0 auto 18px; }
+
+    .bots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .bot-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .bot-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .bot-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .bot-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .bot-title { font-size: 16px; font-weight: 700; color: #FFF; }
+    .bot-handle { font-size: 12px; color: #34D399; font-weight: 600; }
+    .bot-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
+    .btn-connect {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none;
+      transition: all 0.2s;
+    }
+    footer { border-top: 1px solid var(--border-subtle); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">🌐</div>
+        <div>
+          <span class="brand-title">Social Bots & Forums</span>
+          <span class="brand-subtitle">Automated Multi-Channel Intelligence</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20Social%20desk." target="_blank" class="tb-box"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20Social%20inquiry." class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box"><span class="tb-box-badge tb-box-badge-ai">AI</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box"><span class="tb-box-badge tb-box-badge-sos">SOS</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>Automated Social Media Chatbots & Community Forums</h1>
+      <p>Connect with our verified automated chatbot network across all popular social channels. Receive instant responses for hospital navigations, cabs, hotels, and emergencies 24/7.</p>
+    </div>
+
+    <div class="bots-grid">
+      <!-- WhatsApp Bot -->
+      <div class="bot-card" style="border-color: rgba(37, 211, 102, 0.4);">
+        <div>
+          <div class="bot-header">
+            <div class="bot-icon" style="background: rgba(37, 211, 102, 0.2); color: #25D366;">💬</div>
+            <div>
+              <div class="bot-title">WhatsApp Automated Concierge</div>
+              <div class="bot-handle">+92 343 0673404</div>
+            </div>
+          </div>
+          <p class="bot-desc">Instant automated dispatch bot. Reply with 1 for Medical Stays, 2 for Cabs & 4x4, 3 for Hotels, 4 for Emergency 1122, or chat live with an agent.</p>
+        </div>
+        <a href="https://wa.me/923430673404?text=Hello%20Visit%20Islamabad%20Bot!%20I%20need%20visitor%20assistance." target="_blank" class="btn-connect" style="background: #25D366; color: #000;">
+          Launch WhatsApp Bot ↗
+        </a>
+      </div>
+
+      <!-- Telegram Bot -->
+      <div class="bot-card" style="border-color: rgba(56, 189, 248, 0.4);">
+        <div>
+          <div class="bot-header">
+            <div class="bot-icon" style="background: rgba(56, 189, 248, 0.2); color: #38BDF8;">✈️</div>
+            <div>
+              <div class="bot-title">Telegram Automated Channel</div>
+              <div class="bot-handle">@visitislamabad (+92 343 0673404)</div>
+            </div>
+          </div>
+          <p class="bot-desc">Real-time alerts on Margalla weather, Babusar Pass opening status, flight updates, and automated inquiry responses via Telegram bot API.</p>
+        </div>
+        <a href="https://t.me/+923430673404" target="_blank" class="btn-connect" style="background: #38BDF8; color: #000;">
+          Connect on Telegram ↗
+        </a>
+      </div>
+
+      <!-- Facebook Messenger Bot -->
+      <div class="bot-card" style="border-color: rgba(24, 119, 242, 0.4);">
+        <div>
+          <div class="bot-header">
+            <div class="bot-icon" style="background: rgba(24, 119, 242, 0.2); color: #60A5FA;">📘</div>
+            <div>
+              <div class="bot-title">Facebook Messenger Bot</div>
+              <div class="bot-handle">@visitislamabad</div>
+            </div>
+          </div>
+          <p class="bot-desc">Automated Messenger bot connected via Meta Webhook. Instant replies to tourism, student entry tests, and corporate inquiries.</p>
+        </div>
+        <a href="https://facebook.com/visitislamabad" target="_blank" class="btn-connect" style="background: #1877F2; color: #FFF;">
+          Open Messenger Bot ↗
+        </a>
+      </div>
+
+      <!-- Instagram Direct Bot -->
+      <div class="bot-card" style="border-color: rgba(225, 48, 108, 0.4);">
+        <div>
+          <div class="bot-header">
+            <div class="bot-icon" style="background: rgba(225, 48, 108, 0.2); color: #F43F5E;">📸</div>
+            <div>
+              <div class="bot-title">Instagram Direct Auto-DM</div>
+              <div class="bot-handle">@visitislamabad</div>
+            </div>
+          </div>
+          <p class="bot-desc">Send a DM on Instagram for automatic tour catalogs, hotel pricing sheets, and photo guides to Islamabad's scenic trails & monuments.</p>
+        </div>
+        <a href="https://instagram.com/visitislamabad" target="_blank" class="btn-connect" style="background: linear-gradient(135deg, #E1306C, #F77737); color: #FFF;">
+          DM on Instagram ↗
+        </a>
+      </div>
+
+      <!-- Twitter / X -->
+      <div class="bot-card">
+        <div>
+          <div class="bot-header">
+            <div class="bot-icon" style="background: rgba(255, 255, 255, 0.1); color: #FFF;">𝕏</div>
+            <div>
+              <div class="bot-title">Twitter / X Community Desk</div>
+              <div class="bot-handle">@visitislamabad</div>
+            </div>
+          </div>
+          <p class="bot-desc">Capital traffic notices, Red Zone road diversions, monsoon rain alerts, and quick customer support mentions.</p>
+        </div>
+        <a href="https://x.com/visitislamabad" target="_blank" class="btn-connect" style="background: rgba(255, 255, 255, 0.15); color: #FFF;">
+          Follow on 𝕏 ↗
+        </a>
+      </div>
+
+      <!-- YouTube Official -->
+      <div class="bot-card" style="border-color: rgba(239, 68, 68, 0.4);">
+        <div>
+          <div class="bot-header">
+            <div class="bot-icon" style="background: rgba(239, 68, 68, 0.2); color: #EF4444;">▶️</div>
+            <div>
+              <div class="bot-title">YouTube Channel & Video Guides</div>
+              <div class="bot-handle">@visitislamabad</div>
+            </div>
+          </div>
+          <p class="bot-desc">Virtual tours of Faisal Mosque, Margalla Trail 3 & 5, Daman-e-Koh, and walkthroughs of guest houses & hospital transit routes.</p>
+        </div>
+        <a href="https://youtube.com/@visitislamabad" target="_blank" class="btn-connect" style="background: #EF4444; color: #FFF;">
+          Watch on YouTube ↗
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • Social Media Forums & Automated Bots</p>
+    <p style="margin-top: 6px;">Call / WhatsApp: +92 343 0673404 • Official Email: info.visitislamabad@gmail.com</p>
+  </footer>
+
+</body>
+</html>

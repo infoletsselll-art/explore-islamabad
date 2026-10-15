@@ -1,0 +1,3 @@
+# Google AdSense Authorized Digital Sellers (ads.txt) for visitislamabad.org and visitislamabad.xyz
+# Replace pub-XXXXXXXXXXXXXXXX with your approved Google AdSense publisher ID
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0

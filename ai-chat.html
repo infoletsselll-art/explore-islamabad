@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>24/7 Multilingual Live Gemini AI & Voice Concierge | Visit Islamabad</title>
+  <meta name="description" content="Talk or chat with our 24/7 Multilingual AI Assistant powered by Google Gemini. Voice speech recognition, real-time answers for hospitals, courts, metro, and emergency.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.9);
+      --primary-emerald: #10B981;
+      --accent-blue: #38BDF8;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #38BDF8, #10B981);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--accent-blue); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(56, 189, 248, 0.2); border-color: var(--accent-blue); color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Interactive Fullscreen Chat Panel */
+    .ai-chat-card {
+      background: var(--surface-card);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 720px;
+      max-height: 80vh;
+    }
+    .ai-chat-header {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(6, 78, 59, 0.4));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .ai-status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #34D399; box-shadow: 0 0 10px #34D399;
+      animation: tbPulse 1.8s infinite;
+    }
+    .lang-switcher {
+      display: flex; gap: 6px;
+    }
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .lang-btn.active {
+      background: #38BDF8; color: #000; border-color: #38BDF8;
+    }
+    .ai-messages-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: rgba(6, 13, 11, 0.4);
+    }
+    .chat-msg {
+      max-width: 82%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .chat-msg.bot {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #F8FAFC;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-msg.user {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      font-weight: 500;
+    }
+    .ai-chips-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 18px;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .ai-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #CBD5E1;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ai-chip:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38BDF8;
+      color: #FFF;
+    }
+    .ai-input-bar {
+      padding: 14px 18px;
+      background: rgba(15, 23, 42, 0.98);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ai-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 11px 16px;
+      color: #FFF;
+      font-size: 13.5px;
+      outline: none;
+    }
+    .ai-input:focus { border-color: #38BDF8; }
+    .btn-mic {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38BDF8; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn-mic.recording {
+      background: #EF4444; color: #FFF; border-color: #EF4444; animation: tbPulse 1s infinite;
+    }
+    .btn-send {
+      background: linear-gradient(135deg, #38BDF8, #0284C7);
+      color: #FFF; border: none; padding: 11px 20px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer;
+    }
+    footer { border-top: 1px solid var(--border-subtle); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">AI</div>
+        <div>
+          <span class="brand-title">Visit Islamabad AI</span>
+          <span class="brand-subtitle">Gemini Live Voice Concierge</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20have%20an%20AI%20inquiry." target="_blank" class="tb-box"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20AI%20query." class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box" style="border-color: #38BDF8; background: rgba(56,189,248,0.15);"><span class="tb-box-badge tb-box-badge-ai">LIVE</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box"><span class="tb-box-badge tb-box-badge-sos">SOS</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="ai-chat-card">
+      <div class="ai-chat-header">
+        <div class="ai-status-indicator">
+          <span class="status-dot"></span>
+          <div>
+            <div style="font-weight: 700; font-size: 14px; color: #FFF;">Gemini 2.5 Live Multilingual Voice Concierge</div>
+            <div style="font-size: 11px; color: #94A3B8;">Real-time intelligence for all Islamabad sectors & services</div>
+          </div>
+        </div>
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" onclick="switchLang('en-US', this)">English</button>
+          <button type="button" class="lang-btn" onclick="switchLang('ur-PK', this)">اردو (Urdu)</button>
+          <button type="button" class="lang-btn" onclick="switchLang('ar-SA', this)">العربية</button>
+          <button type="button" class="lang-btn" onclick="switchLang('zh-CN', this)">中文</button>
+        </div>
+      </div>
+
+      <div class="ai-messages-box" id="aiMsgContainer">
+        <div class="chat-msg bot">
+          ✨ <strong>Welcome to Visit Islamabad Live AI Concierge!</strong><br><br>
+          I am trained on complete real-time intelligence for the Federal Capital. Ask me about:<br>
+          • 🏥 <strong>Hospitals & OPD:</strong> Shifa H-8, PIMS, NORI cancer clinic, patient guest houses.<br>
+          • ⚖️ <strong>Courts & Legal:</strong> Supreme Court Constitution Ave, High Court, lawyers lodging.<br>
+          • 🎓 <strong>Student Transit:</strong> NUST H-12, FAST, QAU, entry test hostels.<br>
+          • 🚌 <strong>Metro Bus:</strong> Orange Line to Airport, Red Line to Rawalpindi.<br>
+          • 📞 <strong>24/7 Human Dispatch:</strong> Call or WhatsApp our team at <strong>+92 343 0673404</strong>.
+        </div>
+      </div>
+
+      <div class="ai-chips-row">
+        <button type="button" class="ai-chip" onclick="quickAsk('How do I reach Shifa Hospital from Daewoo terminal?')">🏥 Shifa Hospital Route</button>
+        <button type="button" class="ai-chip" onclick="quickAsk('What are Orange Line Metro bus timings to Airport?')">🚌 Metro to Airport</button>
+        <button type="button" class="ai-chip" onclick="quickAsk('I have a Supreme Court hearing. Where should I stay?')">⚖️ Supreme Court Stays</button>
+        <button type="button" class="ai-chip" onclick="quickAsk('Book a 4x4 Prado for 5 days to Hunza Valley')">🏔️ Hunza 4x4 Tour</button>
+        <button type="button" class="ai-chip" onclick="quickAsk('What is the emergency helpline number for Islamabad?')">🆘 Emergency 1122</button>
+      </div>
+
+      <form class="ai-input-bar" onsubmit="handleSend(event)">
+        <button type="button" class="btn-mic" id="voiceMicBtn" onclick="toggleVoice()" title="Speak with Voice Assistant">🎙️</button>
+        <input type="text" id="userInput" class="ai-input" placeholder="Type your question or tap microphone to speak..." autocomplete="off" />
+        <button type="submit" class="btn-send">Send ➔</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • AI Intelligence & Visitor Assistance</p>
+    <p style="margin-top: 6px;">Helpline / WhatsApp: +92 343 0673404 • Email: info.visitislamabad@gmail.com</p>
+  </footer>
+
+  <script>
+    let activeLang = 'en-US';
+    let isRecording = false;
+    let recognition = null;
+
+    function switchLang(code, btn) {
+      activeLang = code;
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      
+      let msg = "Language updated to English. How can I assist your visit to Islamabad?";
+      if (code === 'ur-PK') msg = "زبان اردو منتخب ہو گئی۔ آپ کا اسلام آباد آمد پر خیر مقدم ہے۔ بتائیے کس خدمت میں مدد چاہیے؟";
+      if (code === 'ar-SA') msg = "تم تحديد اللغة العربية. مرحبًا بكم في إسلام آباد. كيف يمكننا خدمتكم؟";
+      if (code === 'zh-CN') msg = "已切换至中文模式。欢迎访问伊斯兰堡！如需帮助请随时询问。";
+      addBotMsg(msg);
+    }
+
+    function addBotMsg(text) {
+      const container = document.getElementById('aiMsgContainer');
+      const div = document.createElement('div');
+      div.className = 'chat-msg bot';
+      div.innerHTML = text;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+
+      // Text-To-Speech Voice Audio
+      if ('speechSynthesis' in window) {
+        try {
+          const utterance = new SpeechSynthesisUtterance(text.replace(/<[^>]*>?/gm, ''));
+          utterance.lang = activeLang;
+          window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+      }
+    }
+
+    function addUserMsg(text) {
+      const container = document.getElementById('aiMsgContainer');
+      const div = document.createElement('div');
+      div.className = 'chat-msg user';
+      div.textContent = text;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function quickAsk(q) {
+      addUserMsg(q);
+      processQuery(q);
+    }
+
+    function handleSend(e) {
+      e.preventDefault();
+      const input = document.getElementById('userInput');
+      const q = input.value.trim();
+      if (!q) return;
+      addUserMsg(q);
+      input.value = '';
+      processQuery(q);
+    }
+
+    function processQuery(query) {
+      const q = query.toLowerCase();
+      setTimeout(() => {
+        if (q.includes('shifa') || q.includes('hospital') || q.includes('pims') || q.includes('doctor')) {
+          addBotMsg("🏥 <strong>Shifa & Hospital Navigation:</strong><br>• Shifa International Hospital is located in Sector H-8/4.<br>• From Daewoo or Airport, take an AC Chauffeur sedan or Metro Bus to H-8.<br>• Ground floor wheelchair-friendly guest houses are available in G-8 and H-8 from PKR 4,500/night.<br>• Call our patient coordinator on <strong>0343 0673404</strong> for direct hospital escort.");
+        } else if (q.includes('court') || q.includes('supreme') || q.includes('hearing') || q.includes('lawyer')) {
+          addBotMsg("⚖️ <strong>Supreme Court & High Court Concierge:</strong><br>• Supreme Court of Pakistan is located on Constitution Avenue in the Red Zone.<br>• Our vetted chauffeurs hold Red Zone security passes and provide punctual waiting standby.<br>• Executive suites in Blue Area and F-6 are available walking distance from the courts.<br>• Direct helpline: <strong>0343 0673404</strong>.");
+        } else if (q.includes('metro') || q.includes('bus') || q.includes('orange') || q.includes('airport')) {
+          addBotMsg("🚌 <strong>Islamabad Metro Bus Network:</strong><br>• <strong>Orange Line:</strong> Runs between Peshawar Mor (Faiz Ahmad Faiz Station) and Islamabad International Airport (ISB). Operates every 8 minutes, fare PKR 50–100.<br>• <strong>Red Line:</strong> Connects Pak Secretariat to Rawalpindi Saddar via Blue Area.<br>• Need private luggage taxi? Book 24/7 on WhatsApp: <strong>0343 0673404</strong>.");
+        } else if (q.includes('hunza') || q.includes('skardu') || q.includes('4x4') || q.includes('prado') || q.includes('northern')) {
+          addBotMsg("🏔️ <strong>Northern Areas Expeditions:</strong><br>• 7-Day Skardu Deosai Safari: PKR 145,000 all-inclusive.<br>• 5-Day Hunza Attabad Lake: PKR 115,000.<br>• Toyota Prado 4x4 with Karakoram mountain driver: PKR 16,000/day.<br>• Inquire on WhatsApp: <strong>+92 343 0673404</strong>.");
+        } else if (q.includes('emergency') || q.includes('1122') || q.includes('police') || q.includes('sos')) {
+          addBotMsg("🆘 <strong>Emergency Contacts:</strong><br>• Rescue 1122: <strong>1122</strong> (Dial immediately)<br>• Islamabad Police: <strong>15</strong><br>• Tourist Police & Our 24/7 Desk: <strong>0343 0673404</strong>.");
+        } else {
+          addBotMsg(`✨ Thank you for your inquiry about Islamabad! Our concierge desk has logged your request. For personalized assistance, immediate dispatch, or custom lodging, feel free to call our 24/7 team directly at <strong>+92 343 0673404</strong> or email <strong>info.visitislamabad@gmail.com</strong>.`);
+        }
+      }, 500);
+    }
+
+    function toggleVoice() {
+      const micBtn = document.getElementById('voiceMicBtn');
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        alert('Voice speech recognition is not supported on this browser. Please use Chrome, Safari, or Edge.');
+        return;
+      }
+      if (isRecording) {
+        recognition.stop();
+        isRecording = false;
+        micBtn.classList.remove('recording');
+        return;
+      }
+      try {
+        recognition = new SpeechRec();
+        recognition.lang = activeLang;
+        recognition.interimResults = false;
+        recognition.onstart = () => {
+          isRecording = true;
+          micBtn.classList.add('recording');
+        };
+        recognition.onresult = (e) => {
+          const transcript = e.results[0][0].transcript;
+          document.getElementById('userInput').value = transcript;
+          addUserMsg(transcript);
+          processQuery(transcript);
+        };
+        recognition.onerror = () => {
+          isRecording = false;
+          micBtn.classList.remove('recording');
+        };
+        recognition.onend = () => {
+          isRecording = false;
+          micBtn.classList.remove('recording');
+        };
+        recognition.start();
+      } catch (err) {
+        isRecording = false;
+        micBtn.classList.remove('recording');
+      }
+    }
+  </script>
+</body>
+</html>

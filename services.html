@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>All Visitor Services | Visit Islamabad Gateway</title>
+  <meta name="description" content="Comprehensive 24/7 services for medical travelers, apex court litigants, university students, and tourists visiting Islamabad. Call/WhatsApp: 0343 0673404.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-gold: #F59E0B;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #10B981, #059669);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #FFF;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--primary-emerald); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(16, 185, 129, 0.2); border-color: #10B981; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    /* Page Content Container */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 36px 28px;
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(26px, 4vw, 38px); font-weight: 800; color: #FFF; margin-bottom: 12px; }
+    .hero-banner p { font-size: 15px; color: var(--text-muted); max-width: 760px; margin: 0 auto 20px; }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+    .service-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .service-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary-emerald);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .service-card .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+    .service-card h3 { font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 8px; }
+    .service-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .service-card ul { list-style: none; margin-bottom: 20px; }
+    .service-card ul li { font-size: 12.5px; color: #CBD5E1; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .service-card ul li span.check { color: #10B981; font-weight: 800; }
+    .card-actions { display: flex; gap: 10px; }
+    .btn-act-call {
+      flex: 1;
+      text-align: center;
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFF;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .btn-act-wa {
+      flex: 1;
+      text-align: center;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      color: #25D366;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 50px;
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">VI</div>
+        <div>
+          <span class="brand-title">Visit Islamabad</span>
+          <span class="brand-subtitle">Federal Capital 24/7 Gateway</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Back to Main Gateway</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Single-Line 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box" title="24/7 Official Helpline & Direct Call: 0343 0673404">
+        <span class="tb-box-badge">24/7</span>
+        <span class="tb-box-icon">📞</span>
+        <span class="tb-box-label">Helpline</span>
+      </a>
+      <a href="https://wa.me/923430673404?text=Hi%20Visit%20Islamabad!%20I%20need%20assistance%20with%20services." target="_blank" class="tb-box" title="WhatsApp Concierge: +92 343 0673404">
+        <span class="tb-box-icon">💬</span>
+        <span class="tb-box-label">WhatsApp</span>
+      </a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box" title="Telegram Official Desk">
+        <span class="tb-box-icon">✈️</span>
+        <span class="tb-box-label">Telegram</span>
+      </a>
+      <a href="sms:+923430673404?body=Hi%20Visit%20Islamabad!%20I%20need%20service%20details." class="tb-box" title="Direct Text: 0343 0673404">
+        <span class="tb-box-icon">📱</span>
+        <span class="tb-box-label">Direct Text</span>
+      </a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box" title="Email: info.visitislamabad@gmail.com">
+        <span class="tb-box-icon">✉️</span>
+        <span class="tb-box-label">Email</span>
+      </a>
+      <a href="ai-chat.html" class="tb-box" title="Talk to 24/7 Multilingual Live AI Voice Agent">
+        <span class="tb-box-badge tb-box-badge-ai">AI</span>
+        <span class="tb-box-icon">🎙️</span>
+        <span class="tb-box-label">Live AI</span>
+      </a>
+      <a href="maps.html" class="tb-box" title="Google Maps Directions & Islamabad Capital GPS">
+        <span class="tb-box-icon">🗺️</span>
+        <span class="tb-box-label">Maps GPS</span>
+      </a>
+      <a href="search.html" class="tb-box" title="Search Islamabad Directory & Google Engine">
+        <span class="tb-box-icon">🔍</span>
+        <span class="tb-box-label">Search</span>
+      </a>
+      <a href="rides.html" class="tb-box" title="Book 24/7 Cabs & 4x4 Fleet">
+        <span class="tb-box-icon">🚗</span>
+        <span class="tb-box-label">Rides 4x4</span>
+      </a>
+      <a href="hotels.html" class="tb-box" title="Reserve Hotels & Guest Houses">
+        <span class="tb-box-icon">🏨</span>
+        <span class="tb-box-label">Hotels</span>
+      </a>
+      <a href="northern.html" class="tb-box" title="Northern Areas Expeditions">
+        <span class="tb-box-icon">🏔️</span>
+        <span class="tb-box-label">Northern</span>
+      </a>
+      <a href="emergency.html" class="tb-box" title="Emergency Services: 1122 & Police 15">
+        <span class="tb-box-badge tb-box-badge-sos">SOS</span>
+        <span class="tb-box-icon">🆘</span>
+        <span class="tb-box-label">Rescue 1122</span>
+      </a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>All Capital Services & Visitor Infrastructure</h1>
+      <p>Whether traveling to Islamabad for medical treatment, Supreme Court hearings, national university entry exams, business conferences, or northern mountain transit, our verified team coordinates every detail 24/7.</p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a href="tel:+923430673404" class="btn-home" style="background: #10B981; color: #FFF; border: none; padding: 10px 22px; font-weight: 700;">📞 Call Helpline: 0343 0673404</a>
+        <a href="https://wa.me/923430673404" target="_blank" class="btn-home" style="background: rgba(37, 211, 102, 0.2); border-color: #25D366; color: #25D366; padding: 10px 22px;">💬 WhatsApp 24/7 Desk</a>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <!-- 1: Medical & Hospital Support -->
+      <div class="service-card">
+        <div>
+          <span class="badge">🏥 HEALTHCARE CONCIERGE</span>
+          <h3>Medical Stays & Patient Navigation</h3>
+          <p>Dedicated assistance for patients arriving from across Pakistan for treatment at Shifa International, PIMS, NORI, and KRL Hospital.</p>
+          <ul>
+            <li><span class="check">✓</span> Wheelchair-accessible ground floor guest houses in H-8 & G-8</li>
+            <li><span class="check">✓</span> Dedicated patient escort for hospital OPD appointments</li>
+            <li><span class="check">✓</span> 24/7 sanitized AC car standby for clinic visits</li>
+            <li><span class="check">✓</span> Compassionate long-term bedside attendants</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-act-call">📞 Call Desk</a>
+          <a href="https://wa.me/923430673404?text=Hello!%20I%20need%20medical%20stay%20and%20hospital%20transport%20assistance." target="_blank" class="btn-act-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- 2: Supreme Court & Legal Services -->
+      <div class="service-card">
+        <div>
+          <span class="badge" style="color: #38BDF8; background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.3);">⚖️ APEX COURTS & LEGAL</span>
+          <h3>Supreme Court & High Court Concierge</h3>
+          <p>Stress-free arrangements for advocates, litigants, and corporate legal teams attending hearings at the Supreme Court of Pakistan and Islamabad High Court.</p>
+          <ul>
+            <li><span class="check">✓</span> Constitution Avenue Red Zone transit permits & security guidance</li>
+            <li><span class="check">✓</span> Quiet work-friendly rooms in Blue Area & F-6 Markaz</li>
+            <li><span class="check">✓</span> Punctual early morning chauffeur arrival with waiting standby</li>
+            <li><span class="check">✓</span> High-speed printing, xerox, and document legal courier</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-act-call">📞 Call Desk</a>
+          <a href="https://wa.me/923430673404?text=Hello!%20I%20have%20a%20hearing%20at%20Supreme%20Court%20and%20need%20transport." target="_blank" class="btn-act-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- 3: Universities & Student Transit -->
+      <div class="service-card">
+        <div>
+          <span class="badge" style="color: #FCD34D; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3);">🎓 ACADEMIC TRANSIT</span>
+          <h3>NUST, FAST, QAU Entry Exam Shuttles</h3>
+          <p>Safe, affordable mobility and vetted student lodging for candidates taking NET entry tests, MDCAT, CSS exams, and interviews.</p>
+          <ul>
+            <li><span class="check">✓</span> Direct shuttle from Daewoo / train station to NUST Sector H-12</li>
+            <li><span class="check">✓</span> Separate vetted boys and girls hostels near G-9 & G-11</li>
+            <li><span class="check">✓</span> Wi-Fi, 3-time meals, and verified safe warden facilities</li>
+            <li><span class="check">✓</span> Exam-morning wake-up alert & dedicated return taxi</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-act-call">📞 Call Desk</a>
+          <a href="https://wa.me/923430673404?text=Hello!%20I%20am%20coming%20for%20NUST%20test%20and%20need%20hostel%20shuttle." target="_blank" class="btn-act-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- 4: Airport & Intercity Transit -->
+      <div class="service-card">
+        <div>
+          <span class="badge" style="color: #22D3EE; background: rgba(6, 182, 212, 0.12); border-color: rgba(6, 182, 212, 0.3);">✈️ 24/7 AIRPORT FLEET</span>
+          <h3>Islamabad Airport Chauffeur & Transfers</h3>
+          <p>Zero-delay door-to-door pickups from Islamabad International Airport (ISB) to any sector, Rawalpindi, or northern gateways.</p>
+          <ul>
+            <li><span class="check">✓</span> Flight tracking: Driver waits even if international flight is delayed</li>
+            <li><span class="check">✓</span> Clean Corolla, Civic, Yaris, and Hiace Grand Cabin vans</li>
+            <li><span class="check">✓</span> Transparent fixed rates with no midnight surcharges</li>
+            <li><span class="check">✓</span> Luggage assistance and professional polite drivers</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-act-call">📞 Call Desk</a>
+          <a href="https://wa.me/923430673404?text=Hello!%20I%20need%20airport%20pickup%20from%20ISB%20Airport." target="_blank" class="btn-act-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- 5: Northern Areas 4x4 Jeeps -->
+      <div class="service-card">
+        <div>
+          <span class="badge" style="color: #4ADE80; background: rgba(34, 197, 94, 0.12); border-color: rgba(34, 197, 94, 0.3);">🏔️ NORTHERN EXPEDITIONS</span>
+          <h3>Mountain 4x4 Fleet: Hunza, Skardu & Swat</h3>
+          <p>Heavy-duty Toyota Prado, Fortuner, and Revo 4x4 vehicles with seasoned Karakoram Highway mountain chauffeurs.</p>
+          <ul>
+            <li><span class="check">✓</span> Babusar Top, Deosai Plains, Khunjerab Pass certified</li>
+            <li><span class="check">✓</span> Snow chains, off-road suspension & GPS tracking</li>
+            <li><span class="check">✓</span> Hotel reservations across Skardu, Hunza, and Fairy Meadows</li>
+            <li><span class="check">✓</span> Complete multi-day family & corporate holiday packages</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:+923430673404" class="btn-act-call">📞 Call Desk</a>
+          <a href="https://wa.me/923430673404?text=Hello!%20I%20need%20a%204x4%20SUV%20for%20Hunza/Skardu." target="_blank" class="btn-act-wa">💬 WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- 6: Emergency & Diplomatic -->
+      <div class="service-card">
+        <div>
+          <span class="badge" style="color: #F87171; background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.3);">🆘 EMERGENCY & EMBASSY</span>
+          <h3>Emergency 1122 & Diplomatic Transit</h3>
+          <p>Instant liaison with Rescue 1122, Islamabad Capital Police 15, and Diplomatic Enclave visa drop-off shuttles.</p>
+          <ul>
+            <li><span class="check">✓</span> Direct dispatch connection to Rescue 1122 medical ambulances</li>
+            <li><span class="check">✓</span> Diplomatic Enclave Sector G-5 visa shuttle station drops</li>
+            <li><span class="check">✓</span> Tourist Police liaison and 24/7 SOS safety helpline</li>
+            <li><span class="check">✓</span> Multilingual English, Urdu, Arabic & Chinese assistance</li>
+          </ul>
+        </div>
+        <div class="card-actions">
+          <a href="tel:1122" class="btn-act-call" style="background: #EF4444;">🆘 Call 1122</a>
+          <a href="tel:+923430673404" class="btn-act-wa">📞 Desk 0343 0673404</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • Federal Capital Visitor Gateway</p>
+    <p style="margin-top: 6px;">Call / WhatsApp: +92 343 0673404 • Official Email: info.visitislamabad@gmail.com • Web: visitislamabad.org / visitislamabad.xyz</p>
+  </footer>
+
+</body>
+</html>

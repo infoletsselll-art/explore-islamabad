@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>Monetization & Deployment Master Guide | Visit Islamabad</title>
+  <meta name="description" content="Complete guide to monetizing Visit Islamabad via Google AdSense, AdMob, and local sponsorships, plus step-by-step deployment on Firebase, Cloudflare, cPanel, and Google Play Store.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark: #060D0B;
+      --surface-card: rgba(15, 23, 42, 0.85);
+      --primary-emerald: #10B981;
+      --accent-gold: #F59E0B;
+      --accent-blue: #38BDF8;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-subtle: rgba(16, 185, 129, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: rgba(6, 13, 11, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+    }
+    .header-nav { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, #F59E0B, #10B981);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; color: #FFF;
+    }
+    .brand-title { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #FFF; }
+    .brand-subtitle { font-size: 11px; color: var(--accent-gold); display: block; }
+    .btn-home {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-home:hover { background: rgba(245, 158, 11, 0.2); border-color: #F59E0B; color: #FFF; }
+
+    /* Single-Line Equal-Sized Boxes Toolbar */
+    .quick-bar-wrapper {
+      max-width: 1280px;
+      margin: 12px auto 24px;
+      padding: 0 clamp(8px, 2vw, 20px);
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .single-line-toolbar {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 8px 10px;
+      background: linear-gradient(135deg, rgba(13, 22, 21, 0.96), rgba(15, 23, 42, 0.96));
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+      width: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .single-line-toolbar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+      .single-line-toolbar::-webkit-scrollbar { display: none; }
+    }
+    .tb-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px 4px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.22s;
+      user-select: none;
+      position: relative;
+      min-height: 64px;
+      width: 100%;
+    }
+    @media (max-width: 1024px) {
+      .tb-box { flex: 0 0 76px; width: 76px; min-width: 76px; scroll-snap-align: start; }
+    }
+    .tb-box:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+    .tb-box-icon { font-size: 20px; line-height: 1; margin-bottom: 4px; }
+    .tb-box-label { font-size: 10.5px; font-weight: 600; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; }
+    .tb-box-badge {
+      position: absolute; top: 3px; right: 4px; font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 999px;
+      background: rgba(16, 185, 129, 0.25); border: 1px solid rgba(16, 185, 129, 0.45); color: #34D399;
+    }
+    .tb-box-badge-sos { background: rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.6); color: #F87171; }
+    .tb-box-badge-ai { background: rgba(56, 189, 248, 0.25); border-color: rgba(56, 189, 248, 0.5); color: #38BDF8; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(15, 23, 42, 0.7));
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .hero-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: #FFF; margin-bottom: 10px; }
+    .hero-banner p { font-size: 14.5px; color: var(--text-muted); max-width: 760px; margin: 0 auto 18px; }
+
+    .guide-section {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 26px;
+      margin-bottom: 24px;
+    }
+    .guide-title {
+      font-size: 20px; font-weight: 800; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+    }
+    .guide-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 18px; }
+    .code-box {
+      background: #000; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px;
+      padding: 14px 18px; font-family: 'Courier New', monospace; font-size: 12.5px; color: #34D399;
+      overflow-x: auto; margin-bottom: 16px; line-height: 1.5;
+    }
+    .steps-list { list-style: none; counter-reset: step-counter; }
+    .steps-list li {
+      counter-increment: step-counter;
+      position: relative;
+      padding-left: 36px;
+      margin-bottom: 14px;
+      font-size: 13.5px;
+      color: #CBD5E1;
+    }
+    .steps-list li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 24px;
+      height: 24px;
+      background: #10B981;
+      color: #000;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    footer { border-top: 1px solid var(--border-subtle); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 12px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-nav">
+      <a href="index.html" class="brand">
+        <div class="brand-logo">💰</div>
+        <div>
+          <span class="brand-title">Monetization & Deployment</span>
+          <span class="brand-subtitle">Google AdSense, Play Store & Domains</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <a href="index.html" class="btn-home">← Home</a>
+        <a href="tel:+923430673404" class="btn-home" style="border-color: #10B981; color: #34D399;">📞 0343 0673404</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 12-Box Equal-Sized Toolbar -->
+  <div class="quick-bar-wrapper">
+    <div class="single-line-toolbar" role="toolbar" aria-label="Visit Islamabad Services Toolbar">
+      <a href="tel:+923430673404" class="tb-box"><span class="tb-box-badge">24/7</span><span class="tb-box-icon">📞</span><span class="tb-box-label">Helpline</span></a>
+      <a href="https://wa.me/923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">💬</span><span class="tb-box-label">WhatsApp</span></a>
+      <a href="https://t.me/+923430673404" target="_blank" class="tb-box"><span class="tb-box-icon">✈️</span><span class="tb-box-label">Telegram</span></a>
+      <a href="sms:+923430673404" class="tb-box"><span class="tb-box-icon">📱</span><span class="tb-box-label">Direct Text</span></a>
+      <a href="mailto:info.visitislamabad@gmail.com" class="tb-box"><span class="tb-box-icon">✉️</span><span class="tb-box-label">Email</span></a>
+      <a href="ai-chat.html" class="tb-box"><span class="tb-box-badge tb-box-badge-ai">AI</span><span class="tb-box-icon">🎙️</span><span class="tb-box-label">Live AI</span></a>
+      <a href="maps.html" class="tb-box"><span class="tb-box-icon">🗺️</span><span class="tb-box-label">Maps GPS</span></a>
+      <a href="search.html" class="tb-box"><span class="tb-box-icon">🔍</span><span class="tb-box-label">Search</span></a>
+      <a href="rides.html" class="tb-box"><span class="tb-box-icon">🚗</span><span class="tb-box-label">Rides 4x4</span></a>
+      <a href="hotels.html" class="tb-box"><span class="tb-box-icon">🏨</span><span class="tb-box-label">Hotels</span></a>
+      <a href="northern.html" class="tb-box"><span class="tb-box-icon">🏔️</span><span class="tb-box-label">Northern</span></a>
+      <a href="emergency.html" class="tb-box"><span class="tb-box-badge tb-box-badge-sos">SOS</span><span class="tb-box-icon">🆘</span><span class="tb-box-label">Rescue 1122</span></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="hero-banner">
+      <h1>Monetization & Custom Domain Deployment Guide</h1>
+      <p>Practical instructions to launch on your domains <strong>visitislamabad.org</strong> and <strong>visitislamabad.xyz</strong>, activate Google AdSense, deploy on Firebase & Cloudflare, and publish to the Google Play Store.</p>
+    </div>
+
+    <!-- PART 1: Google AdSense Web Monetization -->
+    <div class="guide-section">
+      <div class="guide-title"><span>💵</span> 1. Monetize with Google AdSense (Web)</div>
+      <p class="guide-desc">Earn passive revenue every time visitors view or click travel, flight, and hotel ads on your website.</p>
+      <ol class="steps-list">
+        <li><strong>Sign up for Google AdSense:</strong> Visit <a href="https://adsense.google.com" target="_blank" style="color: #38BDF8;">adsense.google.com</a> with your email <code>info.visitislamabad@gmail.com</code>.</li>
+        <li><strong>Add Your Domains:</strong> Enter <code>visitislamabad.org</code> and <code>visitislamabad.xyz</code> into your AdSense Sites dashboard.</li>
+        <li><strong>Insert Publisher ID:</strong> Replace <code>ca-pub-XXXXXXXXXXXXXXXX</code> inside the <code>&lt;ins class="adsbygoogle"&gt;</code> tag in <code>index.html</code> with your approved Publisher ID.</li>
+        <li><strong>Upload ads.txt:</strong> Place a file named <code>ads.txt</code> in your root directory containing:
+          <div class="code-box">google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0</div>
+        </li>
+        <li><strong>Direct Sponsorships:</strong> Charge local Islamabad guest houses, 4x4 fleet owners, and clinics a monthly featured listing fee (typically PKR 15,000 to PKR 50,000/month).</li>
+      </ol>
+    </div>
+
+    <!-- PART 2: Deploy on Firebase Hosting -->
+    <div class="guide-section">
+      <div class="guide-title"><span>🔥</span> 2. Deploy on Firebase & Link Custom Domains</div>
+      <p class="guide-desc">The simplest way to host your high-speed static files with free SSL certificates on Google Cloud infrastructure.</p>
+      <ol class="steps-list">
+        <li><strong>Install Firebase CLI & Deploy:</strong> Run in terminal:
+          <div class="code-box">npm install -g firebase-tools<br>firebase login<br>firebase deploy --only hosting</div>
+        </li>
+        <li><strong>Connect Your Domains:</strong> In Firebase Console (<a href="https://console.firebase.google.com" target="_blank" style="color: #38BDF8;">console.firebase.google.com</a>):
+          <br>• Go to <strong>Hosting</strong> ➔ Click <strong>Add Custom Domain</strong>.
+          <br>• Enter <code>visitislamabad.org</code> and <code>visitislamabad.xyz</code>.
+        </li>
+        <li><strong>Update DNS Records:</strong> Log into where you bought your domains (Namecheap, GoDaddy, Cloudflare, etc.) and add the A records provided by Firebase:
+          <div class="code-box">Type: A | Name: @ | Value: 199.36.158.100<br>Type: TXT | Name: @ | Value: (Firebase Verification Code)</div>
+          SSL certificates are issued automatically within 1 hour!
+        </li>
+      </ol>
+    </div>
+
+    <!-- PART 3: Deploy on Cloudflare Pages -->
+    <div class="guide-section">
+      <div class="guide-title"><span>⚡</span> 3. Deploy on Cloudflare Pages</div>
+      <p class="guide-desc">Ultra-fast global edge delivery with unlimited bandwidth and built-in DDoS protection.</p>
+      <ol class="steps-list">
+        <li>Log into <a href="https://dash.cloudflare.com" target="_blank" style="color: #38BDF8;">dash.cloudflare.com</a>.</li>
+        <li>Click <strong>Workers & Pages</strong> ➔ <strong>Create Application</strong> ➔ <strong>Pages</strong> ➔ <strong>Upload Assets</strong>.</li>
+        <li>Upload the generated <code>cloudflare_pages_deploy.zip</code> or drag-and-drop the <code>public/</code> folder.</li>
+        <li>Click <strong>Custom Domains</strong> ➔ Enter <code>visitislamabad.org</code>. Cloudflare configures the DNS instantly.</li>
+      </ol>
+    </div>
+
+    <!-- PART 4: Deploy on Own Server (cPanel / Apache / Nginx) -->
+    <div class="guide-section">
+      <div class="guide-title"><span>🖥️</span> 4. Deploy on Your Own Server / cPanel</div>
+      <p class="guide-desc">If you have a Linux VPS or shared cPanel hosting server:</p>
+      <ol class="steps-list">
+        <li>Log into your <strong>cPanel</strong> ➔ Open <strong>File Manager</strong>.</li>
+        <li>Navigate to <code>public_html/</code>.</li>
+        <li>Upload all files from this project: <code>index.html</code>, <code>services.html</code>, <code>rides.html</code>, <code>hotels.html</code>, <code>northern.html</code>, <code>ai-chat.html</code>, <code>maps.html</code>, <code>search.html</code>, <code>social.html</code>, <code>emergency.html</code>, <code>contact.html</code>, and <code>visit-islamabad.apk</code>.</li>
+        <li>Point your domain's Name Servers (NS) or A-record to your server IP address.</li>
+      </ol>
+    </div>
+
+    <!-- PART 5: Upload APK to Google Play Store -->
+    <div class="guide-section">
+      <div class="guide-title"><span>📱</span> 5. Upload Android APK to Google Play Store</div>
+      <p class="guide-desc">Make Visit Islamabad available to millions of Android smartphone users on the Google Play Store.</p>
+      <ol class="steps-list">
+        <li><strong>Register Developer Account:</strong> Go to <a href="https://play.google.com/console" target="_blank" style="color: #38BDF8;">play.google.com/console</a> and pay the one-time $25 registration fee.</li>
+        <li><strong>Create App:</strong> Click <strong>Create App</strong> ➔ App Name: <code>Visit Islamabad</code> ➔ Category: <strong>Travel & Local</strong>.</li>
+        <li><strong>Store Listing Details:</strong>
+          <br>• Short Description: <em>24/7 Federal Capital Visitor Gateway: Cabs, Guest Houses, Hospitals & AI Guide.</em>
+          <br>• Full Description: Copy details from our <code>about-visit-islamabad</code> section.
+          <br>• Upload App Icon (512x512) and Feature Graphic (1024x500).
+        </li>
+        <li><strong>Production Release:</strong> Go to <strong>Release</strong> ➔ <strong>Production</strong> ➔ <strong>Create New Release</strong> ➔ Upload the signed Android App Bundle (AAB) or APK from the project root.</li>
+        <li><strong>Review & Publish:</strong> Complete the Data Safety questionnaire (no location sold, user data encrypted) and submit for Google review. Your app goes live in 2–4 days!</li>
+      </ol>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>Visit Islamabad</strong> • Monetization & Operations Documentation</p>
+    <p style="margin-top: 6px;">Call / WhatsApp: +92 343 0673404 • Official Email: info.visitislamabad@gmail.com</p>
+  </footer>
+
+</body>
+</html>

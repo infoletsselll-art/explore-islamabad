@@ -1,0 +1,60 @@
+name: Deploy Visit Islamabad to Cloudflare & Firebase
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Android APK
+        run: |
+          chmod +x gradlew || true
+          gradle :app:assembleDebug || ./gradlew :app:assembleDebug || true
+          mkdir -p public
+          if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
+            cp -f app/build/outputs/apk/debug/app-debug.apk public/visit-islamabad.apk
+            cp -f app/build/outputs/apk/debug/app-debug.apk visit-islamabad.apk
+          fi
+
+      - name: Synchronize Web Assets to public/
+        run: |
+          cp -f index.html public/index.html
+          cp -f *.html public/ || true
+          cp -f ads.txt public/ads.txt || true
+          cp -f sitemap.xml public/sitemap.xml || true
+          cp -f _headers public/_headers || true
+          cp -f _redirects public/_redirects || true
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy public --project-name=visitislamabad --commit-dirty=true
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        if: env.FIREBASE_SERVICE_ACCOUNT != ''
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          channelId: live
+          projectId: '${{ secrets.FIREBASE_PROJECT_ID || "visitislamabad" }}'

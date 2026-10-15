@@ -25,10 +25,12 @@ if [ -f "app/build/outputs/apk/debug/app-debug.apk" ]; then
     cp -f app/build/outputs/apk/debug/app-debug.apk visit-islamabad.apk
 fi
 
-# 2. Sync index.html, headers, and redirects
-cp -f index.html public/index.html
-cp -f _headers public/_headers
-cp -f _redirects public/_redirects
+# 2. Sync all HTML pages, ads.txt, sitemap, headers, and redirects
+cp -f *.html public/ || true
+cp -f ads.txt public/ads.txt || true
+cp -f sitemap.xml public/sitemap.xml || true
+cp -f _headers public/_headers || true
+cp -f _redirects public/_redirects || true
 
 # 3. Build pristine cloudflare_pages_deploy.zip with root-level assets
 echo "Creating cloudflare_pages_deploy.zip..."
